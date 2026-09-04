@@ -3,14 +3,15 @@
 
 물어야 할 것은 두 가지이고 서로 다르다.
 
-  (A) cMDS 는 초기조건이 없다.
-      닫힌 형태(이중중심화 -> 고유분해)이므로 D 가 유일하고 I = 0 은 정리이다.
-      여기서는 수치로 확인만 한다.
+  (A) 구현된 cMDS map은 초기조건이 없는 결정론적 map이다.
+      따라서 같은 입력을 반복하면 I = 0이다. 다만 p번째 고유값 경계에 동률이
+      있으면 strain의 최적 rank-p Gram 자체는 수학적으로 유일하지 않을 수 있다.
 
   (B) SMACOF 의 종점 분산이 landscape 때문인가, 수렴 실패 때문인가.
       결정적 시험은 '같은 X0 에서 다른 최적화기'이다. 전혀 다른 알고리즘이
-      같은 X0 에서 같은 종점에 도달하면 그 종점은 landscape 의 성질이지
-      최적화기의 성질이 아니다. 갈라지면 적어도 하나가 수렴하지 못한 것이다.
+      같은 X0 에서 같은 종점에 도달하면 두 알고리즘에서 재현되는 결과이다.
+      갈라져도 둘 다 서로 다른 local minimum에 정상 수렴할 수 있으므로, 결론은
+      attraction map과 occupancy가 optimizer-dependent하다는 것뿐이다.
 
 비교하는 네 경로
   cmds        결정론적 닫힌 형태
@@ -68,10 +69,13 @@ def stress_and_grad(x, Delta, n, p):
     r = d - Delta
     np.fill_diagonal(r, 0.0)
     F = 0.5 * (r ** 2).sum()                    # i<j 합 = 전체합/2
+    off = ~np.eye(n, dtype=bool)
+    if np.any(d[off] <= np.finfo(float).eps):
+        raise FloatingPointError("off-diagonal collision: stress is not differentiable")
     w = r / d
     np.fill_diagonal(w, 0.0)
-    g = (w[:, :, None] * diff).sum(1) * 2.0
-    return F, g.ravel() * 0.5                    # 0.5 는 F 의 계수와 일관
+    g = 2.0 * (w[:, :, None] * diff).sum(1)
+    return F, g.ravel()
 
 
 def grad_norm(X, Delta):
@@ -119,7 +123,7 @@ def main():
 
     # (A) cMDS
     Dc = dmat(cmds(Delta, p))
-    print(f"  cMDS       I = {nei([Dc, Dc, Dc]):.3e}   (초기조건 없음; 정리상 정확히 0)")
+    print(f"  cMDS       I = {nei([Dc, Dc, Dc]):.3e}   (결정론적 구현 반복; 정확히 0)")
 
     res = {}
     for tag, mi, eps in [("smacof300", 300, 1e-10), ("smacof10k", 10000, 1e-12)]:

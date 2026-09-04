@@ -1,62 +1,137 @@
-# 벡터로 energy landscape 를 분해한다 — trace 와 spectrum
+# Terminal geometry의 trace와 spectrum — 표준화 정정
 
-`2026-09-04`
+2026-09-04 · P0 correction
 
-## 관찰
+## 결론
 
-저장된 run 사이 거리
-$\Delta_{mm'}=\lVert D^{(m)}-D^{(m')}\rVert_F/\text{scale}$ 는 쌍공간
-$\mathbb{R}^{N_+}$ 의 **Euclidean** 거리이므로, 한 번 더 이중중심화하면 run 구름의
-Gram 행렬이 정확히 복원된다.
+NEI는 **pairwise standardized terminal vectors**의 covariance trace다. 기존 artifact에
+저장된 global-Frobenius-scale run distance는 다른 raw-distance covariance를 복원한다.
+따라서 기존 $d_{\rm eff}$와 NEI가 같은 operator에서 나온다는 주장은 철회하고,
+standardized vectors를 저장한 뒤 다시 계산한다.
 
-$$\mathbf{G}_{\text{run}}=-\tfrac12 C_M\Delta^{\circ2}C_M,\qquad
-\operatorname{tr}\mathbf{G}_{\text{run}}=\frac{1}{\text{scale}^2}\sum_{i<j}\sigma_{ij}^2$$
+## 정확한 선형대수
 
-즉 **$\mathcal{I}$ 는 terminal covariance operator 의 trace 이고, 같은 연산자의
-eigenvalue spectrum 이 그 모양을 담는다.** trace 는 degeneracy 의 크기를 주고,
-spectrum 은 degeneracy 가 몇 개의 자유도를 차지하는지를 준다 — 한 방향에 갇힌
-다중안정형과 여러 방향으로 퍼진 floppy 가 여기서 갈린다.
+$a=(i,j)$, $a=1,\dots,N_+$라 하고
 
-$$d_{\text{eff}}=\frac{(\sum_a\nu_a)^2}{\sum_a\nu_a^2}$$
+$$
+z_{ma}=\frac{d_a^{(m)}}{\bar d_a\sqrt{N_+}},\qquad
+Z_c=C_MZ,\qquad C_M=I_M-\frac1M\mathbf1\mathbf1^{\mathsf T}.
+$$
 
-**이 값은 이미 저장된 $\Delta$ 만으로 계산된다. 재실행이 필요 없다.**
+empirical variance divisor $M$을 쓰면
 
-## 측정 (실제 network 77개)
+$$
+\widehat{\mathcal I}_M
+=\frac1{N_+}\sum_a
+\frac{M^{-1}\sum_m(d_a^{(m)}-\bar d_a)^2}{\bar d_a^2}
+=\frac1M\|Z_c\|_F^2.
+$$
 
-- Spearman $\rho(\mathcal{I},d_{\text{eff}})=+0.757$ — 강하게 상관한다.
-- 그러나 **순위분산의 43% 가 설명되지 않는다** (해상 가능 부표본만 보면 56%).
-- $\mathcal{I}$ 5분위 안에서 $d_{\text{eff}}$ 가 **3–77배** 벌어진다.
+표준화된 run 사이 거리
 
-| $\mathcal{I}$ 분위 | n | $d_{\text{eff}}$ 범위 |
-|---|---|---|
-| 1 | 16 | 1.00 – 42.53 |
-| 2 | 15 | 1.12 – 86.89 |
-| 3 | 15 | 5.75 – 84.72 |
-| 4 | 15 | 5.02 – 87.82 |
-| 5 | 16 | 30.54 – 98.98 |
+$$
+\Delta^{(z)}_{mm'}=\|z_m-z_{m'}\|_2
+$$
 
-극단적인 예: `bn-mouse-visual-cortex-2` ($\mathcal{I}=0.0966$, $d_{\text{eff}}=5.0$) 와
-`socfb-Mich67` ($\mathcal{I}=0.0970$, $d_{\text{eff}}=52.9$) 는 $\mathcal{I}$ 가 소수점
-셋째 자리까지 같은데 차원이 10배 다르다.
+를 double-center하면
 
-정확한 진술은 **`$d_{\text{eff}}$ 가 $\mathcal{I}$ 와 독립한 정보를 담는다`** 이다.
+$$
+B_z=-\frac12C_M(\Delta^{(z)})^{\circ2}C_M
+=Z_cZ_c^{\mathsf T},
+$$
 
-## $d_{\text{eff}}$ 의 해상에는 더 큰 $M$ 이 필요하다
+따라서
 
-$d_{\text{eff}}\le M-1=99$ 인데 관측 최댓값이 **98.98** 이다.
+$$
+\boxed{\widehat{\mathcal I}_M=\operatorname{tr}B_z/M}.
+$$
 
-| | 개수 |
-|---|---|
-| $d_{\text{eff}}<0.5(M-1)$ | 50 / 77 |
-| $0.5$–$0.9\,(M-1)$ | 23 / 77 |
-| $>0.9\,(M-1)$ | 4 / 77 |
+이는 finite-sample plug-in identity이지 population NEI의 unbiasedness statement가 아니다.
+모든 empirical mean $\bar d_a$가 positive여야 하며, 하나라도 0이면 primary NEI는
+undefined다. sample variance convention이면 분모는 $M-1$이다. full symmetric distance matrix의
+Frobenius norm을 쓰면 upper-triangle pair가 두 번 들어가므로 factor 2도 명시해야 한다.
 
-표본공분산의 Marchenko–Pastur 편향까지 감안하면 $0.5(M-1)$ 을 넘는 27개는 측정된
-것이 아니라 상한에 붙은 것이다. **$M$ 을 키우지 않으면 이 축을 보고할 수 없다.**
+$B_z$는 run-space Gram이고
 
-## 초기 오류 하나 (기록용)
+$$
+C_z=\frac1MZ_c^{\mathsf T}Z_c
+$$
 
-처음에 대용값 $\operatorname{tr}\mathbf{G}/N_+$ 로 계산해 $\rho=+0.169$ (유의하지 않음)
-를 얻고 `두 양은 독립` 이라고 적었다. 이는 $N_+\sim N^2$ 로 나눈 데서 온 인공물이었다
-(대용값 대 $N$ 의 상관이 $-0.764$, 진짜 $\mathcal{I}$ 대 $N$ 은 $+0.080$). 진짜
-$\mathcal{I}$ 로 다시 계산해 $+0.757$ 로 정정했다.
+는 pair-feature covariance다. 두 행렬은 같은 행렬은 아니지만 nonzero eigenvalues가
+$M$배 관계로 대응한다.
+
+## 기존 artifact가 주는 연산자
+
+기존 저장량은
+
+$$
+\Delta^{(\rm raw)}_{mm'}
+=\frac{\|D^{(m)}-D^{(m')}\|_F}
+{\sqrt{\sum_a\bar d_a^2}}
+$$
+
+형태로 single global scale을 쓴다. 이로부터 얻는 trace는 pair별
+$1/\bar d_a^2$ 가중치를 갖는 NEI가 아니라
+
+$$
+\frac{\sum_a\operatorname{Var}(d_a)}
+{\sum_a\bar d_a^2}
+$$
+
+에 비례한다. global scalar rescaling은 participation ratio를 바꾸지 않지만 pairwise
+whitening은 covariance eigenvalue ratios를 바꾼다. 따라서 기존 77-network
+$d_{\rm eff}$는 raw-cloud effective rank로만 보존하고, NEI와 같은 operator의 spectrum은
+재실행 후 새 이름으로 보고한다.
+
+## $d_{\rm eff}$의 정확한 해석
+
+$C_z$의 고유값을 $\nu_a\ge0$라 하면
+
+$$
+d_{\rm eff}=\frac{(\sum_a\nu_a)^2}{\sum_a\nu_a^2}.
+$$
+
+이는 linear covariance의 effective rank다.
+
+- physical zero-mode 개수가 아니다.
+- minimizer manifold의 topological dimension이 아니다.
+- discrete states와 continuous support를 단독으로 구분하지 못한다.
+- curved one-dimensional manifold가 여러 principal components를 점유할 수 있다.
+- 여러 discrete states도 high-rank covariance를 만들 수 있다.
+
+특히 1D toy landscape의 terminal coordinate를 그대로 쓰면 nonzero covariance rank는
+항상 1이다. histogram bin의 $1/\sum_b p_b^2$는 occupancy Hill number이지
+$d_{\rm eff}$가 아니다. 웹 demo에서는 두 양을 분리한다.
+
+## 기존 77-network 결과의 지위
+
+관측된
+
+$$
+\rho_S(\mathcal I,d_{\rm eff}^{\rm raw})=0.757
+$$
+
+은 raw-cloud exploratory association이다. $1-\rho_S^2=0.43$을 고유 정보량 또는
+순위분산 decomposition으로 해석하지 않는다. 허용되는 말은 다음이다.
+
+> NEI and the raw-cloud effective rank showed a substantial but nonperfect monotone
+> association in the exploratory sample.
+
+같은 standardized operator의 $d_{\rm eff}$를 재계산한 뒤에도 paired scatter,
+within-NEI conditional spread와 bootstrap uncertainty를 다시 보고해야 한다.
+
+## finite-$M$ 해상도
+
+$d_{\rm eff}\le M-1$은 정확하다. 그러나 $d_{\rm eff}>0.5(M-1)$를 모두 censored라고
+분류하는 것은 heuristic이다. Marchenko–Pastur law도 iid isotropic random matrix
+가정이 없는 constrained terminal cloud에 자동 적용되지 않는다.
+
+필요한 보고는
+
+- $M=25,50,100,200,400$ rarefaction
+- independent seed batches
+- $d_{\rm eff}(M)$과 leading spectral fractions의 CI
+- eigenvalue threshold sensitivity
+- standardized와 raw covariance의 직접 비교
+
+이다.

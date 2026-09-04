@@ -1,41 +1,36 @@
 {
- "_note": "PRE 2026 절단선. 지도 위에 초록 점선 hyperedge 로 두른다. members 를 고치면 hyperedge 가 따라 바뀐다.",
- "pre2026": {
-  "label": "PRE 2026 — 여기까지 일단락",
-  "color": "#207037",
-  "members": ["G","delta","schoenberg","Dp","strain","stress","shape",
-              "inherent","gate","softmode","NEI","deff","ident",
-              "rigid","split","floppy"],
-  "thesis": "고정된 topology-to-geometry protocol 아래에서 representability 와 identifiability 는 서로 다른 protocol 의존성을 갖는 두 축이며, 둘 다 측정 가능하고 서로를 결정하지 않는다.",
-  "why_this_line": [
-   "네 주장이 전부 측정으로 닫힌다. 해석 층위를 하나도 빌리지 않는다.",
-   "control 이 정리로 뒷받침된다. 경로 그래프는 $\\mathcal{D}_p=0$ 이므로 거기서 나오는 $\\mathcal{I}>0$ 은 전부 protocol 의 실패이다. 격자는 $\\mathcal{D}_2=0.406$ 이라 이 지위를 갖지 못한다.",
-   "순환이 없다. $\\mathcal{I}\\to0$ 을 convergence control 로만 쓰고 측도 타당성의 독립 증거로 세지 않는다.",
-   "protocol 의존성을 숨기지 않는다. optimizer 무관성을 측정으로 보이고, $\\rho_0$ 의존성은 조건으로 명시한다.",
-   "$\\mathcal{I}$ 를 인증된 local minimizer 위에서 측정하므로 'local minimum' 이라는 말을 쓸 자격이 생긴다."
-  ],
-  "four_claims": [
-   {"n":"1","t":"$\\mathcal{D}_p$ 는 protocol 이 개입하지 않는 representability 축이다. $\\mathcal{D}_p=0$ 이 정확한 실현과 동치이고(Schoenberg), 경로 그래프가 정리로 뒷받침되는 control 을 준다.","state":"측정 완료 (모형 10종). 실제 network 전 표본 계산 필요"},
-   {"n":"2","t":"인증된 local minimizer 위에서도 terminal ensemble 은 축퇴되어 있다. polish 후 $\\mathcal{I}$ 가 살아남고, terminal 이 전부 진짜 minimizer 이며, 서로 $O(1)$ 만큼 떨어져 있다.","state":"network 4개 완료. 전 표본 polish 필요"},
-   {"n":"3","t":"$\\mathcal{I}$ 는 terminal covariance 의 trace 이므로 불완전하다. $d_{\\mathrm{eff}}$ 가 두 번째 축이고, 저장된 $\\Delta$ 만으로 계산된다.","state":"측정 완료. $M$ 확대로 검열 해소 필요"},
-   {"n":"4","t":"두 축은 서로를 결정하지 않는다. $\\rho=+0.757$ 이지만 순위분산의 43% 가 설명되지 않고, $\\mathcal{I}$ 5분위 안에서 $d_{\\mathrm{eff}}$ 가 3–77배 벌어진다.","state":"측정 완료"}
-  ],
-  "todo": [
-   {"k":"polish 전면 적용","w":"약 80개 network. 가장 큰 계산 항목이지만 단순 반복이다.","need":"필수"},
-   {"k":"$M$ 확대","w":"$d_{\\mathrm{eff}}$ 가 $M=100$ 에서 27/77 검열된다. 층화 부표본에 $M=400$.","need":"필수"},
-   {"k":"$S_\\Delta$, $s_\\Delta$, run 별 $\\min d_{ij}$ 저장","w":"$\\eta_g$ 와 $\\chi_{\\mathrm{coll}}$ gate 를 전 표본에 보고하려면 필요하다. 스칼라 두 개를 안 저장해서 막혀 있다.","need":"필수"},
-   {"k":"$\\mathcal{D}_p$ 전 표본","w":"eigendecomposition 한 번씩. 몇 분이면 끝난다.","need":"필수"},
-   {"k":"경로 그래프 control 보고","w":"$P_n$ 에서 $\\mathcal{I}$ 를 재서 protocol 의 unit test 로 싣는다.","need":"필수"},
-   {"k":"비중복성","w":"$\\lambda_2$ · 평균 최단거리 · 차수 이질성과의 편상관. 지운 분석을 복원한다. 이것이 없으면 심사자는 redundant 하다고 가정한다.","need":"필수"},
-   {"k":"$\\rho_0$ 강건성","w":"uniform / cMDS+noise / spectral+noise 순위상관. optimizer 무관성은 이미 있다.","need":"권장"},
-   {"k":"automorphism 벤치마크","w":"$\\mathrm{Aut}(\\delta)$ 궤도가 주는 해석적 $\\mathcal{I}$. 정리로 뒷받침되고 계산이 싸지만 범위를 늘린다.","need":"선택"}
-  ],
-  "excluded": [
-   {"k":"soft mode 와 $r_i$ 의 정렬 (L6)","w":"가장 강한 물리 결과가 될 자리이지만 $X^{(m)}$ 저장과 전면 재실행이 필요하다.","to":"다음 논문"},
-   {"k":"장벽 · continuation (L7)","w":"'basin' 이라는 말을 쓰려면 필요하다. 별도 실험이다.","to":"다음 논문"},
-   {"k":"좌절의 무질서도","w":"격자는 $\\mathcal{D}_2=0.406$ 인데 $\\mathcal{I}\\approx0$ 이다. 좌절의 크기만으로는 landscape 가 거칠어지지 않는다. 이론이 없다.","to":"박사과정 주제"},
-   {"k":"rigidity 이론과의 접합","w":"Maxwell–Laman–Connelly 계보. 완전 쌍집합 위의 framework 이라 그래프 희소성이 곧 제약부족이 아니다. 맥락으로 인용만 한다.","to":"인용만"},
-   {"k":"metric embedding distortion","w":"Bourgain, LLR. $\\mathcal{D}_p$ 와 같은 비매장성을 다른 노름으로 잰다. 맥락으로 인용만 한다.","to":"인용만"}
-  ]
- }
+  "_note": "1차 일단락. 현재 증거로 닫을 최소 claim set 후보이다.",
+  "first_closure": {
+    "thesis": "선언한 graph-to-dissimilarity 및 optimization protocol 아래에서 spectral representability와 terminal-distance variability를 서로 다른 layer의 diagnostics로 측정한다. reproducibility는 independent-batch recurrence로 별도 평가한다. ‘realized geometric degeneracy’는 numerical admissibility에 조건부인 terminal law가 선언한 metric과 resolution에서 하나의 geometry로 붕괴하지 않는다는 operational definition으로만 사용한다.",
+    "why_this_line": [
+      "theorem, protocol, measurement, interpretation layer를 분리한다. 화살표 하나가 곧 causality 또는 equivalence를 뜻하지 않도록 relation과 epistemic status를 함께 본다.",
+      "$\\mathcal D_p$는 고정된 $(\\Delta,p)$에서 optimizer-independent인 spectral diagnostic이고, $\\mathcal I$는 완전히 선언한 $\\Pi$에 조건부인 response observable이다.",
+      "numerical admissibility(stationarity, collision, quotient-Hessian inertia)와 representational fidelity($\\phi$와 residual profile)를 구분한다. 전자는 stationary/minimum classification을, 후자는 topology-to-geometry 해석의 적용 범위를 제한한다.",
+      "geometric spread $\\mathcal I$, observed occupancy의 effective number $K_{\\rm eff}$, energy-equivalence interval을 분리하여 ‘많음’, ‘멀리 떨어짐’, ‘같은 energy’를 혼동하지 않는다.",
+      "discrete multiplicity, energetic degeneracy, continuous degeneracy는 1차 일단락 범위의 자동 결론이 아니라 각각 recurrence, energy, continuation을 요구하는 후속 판정이다."
+    ],
+    "four_claims": [
+      {"n":"1","t":"finite, symmetric, hollow, nonnegative $\\Delta$와 고정된 $p$에서 $\\mathcal D_p=0$은 exact Euclidean realizability와 동치이며, $\\mathcal D_p^{\\rm dim}$과 $\\mathcal D^{\\rm neg}$는 positive rank-truncation residual과 negative-spectrum obstruction을 분리한다.","state":"theorem complete · full-network measurement required"},
+      {"n":"2","t":"NEI의 population estimand는 $\\mu_\\Pi=(q\\circ T_\\Pi)_\\#(\\rho_0\\otimes\\rho_{\\rm alg})$이 유도하는 terminal law다. 따라서 NEI는 intrinsic graph invariant가 아니라 declared protocol에 조건부인 terminal-geometry observable이며, $M$은 empirical estimator의 sample size다.","state":"definition complete · protocol sensitivity required"},
+      {"n":"3","t":"pair-standardized run vector $z_{ma}=d_a^{(m)}/(\\bar d_a\\sqrt{N_+})$에 대해 finite-sample plug-in identity $\\widehat{\\mathcal I}_M=\\operatorname{tr}B_z/M$이 성립한다. 이는 population quantity의 unbiasedness를 뜻하지 않으며 spectrum도 같은 standardized operator에서 계산한다.","state":"theorem complete · unavailable from the existing raw-Δ artifact"},
+      {"n":"4","t":"corrected numerical gate 뒤 independent batch에서 재현되는 $\\varepsilon_D$-separated terminal classes가 있으면 observed protocol-realized geometric multiplicity라고 부른다. finite $M$은 population support를 인증하지 않으며 equal-energy 또는 continuous degeneracy는 additional certification을 요구한다.","state":"core empirical claim candidate · corrected full rerun required"}
+    ],
+    "todo": [
+      {"k":"corrected polish/Hessian 전면 재실행","w":"objective-gradient 계수와 quotient projection을 수정했다. 모든 terminal의 optimizer success, $\\eta_g$, collision, quotient-Hessian inertia, normalized stress, raw $S_{\\Delta,W}$와 run별 $\\min_{i<j}d_{ij}^{(m)}$를 다시 저장한다.","need":"필수"},
+      {"k":"pair-standardized run vectors 저장","w":"기존 global-scale run-distance matrix $\\Delta^{(\\rm raw)}$는 NEI와 같은 covariance를 복원하지 않는다. $z_m$ 또는 $\\Delta^{(z)}$를 저장해 $d_{\\rm eff}$를 재계산한다.","need":"필수"},
+      {"k":"independent batch와 M 확대","w":"$K=M$은 coverage 부족이다. $M=25,50,100,200,400$ rarefaction, recurrence, singleton/doubleton, $K_{\\rm eff}$와 CI를 보고한다.","need":"필수"},
+      {"k":"class energy ledger","w":"각 class의 $e_\\gamma=\\mathcal F_\\gamma/S_{\\Delta,W}$와 pairwise difference interval을 저장한다. interval이 declared margin 안에 포함되어야 $\\tau_E$-near-degeneracy를 말할 수 있다.","need":"필수"},
+      {"k":"representational fidelity","w":"normalized stress, Shepard residual, hop-shell별 residual을 보고해 ‘topology-to-geometry가 충분히 보존된 범위’를 정한다. poor fit도 stationary local minimum일 수 있으므로 이 criterion을 numerical admissibility와 합치지 않는다.","need":"필수"},
+      {"k":"$\\mathcal D_p$ 전 표본과 두 성분","w":"$\\mathcal D_p^{\\rm dim}$, $\\mathcal D^{\\rm neg}$, cMDS cutoff eigengap을 함께 저장한다.","need":"필수"},
+      {"k":"두 축의 conditional nonredundancy","w":"size, mean distance, density와 degree heterogeneity를 matched/stratified한 ensemble에서 conditional MI 또는 out-of-sample incremental prediction과 permutation null을 사용한다.","need":"필수"},
+      {"k":"graph null ensembles","w":"degree-preserving connected rewiring과 matched ER가 각각 보존하는 양, connectedness conditioning과 rewiring mixing을 선언한다. graph-to-graph와 within-graph restart variance를 hierarchical하게 분리한다.","need":"권장"},
+      {"k":"$\\rho_0$·optimizer robustness","w":"uniform, cMDS+noise, spectral+noise 및 SMACOF/L-BFGS에서 value와 network rank stability를 보고한다.","need":"권장"}
+    ],
+    "excluded": [
+      {"k":"continuous degeneracy 인증","w":"fixed network에서는 soft-subspace continuation과 higher-order/Morse–Bott evidence가 필요하다. finite-size scaling은 N-persistence 또는 thermodynamic claim을 할 때 추가한다.","to":"후속 판정"},
+      {"k":"barrier와 physical metastability","w":"terminal separation만으로 barrier를 알 수 없다. minimax path 또는 saddle search가 필요하다.","to":"후속 판정"},
+      {"k":"symmetry-resolved degeneracy","w":"Aut(Δ)까지 몫할지 estimand 정책을 정하고 group orbit와 accidental multiplicity를 분리한다.","to":"확장 분석"},
+      {"k":"mechanism-level frustration 서사","w":"representation mismatch의 크기만으로 roughness를 설명할 수 없다. disorder control parameter와 scaling이 필요하다.","to":"후속 연구"}
+    ]
+  }
 }

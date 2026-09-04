@@ -1,0 +1,126 @@
+#!/usr/bin/env python3
+"""JSON architecture의 구조적 무결성을 검사한다."""
+from __future__ import annotations
+
+import json
+import re
+from collections import defaultdict, deque
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+DATA = ROOT / "data"
+
+
+def read(name: str):
+    with (DATA / f"{name}.json").open(encoding="utf-8") as fh:
+        return json.load(fh)
+
+
+def main() -> int:
+    nodes = read("nodes")
+    edges = read("edges")
+    connectors = read("connectors")
+    claims = read("claims")
+    refs = read("refs")
+    scope = read("scope")
+    source_map = read("source-map")
+
+    node_ids = [x["id"] for x in nodes["nodes"]]
+    if len(node_ids) != len(set(node_ids)):
+        raise ValueError("duplicate node id")
+    ids = set(node_ids)
+
+    claim_ids = [x["id"] for x in claims["claims"]]
+    if len(claim_ids) != len(set(claim_ids)):
+        raise ValueError("duplicate claim id")
+
+    vias = {k for k in connectors if not k.startswith("_")}
+    ref_ids = {k for k in refs if not k.startswith("_")}
+    doi_re = re.compile(r"^10\.\d{4,9}/\S+$")
+    dois = []
+    for key in ref_ids:
+        doi = refs[key].get("doi")
+        if doi is None:
+            continue
+        if not doi_re.fullmatch(doi) or doi != doi.strip().lower():
+            raise ValueError(f"malformed DOI for {key}: {doi!r}")
+        dois.append(doi)
+    if len(dois) != len(set(dois)):
+        raise ValueError("duplicate DOI")
+    pairs = set()
+    for e in edges["edges"]:
+        if e["from"] not in ids or e["to"] not in ids:
+            raise ValueError(f"missing endpoint: {e}")
+        if e["from"] == e["to"]:
+            raise ValueError(f"self-loop: {e}")
+        if e["via"] not in vias:
+            raise ValueError(f"missing connector: {e['via']}")
+        pair = (e["from"], e["to"], e["via"])
+        if pair in pairs:
+            raise ValueError(f"duplicate typed edge: {pair}")
+        pairs.add(pair)
+
+    used_refs: list[str] = []
+    for x in nodes["nodes"] + claims["claims"]:
+        used_refs.extend(x.get("refs", []))
+    for x in connectors.values():
+        if isinstance(x, dict):
+            used_refs.extend(x.get("refs", []))
+    missing_refs = set(used_refs) - ref_ids
+    if missing_refs:
+        raise ValueError(f"missing references: {sorted(missing_refs)}")
+
+    adj: dict[str, list[str]] = defaultdict(list)
+    indeg = {x: 0 for x in ids}
+    for e in edges["edges"]:
+        adj[e["from"]].append(e["to"])
+        indeg[e["to"]] += 1
+    queue = deque(x for x, d in indeg.items() if d == 0)
+    visited = []
+    while queue:
+        a = queue.popleft()
+        visited.append(a)
+        for b in adj[a]:
+            indeg[b] -= 1
+            if indeg[b] == 0:
+                queue.append(b)
+    if len(visited) != len(ids):
+        raise ValueError(f"cycle involving {sorted(ids - set(visited))}")
+
+    first = scope.get("first_closure", {})
+    required_scope = {"thesis", "why_this_line", "four_claims", "todo", "excluded"}
+    missing_scope = required_scope - set(first)
+    if missing_scope:
+        raise ValueError(f"missing scope fields: {sorted(missing_scope)}")
+
+    source_keys = set(source_map["sources"])
+    if source_keys != {"main", "si", "note"}:
+        raise ValueError(f"unexpected source-map sources: {sorted(source_keys)}")
+    mapped_ids = set(source_map["nodes"])
+    if mapped_ids != ids:
+        raise ValueError(
+            f"source-map mismatch; missing={sorted(ids-mapped_ids)}, extra={sorted(mapped_ids-ids)}"
+        )
+    allowed_kinds = {"direct", "partial", "none"}
+    for node_id, mapping in source_map["nodes"].items():
+        if set(mapping) != source_keys:
+            raise ValueError(f"source-map coverage error for {node_id}")
+        for source, item in mapping.items():
+            if item.get("kind") not in allowed_kinds:
+                raise ValueError(f"bad source-map kind for {node_id}/{source}")
+            if not item.get("location") or not item.get("summary"):
+                raise ValueError(f"empty source-map item for {node_id}/{source}")
+
+    sources = [x for x in node_ids if not any(e["to"] == x for e in edges["edges"])]
+    print(
+        f"OK: {len(ids)} nodes, {len(edges['edges'])} edges, "
+        f"{len(claim_ids)} claims, {len(vias)} connectors, "
+        f"{len(dois)} verified DOI entries"
+    )
+    print("source branches:", ", ".join(sources))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

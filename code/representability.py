@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""representability.py — protocol 이 개입하지 않는 축.
+"""representability.py — (Delta,p)가 정해지면 최적화기와 무관한 진단량.
 
 그래프 거리 delta 가 R^p 에서 실현되는가를 임베딩 없이 잰다. Schoenberg 판정:
 
@@ -10,8 +10,11 @@
 
     D_p = [ sum_{a>p} max(mu_a,0) + sum_a max(-mu_a,0) ] / sum_a |mu_a|   in [0,1]
 
-이 0 인 것과 정확 실현이 동치이다. D_p 는 (G,p) 만의 함수이고 delta 의 전역
-스케일에 불변이며 p 에 대해 비증가한다.
+이 0 인 것과 정확 실현이 동치이다. D_p 는 (Delta,p)만의 함수라 optimizer,
+초기화, stopping rule과 무관하지만, graph-to-dissimilarity map과 p에는 의존한다.
+또한 0-level set은 Schoenberg 정리로 canonical하지만, 양의 결손을 정규화하는 이
+L1 spectral ratio 자체가 유일한 representability 척도인 것은 아니다. 전역 scale에는
+불변이고 p에 대해 비증가한다.
 
 노트의 kappa_+ 는 projected Hessian 의 positive spectral scale 로 이미 쓰이므로
 여기서는 D_p 를 쓴다.
@@ -41,10 +44,11 @@ def deficiency(mu: np.ndarray, p: int) -> float:
 
 
 def node_frustration(G: np.ndarray, mu: np.ndarray, V: np.ndarray, p: int) -> np.ndarray:
-    """노드별 좌절도. p 차원 cMDS 재구성이 놓치는 Gram 성분의 대각 기여.
+    """노드별 spectral residual magnitude (이름은 하위호환 때문에 유지).
 
     G = sum_a mu_a v_a v_a^T 에서 p 차원으로 유지되는 부분을 빼고 남은 잔차의
-    대각원소. 어느 노드가 R^p 로 담기지 않는지를 말한다.
+    대각원소의 절댓값. 이는 D_p의 가법 분해도, 물리적 frustration의 국소 밀도도
+    아니므로 탐색적 localization diagnostic으로만 사용한다.
     """
     keep = np.zeros_like(mu)
     idx = np.argsort(mu)[::-1][:p]

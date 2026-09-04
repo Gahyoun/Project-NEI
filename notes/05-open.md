@@ -1,68 +1,159 @@
-# 남은 물음
+# 연구미팅 open questions와 evidence ladder
 
-`2026-09-04`
+2026-09-04 · corrected architecture
 
-## 지금 답할 수 있는 것과 없는 것
+## 해석보다 먼저 확인할 층
 
-energy landscape 를 캐는 사다리로 적으면 이렇다.
-
-| 층 | 무엇을 묻나 | 상태 |
+| 층 | 연구 질문 | 현재 지위 |
 |---|---|---|
-| L0 | 이 terminal 은 얼마나 깊은가 (stress) | 측정 |
-| L1 | 그 점이 얼마나 평평한가 ($\widetilde\lambda_{\text{soft}}$) | 부분 — 100개 run 중 8개만 |
-| L2 | terminal 들이 얼마나 흩어졌나 ($\mathcal{I}$) | 측정 |
-| L3 | 그 비유일성이 **몇 개**의 자유도인가 ($d_{\text{eff}}$) | 측정, 다만 $M=100$ 에서 검열 |
-| L4 | 그 자유도가 **이산**인가 **연속**인가 ($K$) | polish 하면 결정된다 |
-| L5 | 비유일성이 **어디에** 사는가 ($r_i$, $r_{ij}$ 장) | 미측정 |
-| L6 | 평평한 방향과 재현 안 되는 방향이 **같은가** | 미측정 |
-| L7 | 두 terminal 사이에 **장벽**이 있는가 | 미측정 |
+| L0 | 어떤 $G\mapsto\Delta$, $p$, $W$를 썼는가 | 선언 필요 |
+| L1 | $\Delta$는 $\mathbb R^p$에서 얼마나 representable한가 | $\mathcal D_p^{\rm dim}$, $\mathcal D^{\rm neg}$ |
+| L2 | 얻은 embedding이 $\Delta$를 충분히 보존하는가 | normalized stress와 residual profile 필요 |
+| L3 | terminal이 stationary하고 regular한가 | corrected all-run gate 재실행 필요 |
+| L4 | admissible terminal law가 얼마나 퍼졌는가 | standardized NEI 재계산 |
+| L5 | 점유된 terminal class가 몇 개인가 | independent-batch recurrence와 $K_{\rm eff}$ |
+| L6 | class들이 같은 energy인가 | $\Delta_E$ 미측정 |
+| L7 | 추가 zero mode가 finite motion으로 이어지는가 | continuation 미측정 |
+| L8 | separated states 사이에 barrier가 있는가 | path/saddle search 미측정 |
+| L9 | 결과가 protocol과 graph null을 넘어 안정적인가 | robustness와 null ensemble 필요 |
 
-## 설계상의 실수 하나
+## 지금 가장 중요한 재실행
 
-아티팩트에 `Delta` (run 사이 거리, $M\times M$) 만 저장하고 **terminal configuration
-$X^{(m)}$ 을 저장하지 않았다.** 그 결과
+기존 artifact에는 terminal $X^{(m)}$, pair-standardized vectors, run별 normalized
+stress, collision과 corrected quotient-Hessian inertia가 모두 없다. 다음 실행에서는
+적어도
 
-- $\eta_g$ 를 무차원화할 $S_\Delta$ 가 없어 gate 를 사후 계산할 수 없다
-- $\chi_{\text{coll}}=\min d_{ij}/s_\Delta$ 를 아예 계산할 수 없다
-- L5, L6 이 원천 봉쇄된다
+$$
+\{X^{(m)},D^{(m)},z_m,S_{\Delta,W},\mathcal F_m/S_{\Delta,W},\eta_{g,m},
+\min_{i<j}d_{ij}^{(m)},\chi_{{\rm coll},m},n_{-,m},n_{0,m},
+\lambda_{{\rm soft},m}\}
+$$
 
-$X^{(m)}$ 은 network 당 약 1 MB 이다. 저장하지 않을 이유가 없었다.
+을 저장한다. 저장 용량을 줄일 때에는 $X^{(m)}$를 compact source of truth로 두고
+$D^{(m)}$와 $z_m$를 결정론적으로 재구성할 수 있지만, raw $S_{\Delta,W}$와 run별
+$\min_{i<j}d_{ij}^{(m)}$는 artifact에 명시적으로 남긴다. quotient-Hessian inertia는
+기본적으로 일부 표본이 아니라 admissible terminal 전부에 대해 계산하며, 계산량 때문에
+subsample을 쓰면 그 결과는 exploratory coverage로 따로 표시한다.
 
-## L6 — 가장 강한 물리 결과가 될 자리
+여기서
 
-Hessian 의 soft mode 가 사는 node 와 재현이 안 되는 node 가 일치하는지를 보는 것이다.
-일치하면 `위상이 만든 평평한 방향이 곧 기하적 비유일성의 원인` 이라는 인과 서술이
-가능하다. 지금은 $\lambda_{\min}$ (스칼라)과 $\mathcal{I}$ (스칼라)뿐이라 이 문장을 쓸
-수단이 없다.
+$$
+s_{\Delta,W}=\sqrt{S_{\Delta,W}/\sum_{i<j}w_{ij}},\qquad
+\chi_{{\rm coll},m}=\frac{\min_{i<j}d_{ij}^{(m)}}{s_{\Delta,W}}
+$$
 
-측정할 것: $\operatorname{corr}(|v_{\text{soft},i}|^2,\ r_i)$, 그리고 무작위 방향에
-대한 널.
+를 쓴다. 현재 implementation의 $W\equiv1$에서는
+$s_{\Delta,W}=\sqrt{S_\Delta/N_+}$다. Hessian을 모든 terminal에서 계산했는지는 **coverage**, 각 terminal이
+optimizer success, $\eta_g\le\tau_g$, $\chi_{\rm coll}\ge\tau_c$와 $n_-=0$을
+모두 만족하는지는 **admissibility**다. 두 조건을 혼동하지 않는다. 전체 terminal이
+gate를 통과한 경우의 all-run summary와 admissible subset의 conditional summary를
+구분한다. 후자에는 $M_{\rm adm}$, acceptance
+$\widehat\alpha_{\Pi,M}=M_{\rm adm}/M$와 conditional uncertainty를 붙인다. Hessian
+subsample 또는 gate failure가 있으면 전체-run 값은 `all-run ungated diagnostic`으로만
+보존한다.
 
-## L7 — `basin` 이라는 말을 쓰려면
+## soft mode localization
 
-terminal 분포의 gap 은 장벽의 **정황**이지 증거가 아니다. $\Gamma=X-\tfrac12
-V^{+}\nabla\mathcal{F}$ 는 정확한 gradient flow 가 아니므로 $\Gamma$ 의 끌림영역
-경계와 $\mathcal{F}$ 안장점의 안정다양체는 근사적으로만 일치한다. 두 terminal 을 잇는
-경로 위 stress 프로파일이 필요하다.
+soft eigenvalue가 중복되거나 eigengap이 작으면 개별 eigenvector는 basis rotation에
+민감하다. 따라서 하나의 $v_{\rm soft}$ 대신 soft subspace projector
 
-## 좌절의 무질서도
+$$
+P_{\mathcal S}=\sum_{a\in\mathcal S}v_av_a^{\mathsf T}
+$$
 
-격자는 $\mathcal{D}_2=0.406$ 으로 좌절되어 있는데도 $\mathcal{I}\approx0$ 이다. 좌절의
-**크기**만으로는 landscape 가 거칠어지지 않는다. 무엇이 더 필요한가 — 좌절의
-공간적 무질서도로 보이지만 아직 정량화하지 못했다.
+와 node leverage
 
-## protocol 강건성
+$$
+s_i=\operatorname{tr}(P_{\mathcal S})_{ii}
+=\sum_{a\in\mathcal S}\|v_{a,i}\|_2^2
+$$
 
-$\mathcal{I}$ 가 $\Pi$ 에 의존한다는 사실은 약점이 아니라 명시할 조건이다. 다만
-`네트워크의 성질` 이라고 부르려면 조건 너머로 살아남는 것이 있어야 한다. 요구할 것은
-값의 일치가 아니라 **순위의 안정성**이다.
+를 사용한다. $s_i$와 pairwise instability field $r_i$의 정렬은 random subspace 또는
+degree-preserving null과 비교한다. 이는 degenerate eigenspace 안의 임의 basis 선택에
+불변이다.
 
-- $\rho_0\in\{$uniform, cMDS+noise, spectral+noise$\}$ — 셋 다 비퇴화여야 한다
-- optimizer $\in\{$SMACOF, stress 에 대한 L-BFGS$\}$
-- 보고량: protocol 쌍마다 $\mathcal{I}$ 와 $d_{\text{eff}}$ 의 Spearman 순위상관
+## continuous degeneracy
+
+$H_\perp$의 near-zero eigenvalue는 higher-order candidate다. 다음 세 조건을 같이
+만족하는 constrained continuation이 필요하다.
+
+1. soft direction으로 quotient distance가 유한하게 증가
+2. $\|\nabla_\perp\mathcal F\|$가 tolerance 안에 유지
+3. stress rise가 선언한 scale에 비해 bounded이고 collision이 없음
+
+경로 $P_n$의 collinear exact embedding은 필수 negative control이다. 이 경우 extra
+Hessian zero modes가 있어도 stress는 transverse displacement에서 quartic하게 증가하고
+minimum continuum은 없다.
+
+## barrier와 metastability
+
+terminal distribution의 gap은 barrier의 정황이지 증거가 아니다. algorithmic basin은
+특정 optimizer map의 preimage로 정의할 수 있지만 physical metastability를 말하려면
+두 terminal 사이의 minimax path, nudged-elastic-band류 경로 또는 saddle search가
+필요하다.
+
+## finite-$M$과 coverage
+
+$M=100$은 같은 graph를 반복 embedding하여 consistency를 보는 설계로 타당하다. 다만
+state multiplicity와 covariance spectrum의 해상도는 별도 문제다.
+
+- $\widehat{\mathcal I}(M)$ rarefaction과 bootstrap CI
+- $K_{\rm obs}(M)$, singleton/doubleton, new-state rate
+- independent seed batch에서 class matching
+- $K_{\rm eff}^{(1)}$, $K_{\rm eff}^{(2)}$
+- $d_{\rm eff}(M)$과 leading eigenspaces
+
+$K=M$이면 적어도 관측 범위에서는 coverage가 부족하므로 occupancy 추정과 total-state
+count를 보류한다.
+
+## protocol robustness
+
+NEI는 $\Pi$에 조건부이다. network-level descriptor로 올리려면
+
+- $\rho_0$: uniform, cMDS+noise, spectral+noise
+- optimizer: corrected SMACOF+polish, direct stress L-BFGS
+- 차원과 weight sensitivity
+- value뿐 아니라 network rank와 terminal-law distance
+
+를 보고한다. 같은 초기조건에서 optimizer가 다른 terminal에 가는 것은 적어도 하나가
+실패했다는 뜻이 아니라 basin partition 자체가 algorithm-dependent하다는 뜻이다.
+
+## graph null ensemble
+
+random graph 한 realization의 순서가 아니라 이중 ensemble로 설계한다.
+
+$$
+G^{(b)}\sim\mathcal E_{\rm null},\qquad
+X_0^{(b,m)}\sim\rho_0.
+$$
+
+- degree-preserving simple connected rewiring
+- matched $G(N,E)$ 또는 density null
+- exact-realizable path control
+- symmetry-rich control
+
+모든 null에 같은 preprocessing, $\Delta$, $p$, $W$, optimizer, polish와 $M$을 적용한다.
+real network에 대한 핵심 비교는
+
+$$
+\mathcal I_{\rm real}<\widetilde{\mathcal I}_{\rm deg},\qquad
+\mathcal I_{\rm real}<\widetilde{\mathcal I}_{\rm ER}
+$$
+
+두 방향이면 충분하며, 두 null 사이의 순서를 강제하지 않는다. graph-to-graph
+variation과 within-graph restart variation을 계층적으로 분리한다.
 
 ## 비중복성
 
-`또 다른 성질` 이라는 주장의 심사 기준은 비중복성이다. 표준 기술자(spectral gap,
-평균 최단거리, 차수 이질성)와의 상관을 **보이고**, 그것들로 회귀한 뒤 남는 잔차분산이
-있음을 보여야 한다. 지운 $\lambda_2$ 상관 분석은 복원해서 편상관 형태로 넣어야 한다.
+representability와 terminal reproducibility가 서로를 결정하지 않는다는 주장은
+$\mathcal I$–$d_{\rm eff}$ correlation으로 검증되지 않는다. 필요한 것은
+
+$$
+\mathcal D_p^{\rm dim},\mathcal D^{\rm neg}
+\quad\text{versus}\quad
+\mathcal I,d_{\rm eff},K_{\rm eff}
+$$
+
+의 cross-analysis와 size, mean shortest path, density, degree heterogeneity를 통제한
+partial association이다. 이것이 있어야 MDS 결과로 네트워크의 추가 성질을
+정량화한다는 주장이 비중복성 측면에서 완성된다.

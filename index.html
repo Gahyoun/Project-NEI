@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NEI 아키텍처 — representability와 identifiability</title>
+<title>NEI 연구 아키텍처 — representability와 terminal degeneracy</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <link rel="stylesheet" href="krds.css">
@@ -14,9 +14,9 @@
   <div class="inner">
     <span class="mark">NEI</span>
     <nav>
-      <a href="#result">핵심 결과</a><a href="#map">지도</a><a href="#scope">PRE 2026</a><a href="#conn">연결요소</a>
-      <a href="#repr">representability</a><a href="#scalar">벡터 분해</a>
-      <a href="#claims">주장 현황</a><a href="#refs">참고문헌</a>
+      <a href="#result">definition</a><a href="#map">map</a><a href="#scope">1차 일단락</a><a href="#conn">connectors</a>
+      <a href="#repr">representability</a><a href="#scalar">decomposition</a>
+      <a href="#claims">claim ledger</a><a href="#refs">references</a>
     </nav>
   </div>
 </header>
@@ -24,38 +24,74 @@
 <main class="wrap">
 
 <section class="hero">
-  <p class="eyebrow">고정된 topology-to-geometry protocol</p>
-  <h1>네트워크의 geometric representability와<br>embedding identifiability</h1>
-  <p class="lede">두 명사는 서로 다른 질문이고, 결정적으로 protocol 의존성이 서로 다르다.
-  representability 는 graph metric 하나에서 eigendecomposition 한 번으로 나오는 닫힌 형태이고,
-  identifiability 는 비퇴화 확률 protocol 아래에서만 정의되는 sampling estimator 이다.</p>
+  <p class="eyebrow">fully specified topology-to-geometry protocol</p>
+  <h1>네트워크의 geometric representability와<br>protocol-induced terminal multiplicity</h1>
+  <p class="lede">Population protocol $\Pi$는 $G\mapsto\Delta$, target dimension, pair weights,
+  optimization rule, initialization law $\rho_0$와 algorithmic randomness $\rho_{\rm alg}$를
+  고정한다. $\mathcal D_p$는 fixed $(\Delta,p)$의 spectral diagnostic이고, $\mathcal I$는
+  $\Pi$가 유도한 terminal law에 조건부인 response observable이다. 반복수 $M$은 이 law의
+  finite-sample resolution이지 population estimand의 일부가 아니다.</p>
 </section>
 
 <section id="result">
-  <h2>핵심 결과 — NEI 는 energy landscape 의 real degeneracy 를 잰다</h2>
-  <p class="lede">sklearn 의 stopping rule 은 상대 stress 개선량을 기준으로 삼으며, 그 지점의 무차원
-  stationarity 지표 $\eta_g$ 는 L-BFGS 가 도달하는 값보다 5 자릿수 크다. 각 terminal 을 L-BFGS 로
-  <b>polish</b> 해 stationary point 까지 밀어넣고 거기서 다시 측정한다.</p>
+  <h2>Definition: degeneracy</h2>
+  <p class="lede definition-statement"><b>Realized geometric degeneracy</b>는 fully specified
+  protocol 아래 admissible terminal law가, 선언한 pair-distance resolution $\varepsilon_D$에서
+  하나의 geometry로 붕괴하지 않는 경우로 정의한다. 즉, 선언한 dimensionless metric
+  $\rho_D$에 대해
+  $\operatorname{diam}_{\rho_D}\operatorname{supp}(\mu_\Pi^{\rm adm})>\varepsilon_D$이다.
+  NEI는 이 law의 geometry-weighted second moment를 정량화하지만, total support size와
+  energy equivalence를 단독으로 판정하지 않는다.</p>
+  <p class="fine">여기서 $\mu_\Pi^{\rm adm}=\mathcal L(q(T_\Pi)\mid A_{\rm num})$이고
+  $\alpha_\Pi=\Pr(A_{\rm num})$를 함께 보고한다. $A_{\rm num}$은 optimizer success,
+  stationarity, collision과 quotient curvature를 판정한다. 별도의 representational-fidelity
+  criterion은 topology-to-geometry interpretation의 범위를 제한하며 local-minimum
+  classification과 동일한 gate가 아니다.</p>
   <div class="grid2">
     <figure class="panel"><figcaption id="cap-polish"></figcaption><div id="ch-polish"></div></figure>
     <figure class="panel"><figcaption id="cap-certify"></figcaption><div id="ch-certify"></div></figure>
   </div>
-  <div class="callout ok">
-    <b>결론.</b> polish 된 terminal 은 전부 진짜 local minimizer 이고(음의 eigenvalue 0개),
-    24개 run 이 서로 다른 24개 minimizer 로 가며, $K$ 는 cutoff 를 6 자릿수 움직여도 변하지 않는다.
-    인증된 minimizer 위에서 재도 $\mathcal{I}$ 는 같은 크기로 남는다.
-    <b>NEI 는 stress landscape 의 real degeneracy 를 잰다.</b>
-    network 4개에서 $\mathcal{I}$ 는 optimizer 에 거의 의존하지 않는다 —
-    수렴 품질이 6 자릿수 다른데 값은 15% 안에서 같다.
+  <div class="callout warn">
+    <b>현재 증거가 지지하는 결론.</b> 기존 실행에서 $\eta_g$가
+    $2.19\times10^{-3}$에서 $2.00\times10^{-8}$로 감소하는 동안
+    $\widehat{\mathcal I}_M$는 $0.1100$에서 $0.07665$로 감소했고, 24개 terminal
+    distance matrices는 보고된 cutoff 범위에서 분리되어 있었다. 즉, 그 polishing
+    schedule은 observed dispersion을 제거하지 못했다. 그러나 이 값은 corrected
+    implementation 이전의 legacy all-run ungated diagnostic이다. corrected numerical
+    gate와 independent-batch recurrence 전에는 recurrent terminal multiplicity 또는
+    multiple local minima를 확정하지 않는다.
   </div>
-  <p class="fine">이 진술의 범위는 검사한 network 이다. 전 표본으로 확장하려면 polish 를 전면 적용한다.</p>
+  <p class="fine"><b>Terminology.</b> 여기서 “realized”는 finite-$M$ 표본에서 곧바로
+  population support를 증명했다는 뜻이 아니다. gate acceptance rate, independent-batch
+  recurrence와 $M$-saturation이 함께 보고되어야 한다. equal stress, continuous minimum
+  manifold와 optimizer-independent global nonuniqueness는 별도 claim이다.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Evidence</th><th>Allowed conclusion</th></tr></thead>
+    <tbody>
+      <tr><td>$\widehat{\mathcal I}_M$이 numerical-noise bound를 초과</td><td>terminal-distance dispersion</td></tr>
+      <tr><td>independent batches에서 recurrent $\varepsilon_D$-separated classes</td><td>protocol-conditioned terminal multiplicity</td></tr>
+      <tr><td>각 class에 class-wise strict-minimum certificate</td><td>multiple local minima</td></tr>
+      <tr><td>energy-difference interval이 $[-\tau_E,\tau_E]$ 안에 포함</td><td>$\tau_E$-near-degenerate minima</td></tr>
+      <tr><td>barrier 또는 residence-time evidence</td><td>metastability</td></tr>
+      <tr><td>Morse--Bott condition 또는 refinement-stable continuation</td><td>continuous minimizer manifold</td></tr>
+    </tbody>
+  </table></div>
 </section>
 
 <section id="map">
-  <h2>전체 지도</h2>
-  <p class="lede">계층은 위상 깊이를 따른다. 위에서 아래로 갈수록 앞의 것에 의존한다.
-  간선의 색이 그 연결의 지위를 나타낸다 — 파랑은 정리, 주황은 이번 측정, 회색 점선은 미해결.
-  초록 점선은 PRE 2026 에서 일단락할 범위를 묶은 hyperedge 이다.</p>
+  <h2>Architecture map</h2>
+  <p class="lede">각 layer는 dependency depth를 따라 왼쪽에서 오른쪽으로 흐른다. 오른쪽으로
+  갈수록 앞의 정의와 측정에 조건부이다. node를 누르면 본문·SI·Note에서 이 개념을
+  어디서 어떻게 설명하는지, 그리고 직접 서술되지 않은 gap이 무엇인지 열린다.
+  node 글자색과 간선 색은 각각 concept와 relation의 epistemic status를 나타낸다.
+  node의 왼쪽 점은 research domain을 나타내며 status와 혼동하지 않는다.</p>
+  <div class="source-legend" aria-label="source text colors">
+    <span class="src-main"><i></i>본문</span>
+    <span class="src-si"><i></i>SI</span>
+    <span class="src-note"><i></i>Note</span>
+    <span class="gap-key">직접 서술 · 부분 서술 · 직접 대응 없음</span>
+  </div>
+  <div class="coverage-summary" id="coverageSummary" aria-label="source coverage summary"></div>
   <div class="tagbar" id="domFilter"></div>
   <div class="legend" id="mapLegend"></div>
   <div class="canvaswrap">
@@ -66,75 +102,177 @@
     </div>
     <div class="mapc" id="mapc">불러오는 중…</div>
   </div>
-  <p class="fine">휠로 확대·축소, 끌어서 이동. 마디를 누르면 이웃만 남는다.</p>
-  <div class="panel detail" id="panel"><p class="muted">마디를 선택하세요.</p></div>
+  <p class="fine">휠로 확대·축소하고 drag로 이동한다. node를 누르면 dependency 이웃과 source inspector가 함께 열린다. ‘맞춤’은 전체 좌→우 architecture를 다시 한 화면에 맞춘다.</p>
+  <div class="panel detail" id="panel"><p class="muted">node를 선택하면 본문·SI·Note의 대응 위치와 서술 gap이 열립니다.</p></div>
 </section>
 
 
 <section id="scope">
-  <h2>PRE 2026 절단선</h2>
+  <h2>1차 일단락</h2>
   <p class="lede" id="scopeThesis"></p>
   <div class="grid2">
-    <div class="panel"><h3>네 주장</h3><div id="scopeClaims"></div></div>
-    <div class="panel"><h3>이 선을 고른 이유</h3><ul id="scopeWhy" class="reasons"></ul></div>
+    <div class="panel"><h3>Core claims</h3><div id="scopeClaims"></div></div>
+    <div class="panel"><h3>Scope rationale</h3><ul id="scopeWhy" class="reasons"></ul></div>
   </div>
   <div class="grid2">
-    <div class="panel"><h3>닫으려면 필요한 것</h3><div class="tablewrap"><table id="scopeTodo"></table></div></div>
-    <div class="panel"><h3>hyperedge 바깥 — 다음으로</h3><div class="tablewrap"><table id="scopeOut"></table></div></div>
+    <div class="panel"><h3>Required analyses</h3><div class="tablewrap"><table id="scopeTodo"></table></div></div>
+    <div class="panel"><h3>Out of scope — follow-up</h3><div class="tablewrap"><table id="scopeOut"></table></div></div>
   </div>
 </section>
 
 <section id="conn">
-  <h2>연결요소 — 무엇이 이 개념들을 같은 대상으로 만드는가</h2>
-  <p class="lede">지도의 모든 간선은 아래 다섯 장치 중 하나를 지난다.
-  개념이 많아 보여도 연결을 지탱하는 수학적 장치는 다섯 개뿐이다.</p>
+  <h2>Connectors — equivalence, implication, and analogy</h2>
+  <p class="lede">각 edge는 named connector로 정당화하며 equivalence, implication과
+  analogy를 구분한다. connector는 개념을 잇는 근거이지 모든 연결이 theorem이라는
+  뜻은 아니다. 각 edge의 epistemic status를 함께 읽는다.</p>
   <div id="connectors" class="cards"></div>
 </section>
 
 <section id="repr">
-  <h2>Representability — protocol 이 개입하지 않는 축</h2>
-  <p class="lede">$\mathcal{D}_p=0$ 은 graph metric 이 $\mathbb{R}^p$ 에서 정확히 실현되는 것과 동치이다(Schoenberg).
-  eigendecomposition 한 번으로 닫힌 형태로 결정되며, graph metric 하나에만 의존한다.</p>
+  <h2>Representability — fixed $(\Delta,p)$의 spectral diagnostic</h2>
+  <p class="lede">finite, symmetric, hollow, nonnegative dissimilarity $\Delta$에 대해
+  $\mathcal D_p=0$은 $\Delta$가 $\mathbb R^p$에서 정확히 실현되는 것과 동치이다.
+  $B=0$에는 $\mathcal D_p=0$ convention을 쓴다. optimizer에는 무관하지만
+  graph-to-dissimilarity map과 p에는 의존하며, $\mathcal D_p^{\rm dim}$과
+  $\mathcal D^{\rm neg}$를 분리해 해석한다.</p>
   <figure class="panel wide"><figcaption id="cap-Dp"></figcaption><div id="ch-Dp"></div></figure>
   <div class="callout warn">
     random geometric graph 에서 Euclidean 구조를 갖는 것은 잠재 좌표이다. 같은 점집합의
-    좌표 거리는 $\mathcal{D}_2=0.000$ 인 반면, hop metric 은 $\mathcal{D}_2=0.464$ 로 격자($0.406$)를
-    웃돌고 밀도를 올리면 $0.648$ 까지 커진다 — hop 이 포화하기 때문이다.
+    좌표 거리는 $\mathcal{D}_2=0.000$인 반면 hop metric은 $\mathcal{D}_2=0.464$로 격자($0.406$)를
+    웃돌고, 이 표본에서는 밀도를 올릴 때 $0.648$까지 커진다. 이는 높은 density에서
+    hop-distance shells가 압축되는 현상과 정합적이지만, mechanism claim에는 density와
+    $N$을 matched한 graph ensemble이 필요하다.
   </div>
 </section>
 
 <section id="scalar">
-  <h2>벡터로 energy landscape 를 분해한다</h2>
-  <p class="lede">$\mathcal{I}$ 는 terminal covariance operator 의 <b>trace</b> 이고, 그 <b>spectrum</b> 이
-  같은 연산자의 모양을 담는다. trace 는 degeneracy 의 크기를, participation ratio
-  $d_{\mathrm{eff}}$ 는 degeneracy 가 차지하는 자유도의 수를 준다. 두 축이 함께
-  다중안정형과 floppy 를 가른다. spectrum 은 이미 저장된 $\Delta$ 에서 복원되므로 재실행이 필요 없다.</p>
+  <h2>Terminal vector를 trace·spectrum·occupancy로 분해한다</h2>
+  <p class="lede">pair-standardized vector
+  $z_{ma}=d_a^{(m)}/(\bar d_a\sqrt{N_+})$에 대해서만 finite-sample plug-in identity
+  $\widehat{\mathcal I}_M=\operatorname{tr}B_z/M$이 정확하다. 이는 population NEI의
+  unbiasedness statement가 아니다. 그 spectrum의 participation ratio는
+  covariance effective rank이고, class occupancy의 $K_{\rm eff}$와 다른 양이다.
+  기존 global-scale run-distance matrix $\Delta^{(\rm raw)}$는 raw-cloud spectrum만
+  복원하므로 standardized artifact $\Delta^{(z)}$를 다시 저장해야 한다. 어떤
+  $\bar d_a=0$이면 NEI는 undefined이며 해당 pair를 post hoc으로 버리지 않는다.</p>
   <div class="grid2">
     <figure class="panel"><figcaption id="cap-Ideff"></figcaption><div id="ch-Ideff"></div></figure>
     <figure class="panel"><figcaption id="cap-cens"></figcaption><div id="ch-cens"></div></figure>
   </div>
-  <div class="panel wide">
-    <p class="cap">1차원 stress landscape 에서 같은 분해를 본다. 초기조건을 균등하게 뿌리고 $T=0$ 하강을
-    돌린 terminal 분포이며, 분산과 participation ratio 를 함께 읽는다.</p>
-    <div class="tagbar" id="lsButtons"></div>
-    <div class="lsRow">
-      <canvas id="ls" width="720" height="300"></canvas>
-      <div class="readout" id="lsOut"></div>
+  <figure class="panel wide landscape-figure">
+    <figcaption>
+      <span class="t">Protocol-conditioned terminal geometry: 세 canonical candidate</span>
+      <span class="s">stress landscape의 schematic projection이며 histogram이나 finite-$M$ 추정치가 아니다.</span>
+    </figcaption>
+    <div class="landscape-svg-wrap">
+      <svg class="regime-figure" viewBox="0 0 1200 455" role="img"
+           aria-labelledby="landscape-title landscape-desc">
+        <title id="landscape-title">Single-terminal, separated-terminal, continuous-degeneracy candidate의 vector schematic</title>
+        <desc id="landscape-desc">여러 initialization이 하나의 isolated terminal group, 여러 separated terminal groups, 또는 하나의 flat low-stress family로 향하는 세 가지 stress landscape 후보를 비교한다.</desc>
+        <defs>
+          <marker id="arr-gray" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#9aa0a6"/>
+          </marker>
+          <marker id="arr-orange" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#ad5e00"/>
+          </marker>
+        </defs>
+
+        <g transform="translate(0,0)">
+          <text class="panel-title title-green" x="200" y="30" text-anchor="middle">Single-terminal candidate</text>
+          <text class="panel-subtitle" x="200" y="54" text-anchor="middle">한 recurrent terminal group</text>
+          <g class="initials">
+            <circle cx="70" cy="92" r="5"/><circle cx="135" cy="92" r="5"/>
+            <circle cx="200" cy="92" r="5"/><circle cx="265" cy="92" r="5"/>
+            <circle cx="330" cy="92" r="5"/>
+          </g>
+          <g class="descent">
+            <path d="M70 100 L194 261"/><path d="M135 100 L197 261"/>
+            <path d="M200 100 L200 261"/><path d="M265 100 L203 261"/>
+            <path d="M330 100 L206 261"/>
+          </g>
+          <path class="landscape" d="M40 140 C95 178 125 270 200 270 C275 270 305 178 360 140"/>
+          <circle class="terminal terminal-green" cx="200" cy="270" r="10"/>
+          <text class="mathline" x="200" y="315" text-anchor="middle">K_obs = 1 · Î_M ≈ 0</text>
+          <text class="mathline" x="200" y="341" text-anchor="middle">λ̃_soft⁽¹⁾ &gt; τ_λ  (gate 후)</text>
+          <text class="conclusion title-green" x="200" y="377" text-anchor="middle">reproducible terminal geometry</text>
+          <text class="qualifier" x="200" y="400" text-anchor="middle">under the declared protocol</text>
+        </g>
+
+        <g transform="translate(400,0)">
+          <text class="panel-title title-blue" x="200" y="30" text-anchor="middle">Separated-terminal candidate</text>
+          <text class="panel-subtitle" x="200" y="54" text-anchor="middle">recurrent ε_D-separated groups</text>
+          <g class="initials">
+            <circle cx="70" cy="92" r="5"/><circle cx="135" cy="92" r="5"/>
+            <circle cx="200" cy="92" r="5"/><circle cx="265" cy="92" r="5"/>
+            <circle cx="330" cy="92" r="5"/>
+          </g>
+          <g class="descent">
+            <path d="M70 100 L104 241"/><path d="M135 100 L108 241"/>
+            <path d="M200 100 L215 261"/><path d="M265 100 L322 241"/>
+            <path d="M330 100 L326 241"/>
+          </g>
+          <path class="landscape" d="M40 140 C55 208 70 250 105 250 C130 250 140 165 165 165 C190 165 190 270 215 270 C240 270 240 165 265 165 C290 165 305 250 330 250 C350 250 355 188 360 140"/>
+          <circle class="terminal terminal-blue" cx="105" cy="250" r="9"/>
+          <circle class="terminal terminal-blue" cx="215" cy="270" r="9"/>
+          <circle class="terminal terminal-blue" cx="330" cy="250" r="9"/>
+          <text class="mathline" x="200" y="315" text-anchor="middle">1 &lt; K_obs &lt; M · Î_M &gt; 0</text>
+          <text class="mathline" x="200" y="341" text-anchor="middle">class-wise λ̃_soft⁽γ⁾ &gt; τ_λ</text>
+          <text class="conclusion title-blue" x="200" y="377" text-anchor="middle">terminal multiplicity</text>
+          <text class="qualifier" x="200" y="400" text-anchor="middle">energy equivalence는 별도 test</text>
+        </g>
+
+        <g transform="translate(800,0)">
+          <text class="panel-title title-orange" x="200" y="30" text-anchor="middle">Continuous-degeneracy candidate</text>
+          <text class="panel-subtitle" x="200" y="54" text-anchor="middle">하나의 connected low-stress family</text>
+          <g class="initials">
+            <circle cx="70" cy="92" r="5"/><circle cx="135" cy="92" r="5"/>
+            <circle cx="200" cy="92" r="5"/><circle cx="265" cy="92" r="5"/>
+            <circle cx="330" cy="92" r="5"/>
+          </g>
+          <g class="descent">
+            <path d="M70 100 L160 261"/><path d="M135 100 L180 261"/>
+            <path d="M200 100 L200 261"/><path d="M265 100 L220 261"/>
+            <path d="M330 100 L240 261"/>
+          </g>
+          <path class="landscape" d="M40 140 C90 218 120 268 155 270 L245 270 C280 268 310 218 360 140"/>
+          <circle class="terminal terminal-orange" cx="160" cy="270" r="8"/>
+          <circle class="terminal terminal-orange" cx="180" cy="270" r="8"/>
+          <circle class="terminal terminal-orange" cx="200" cy="270" r="8"/>
+          <circle class="terminal terminal-orange" cx="220" cy="270" r="8"/>
+          <circle class="terminal terminal-orange" cx="240" cy="270" r="8"/>
+          <path class="flat-span" d="M165 294 L235 294"/>
+          <text class="mathline" x="200" y="325" text-anchor="middle">λ̃_soft⁽¹⁾ ≈ 0  (gate 후)</text>
+          <text class="mathline" x="200" y="351" text-anchor="middle">Î_M &gt; 0 가능 · K_obs는 resolution-dependent</text>
+          <text class="conclusion title-orange" x="200" y="387" text-anchor="middle">continuation candidate only</text>
+          <text class="qualifier" x="200" y="410" text-anchor="middle">finite low-stress path 인증 필요</text>
+        </g>
+      </svg>
     </div>
-  </div>
+    <p class="landscape-caption">각 곡선은 quotient/shape space의 한 schematic coordinate에 투영한
+      stress landscape이지 실제 high-dimensional landscape의 reconstruction이 아니다.
+      회색 점은 initialization을, colored point는 admissibility gate를 통과한 terminal geometry를
+      나타내며 point 수는 sample size $M$을 뜻하지 않는다.</p>
+    <ul class="landscape-guardrails">
+      <li><b>Single-terminal:</b> declared protocol에서의 reproducibility이며 global uniqueness의 증명이 아니다.</li>
+      <li><b>Separated-terminal:</b> recurrent terminal multiplicity이며 equal-energy degeneracy 또는 metastability의 증명이 아니다.</li>
+      <li><b>Near-zero curvature:</b> soft direction의 diagnostic이며 continuous minimizer manifold는 continuation 또는 Morse--Bott evidence가 필요하다.</li>
+    </ul>
+  </figure>
 </section>
 
 <section id="claims">
-  <h2>주장 현황</h2>
-  <p class="lede">무엇이 정리이고, 무엇이 이번 측정이며, 무엇이 미해결이고, 무엇을 철회했는지.</p>
+  <h2>Claim ledger</h2>
+  <p class="lede">definition, theorem, diagnostic, exploratory measurement, open certificate와
+  withdrawn claim을 구분한다.</p>
   <figure class="panel wide"><figcaption id="cap-status"></figcaption><div id="ch-status"></div></figure>
   <div class="tagbar" id="claimFilter"></div>
   <div class="tablewrap"><table id="claimsTable"></table></div>
 </section>
 
 <section id="refs">
-  <h2>참고문헌</h2>
-  <p class="lede">각 항목의 <i>왜</i>는 이 지도에서 그 문헌이 무엇을 지탱하는지이다.
+  <h2>References</h2>
+  <p class="lede">각 항목의 <i>why</i>는 이 지도에서 그 문헌이 무엇을 지탱하는지이다.
   서지사항을 직접 확인하지 못한 항목은 표시했다.</p>
   <div class="tagbar" id="refFilter"></div>
   <div class="tablewrap"><table id="refsTable"></table></div>

@@ -1,115 +1,193 @@
-# NEI 는 energy landscape 의 real degeneracy 를 잰다
+# NEI는 energy landscape의 realized geometric degeneracy를 재는가?
 
-`2026-09-04`
+2026-09-04 · corrected claim
 
-## 물음
+## 연구미팅용 한 문장
 
-`classical MDS 는 결정론적이라 반복해도 NEI 가 구조적으로 0 이다. 그러면 지금
-NEI 가 보는 신호는 SMACOF 가 만들어낸 것 아닌가?`
+> **NEI is a geometry-weighted observable of realized terminal degeneracy under a
+> fully declared embedding protocol.**
 
-이 물음은 둘로 갈라야 한다.
+여기서 realized terminal degeneracy는 수렴·충돌·곡률로 정한 numerical admissibility에
+조건부인 terminal law가 rigid-motion quotient의 distance space에서, 선언한 metric과
+resolution 아래 하나의 geometry로 붕괴하지 않는다는 **operational definition**이다.
+서로 다른 terminal의 stress가 같다는 energetic
+degeneracy, global-minimum nonuniqueness, optimizer-independent landscape invariant와는
+다르다. 정의와 인증 조건은 [06](06-real-degeneracy-definition.md)에 정리했다.
 
-1. **cMDS 에 초기조건이 있는가** — 없다. 이중중심화 후 eigendecomposition 하는 닫힌
-   형태이므로 distance matrix 가 유일하고 $\mathcal{I}_{\text{cMDS}}\equiv 0$ 은 관측이
-   아니라 항등식이다. 수치로도 $2.6\times10^{-33}$ 이 나온다.
+## Why this distinction is necessary
 
-2. **SMACOF 의 terminal 산포가 landscape 때문인가, 수렴 실패 때문인가** — 이것이
-   진짜 물음이고, 아래가 그 답이다.
+degeneracy에는 적어도 다음이 섞일 수 있다.
 
-cMDS 와 SMACOF 의 차이는 `결정론적 대 확률적` 이 아니다. **다른 objective 를
-최소화한다.**
+1. **gauge redundancy** — translation, rotation, reflection. 물리적 차이가 아니므로
+   $\mathrm E(p)$ quotient에서 제거한다.
+2. **symmetry-related multiplicity** — $\operatorname{Aut}(\Delta)$가 만드는 finite
+   orbit. labeled geometry를 셀지 topology quotient를 셀지 정책이 필요하다.
+3. **energetic degeneracy** — 분리된 states의 stress가 오차 안에서 같다.
+4. **local-minimum multiplicity** — 서로 다른 stress를 가질 수 있는 여러 local minima.
+   Metastability는 barrier 또는 residence-time evidence를 추가로 요구한다.
+5. **continuous degeneracy** — 실제 minimum manifold가 존재한다.
+6. **spectral degeneracy/softness** — Hessian에 추가 영모드가 있다. 5의 필요조건일 수
+   있지만 충분조건은 아니다.
 
-| | objective | 성질 |
-|---|---|---|
-| cMDS | strain $\lVert G-XX^{\mathsf T}\rVert_F^2$ | $XX^{\mathsf T}$ 에 대해 볼록, Eckart–Young 으로 global optimum 유일 |
-| SMACOF | stress $\sum w(\delta-d)^2$ | 비볼록, 다중 local minimum 이 실재 |
+NEI는 3–6을 한 번에 판정하지 않는다. NEI가 직접 재는 것은 protocol이 실제로
+sampling한 terminal pair-distance geometry의 상대분산이다.
 
-stress 의 비볼록성은 알려진 수학적 사실이지 구현의 결함이 아니다.
+## 정확한 estimand
 
-## 문제: SMACOF terminal 은 stationary point 가 아니다
+완전한 protocol을
 
-sklearn 의 stopping rule 은 **상대 stress 개선량**이지 optimality gap 이 아니다.
-실측하면 무차원 stationarity 지표 $\eta_g=\lVert g\rVert/\sqrt{S_\Delta}$ 가
+$$
+\Pi=(G\mapsto\Delta,p,W,\rho_0,\rho_{\rm alg},\mathcal A,
+\tau_g,\tau_H,\tau_c,T_{\max})
+$$
 
-    SMACOF (max_iter=300)    2.19e-03
-    SMACOF (max_iter=10000)  2.19e-03
-    L-BFGS                   1.96e-08
+라 하고, 초기조건에서 terminal로 가는 algorithmic map을 $T_\Pi$, pair-distance
+representation을 $q(X)=D(X)$라 하면
 
-로, SMACOF 는 반복을 33배 늘려도 개선되지 않는다. 이 상태의 terminal ensemble 로는
-`서로 다른 minimizer 인가, 같은 minimizer 근처에서 멈춘 것인가` 를 구분할 수 없다.
+$$
+\mu_\Pi=(q\circ T_\Pi)_\#(\rho_0\otimes\rho_{\rm alg})
+$$
 
-## 방법: polish and certify
+가 population 분석 대상이다. $M$개 independent runs가 만드는
+$\widehat\mu_{\Pi,M}=M^{-1}\sum_m\delta_{q(T_\Pi^{(m)})}$은 이 law의 empirical
+measure이며, $M$은 $\Pi$의 인자가 아니다. numerical event를 $A_{\rm num}$이라 하면
 
-각 SMACOF terminal 을 시작점으로 L-BFGS 를 돌려 진짜 stationary point 까지
-밀어넣는다. 그러면 두 가지가 동시에 풀린다.
+$$
+\mu_\Pi^{\rm adm}=\mathcal L(q(T_\Pi)\mid A_{\rm num}),\qquad
+\alpha_\Pi=\Pr_\Pi(A_{\rm num})
+$$
 
-1. projected Hessian 으로 그 점이 local minimizer 인지 인증할 수 있다.
-2. 서로 다른 minimizer 사이 거리는 $O(1)$, 같은 minimizer 안의 수치산포는 $O(10^{-9})$
-   가 되어 **cutoff 를 보정할 필요가 없어진다.**
+를 함께 보고한다. 따라서 “realized”는 **early stopping 근처의 수치산포를 numerical
+gate로 분리한 protocol-conditioned spread**라는 뜻이다. intrinsic 또는
+thermodynamic이라는 뜻이 아니다.
 
-## 결과 (bn-mouse-visual-cortex-2, N=193, M=24)
+## NEI와 degeneracy의 정확한 관계
 
-```
-eta_g   SMACOF 2.19e-03  ->  polish 2.00e-08      (10^5 배)
-stress 가 polish 로 더 내려간 비율(중앙)  1.78e-05
-I       SMACOF 1.0999e-01 ->  polish 7.6646e-02   (비 0.697)
+$a=(i,j)$, $a=1,\ldots,N_+$에 대해
 
-projected Hessian 인증 (8개 표본)
-  음의 eigenvalue        0 / 8
-  lam_min/kappa+ 중앙    +1.63e-03
+$$
+\mathcal I(\mu_\Pi^{\rm adm})=\frac1{N_+}\sum_a
+\frac{\operatorname{Var}_{\mu_\Pi^{\rm adm}}(d_a)}
+{\mathbb E_{\mu_\Pi^{\rm adm}}[d_a]^2}.
+$$
 
-polish 후 run 사이 상대거리   최소 7.95e-02  중앙 2.91e-01  최대 3.33e-01
-  cutoff 1e-8 -> K = 24      cutoff 1e-3 -> K = 24
-  cutoff 1e-6 -> K = 24      cutoff 1e-2 -> K = 24
-  cutoff 1e-4 -> K = 24
-```
+모든 pair mean이 positive라는 domain condition 아래 $\mathcal I>0$이면 적어도 한 pair
+distance가 conditional law에서 상수가 아니다. operationally는 dimensionless metric
 
-## 읽는 법
+$$
+\rho_D(d,d')=
+\left[\frac{\sum_{i<j}w_{ij}(d_{ij}-d'_{ij})^2}
+{S_{\Delta,W}}\right]^{1/2},\qquad
+S_{\Delta,W}=\sum_{i<j}w_{ij}\Delta_{ij}^2
+$$
 
-- **$\mathcal{I}$ 는 5 자릿수의 수렴 개선을 견디고 살아남는다.** 값이 30% 줄지만
-  크기는 그대로다. 수렴 실패가 만들어낸 신호였다면 무너졌어야 한다.
-- **polish 된 terminal 은 전부 진짜 local minimizer 이다.** saddle 이 하나도 없다.
-- **24개 run 이 서로 다른 24개 minimizer 로 간다.** 가장 가까운 두 terminal 도 7.9%
-  떨어져 있어 cutoff 를 6 자릿수 움직여도 $K$ 가 변하지 않는다.
+와 resolution $\varepsilon_D$를 먼저 선언하고
+$\operatorname{diam}_{\rho_D}\operatorname{supp}(\mu_\Pi^{\rm adm})>
+\varepsilon_D$인지를 묻는다. finite $M$은 recurrent $\varepsilon_D$-separated classes를
+관측할 수 있을 뿐 population support를 certify하지 않는다. 어떤 empirical
+$\bar d_a=0$이면 NEI는 undefined이며 해당 pair를 post hoc으로 버리거나 0을 대입하지
+않는다.
 
-**따라서 NEI 는 stress landscape 의 real degeneracy 를 잰다.** 인증된 local
-minimizer 위에서 재도 같은 크기가 남고, 그 minimizer 들은 서로 $O(1)$ 만큼 떨어진
-별개의 점이다.
+하지만 역해석에는 한계가 있다.
 
-## 네 network 에서 같은 결론
+- $\mathcal I$는 total state 수 $K$를 세지 않는다.
+- 큰 $\mathcal I$는 두 개의 멀리 떨어진 states만으로도 가능하다.
+- 많은 states가 서로 가까우면 $\mathcal I$는 작을 수 있다.
+- 서로 다른 states의 energy가 같은지는 $\mathcal I$에서 알 수 없다.
+- discrete cloud와 continuous curve가 같은 covariance trace를 가질 수 있다.
 
-$\mathcal{I}$ 가 optimizer 에 거의 의존하지 않는다. 진짜 stationary point 에
-도달하는 L-BFGS($\eta_g\sim10^{-8}$)도 SMACOF 와 같은 크기를 준다.
+따라서 degeneracy의 완성된 ledger는 최소한
 
-| network | N | SMACOF 300 | SMACOF 10k | L-BFGS |
-|---|---|---|---|---|
-| bn-mouse-visual-cortex-2 | 193 | 0.1100 | 0.1104 | 0.0925 |
-| ca-netscience | 379 | 0.0554 | 0.0461 | 0.0539 |
-| rt-twitter-copen | 761 | 0.0723 | 0.0598 | 0.0634 |
-| power-662-bus | 662 | 0.0465 | 0.0441 | 0.0456 |
+$$
+\{\mathcal I,\ d_{\rm eff},\ K_{\rm eff},\ \Delta_E,\
+n_-(H_\perp),n_0(H_\perp),\ \text{recurrence},\ \text{continuation}\}
+$$
 
-$\eta_g$ 중앙값은 같은 실행에서 SMACOF 300 이 $2.2\times10^{-3}$–$6.3\times10^{-2}$,
-L-BFGS 가 $3.8\times10^{-8}$–$7.2\times10^{-8}$ 이다. 수렴 품질이 6 자릿수 다른데
-$\mathcal{I}$ 는 15% 안에서 같다.
+을 함께 사용한다.
 
-## 부수적으로 무너지는 것
+## Legacy polish 결과가 말해 준 것
 
-같은 실험이 다른 것을 하나 무너뜨린다. 같은 $X^{(0)}$ 에서 SMACOF 와 L-BFGS 는
-**서로 다른 terminal 로 간다** (distance matrix 상대차 약 9–10%, 24개 run 중 1e-3
-이내로 일치한 것 0개). 즉 $X^{(0)}\mapsto[X^\star]$ 사상은 optimizer 에 의존하므로,
-**basin occupancy $P_\gamma$ 는 landscape 만의 성질이 아니다.** 원고의 basin
-occupancy 형식화는 이 사실과 양립하지 않는다.
+기존 실행에서는 SMACOF terminal을 L-BFGS로 polish한 뒤
+$\widehat{\mathcal I}_M:0.1100\to0.07665$로 감소했고, 24개 terminal distance
+matrices의 최소 상대거리가 $7.95\times10^{-2}$였다. 즉, 그 stated polishing
+schedule은 observed dispersion을 제거하지 못했다.
 
-## 남은 일
+다만 감사에서 두 구현 문제가 발견되었다.
 
-- polish 를 전 표본에 적용해야 한다. 위는 검사한 network 에 대한 진술이다.
-- $K=M$ 이 나온 것은 `적어도 24개` 라는 뜻이다. $M$ 을 늘리면 $K$ 도 늘어날 수 있다.
-  포화하는지 보아야 한다.
-- polish 후의 $\mathcal{I}$ 를 논문의 주 측정량으로 삼을지 결정해야 한다. 그렇게 하면
-  `local minimizer 위에서 측정했다` 고 쓸 수 있다.
+1. 목적함수 $\sum_{i<j}(d_{ij}-\Delta_{ij})^2$와 analytic gradient/Hessian 사이에
+   factor 2 불일치가 있었다.
+2. $PH P$의 정렬 eigenvalues에서 앞의 gauge-mode 수를 잘라내어 true negative
+   eigenvalues도 버릴 수 있었다.
 
-## 재현
+두 코드는 수정했지만 결과를 아직 재실행하지 않았다. 따라서 과거의 “negative
+eigenvalue 0/8”, “24개 모두 진짜 local minimizer”는 인증으로 사용할 수 없다.
+현재 허용되는 서술은 다음이다.
 
-```bash
-python3 polish_certify.py nets/bn-mouse-visual-cortex-2.edges 24
-```
+> Polishing left a substantial dispersion among 24 well-separated sampled terminal
+> geometries. The corrected stationarity and quotient-Hessian tests must be rerun
+> before these states are classified as local minima.
+
+## Realized geometric degeneracy를 지지하는 최소 조건
+
+### A. Realized geometric degeneracy
+
+- 모든 분석 run의 optimizer success, $\eta_g\le\tau_g$, no-collision을 기록하고
+  acceptance rate $\alpha_\Pi$를 보고
+- 실제 gauge tangent의 직교여공간에서 $n_-(H_\perp)=0$
+- independent batches에서 $\varepsilon_D$-separated classes가 재현
+- between-terminal separation이 numerical within-terminal scale보다 큼
+- $\widehat{\mathcal I}$의 bootstrap CI가 numerical floor와 분리
+
+이 조건은 protocol-conditioned terminal multiplicity를 지지한다. population support에
+대한 주장은 $M$--$\varepsilon_D$ sensitivity와 uncertainty를 추가로 요구한다.
+
+### B. Multiple strict local minima
+
+A에 더해 각 representative에서 $H_\perp\succ0$를 확인한다. 해상되지 않은 zero
+mode가 있으면 higher-order candidate로 남긴다.
+
+### C. Energetic degeneracy
+
+각 state의 normalized stress를
+
+$$
+e_\gamma=\mathcal F(X_\gamma^\star)/S_{\Delta,W},\qquad
+\Delta_E=\max_\gamma e_\gamma-\min_\gamma e_\gamma
+$$
+
+를 저장한다. pairwise energy-difference confidence interval이
+$[-\tau_E,\tau_E]$ 안에 들어가는 equivalence test를 통과한 경우에만
+$\tau_E$-near-degenerate minima라고 부른다. 단순한 non-rejection은 충분하지 않다.
+
+### D. Continuous degeneracy
+
+$\ker H_\perp\ne0$만으로는 부족하다. soft subspace를 따라 finite displacement를
+continuation하며 low stress, low gradient, no collision을 동시에 보여야 한다.
+
+## $K=M$의 해석
+
+현재 $K_{\rm obs}=M=24$는 “적어도 24개의 separated sampled geometries”만 뜻한다.
+모든 state가 singleton이므로 occupancy $P_\gamma$, total state count와 coverage는
+식별되지 않는다. 따라서 $M=100$은 consistency ensemble로 의도된 값이라는 점은
+타당하지만, degeneracy의 수를 추정하려면 $M$-rarefaction과 independent-batch
+recurrence가 별도로 필요하다.
+
+## 최종 권장 용어
+
+| 증거 | 연구미팅에서 쓸 말 |
+|---|---|
+| polish 뒤 spread가 남음 | persistent terminal-geometry dispersion |
+| corrected gates를 통과한 separated observations | admissible terminal-distance dispersion |
+| independent batches에서 재현되는 classes | protocol-conditioned terminal multiplicity |
+| class-wise minimum certificate | multiple local minima |
+| stress-difference interval이 margin 안에 포함 | $\tau_E$-near-degenerate minima |
+| barrier까지 확인 | metastable basins |
+| continuation으로 connected family 확인 | continuous geometric degeneracy |
+
+따라서 headline은 operational definition과 함께 사용할 수 있지만, 첫 등장 직후 반드시
+다음 제한문을 붙인다.
+
+> Here “realized geometric degeneracy” denotes a protocol-conditioned terminal law
+> whose support diameter exceeds a declared pair-distance resolution. Finite samples
+> provide recurrent separated classes rather than a proof of population support, and
+> the term does not imply energy equivalence or optimizer-independent nonuniqueness.

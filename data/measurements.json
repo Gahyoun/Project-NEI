@@ -2,7 +2,7 @@
  "_note": "막대그림이 읽는 수치. 전부 이번 회차에 직접 계산한 값이다.",
  "Dp_models": {
   "title": "Representability deficiency 𝒟ₚ — model network",
-  "sub": "embedding 없이 eigendecomposition 한 번으로 얻는다. graph metric 에만 의존하며, $0$ 이면 graph metric 이 $\\mathbb{R}^p$ 에서 정확히 실현된다.",
+  "sub": "고정된 graph-to-dissimilarity map과 p에서 eigendecomposition 한 번으로 얻는다. $0$이면 Δ가 $\\mathbb{R}^p$에서 정확히 실현된다.",
   "series": [
    "𝒟₁",
    "𝒟₂",
@@ -16,7 +16,7 @@
      0.0,
      0.0
     ],
-    "note": "정리로 뒷받침되는 protocol control"
+    "note": "theorem-backed protocol control"
    },
    {
     "k": "R² 좌표 거리",
@@ -102,7 +102,7 @@
   ]
  },
  "polish": {
-  "title": "Polish 전후 — SMACOF terminal 을 L-BFGS 로 stationary point 까지 밀었을 때",
+    "title": "Legacy polish 전후 — corrected gate 재실행 전 diagnostic",
   "sub": "bn-mouse-visual-cortex-2 (N=193, M=24). ηg 는 로그 눈금이다.",
   "rows": [
    {
@@ -126,18 +126,18 @@
     "log": false
    }
   ],
-  "verdict": "$\\mathcal{I}$ 는 5 자릿수의 수렴 개선을 거친 뒤에도 같은 크기로 남는다."
+    "verdict": "Stated polishing schedule 뒤 $\\widehat{\\mathcal I}_M$은 0.1100에서 0.07665로 감소했으나 0으로 붕괴하지 않았다. 이 all-run ungated 결과만으로 multiplicity를 주장하지 않는다."
  },
  "certify": {
-  "title": "Polish 후 terminal 의 인증",
-  "sub": "projected Hessian 에서 E(p) zero mode 를 제거한 뒤의 판정.",
+  "title": "기존 Polish 후 terminal 검사 — 재검산 대기",
+  "sub": "원 Hessian projection이 negative mode를 제거할 수 있었으므로 corrected code 재실행 전에는 인증 결과가 아니다.",
   "rows": [
    {
-    "k": "local minimizer",
+    "k": "검사된 terminal (구 판정)",
     "v": 8
    },
    {
-    "k": "saddle 후보",
+    "k": "구 코드에서 검출된 saddle",
     "v": 0
    }
   ],
@@ -168,11 +168,11 @@
     "v": 24
    }
   ],
-  "verdict": "24개 run 이 서로 다른 24개 minimizer 로 간다. 가장 가까운 두 terminal 도 7.9% 떨어져 있어 cutoff 를 6 자릿수 움직여도 K 가 변하지 않는다."
+  "verdict": "24개 polished terminal geometries는 관측상 서로 분리되었다. 그러나 corrected stationarity/Hessian gate, independent-batch recurrence와 energy test 전에는 24개 minima 또는 degeneracy라고 부르지 않는다."
  },
  "I_vs_deff": {
-  "title": "$d_{\\mathrm{eff}}$ 는 $\\mathcal{I}$ 와 독립한 정보를 담는다",
-  "sub": "실제 network 77개. Spearman $\\rho=+0.757$ 로 단조 연관이 있고, 순위분산의 43% 는 $d_{\\mathrm{eff}}$ 고유의 정보이다. $\\mathcal{I}$ 5분위 안에서 $d_{\\mathrm{eff}}$ 가 3–77배에 걸쳐 분포한다.",
+  "title": "기존 raw-cloud $d_{\\mathrm{eff}}$ — 표준화 재계산 필요",
+  "sub": "실제 network 77개에서 NEI와 raw-distance covariance effective rank의 Spearman $\\rho=+0.757$. pair-standardized covariance가 아니므로 같은 operator라는 해석과 $1-\\rho^2$ 정보량 해석은 보류한다.",
   "rows": [
    {
     "k": "1분위",
@@ -207,8 +207,8 @@
   ]
  },
  "censoring": {
-  "title": "$d_{\\mathrm{eff}}$ 의 해상에는 더 큰 $M$ 이 필요하다",
-  "sub": "$d_{\\mathrm{eff}}$ 의 상한이 $M-1=99$ 이고 관측 최댓값이 98.98 이다.",
+  "title": "raw-cloud $d_{\\mathrm{eff}}$ 의 finite-M rank ceiling",
+  "sub": "$d_{\\mathrm{eff}}\\le M-1=99$이고 관측 최댓값이 98.98이다. $0.5(M-1)$는 heuristic flag이지 censoring의 수학적 경계가 아니다.",
   "rows": [
    {
     "k": "d_eff < 0.5(M−1)",

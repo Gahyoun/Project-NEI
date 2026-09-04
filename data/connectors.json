@@ -1,77 +1,51 @@
 {
- "_note": "연결요소. '이 개념이 저 개념과 왜 같은 대상인가'를 지탱하는 수학적 장치. NEI 지도의 간선은 전부 이 다섯 중 하나를 지난다.",
- "double_centering": {
-  "label": "double centering  $-\\tfrac12 C\\Delta^{(2)}C$",
-  "connects": [
-   "graph metric",
-   "Gram 행렬",
-   "PCA / 관성텐서",
-   "negative type cone"
-  ],
-  "why": "거리는 병진에 불변이지만 좌표는 아니다. 중심화는 병진 게이지를 고정하는 사영이며, 그 결과 거리제곱 행렬이 내적 행렬로 바뀐다. 이 한 번의 변환이 이산기하(negative type)와 다변량통계(PCA)와 metricembedding 이론을 같은 대상 위에 올린다.",
-  "refs": [
-   "young1938",
-   "gower1966",
-   "schoenberg1935",
-   "dezalaurent1997"
-  ]
- },
- "hessian": {
-  "label": "Hessian  $H_\\perp$",
-  "connects": [
-   "탄성 동역학",
-   "Fisher 정보",
-   "rigidity matrix",
-   "sloppiness 스펙트럼"
-  ],
-  "why": "같은 행렬이 네 가지로 읽힌다. 물리에서는 harmonic approximation의 force constant 행렬이고, 통계에서는 관측 Fisher 정보이며, 조합기하에서는 잔차가 0일 때 $2R^{\\mathsf T}WR$ 로 rigidity matrix 에 환원되고, 역문제에서는 sloppy/stiff 방향을 가른다. 국소 식별가능성이 곧 이 행렬의 계수이다.",
-  "refs": [
-   "connelly1996",
-   "transtrum2011",
-   "wyart2005",
-   "ohern2003"
-  ]
- },
- "quotient": {
-  "label": "quotient space  $\\Omega=\\mathbb{R}^{N\\times p}/\\mathrm{E}(p)$",
-  "connects": [
-   "Kendall shape space",
-   "Goldstone 모드",
-   "게이지 고정",
-   "정렬 없는 비교"
-  ],
-  "why": "stress 는 rigid motion 에 불변이므로, 좌표공간의 Hessian 은 그 방향으로 정확히 영을 갖는다. 대칭군을 quotient 로 제거한 뒤에야 '유일한 minimizer' 라는 말이 성립한다. distance matrix 는 반사에도 불변이므로 quotient 는 $\\mathrm{E}(p)$ 이고, 그 덕에 terminal 을 정렬 없이 비교한다.",
-  "refs": [
-   "kendall1984",
-   "connelly1982"
-  ]
- },
- "trace_vs_spectrum": {
-  "label": "trace 와 spectrum",
-  "connects": [
-   "NEI",
-   "participation ratio $d_{\\mathrm{eff}}$",
-   "유효 차원",
-   "이산 대 연속 degeneracy"
-  ],
-  "why": "$\\mathcal{I}$ 는 terminal covariance operator 의 trace 이고, 같은 연산자의 eigenvalue spectrum 이 그 모양을 담는다. trace 는 degeneracy 의 크기를, participation ratio 는 degeneracy 가 차지하는 자유도의 수를 준다. 두 양을 함께 읽어야 다중안정형과 floppy 가 갈린다.",
-  "refs": [
-   "stillinger1995",
-   "transtrum2010"
-  ]
- },
- "quenched_annealed": {
-  "label": "quenched / annealed 분리",
-  "connects": [
-   "그래프 = quenched disorder",
-   "초기조건 = sampling",
-   "inherent structure",
-   "occupancy measure"
-  ],
-  "why": "그래프와 그로부터 정한 dissimilarity 는 동결된 constraint 이고, 바뀌는 것은 초기좌표뿐이다. $T=0$ 하강이므로 terminal 은 inherent structure 에 해당하고, 산포는 전적으로 초기분포에서 온다. 어느 terminal 에 도달하는지는 하강 동역학이 정하므로, occupancy measure 는 landscape 와 optimizer 의 쌍에 대한 양이다.",
-  "refs": [
-   "stillinger1982",
-   "stillinger1995"
-  ]
- }
+  "_note": "개념 간 연결을 지탱하는 수학적 장치. 등호, 함의, 비유를 구분한다.",
+  "double_centering": {
+    "label": "EDM double centering  $B=-\\tfrac12C\\Delta^{\\circ2}C$",
+    "connects": ["squared distances", "centered Gram matrix", "PSD와 rank", "classical MDS"],
+    "why": "중심화가 translation gauge를 제거하고 distance geometry를 spectral linear algebra로 옮긴다. exact Euclidean realizability는 B의 PSD와 rank로 판정한다. L1 negative type과 Euclidean distance를 혼동하지 않는다.",
+    "refs": ["young1938","schoenberg1935","gower1985"]
+  },
+  "objective": {
+    "label": "objective separation: strain ≠ stress",
+    "connects": ["cMDS spectral truncation", "raw stress", "SMACOF majorization", "lack of fit"],
+    "why": "strain과 stress는 서로 다른 목적함수이다. cMDS의 deterministic output과 stress landscape의 terminal multiplicity를 같은 최적화 문제처럼 해석하지 않는다.",
+    "refs": ["torgerson1952","kruskal1964","borg2005"]
+  },
+  "quotient": {
+    "label": "quotient and symmetry policy",
+    "connects": ["E(p) gauge", "distance representation", "Aut(Δ)", "labeled vs unlabeled geometry"],
+    "why": "Euclidean rigid motions는 반드시 몫하지만 graph automorphism까지 몫할지는 연구 질문이다. 이 정책이 달라지면 무엇을 degeneracy로 세는지도 달라진다.",
+    "refs": ["kendall1984","connelly1982"]
+  },
+  "pushforward": {
+    "label": "pushforward terminal measure  $\\mu_\\Pi=(q\\circ T_\\Pi)_\\#(\\rho_0\\otimes\\rho_{\\rm alg})$",
+    "connects": ["initialization law", "algorithmic randomness", "terminal distances", "occupancy"],
+    "why": "terminal law는 landscape의 equilibrium distribution이 아니라 initialization과 algorithmic randomness의 joint law를 optimizer map으로 pushforward한 것이다. T=0 quench는 analogy이며 annealed/Boltzmann ensemble과 동일하지 않다. M은 이 population law가 아니라 empirical measure의 resolution을 정한다.",
+    "refs": ["stillinger1982","stillinger1995"]
+  },
+  "hessian": {
+    "label": "quotient Hessian, inertia, and higher order",
+    "connects": ["rigidity matrix", "prestress", "soft modes", "Morse–Bott/continuation"],
+    "why": "실제 E(p)-orbit tangent의 직교여공간에서 Hessian inertia를 계산한다. 추가 zero mode는 infinitesimal softness일 뿐 연속 minimizer의 충분조건이 아니며, continuous degeneracy는 고차항 또는 continuation으로 확인한다. Fisher information 해석은 explicit likelihood 아래에서만 조건부이다.",
+    "refs": ["connelly1996","transtrum2011"]
+  },
+  "covariance": {
+    "label": "standardized terminal covariance",
+    "connects": ["NEI trace", "covariance spectrum", "effective rank", "raw-cloud spectrum"],
+    "why": "pairwise standardized feature z_ma=d_a^(m)/(bar d_a sqrt(N_+))를 쓰면 empirical identity I_hat_M=tr(B_z)/M이 정확하다. population NEI와 finite-M estimator를 구분하고, global Frobenius scale로 저장한 run distances가 복원하는 raw covariance와도 구분한다.",
+    "refs": ["gower1966"]
+  },
+  "degeneracy_ledger": {
+    "label": "degeneracy ledger: geometry · occupancy · energy",
+    "connects": ["I", "K_eff", "energy equivalence", "symmetry", "continuation"],
+    "why": "I는 geometry-weighted spread, K_eff는 observed occupancy의 effective number, energy-equivalence interval은 declared margin 안의 normalized-stress equivalence를 검사한다. 어느 하나도 나머지를 대신하지 않으며, total support size, gauge/symmetry와 continuous family를 별도 판정한다.",
+    "refs": ["stillinger1995"]
+  },
+  "robustness": {
+    "label": "finite-sample and protocol robustness",
+    "connects": ["independent batches", "M-saturation", "optimizer/ρ0", "graph null models"],
+    "why": "gate acceptance rate, observed terminal classes와 network-level ordering이 independent batch 및 protocol perturbation 뒤에도 남는지 검사한다. 개별 값의 동일성보다 finite-M uncertainty, recurrence와 rank stability를 보고한다.",
+    "refs": []
+  }
 }
