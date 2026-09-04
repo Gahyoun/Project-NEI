@@ -60,6 +60,8 @@ identifiability 는 표준 이론대로 두 갈래로 쪼개진다.
 
 자세한 것은 웹 지도의 `PRE 2026 절단선` 절과 [`data/scope.json`](data/scope.json) 에 있다.
 
+다음 작업자는 [HANDOVER.md](HANDOVER.md) 부터 읽는다.
+
 ## 구성
 
 ```
