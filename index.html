@@ -6,7 +6,7 @@
 <title>NEI 연구 아키텍처 — representability와 protocol-conditioned terminal geometry</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="stylesheet" href="vendor/katex/katex.min.css">
-<link rel="stylesheet" href="krds.css?v=7">
+<link rel="stylesheet" href="krds.css?v=9">
 </head>
 <body>
 
@@ -16,7 +16,7 @@
     <nav>
       <a href="#result">definition</a><a href="#map">map</a><a href="#scope">1차 일단락</a><a href="#conn">connectors</a>
       <a href="#repr">representability</a><a href="#scalar">decomposition</a>
-      <a href="#sweep">sweep</a><a href="#vision">vision</a><a href="#claims">claim ledger</a><a href="#refs">references</a>
+      <a href="#sweep">sweep</a><a href="#vision">vision</a><a href="#claims">claim ledger</a><a href="#agenda">agenda</a><a href="#refs">references</a>
     </nav>
   </div>
 </header>
@@ -393,7 +393,13 @@
   </ul>
 </section>
 
-<figure class="panel wide" id="calibFig">
+<figure class="panel wide" id="floorFig">
+    <figcaption><span class="t" id="cap-floor-t"></span><span class="s" id="cap-floor-s"></span></figcaption>
+    <div class="tablewrap"><table id="tb-floor"></table></div>
+    <p class="fine" id="floor-verdict"></p>
+  </figure>
+
+  <figure class="panel wide" id="calibFig">
     <figcaption><span class="t" id="cap-calib-t"></span><span class="s" id="cap-calib-s"></span></figcaption>
     <div id="ch-calib"></div>
     <p class="fine" id="calib-verdict"></p>
@@ -632,8 +638,16 @@
   <div class="tablewrap"><table id="claimsTable"></table></div>
 </section>
 
+
+<section id="agenda">
+  <h2>10. 연구 의제 — 무엇을 정의하고 무엇을 물을 것인가</h2>
+  <p class="lede" id="agFraming"></p>
+  <div id="agItems"></div>
+  <div class="callout" id="agClosing"></div>
+</section>
+
 <section id="refs">
-  <h2>10. References</h2>
+  <h2>11. References</h2>
   <h3>8.1 Citation rule</h3>
   <ul class="note-tree lede">
     <li><b><i>Why</i> field:</b> 해당 reference가 architecture에서 지지하는 정확한 proposition
@@ -650,9 +664,9 @@
 
 <script src="vendor/katex/katex.min.js"></script>
 <script src="vendor/katex/contrib/auto-render.min.js"></script>
-<script src="math-render.js?v=7"></script>
-<script src="data/offline-data.js?v=7"></script>
-<script src="graph.js?v=7"></script>
-<script src="app.js?v=7"></script>
+<script src="math-render.js?v=9"></script>
+<script src="data/offline-data.js?v=9"></script>
+<script src="graph.js?v=9"></script>
+<script src="app.js?v=9"></script>
 </body>
 </html>

@@ -290,6 +290,39 @@ function renderCalib(){
   document.getElementById("calib-verdict").innerHTML=tex(esc(c.verdict));
 }
 
+function renderFloor(){
+  const f=DB.meas.floor_ladder; if(!f||!document.getElementById("tb-floor")) return;
+  document.getElementById("cap-floor-t").innerHTML=tex(esc(f.title));
+  document.getElementById("cap-floor-s").innerHTML=tex(esc(f.sub));
+  const sci=v=>v.toExponential(4).replace("e-","e−").replace("e+","e");
+  document.getElementById("tb-floor").innerHTML=
+    `<thead><tr><th>graph</th>${f.rungs.map(r=>`<th>gtol ${tex(r)}</th>`).join("")}<th>판정</th></tr></thead><tbody>${
+      f.rows.map(r=>`<tr><td>${tex(esc(r.k))}</td>${
+        r.v.map(v=>`<td style="font-variant-numeric:tabular-nums">${sci(v)}</td>`).join("")}
+        <td><span class="badge ${r.verdict==="signal"?"b-measured":"b-open"}">${esc(r.verdict)}</span></td></tr>`).join("")}</tbody>`;
+  document.getElementById("floor-verdict").innerHTML=tex(esc(f.verdict));
+}
+
+function renderAgenda(){
+  const a=DB.agenda, q=i=>document.getElementById(i);
+  q("agFraming").innerHTML=tex(esc(a.framing));
+  q("agItems").innerHTML=a.items.map(it=>`
+    <div class="panel wide" style="margin-bottom:14px">
+      <h3>${esc(it.id)}. ${tex(esc(it.k))}</h3>
+      <p style="font-size:15px">${tex(esc(it.why))}</p>
+      ${it.senses?`<div class="tablewrap" style="margin:10px 0"><table><tbody>${
+        it.senses.map(s=>`<tr><td class="k">${esc(s.k)}</td><td>${tex(esc(s.v))}</td></tr>`).join("")
+        }</tbody></table></div><p style="font-size:15px"><b>우리가 재는 것</b> — ${tex(esc(it.ours))}</p>`:""}
+      ${it.analogy?`<div class="callout" style="margin:10px 0">${tex(esc(it.analogy))}</div>`:""}
+      <div class="sect">할 일</div>
+      <ul style="font-size:14px;margin:6px 0 10px;padding-left:20px">${
+        it.todo.map(x=>typeof x==="string"?`<li>${tex(esc(x))}</li>`
+          :`<li><b>${tex(esc(x.k))}</b> — ${tex(esc(x.v))}</li>`).join("")}</ul>
+      <p class="fine">상태 · ${tex(esc(it.state))}</p>
+    </div>`).join("");
+  q("agClosing").innerHTML=tex(esc(a.closing));
+}
+
 function renderSweep(){
   const s=DB.sweep, q=id=>document.getElementById(id);
   q("sweepHead").innerHTML=`<b>${esc(s.status)}</b> · ${esc(s.asof)}<br>${tex(esc(s.headline))}`;
@@ -359,7 +392,7 @@ function renderScope(){
 
 /* ── 부팅 ─────────────────────────────────────────────── */
 (async function(){
-  const files={nodes:"nodes",edges:"edges",connectors:"connectors",sweep:"sweep",vision:"vision",
+  const files={nodes:"nodes",edges:"edges",connectors:"connectors",sweep:"sweep",vision:"vision",agenda:"agenda",
                claims:"claims",refs:"refs",meas:"measurements",scope:"scope",
                sources:"source-map"};
   try{
@@ -383,7 +416,7 @@ function renderScope(){
     return;
   }
   renderCharts(); renderFilters(); renderMapLegend(); renderCoverageSummary(); renderScope();
-  renderCalib(); renderSweep(); renderVision();
+  renderCalib(); renderFloor(); renderSweep(); renderVision(); renderAgenda();
   renderConnectors(); renderClaims(); renderRefs();
   drawMap();
   document.getElementById("zIn").onclick  = ()=>GRAPH?.zoomIn();

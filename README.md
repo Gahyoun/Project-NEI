@@ -2,6 +2,42 @@
 
 웹 지도: https://gahyoun.github.io/Project-NEI/
 
+## 0. 이 문제가 놓인 자리
+
+이 연구는 **distance geometry**, **비볼록 역문제**, **무질서계 통계물리**가 겹치는
+자리에 있다. 세 분야가 모두 *degeneracy*를 쓰지만 지시대상이 다르다.
+
+| 분야 | degeneracy가 가리키는 것 |
+|---|---|
+| distance geometry | Gram의 rank 결손 · negative type 위배 — 즉 실현 불가능성 |
+| 비볼록 최적화 | 제약자격 실패, 해집합의 비유일성, degenerate stationary point |
+| 무질서계 통계물리 | 바닥상태 축퇴, Goldstone 모드, inherent structure 다중성 |
+
+우리가 재는 것은 이 셋 중 어느 것도 아니고 **넷째**다 — 고정된 확률적 protocol이
+*실제로 도달한* terminal geometry의 다중성이며, protocol을 명시하지 않으면 정의되지
+않는다. 최적화 분야 안에서만도 이 어휘 혼선을 정리하는 데 논문 한 편이 필요했다
+(Drusvyatskiy–Wolkowicz 2017). 갈라놓지 않으면 어느 분야 심사자든 자기 뜻으로 읽는다.
+
+**중심 대상은 표준 대상이 아니다.** admissibility에 조건부화한 terminal law
+$\mu_\Pi=(q\circ T_\Pi)_\#(\rho_0\otimes\rho_{\rm alg})$는 세 분야 어디에도 표준
+대상이 아니다. 위험이자 기회다 — 기존 정리를 그대로 빌릴 수 없고, 동시에 여기가 팔
+자리다. 이것이 단순한 새 표기에 그칠지 연구 대상이 될지는 네 물음이 답한다:
+well-posedness(protocol 공간의 위상을 정의해야 답할 수 있다), support recovery
+(Good–Turing 미관측 질량), algorithm-invariant core
+$\bigcap_\Pi\operatorname{supp}\mu_\Pi$, 그리고 $T=0$ quench 문헌과의 접속.
+
+**물리 질문은 열려 있고, 지금 결과가 그것이 사소하지 않음을 보인다.**
+링·격자는 $\mathcal D_2\approx0.4$로 심하게 좌절되어 있으면서 $\widehat{\mathcal I}_M$이
+numerical floor에 있고, ER·BA는 $\mathcal D_2\approx0.85$–$0.90$에서 floor보다 15자릿수
+이상 위에 있다. 허용오차를 12자릿수 낮춰도 질서 구조는 따라 내려가지만 ER·BA는 유효숫자
+5자리까지 불변이다. **좌절의 크기는 답이 아니다.** spin glass에서 좌절이 있다고 다 glass는
+아니듯 — 삼각격자 반강자성체는 좌절되어 있지만 무질서하지 않아 glass가 아니다 — 우리
+격자가 정확히 그 자리에 있다. 필요한 것은 좌절의 **배치**, 즉 무질서도이다.
+
+연구 의제는 [`data/agenda.json`](data/agenda.json)에 항목별로 있고, 웹 지도의
+`연구 의제` 절에서 볼 수 있다.
+
+
 ## 한 문장 기여
 
 이 연구는 한 network에 대해 서로 다른 두 질문을 분리한다.
