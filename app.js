@@ -247,12 +247,12 @@ function renderScope(){
   document.getElementById("scopeWhy").innerHTML=
     s.why_this_line.map(w=>`<li>${tex(w)}</li>`).join("");
   document.getElementById("scopeTodo").innerHTML=
-    `<thead><tr><th>항목</th><th>내용</th><th>지위</th></tr></thead><tbody>${
+    `<thead><tr><th>Analysis</th><th>Rationale</th><th>Priority</th></tr></thead><tbody>${
       s.todo.map(x=>`<tr><td>${tex(x.k)}</td>
         <td class="muted" style="font-size:13px">${tex(x.w)}</td>
         <td><span class="badge need-${esc(x.need)}">${esc(x.need)}</span></td></tr>`).join("")}</tbody>`;
   document.getElementById("scopeOut").innerHTML=
-    `<thead><tr><th>항목</th><th>내용</th><th>어디로</th></tr></thead><tbody>${
+    `<thead><tr><th>Topic</th><th>Rationale</th><th>Stage</th></tr></thead><tbody>${
       s.excluded.map(x=>`<tr><td>${tex(x.k)}</td>
         <td class="muted" style="font-size:13px">${tex(x.w)}</td>
         <td class="k">${esc(x.to)}</td></tr>`).join("")}</tbody>`;

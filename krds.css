@@ -231,6 +231,6 @@ code{background:var(--surface);border-radius:3px;padding:1px 6px;font-size:13px;
   color:var(--primary-deep);font-weight:700;font-size:13px;display:grid;place-items:center}
 .claimline .t{font-size:15px;margin:0 0 4px}
 .claimline .s{font-size:13px;color:var(--muted)}
-.need-필수{background:#fdecea;color:#a3260c}
-.need-권장{background:#fff4e0;color:#8a5a00}
-.need-선택{background:var(--surface);color:var(--border-strong)}
+.need-required{background:#fdecea;color:#a3260c}
+.need-recommended{background:#fff4e0;color:#8a5a00}
+.need-optional{background:var(--surface);color:var(--border-strong)}
