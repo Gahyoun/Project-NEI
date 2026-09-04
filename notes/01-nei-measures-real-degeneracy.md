@@ -1,4 +1,4 @@
-# NEI 는 SMACOF 의 인공물이 아니다
+# NEI 는 energy landscape 의 real degeneracy 를 잰다
 
 `2026-09-04`
 
@@ -72,7 +72,25 @@ polish 후 run 사이 상대거리   최소 7.95e-02  중앙 2.91e-01  최대 3.
 - **24개 run 이 서로 다른 24개 minimizer 로 간다.** 가장 가까운 두 terminal 도 7.9%
   떨어져 있어 cutoff 를 6 자릿수 움직여도 $K$ 가 변하지 않는다.
 
-따라서 NEI 가 재는 것은 stress landscape 의 실제 degeneracy 이다.
+**따라서 NEI 는 stress landscape 의 real degeneracy 를 잰다.** 인증된 local
+minimizer 위에서 재도 같은 크기가 남고, 그 minimizer 들은 서로 $O(1)$ 만큼 떨어진
+별개의 점이다.
+
+## 네 network 에서 같은 결론
+
+$\mathcal{I}$ 가 optimizer 에 거의 의존하지 않는다. 진짜 stationary point 에
+도달하는 L-BFGS($\eta_g\sim10^{-8}$)도 SMACOF 와 같은 크기를 준다.
+
+| network | N | SMACOF 300 | SMACOF 10k | L-BFGS |
+|---|---|---|---|---|
+| bn-mouse-visual-cortex-2 | 193 | 0.1100 | 0.1104 | 0.0925 |
+| ca-netscience | 379 | 0.0554 | 0.0461 | 0.0539 |
+| rt-twitter-copen | 761 | 0.0723 | 0.0598 | 0.0634 |
+| power-662-bus | 662 | 0.0465 | 0.0441 | 0.0456 |
+
+$\eta_g$ 중앙값은 같은 실행에서 SMACOF 300 이 $2.2\times10^{-3}$–$6.3\times10^{-2}$,
+L-BFGS 가 $3.8\times10^{-8}$–$7.2\times10^{-8}$ 이다. 수렴 품질이 6 자릿수 다른데
+$\mathcal{I}$ 는 15% 안에서 같다.
 
 ## 부수적으로 무너지는 것
 

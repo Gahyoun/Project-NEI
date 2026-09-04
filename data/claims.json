@@ -182,11 +182,21 @@
   {
    "id": "C22",
    "status": "measured",
-   "text": "따라서 NEI 가 재는 것은 SMACOF 의 인공물이 아니라 stress landscape 의 실제 degeneracy 이다. 인증된 minimizer 위에서 측정해도 $\\mathcal{I}$ 는 같은 크기로 남는다.",
-   "basis": "C19–C21 의 결론. 다만 이는 검사한 network 에 대한 진술이며 전 표본으로 확장하려면 polish 를 전면 적용해야 한다.",
+   "text": "NEI 는 stress landscape 의 real degeneracy 를 잰다. 인증된 local minimizer 위에서 측정해도 $\\mathcal{I}$ 가 같은 크기로 남으며, 그 minimizer 들은 서로 $O(1)$ 만큼 떨어진 별개의 점이다.",
+   "basis": "C19–C21 의 결론. network 4개에서 $\\mathcal{I}$ 가 optimizer 에 거의 의존하지 않는다 — 수렴 품질이 6 자릿수 다른데 값은 15% 안에서 같다. 전 표본으로 확장하려면 polish 를 전면 적용해야 한다.",
    "refs": [
     "stillinger1995",
     "transtrum2011"
+   ]
+  },
+  {
+   "id": "C23",
+   "status": "measured",
+   "text": "$\\mathcal{I}$ 는 optimizer 에 거의 의존하지 않는다. network 4개에서 SMACOF(300, 10k)와 L-BFGS 가 15% 안에서 같은 값을 준다.",
+   "basis": "bn-mouse-visual-cortex-2 0.1100/0.1104/0.0925, ca-netscience 0.0554/0.0461/0.0539, rt-twitter-copen 0.0723/0.0598/0.0634, power-662-bus 0.0465/0.0441/0.0456. 같은 실행에서 $\\eta_g$ 는 6 자릿수 차이가 난다.",
+   "refs": [
+    "scikitlearn",
+    "borg2005"
    ]
   }
  ]

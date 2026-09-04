@@ -21,11 +21,11 @@ identifiability 는 표준 이론대로 두 갈래로 쪼개진다.
 
 ## 지금까지 확정된 것
 
-- **NEI 는 SMACOF 의 인공물이 아니다.** SMACOF terminal 을 L-BFGS 로 polish 해
+- **NEI 는 energy landscape 의 real degeneracy 를 잰다.** SMACOF terminal 을 L-BFGS 로 polish 해
   $\eta_g$ 를 $2.19\times10^{-3}\to2.00\times10^{-8}$ 로 내려도 $\mathcal{I}$ 가
   $0.110\to0.0767$ 로 살아남는다. polish 된 terminal 은 전부 진짜 local minimizer
   이고(음의 eigenvalue 0/8), 24개 run 이 서로 다른 24개 minimizer 로 가며 $K$ 는
-  cutoff 를 6 자릿수 움직여도 변하지 않는다. → [notes/01](notes/01-nei-is-not-a-smacof-artifact.md)
+  cutoff 를 6 자릿수 움직여도 변하지 않는다. → [notes/01](notes/01-nei-measures-real-degeneracy.md)
 - **$\mathcal{D}_p$ 는 protocol 없이 계산되는 축이다.** 경로 그래프는 $0.000$ (정리로
   뒷받침되는 control), 격자는 $0.406$, RGG 는 $0.464$ — RGG 의 graph metric 은
   Euclidean 이 아니다. → [notes/02](notes/02-representability-deficiency.md)

@@ -32,7 +32,7 @@
 </section>
 
 <section id="result">
-  <h2>핵심 결과 — NEI 는 SMACOF 의 인공물이 아니다</h2>
+  <h2>핵심 결과 — NEI 는 energy landscape 의 real degeneracy 를 잰다</h2>
   <p class="lede">SMACOF terminal 은 stationary point 가 아니다. sklearn 의 stopping rule 은 상대 stress
   개선량이지 optimality gap 이 아니어서, 실측 $\eta_g$ 가 L-BFGS 보다 5 자릿수 크다. 그래서 각 terminal 을
   L-BFGS 로 <b>polish</b> 해 진짜 stationary point 까지 밀어넣고 다시 측정했다.</p>
@@ -44,7 +44,9 @@
     <b>결론.</b> polish 된 terminal 은 전부 진짜 local minimizer 이고(음의 eigenvalue 0개),
     24개 run 이 서로 다른 24개 minimizer 로 가며, $K$ 는 cutoff 를 6 자릿수 움직여도 변하지 않는다.
     인증된 minimizer 위에서 재도 $\mathcal{I}$ 는 같은 크기로 남는다.
-    <b>NEI 가 재는 것은 stress landscape 의 실제 degeneracy 이다.</b>
+    <b>NEI 는 stress landscape 의 real degeneracy 를 잰다.</b>
+    network 4개에서 $\mathcal{I}$ 는 optimizer 에 거의 의존하지 않는다 —
+    수렴 품질이 6 자릿수 다른데 값은 15% 안에서 같다.
   </div>
   <p class="fine">단, 이는 검사한 network 에 대한 진술이다. 전 표본으로 확장하려면 polish 를 전면 적용해야 한다.</p>
 </section>
