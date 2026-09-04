@@ -38,6 +38,48 @@ numerical floor에 있고, ER·BA는 $\mathcal D_2\approx0.85$–$0.90$에서 fl
 `연구 의제` 절에서 볼 수 있다.
 
 
+## 0.1 독창성과 필요성
+
+**이미 있는 것.** 그래프를 저차원에 묻는 일은 오래되었고(MDS, spring layout, spectral
+embedding, representation learning 계열) 평가 기준도 있다 — stress, distortion,
+downstream 성능. 그러나 이 기준들은 모두 *하나의 임베딩 결과*를 평가한다. "이 임베딩이
+얼마나 좋은가"를 묻지 "이 topology가 임베딩을 결정하는가"를 묻지 않는다.
+
+결정성 자체를 묻는 언어는 다른 분야에 있다 — rigidity theory의 global rigidity, 통계학의
+identifiability. 그런데 둘 다 이 문제에 그대로 맞지 않는다. global rigidity는 **주어진
+거리가 실현 가능할 때** 유일성을 묻는데 실제 network는 거의 항상 실현 불가능하다(40개
+표본의 $\mathcal D_2$ 최솟값이 $0.107$). identifiability는 보통 매끄러운 모수 모형의
+국소 문제로 다루는데 여기서는 전역 다중성이 본체다.
+
+**비어 있는 것.** *실현 불가능한 metric을 강제로 묻을 때, 그 강제가 geometry를 결정하는가*를
+묻는 언어가 없다. 인공적 질문이 아니다 — 실제 network의 hop metric은 거의 항상 실현
+불가능하고($\mathcal D_2$ 중앙 $0.481$), 그런데도 사람들은 매일 이것을 2차원에 그린다.
+
+**왜 지금인가.** 임베딩은 network 연구의 기본 도구가 되었다. 그림을 그리고, 그 위에서
+거리를 재고, 군집을 찾는다. 그런데 *같은 topology에서 다른 그림이 나올 수 있는가*를
+정량화하는 표준이 없다. 이것이 공허한 걱정이 아님은 측정이 말한다 — ER·BA에서
+$\widehat{\mathcal I}_M\approx10^{-1}$은 쌍거리의 상대 표준편차가 run마다
+$\sqrt{0.1}\approx32\%$라는 뜻이다.
+
+**새로운 것 (정확히 셋).**
+
+1. **두 축의 분리.** representability는 protocol 무관이고 닫힌 형태, identifiability는
+   protocol 조건부. 기존 문헌은 둘을 "임베딩 품질" 하나로 뭉뚱그린다. 분리하면 격자처럼
+   *실현은 안 되는데 결정은 되는* 경우가 모순이 아니라 관측이 된다.
+2. **protocol을 estimand 안에 넣은 것.** NEI를 graph의 invariant라 부르지 않고 $\mu_\Pi$의
+   functional로 정의했다. protocol 의존성을 결함으로 숨기는 대신 정의의 일부로 만든다.
+3. **floor와 signal을 가르는 설계.** 허용오차 사다리는 "이 spread가 실재하는가"를 묻는
+   재사용 가능한 장치다. 이 시험 없이 보고된 embedding 변동성 수치는 해석할 수 없다.
+
+**주장하지 않는 것.** 새로운 임베딩 알고리즘이 아니다. 더 나은 임베딩 품질 지표가 아니다.
+아직 mechanism이 아니다 — 무엇이 multiplicity를 만드는지는 열려 있다.
+
+**최소 기여.** 실제 network에서 hop metric의 Euclidean 실현 결손을 닫힌 형태로 재고, 같은
+network에서 protocol이 만든 terminal geometry의 산포가 수치 잔여물과 구분되는지를 재사용
+가능한 시험으로 가른 것. 이 둘은 서로 독립이며, 둘을 함께 보고해야 임베딩 위의 결론이
+언제 안전한지 말할 수 있다.
+
+
 ## 한 문장 기여
 
 이 연구는 한 network에 대해 서로 다른 두 질문을 분리한다.

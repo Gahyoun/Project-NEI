@@ -305,6 +305,21 @@ function renderFloor(){
 
 function renderAgenda(){
   const a=DB.agenda, q=i=>document.getElementById(i);
+  const o=a.originality;
+  if(o && q("origTitle")){
+    q("origTitle").innerHTML=tex(esc(o.title));
+    q("origBody").innerHTML=
+      o.existing.map(x=>`<p style="font-size:15px"><b>${tex(esc(x.k))}</b> — ${tex(esc(x.v))}</p>`).join("")
+      +`<div class="callout warn" style="margin:12px 0">${tex(esc(o.gap))}</div>`
+      +`<p style="font-size:15px"><b>왜 지금인가</b> — ${tex(esc(o.why_now))}</p>`
+      +`<div class="sect">새로운 것 (정확히)</div>`
+      +o.new.map((x,i)=>`<div class="claimline"><span class="n">${i+1}</span>
+          <span><span class="t"><b>${tex(esc(x.k))}</b></span>
+          <span class="s">${tex(esc(x.v))}</span></span></div>`).join("")
+      +`<div class="sect">주장하지 않는 것</div><ul style="font-size:14px;margin:6px 0 10px;padding-left:20px">${
+          o.not_claiming.map(x=>`<li>${tex(esc(x))}</li>`).join("")}</ul>`
+      +`<div class="callout ok">${tex(esc(o.minimum))}</div>`;
+  }
   q("agFraming").innerHTML=tex(esc(a.framing));
   q("agItems").innerHTML=a.items.map(it=>`
     <div class="panel wide" style="margin-bottom:14px">
