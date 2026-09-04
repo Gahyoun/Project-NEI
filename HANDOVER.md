@@ -1,6 +1,21 @@
 # 인수인계
 
-`2026-09-04` · 다음 작업자(Codex 등)를 위한 문서. 읽는 순서는 위에서 아래이다.
+`2026-09-04` · 다음 작업자(Codex 등)를 위한 문서.
+
+## 30초 요약
+
+- **주장** — 고정된 topology-to-geometry protocol 아래에서 네트워크의
+  *representability* ($\mathcal{D}_p$, protocol 무관 · 닫힌 형태)와
+  *identifiability* ($\mathcal{I}$, $d_{\text{eff}}$, protocol 조건부)를 잰다. 목표는 PRE.
+- **최근 확정** — SMACOF terminal 을 L-BFGS 로 polish 하면 $\eta_g$ 가 5 자릿수
+  내려가는데도 $\mathcal{I}$ 가 살아남고, terminal 이 전부 진짜 local minimizer 이며,
+  $K$ 가 cutoff 6 자릿수에 불변이다. **NEI 는 landscape 의 real degeneracy 를 잰다.**
+- **바로 할 일** — ① polish 를 전 표본에 적용 ② sweep 이 $X^{(m)}$, $S_\Delta$,
+  $s_\Delta$, $\min d_{ij}$ 를 저장하게 수정 ③ $M$ 확대 ④ $\mathcal{D}_p$ 전 표본.
+- **건드리기 전에** — [`notes/04`](notes/04-withdrawn-claims.md)(철회한 주장 7건)와
+  아래 §4 함정 9가지를 먼저 볼 것.
+- **하지 말 것** — `nei-verification` 저장소를 public 으로 바꾸지 말 것. 미출판 원고가
+  히스토리에 있다.
 
 ---
 
