@@ -160,7 +160,13 @@ figcaption .s{font-size:13px;color:var(--muted);display:block;margin-top:3px}
 .regime-figure .terminal-orange{fill:#ad5e00}
 .regime-figure .flat-span{fill:none;stroke:#ad5e00;stroke-width:1.7;marker-start:url(#arr-orange);
   marker-end:url(#arr-orange);vector-effect:non-scaling-stroke}
-.regime-figure .mathline{font-family:var(--serif);font-size:15px;fill:#24292f}
+.regime-figure .svg-math-object{overflow:visible}
+.regime-figure .svg-math-line,.regime-figure .svg-math-subtitle{width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;text-align:center;color:#24292f;
+  white-space:nowrap;line-height:1.1}
+.regime-figure .svg-math-line{font-size:15px}
+.regime-figure .svg-math-subtitle{font-size:13px;color:#737a82}
+.regime-figure .svg-math-line .katex,.regime-figure .svg-math-subtitle .katex{font-size:1em}
 .regime-figure .conclusion{font-size:16px;font-weight:800}
 .regime-figure .qualifier{font-size:12.5px;fill:#6d7882}
 .regime-figure .title-green{fill:#207037}.regime-figure .title-blue{fill:#263dcc}

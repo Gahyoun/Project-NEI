@@ -1,7 +1,19 @@
-/* Render the static document before the data-driven ES module starts.
-   This keeps equations visible when index.html is opened through file://,
-   where browsers may block module imports and JSON fetches. */
+/* Render explicit SVG formula hosts and ordinary inline math before the
+   data-driven app starts. Local KaTeX assets keep this path valid via file://. */
 (function renderStaticDocumentMath() {
+  if (window.katex?.render) {
+    document.querySelectorAll("[data-tex]").forEach(element => {
+      try {
+        window.katex.render(element.dataset.tex, element, {
+          throwOnError: true,
+          displayMode: element.dataset.display === "true"
+        });
+      } catch {
+        /* Keep the human-readable fallback already present in the element. */
+      }
+    });
+  }
+
   if (typeof window.renderMathInElement !== "function") return;
 
   window.renderMathInElement(document.body, {

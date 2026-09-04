@@ -6,7 +6,7 @@
 <title>NEI 연구 아키텍처 — representability와 protocol-conditioned terminal geometry</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="stylesheet" href="vendor/katex/katex.min.css">
-<link rel="stylesheet" href="krds.css">
+<link rel="stylesheet" href="krds.css?v=4">
 </head>
 <body>
 
@@ -209,73 +209,94 @@
         </defs>
 
         <g transform="translate(0,0)">
-          <text class="panel-title title-green" x="200" y="30" text-anchor="middle">Single-terminal candidate</text>
-          <text class="panel-subtitle" x="200" y="54" text-anchor="middle">한 recurrent terminal group</text>
-          <g class="initials">
+          <text class="panel-title title-green" x="200" y="30" text-anchor="middle" fill="#207037">Single-terminal candidate</text>
+          <text class="panel-subtitle" x="200" y="54" text-anchor="middle" fill="#737a82">한 recurrent terminal group</text>
+          <g class="initials" fill="#989da3">
             <circle cx="70" cy="92" r="5"/><circle cx="135" cy="92" r="5"/>
             <circle cx="200" cy="92" r="5"/><circle cx="265" cy="92" r="5"/>
             <circle cx="330" cy="92" r="5"/>
           </g>
-          <g class="descent">
+          <g class="descent" fill="none" stroke="#a7adb4" stroke-width="1.25" stroke-dasharray="4 5" marker-end="url(#arr-gray)">
             <path d="M70 100 L194 261"/><path d="M135 100 L197 261"/>
             <path d="M200 100 L200 261"/><path d="M265 100 L203 261"/>
             <path d="M330 100 L206 261"/>
           </g>
-          <path class="landscape" d="M40 140 C95 178 125 270 200 270 C275 270 305 178 360 140"/>
-          <circle class="terminal terminal-green" cx="200" cy="270" r="10"/>
-          <text class="mathline" x="200" y="315" text-anchor="middle">K_obs = 1 · NEI(M) ≈ 0</text>
-          <text class="mathline" x="200" y="341" text-anchor="middle">λ̃_soft⁽¹⁾ &gt; τ_λ  (gate 후)</text>
-          <text class="conclusion title-green" x="200" y="377" text-anchor="middle">reproducible terminal geometry</text>
-          <text class="qualifier" x="200" y="400" text-anchor="middle">under the declared protocol</text>
+          <path class="landscape" fill="none" stroke="#1e2124" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" d="M40 140 C95 178 125 270 200 270 C275 270 305 178 360 140"/>
+          <circle class="terminal terminal-green" cx="200" cy="270" r="10" fill="#207037" stroke="#fff" stroke-width="1.5"/>
+          <foreignObject class="svg-math-object" x="20" y="298" width="360" height="24">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="svg-math-line"
+                 data-tex="K_{\mathrm{obs}}=1,\quad \widehat{\mathcal I}_M\approx0">Kobs = 1, NEI ≈ 0</div>
+          </foreignObject>
+          <foreignObject class="svg-math-object" x="20" y="324" width="360" height="24">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="svg-math-line"
+                 data-tex="\widetilde{\lambda}_{\mathrm{soft}}^{(1)}>\tau_\lambda\quad\text{(after numerical gate)}">soft curvature above threshold after numerical gate</div>
+          </foreignObject>
+          <text class="conclusion title-green" x="200" y="377" text-anchor="middle" fill="#207037">reproducible terminal geometry</text>
+          <text class="qualifier" x="200" y="400" text-anchor="middle" fill="#6d7882">under the declared protocol</text>
         </g>
 
         <g transform="translate(400,0)">
-          <text class="panel-title title-blue" x="200" y="30" text-anchor="middle">Separated-terminal candidate</text>
-          <text class="panel-subtitle" x="200" y="54" text-anchor="middle">recurrent ε_D-separated groups</text>
-          <g class="initials">
+          <text class="panel-title title-blue" x="200" y="30" text-anchor="middle" fill="#263dcc">Separated-terminal candidate</text>
+          <foreignObject class="svg-math-object" x="20" y="39" width="360" height="24">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="svg-math-subtitle"
+                 data-tex="\text{recurrent }\varepsilon_D\text{-separated terminal classes}">recurrent epsilon-D-separated terminal classes</div>
+          </foreignObject>
+          <g class="initials" fill="#989da3">
             <circle cx="70" cy="92" r="5"/><circle cx="135" cy="92" r="5"/>
             <circle cx="200" cy="92" r="5"/><circle cx="265" cy="92" r="5"/>
             <circle cx="330" cy="92" r="5"/>
           </g>
-          <g class="descent">
+          <g class="descent" fill="none" stroke="#a7adb4" stroke-width="1.25" stroke-dasharray="4 5" marker-end="url(#arr-gray)">
             <path d="M70 100 L104 241"/><path d="M135 100 L108 241"/>
             <path d="M200 100 L215 261"/><path d="M265 100 L322 241"/>
             <path d="M330 100 L326 241"/>
           </g>
-          <path class="landscape" d="M40 140 C55 208 70 250 105 250 C130 250 140 165 165 165 C190 165 190 270 215 270 C240 270 240 165 265 165 C290 165 305 250 330 250 C350 250 355 188 360 140"/>
-          <circle class="terminal terminal-blue" cx="105" cy="250" r="9"/>
-          <circle class="terminal terminal-blue" cx="215" cy="270" r="9"/>
-          <circle class="terminal terminal-blue" cx="330" cy="250" r="9"/>
-          <text class="mathline" x="200" y="315" text-anchor="middle">1 &lt; K_obs &lt; M · NEI(M) &gt; 0</text>
-          <text class="mathline" x="200" y="341" text-anchor="middle">class-wise λ̃_soft⁽γ⁾ &gt; τ_λ</text>
-          <text class="conclusion title-blue" x="200" y="377" text-anchor="middle">terminal multiplicity</text>
-          <text class="qualifier" x="200" y="400" text-anchor="middle">energy equivalence는 별도 test</text>
+          <path class="landscape" fill="none" stroke="#1e2124" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" d="M40 140 C55 208 70 250 105 250 C130 250 140 165 165 165 C190 165 190 270 215 270 C240 270 240 165 265 165 C290 165 305 250 330 250 C350 250 355 188 360 140"/>
+          <circle class="terminal terminal-blue" cx="105" cy="250" r="9" fill="#263dcc" stroke="#fff" stroke-width="1.5"/>
+          <circle class="terminal terminal-blue" cx="215" cy="270" r="9" fill="#263dcc" stroke="#fff" stroke-width="1.5"/>
+          <circle class="terminal terminal-blue" cx="330" cy="250" r="9" fill="#263dcc" stroke="#fff" stroke-width="1.5"/>
+          <foreignObject class="svg-math-object" x="20" y="298" width="360" height="24">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="svg-math-line"
+                 data-tex="1&lt;K_{\mathrm{obs}}&lt;M,\quad \widehat{\mathcal I}_M&gt;0">1 &lt; Kobs &lt; M, NEI &gt; 0</div>
+          </foreignObject>
+          <foreignObject class="svg-math-object" x="20" y="324" width="360" height="24">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="svg-math-line"
+                 data-tex="\min_{1\le\gamma\le K_{\mathrm{obs}}}\widetilde{\lambda}_{\mathrm{soft}}^{(\gamma)}&gt;\tau_\lambda">minimum class-wise soft curvature above threshold</div>
+          </foreignObject>
+          <text class="conclusion title-blue" x="200" y="377" text-anchor="middle" fill="#263dcc">terminal multiplicity</text>
+          <text class="qualifier" x="200" y="400" text-anchor="middle" fill="#6d7882">normalized-stress equivalence requires a separate test</text>
         </g>
 
         <g transform="translate(800,0)">
-          <text class="panel-title title-orange" x="200" y="30" text-anchor="middle">Continuous-degeneracy candidate</text>
-          <text class="panel-subtitle" x="200" y="54" text-anchor="middle">하나의 connected low-stress family</text>
-          <g class="initials">
+          <text class="panel-title title-orange" x="200" y="30" text-anchor="middle" fill="#ad5e00">Continuous-degeneracy candidate</text>
+          <text class="panel-subtitle" x="200" y="54" text-anchor="middle" fill="#737a82">하나의 connected low-stress family</text>
+          <g class="initials" fill="#989da3">
             <circle cx="70" cy="92" r="5"/><circle cx="135" cy="92" r="5"/>
             <circle cx="200" cy="92" r="5"/><circle cx="265" cy="92" r="5"/>
             <circle cx="330" cy="92" r="5"/>
           </g>
-          <g class="descent">
+          <g class="descent" fill="none" stroke="#a7adb4" stroke-width="1.25" stroke-dasharray="4 5" marker-end="url(#arr-gray)">
             <path d="M70 100 L160 261"/><path d="M135 100 L180 261"/>
             <path d="M200 100 L200 261"/><path d="M265 100 L220 261"/>
             <path d="M330 100 L240 261"/>
           </g>
-          <path class="landscape" d="M40 140 C90 218 120 268 155 270 L245 270 C280 268 310 218 360 140"/>
-          <circle class="terminal terminal-orange" cx="160" cy="270" r="8"/>
-          <circle class="terminal terminal-orange" cx="180" cy="270" r="8"/>
-          <circle class="terminal terminal-orange" cx="200" cy="270" r="8"/>
-          <circle class="terminal terminal-orange" cx="220" cy="270" r="8"/>
-          <circle class="terminal terminal-orange" cx="240" cy="270" r="8"/>
-          <path class="flat-span" d="M165 294 L235 294"/>
-          <text class="mathline" x="200" y="325" text-anchor="middle">λ̃_soft⁽¹⁾ ≈ 0  (gate 후)</text>
-          <text class="mathline" x="200" y="351" text-anchor="middle">NEI(M) &gt; 0 가능 · K_obs는 resolution-dependent</text>
-          <text class="conclusion title-orange" x="200" y="387" text-anchor="middle">continuous-degeneracy candidate</text>
-          <text class="qualifier" x="200" y="410" text-anchor="middle">finite low-stress path 인증 필요</text>
+          <path class="landscape" fill="none" stroke="#1e2124" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" d="M40 140 C90 218 120 268 155 270 L245 270 C280 268 310 218 360 140"/>
+          <circle class="terminal terminal-orange" cx="160" cy="270" r="8" fill="#ad5e00" stroke="#fff" stroke-width="1.5"/>
+          <circle class="terminal terminal-orange" cx="180" cy="270" r="8" fill="#ad5e00" stroke="#fff" stroke-width="1.5"/>
+          <circle class="terminal terminal-orange" cx="200" cy="270" r="8" fill="#ad5e00" stroke="#fff" stroke-width="1.5"/>
+          <circle class="terminal terminal-orange" cx="220" cy="270" r="8" fill="#ad5e00" stroke="#fff" stroke-width="1.5"/>
+          <circle class="terminal terminal-orange" cx="240" cy="270" r="8" fill="#ad5e00" stroke="#fff" stroke-width="1.5"/>
+          <path class="flat-span" fill="none" stroke="#ad5e00" stroke-width="1.7" marker-start="url(#arr-orange)" marker-end="url(#arr-orange)" d="M165 294 L235 294"/>
+          <foreignObject class="svg-math-object" x="10" y="308" width="380" height="24">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="svg-math-line"
+                 data-tex="\widetilde{\lambda}_{\mathrm{soft}}^{(1)}\approx0\quad\text{(after numerical gate)}">near-zero soft curvature after numerical gate</div>
+          </foreignObject>
+          <foreignObject class="svg-math-object" x="10" y="334" width="380" height="24">
+            <div xmlns="http://www.w3.org/1999/xhtml" class="svg-math-line"
+                 data-tex="\widehat{\mathcal I}_M&gt;0\ \text{possible};\quad K_{\mathrm{obs}}=K_{\mathrm{obs}}(\varepsilon_D)">positive NEI possible; observed class count is resolution-dependent</div>
+          </foreignObject>
+          <text class="conclusion title-orange" x="200" y="387" text-anchor="middle" fill="#ad5e00">continuous-degeneracy candidate</text>
+          <text class="qualifier" x="200" y="410" text-anchor="middle" fill="#6d7882">finite-continuation evidence required</text>
         </g>
       </svg>
     </div>
@@ -316,9 +337,9 @@
 
 <script src="vendor/katex/katex.min.js"></script>
 <script src="vendor/katex/contrib/auto-render.min.js"></script>
-<script src="math-render.js"></script>
-<script src="data/offline-data.js"></script>
-<script src="graph.js"></script>
-<script src="app.js"></script>
+<script src="math-render.js?v=4"></script>
+<script src="data/offline-data.js?v=4"></script>
+<script src="graph.js?v=4"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>
