@@ -14,12 +14,12 @@ function tex(s){
   return String(s).split(/(\$[^$]+\$)/g).map(part=>{
     if(part.startsWith("$") && part.endsWith("$")){
       const m=part.slice(1,-1);
-      try{ return katex.renderToString(m,{throwOnError:false}); }catch{ return esc(m); }
+      try{ return window.katex.renderToString(m,{throwOnError:false}); }catch{ return esc(part); }
     }
     return esc(part);
   }).join("");
 }
-function texB(s){ try{ return katex.renderToString(s,{throwOnError:false}); }catch{ return esc(s); } }
+function texB(s){ try{ return window.katex.renderToString(s,{throwOnError:false}); }catch{ return esc(`$${s}$`); } }
 
 /* ── 막대그림 ─────────────────────────────────────────── */
 function cap(id,t,s){ const e=document.getElementById(id); if(e)
@@ -281,6 +281,4 @@ function renderScope(){
   document.getElementById("zIn").onclick  = ()=>GRAPH?.zoomIn();
   document.getElementById("zOut").onclick = ()=>GRAPH?.zoomOut();
   document.getElementById("zFit").onclick = ()=>{ GRAPH?.fit(); GRAPH?.select(null); STATE.sel=null; renderPanel(); };
-  renderMathInElement(document.body,{delimiters:[
-    {left:"$",right:"$",display:false}],throwOnError:false});
 })();
