@@ -248,7 +248,7 @@
   {
    "id": "C29",
    "status": "measured",
-   "text": "실제 network 40개에서 $\\mathcal D_2$ 가 $0.107$–$0.986$ (중앙 $0.481$) 에 걸치고, $\\mathcal D^{\\rm neg}$ 가 $0.035$–$0.435$ (중앙 $0.160$) 이다. 전력망·도시 도로망이 아래쪽, 공저·사회망이 위쪽이다.",
+   "text": "확정 표본 47개에서 $\\mathcal D_2$ 가 $0.107$–$0.986$ (중앙 $0.466$), $\\mathcal D^{\\rm neg}$ 가 $0.035$–$0.437$ (중앙 $0.162$) 이다. 전력망·도시 도로망이 아래쪽, 공저·사회망이 위쪽이다.",
    "basis": "P1. 임베딩 없이 eigendecomposition 한 번. loader 는 sweep 과 동일 경로이며 weight_for_nei 는 이미 길이로 변환된 값이다 (strength_to_cost, inverse_distance_weight_csv). 순서는 관측이며 mechanism 주장이 아니다.",
    "refs": [
     "schoenberg1935",
@@ -258,9 +258,9 @@
   },
   {
    "id": "C30",
-   "status": "diagnostic",
-   "text": "표본 정의 자체에 정리가 필요하다. 파일 목록에 .cleaned.tsv 파생본 7개가 원본과 함께 들어 있고, 그중 power-*.mtx.cleaned.tsv 3개는 loader 가 실패하며 reduced Chilean 은 $|\\mu_{\\min}|=1.5\\times10^{31}$, $\\mathrm{rank}_\\epsilon=6$ 의 수치 병리를 낸다. inf-openflights.edges 는 $N=2$ 로 적재된다.",
-   "basis": "P1 실행에서 59행 중 파생 7개와 병리 3개를 제외해 40개를 남겼다. 어떤 수치를 보고하기 전에 exact edge-set 중복 제거와 loader 실패 목록을 확정해야 한다.",
+   "status": "measured",
+   "text": "표본 정의를 내용 기준으로 확정했다. 후보 83개 파일에서 Weisfeiler-Lehman 과 edge hash 로 대표 56개를 뽑고, 근사 중복 6개와 수치 병리 1개를 더 제외해 분석 표본 47개를 얻었다.",
+   "basis": "파일명 기준으로는 잡히지 않는 중복이 있었다 — power-US-Grid.mtx, inf-power.mtx, inf-power 2.mtx 가 같은 network 였다. WL hash 도 node 한둘 차이는 놓치므로 $|\\Delta N|\\le2$, $|\\Delta E|\\le2$, $\\mathcal D_2$ 4 자리 일치를 2 차 규칙으로 두었다. 제외 12 개는 .mtx.cleaned.tsv 변환이 Matrix Market 형식을 깨뜨린 7 개와 loader 가 $N=1,2,5$ 로 내놓는 5 개이다.",
    "refs": []
   },
   {

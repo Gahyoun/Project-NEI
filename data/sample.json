@@ -1,0 +1,213 @@
+{
+ "_note": "확정된 표본 정의. 내용 기준(Weisfeiler-Lehman + edge hash)으로 중복을 접었다. code/build_manifest.py 로 재생성하고, 모든 실행은 data/sample_paths.txt 를 --paths-file 로 쓴다.",
+ "asof": "2026-09-05",
+ "headline": "후보 83개 파일 → 내용 해시로 대표 56개 → 근사 중복 6개와 수치 병리 1개를 더 제외해 **분석 표본 47개**를 확정했다. 파일명 기준 중복 제거로는 잡히지 않는 것들이 있었다 — power-US-Grid.mtx 와 inf-power.mtx 와 inf-power 2.mtx 가 같은 network 였다.",
+ "counts": [
+  {
+   "k": "후보 파일",
+   "v": 83
+  },
+  {
+   "k": "대표 (표본)",
+   "v": 56
+  },
+  {
+   "k": "중복으로 접힘",
+   "v": 15
+  },
+  {
+   "k": "제외",
+   "v": 12
+  }
+ ],
+ "method": [
+  {
+   "k": "edge hash",
+   "v": "GCC 의 정렬된 edge 목록 SHA-1. label 이 같은 완전 중복을 정확히 잡는다."
+  },
+  {
+   "k": "WL hash",
+   "v": "Weisfeiler-Lehman graph hash (3 iteration). label 이 달라도 같은 구조를 잡는다. 완전한 isomorphism invariant 는 아니지만 $(N,E)$ 와 함께 쓰면 실용상 안전하다."
+  },
+  {
+   "k": "대표 선택",
+   "v": "파생본(.cleaned.tsv)이 아닌 것 우선, 그 다음 경로가 짧은 것."
+  },
+  {
+   "k": "제외 규칙",
+   "v": "loader 예외, 또는 $N<20$ (loader 실패 의심)."
+  }
+ ],
+ "composition": {
+  "collaboration_networks": 7,
+  "shl_road_2km": 20,
+  "infrastructure_networks": 2,
+  "tehnological_power_grid": 3,
+  "power_networks_repo": 7,
+  "social_networks_repo": 14,
+  "transportation_airport": 3
+ },
+ "weighted": {
+  "가중": 27,
+  "비가중": 29
+ },
+ "N_range": {
+  "min": 81,
+  "max": 7066,
+  "median": 1014
+ },
+ "duplicates": [
+  {
+   "k": "ca-netscience.edges.cleaned.tsv",
+   "of": "ca-netscience.edges"
+  },
+  {
+   "k": "Chilean_power_grid_without_tap_(Seung-Woo_Son).csv.cleaned.tsv",
+   "of": "Chilean power grid without tap (Seung-Woo Son).csv"
+  },
+  {
+   "k": "Chilean_power_grid_with_tap_(Seung-Woo_Son).csv.cleaned.tsv",
+   "of": "Chilean power grid with tap (Seung-Woo Son).csv"
+  },
+  {
+   "k": "the_reduced_Chilean_power_grid_(Seung-Woo_Son).csv.cleaned.tsv",
+   "of": "the reduced Chilean power grid (Seung-Woo Son).csv"
+  },
+  {
+   "k": "inf-USAir97 2.mtx",
+   "of": "inf-USAir97.mtx"
+  },
+  {
+   "k": "inf-USAir97.mtx.cleaned.tsv",
+   "of": "inf-USAir97.mtx"
+  },
+  {
+   "k": "inf-power 2.mtx",
+   "of": "power-US-Grid.mtx"
+  },
+  {
+   "k": "inf-power.mtx",
+   "of": "power-US-Grid.mtx"
+  },
+  {
+   "k": "inf-openflights.edges.cleaned.tsv",
+   "of": "Openflights airport network (2010)_edge_list.txt"
+  },
+  {
+   "k": "Openflights airport network (2010)_edge_list 2.txt",
+   "of": "Openflights airport network (2010)_edge_list.txt"
+  },
+  {
+   "k": "US airport networks (2010)_edge_list 2.txt",
+   "of": "US airport networks (2010)_edge_list.txt"
+  },
+  {
+   "k": "soc-advogato.edges.cleaned.tsv",
+   "of": "soc-advogato.edges"
+  },
+  {
+   "k": "Openflights_airport_network_(2010)_edge_list.txt.cleaned.tsv",
+   "of": "Openflights airport network (2010)_edge_list.txt"
+  },
+  {
+   "k": "US_airport_networks_(2010)_edge_list.txt.cleaned.tsv",
+   "of": "US airport networks (2010)_edge_list.txt"
+  },
+  {
+   "k": "Global_air_network(2023)_edge_list.txt.cleaned.tsv",
+   "of": "Global air network(2023)_edge_list.txt"
+  }
+ ],
+ "excluded": [
+  {
+   "k": "inf-power.mtx.cleaned.tsv",
+   "why": "drop: N=1 < 20 (loader 실패 의심)"
+  },
+  {
+   "k": "power-US-Grid.mtx.cleaned.tsv",
+   "why": "FAIL: ValueError: Line 1: Not a Matrix Market file. Missing banner."
+  },
+  {
+   "k": "power-bcspwr09.mtx.cleaned.tsv",
+   "why": "FAIL: ValueError: Line 1: Not a Matrix Market file. Missing banner."
+  },
+  {
+   "k": "power-eris1176.mtx.cleaned.tsv",
+   "why": "FAIL: ValueError: Line 1: Not a Matrix Market file. Missing banner."
+  },
+  {
+   "k": "power-bcspwr10.mtx.cleaned.tsv",
+   "why": "FAIL: ValueError: Line 1: Not a Matrix Market file. Missing banner."
+  },
+  {
+   "k": "inf-euroroad 2.edges",
+   "why": "drop: N=5 < 20 (loader 실패 의심)"
+  },
+  {
+   "k": "inf-euroroad.edges",
+   "why": "drop: N=5 < 20 (loader 실패 의심)"
+  },
+  {
+   "k": "power-494-bus.mtx.cleaned.tsv",
+   "why": "FAIL: ValueError: Line 1: Not a Matrix Market file. Missing banner."
+  },
+  {
+   "k": "power-662-bus.mtx.cleaned.tsv",
+   "why": "FAIL: ValueError: Line 1: Not a Matrix Market file. Missing banner."
+  },
+  {
+   "k": "power-685-bus.mtx.cleaned.tsv",
+   "why": "FAIL: ValueError: Line 1: Not a Matrix Market file. Missing banner."
+  },
+  {
+   "k": "inf-openflights 2.edges",
+   "why": "drop: N=2 < 20 (loader 실패 의심)"
+  },
+  {
+   "k": "inf-openflights.edges",
+   "why": "drop: N=2 < 20 (loader 실패 의심)"
+  }
+ ],
+ "open": "reduced Chilean power grid 는 대표로 남아 있으나 $|\\mu_{\\min}|=1.5\\times10^{31}$, $\\mathrm{rank}_\\epsilon=6$ 의 수치 병리를 낸다. $N$ 문턱으로는 걸러지지 않으므로 numerical admissibility 플래그를 따로 두어야 한다.",
+ "near_duplicate_rule": "WL hash 는 node 한둘 차이를 잡지 못한다 — ca-GrQc.edges($N{=}4057$)와 그 .cleaned.tsv($N{=}4058$)가 그 예다. 그래서 2 차 규칙을 둔다: $|\\Delta N|\\le2$, $|\\Delta E|\\le2$, $\\mathcal D_2$ 가 소수 4 자리까지 일치하면 근사 중복으로 보고 .cleaned.tsv 쪽을 버린다.",
+ "near_duplicates": [
+  {
+   "k": "soc-hamsterster.edges.cleaned.tsv",
+   "b": "soc-hamsterster.edges",
+   "dropped": "soc-hamsterster.edges.cleaned.tsv"
+  },
+  {
+   "k": "soc-wiki-elec.edges",
+   "b": "soc-wiki-elec.edges.cleaned.tsv",
+   "dropped": "soc-wiki-elec.edges.cleaned.tsv"
+  },
+  {
+   "k": "ca-GrQc.edges.cleaned.tsv",
+   "b": "ca-GrQc.edges",
+   "dropped": "ca-GrQc.edges.cleaned.tsv"
+  },
+  {
+   "k": "fb-pages-politician.edges",
+   "b": "fb-pages-politician.edges.cleaned.tsv",
+   "dropped": "fb-pages-politician.edges.cleaned.tsv"
+  },
+  {
+   "k": "ca-Erdos992.edges",
+   "b": "ca-Erdos992.edges.cleaned.tsv",
+   "dropped": "ca-Erdos992.edges.cleaned.tsv"
+  },
+  {
+   "k": "fb-pages-tvshow.edges",
+   "b": "fb-pages-tvshow.edges.cleaned.tsv",
+   "dropped": "fb-pages-tvshow.edges.cleaned.tsv"
+  }
+ ],
+ "numerical_exclusion": {
+  "rule": "$|\\mu_{\\min}|>10^{12}$ 또는 $\\mathrm{rank}_\\epsilon<0.1N$",
+  "hit": [
+   "the reduced Chilean power grid (Seung-Woo Son).csv"
+  ],
+  "why": "reduced Chilean 은 weight 변환 후 거리 동적범위가 폭주해 Gram 이 거대 eigenvalue 하나에 지배당한다."
+ },
+ "final_n": 47
+}

@@ -379,6 +379,21 @@ function renderSweep(){
      <tr><td class="k">현재 실행</td><td colspan="2">${esc(s.running)}</td></tr></tbody>`;
 }
 
+function renderSample(){
+  const s=DB.sample, q=i=>document.getElementById(i); if(!s||!q("smpHead")) return;
+  q("smpHead").innerHTML=tex(esc(s.headline));
+  bars(q("ch-smp"), s.counts.map(c=>({k:c.k,v:c.v,vlabel:String(c.v)})), {max:83});
+  q("smpMethod").innerHTML=`<tbody>${s.method.map(m=>
+    `<tr><td class="k">${esc(m.k)}</td><td>${tex(esc(m.v))}</td></tr>`).join("")}
+    <tr><td class="k">수치 제외</td><td>${tex(esc(s.numerical_exclusion.rule))} — ${tex(esc(s.numerical_exclusion.why))}</td></tr>
+    <tr><td class="k">근사 중복</td><td>${tex(esc(s.near_duplicate_rule))}</td></tr></tbody>`;
+  q("smpDrop").innerHTML=`<thead><tr><th>파일</th><th>처리</th></tr></thead><tbody>${
+    s.duplicates.map(d=>`<tr><td>${esc(d.k)}</td><td class="muted" style="font-size:13px">중복 → ${esc(d.of)}</td></tr>`).join("")
+    + s.excluded.map(e=>`<tr><td>${esc(e.k)}</td><td class="muted" style="font-size:13px">${esc(e.why)}</td></tr>`).join("")}</tbody>`;
+  q("smpNear").innerHTML="근사 중복으로 추가 제외 — "
+    + (s.near_duplicates||[]).map(x=>esc(x.dropped)).join(", ");
+}
+
 function renderVision(){
   const v=DB.vision, q=id=>document.getElementById(id);
   q("visionThesis").innerHTML=`<b>${esc(v.target)}</b><br>${tex(esc(v.thesis))}`;
@@ -426,7 +441,7 @@ function renderScope(){
 
 /* ── 부팅 ─────────────────────────────────────────────── */
 (async function(){
-  const files={nodes:"nodes",edges:"edges",connectors:"connectors",sweep:"sweep",vision:"vision",agenda:"agenda",
+  const files={nodes:"nodes",edges:"edges",connectors:"connectors",sweep:"sweep",vision:"vision",agenda:"agenda",sample:"sample",
                claims:"claims",refs:"refs",meas:"measurements",scope:"scope",
                sources:"source-map"};
   try{
@@ -450,7 +465,7 @@ function renderScope(){
     return;
   }
   renderCharts(); renderFilters(); renderMapLegend(); renderCoverageSummary(); renderScope();
-  renderCalib(); renderFloor(); renderSweep(); renderVision(); renderAgenda();
+  renderCalib(); renderFloor(); renderSweep(); renderSample(); renderVision(); renderAgenda();
   renderConnectors(); renderClaims(); renderRefs();
   drawMap();
   document.getElementById("zIn").onclick  = ()=>GRAPH?.zoomIn();

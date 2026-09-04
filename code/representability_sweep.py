@@ -98,6 +98,8 @@ def analyze(path, n_max=12000):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--roots", nargs="*", default=U.DEFAULT_ROOTS)
+    ap.add_argument("--paths-file", default=None,
+                    help="확정된 표본 매니페스트. 주면 roots 스캔 대신 이 목록만 쓴다.")
     ap.add_argument("--out", required=True)
     ap.add_argument("--spec-dir", default="repr_spectra")
     ap.add_argument("--num-shards", type=int, default=1)
@@ -106,7 +108,10 @@ def main():
     ap.add_argument("--resume", action="store_true")
     a = ap.parse_args()
 
-    paths = U.filter_paths(U.scan_network_files(a.roots))
+    if a.paths_file:
+        paths = [l.strip() for l in open(a.paths_file) if l.strip()]
+    else:
+        paths = U.filter_paths(U.scan_network_files(a.roots))
     paths = sorted(paths, key=lambda x: (os.path.getsize(x) if os.path.exists(x) else 0))
     paths = U.shard_list(paths, a.shard_index, a.num_shards)
 

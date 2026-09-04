@@ -1,0 +1,56 @@
+/home/hedgehog/Real_network_NEI/network repository/Collaboration Networks/ca-sandi_auths.edges
+/home/hedgehog/Real_network_NEI/network repository/Collaboration Networks/ca-sandi_auths.edges.cleaned.tsv
+/home/hedgehog/Real_network_NEI/SHL network/road_data_2km/Asia_2km/Shenzhen_networkx_unit_edge.txt
+/home/hedgehog/Real_network_NEI/SHL network/road_data_2km/Asia_2km/Wuhan_networkx_unit_edge.txt
+/home/hedgehog/Real_network_NEI/SHL network/road_data_2km/Asia_2km/Guangzhou_networkx_unit_edge.txt
+/home/hedgehog/Real_network_NEI/icon Networks/Tehnological Power grid/the reduced Chilean power grid (Seung-Woo Son).csv
+/home/hedgehog/Real_network_NEI/SHL network/road_data_2km/Asia_2km/Jakarta_networkx_unit_edge.txt
+/home/hedgehog/Real_network_NEI/icon Networks/Tehnological Power grid/Chilean power grid without tap (Seung-Woo Son).csv
+/home/hedgehog/Real_network_NEI/SHL network/road_data_2km/Asia_2km/Dhaka_networkx_unit_edge.txt
+/home/hedgehog/Real_network_NEI/icon Networks/Tehnological Power grid/Chilean power grid with tap (Seung-Woo Son).csv
+/home/hedgehog/Real_network_NEI/SHL network/road_data_2km/Asia_2km/Karachi_networkx_unit_edge.txt
+/home/hedgehog/Real_network_NEI/network repository/Infrastructure Networks/inf-USAir97.mtx
+/home/hedgehog/Real_network_NEI/network repository/Collaboration Networks/ca-netscience.edges
+/home/hedgehog/Real_network_NEI/SHL network/road_data_2km/Asia_2km/Delhi_networkx_unit_edge.txt
+/home/hedgehog/Real_network_NEI/SHL network/road_data_2km/Asia_2km/Tehran_networkx_unit_edge.txt
+/home/hedgehog/Real_network_NEI/network repository/Power Networks/power-494-bus.mtx
+/home/hedgehog/Real_network_NEI/SHL network/road_data_2km/Asia_2km/Mumbai_networkx_unit_edge.txt
+/home/hedgehog/Real_network_NEI/SHL network/road_data_2km/Asia_2km/Nagoya_networkx_unit_edge.txt
+/home/hedgehog/Real_network_NEI/network repository/Social Networks/fb-pages-food.edges
+/home/hedgehog/Real_network_NEI/network repository/Social Networks/fb-pages-food.edges.cleaned.tsv
+/home/hedgehog/Real_network_NEI/network repository/Power Networks/power-662-bus.mtx
+/home/hedgehog/Real_network_NEI/SHL network/road_data_2km/Asia_2km/Osaka_networkx_unit_edge.txt
+/home/hedgehog/Real_network_NEI/SHL network/road_data_2km/Asia_2km/Beijing_networkx_unit_edge.txt
+/home/hedgehog/Real_network_NEI/network repository/Power Networks/power-685-bus.mtx
+/home/hedgehog/Real_network_NEI/SHL network/road_data_2km/Asia_2km/Seoul_networkx_unit_edge.txt
+/home/hedgehog/Real_network_NEI/SHL network/road_data_2km/Asia_2km/Manila_networkx_unit_edge.txt
+/home/hedgehog/Real_network_NEI/SHL network/road_data_2km/Asia_2km/Bangkok_networkx_unit_edge.txt
+/home/hedgehog/Real_network_NEI/network repository/Social Networks/soc-wiki-Vote.mtx
+/home/hedgehog/Real_network_NEI/SHL network/road_data_2km/Asia_2km/Taipei_networkx_unit_edge.txt
+/home/hedgehog/Real_network_NEI/network repository/Infrastructure Networks/inf-euroroad.edges.cleaned.tsv
+/home/hedgehog/Real_network_NEI/SHL network/road_data_2km/Asia_2km/HongKong_networkx_unit_edge.txt
+/home/hedgehog/Real_network_NEI/network repository/Power Networks/power-eris1176.mtx
+/home/hedgehog/Real_network_NEI/SHL network/road_data_2km/Asia_2km/Tokyo_networkx_unit_edge.txt
+/home/hedgehog/Real_network_NEI/SHL network/road_data_2km/Asia_2km/Kolkata_networkx_unit_edge.txt
+/home/hedgehog/Real_network_NEI/icon Networks/Transportation Airport/US airport networks (2010)_edge_list.txt
+/home/hedgehog/Real_network_NEI/network repository/Power Networks/power-bcspwr09.mtx
+/home/hedgehog/Real_network_NEI/network repository/Social Networks/soc-hamsterster.edges
+/home/hedgehog/Real_network_NEI/network repository/Social Networks/soc-hamsterster.edges.cleaned.tsv
+/home/hedgehog/Real_network_NEI/SHL network/road_data_2km/Asia_2km/Shanghai_networkx_unit_edge.txt
+/home/hedgehog/Real_network_NEI/icon Networks/Transportation Airport/Openflights airport network (2010)_edge_list.txt
+/home/hedgehog/Real_network_NEI/icon Networks/Transportation Airport/Global air network(2023)_edge_list.txt
+/home/hedgehog/Real_network_NEI/network repository/Social Networks/fb-pages-tvshow.edges
+/home/hedgehog/Real_network_NEI/network repository/Social Networks/fb-pages-tvshow.edges.cleaned.tsv
+/home/hedgehog/Real_network_NEI/network repository/Collaboration Networks/ca-GrQc.edges
+/home/hedgehog/Real_network_NEI/network repository/Collaboration Networks/ca-GrQc.edges.cleaned.tsv
+/home/hedgehog/Real_network_NEI/network repository/Power Networks/power-US-Grid.mtx
+/home/hedgehog/Real_network_NEI/network repository/Collaboration Networks/ca-Erdos992.edges
+/home/hedgehog/Real_network_NEI/network repository/Collaboration Networks/ca-Erdos992.edges.cleaned.tsv
+/home/hedgehog/Real_network_NEI/network repository/Social Networks/soc-advogato.edges
+/home/hedgehog/Real_network_NEI/network repository/Power Networks/power-bcspwr10.mtx
+/home/hedgehog/Real_network_NEI/network repository/Social Networks/fb-pages-politician.edges
+/home/hedgehog/Real_network_NEI/network repository/Social Networks/fb-pages-politician.edges.cleaned.tsv
+/home/hedgehog/Real_network_NEI/network repository/Social Networks/fb-pages-government.edges
+/home/hedgehog/Real_network_NEI/network repository/Social Networks/fb-pages-government.edges.cleaned.tsv
+/home/hedgehog/Real_network_NEI/network repository/Social Networks/soc-wiki-elec.edges
+/home/hedgehog/Real_network_NEI/network repository/Social Networks/soc-wiki-elec.edges.cleaned.tsv
