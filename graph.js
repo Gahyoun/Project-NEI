@@ -53,6 +53,19 @@ export function makeGraph(host, { nodes, domains, edges, hyper, onSelect }) {
     }
   }
 
+  /* ── 2b. hyperedge 원소를 층마다 왼쪽으로 모은다 ─────────
+     원소가 층마다 흩어져 있으면 어떤 껍질을 씌워도 비원소를 삼킨다.
+     층 안에서 원소를 앞으로 안정 분할하면 원소 영역이 층마다 하나의 구간이 되고,
+     그 구간들을 세로로 이어 붙인 계단형 폴리곤이 정확히 원소만 감싼다. */
+  const MEM = new Set(hyper ? hyper.members : []);
+  if (MEM.size) {
+    rows.forEach(r => {
+      const a = r.filter(id => MEM.has(id)), b = r.filter(id => !MEM.has(id));
+      r.length = 0; r.push(...a, ...b);
+      r.forEach((id, i) => pos.set(id, i));
+    });
+  }
+
   /* ── 3. 글자 크기를 재고 좌표를 잡는다 ───────────────────── */
   const svg = el("svg", { xmlns: NS, class: "graphsvg" });
   const probe = el("g", { opacity: "0" });
@@ -115,22 +128,40 @@ export function makeGraph(host, { nodes, domains, edges, hyper, onSelect }) {
     gNode.appendChild(g);
   });
 
-  /* hyperedge: 원소 마디들의 볼록껍질을 넓혀 부드럽게 닫는다 */
-  if (hyper) {
-    const pts = [];
-    hyper.members.filter(id => geo.has(id)).forEach(id => {
-      const g0 = geo.get(id), px = g0.w / 2 + 26, py = 30;
-      pts.push([g0.x - px, g0.y - py], [g0.x + px, g0.y - py],
-               [g0.x + px, g0.y + py], [g0.x - px, g0.y + py]);
+  /* hyperedge: 층마다 원소 구간을 잡아 계단형 폴리곤으로 닫는다.
+     볼록껍질과 달리 비원소를 구성상 포함하지 않는다. */
+  if (hyper && MEM.size) {
+    const PADX2 = 20, half = ROWH / 2 - 6;
+    const band = [];
+    rows.forEach((r, li) => {
+      const ms = r.filter(id => MEM.has(id) && geo.has(id));
+      if (!ms.length) return;
+      const xs = ms.map(id => geo.get(id));
+      band.push({
+        y: li * ROWH,
+        l: Math.min(...xs.map(g => g.x - g.w / 2)) - PADX2,
+        r: Math.max(...xs.map(g => g.x + g.w / 2)) + PADX2
+      });
     });
-    const hull = convexHull(pts);
-    gHyper.appendChild(el("path", { d: smoothClosed(hull), fill: hyper.color,
-      "fill-opacity": 0.05, stroke: hyper.color, "stroke-width": 2,
-      "stroke-dasharray": "9 6", "stroke-linejoin": "round" }));
-    const top = hull.reduce((m, p) => p[1] < m[1] ? p : m, hull[0]);
-    const lab = el("text", { x: top[0], y: top[1] - 12, "text-anchor": "middle",
-      fill: hyper.color, class: "gn-hyper" });
-    lab.textContent = hyper.label; gHyper.appendChild(lab);
+    if (band.length) {
+      const pts = [];
+      band.forEach((b0, i) => {                       // 왼쪽을 따라 내려간다
+        pts.push([b0.l, b0.y - half], [b0.l, b0.y + half]);
+        if (i < band.length - 1) pts.push([band[i + 1].l, b0.y + half]);
+      });
+      for (let i = band.length - 1; i >= 0; i--) {     // 오른쪽을 따라 올라온다
+        const b0 = band[i];
+        pts.push([b0.r, b0.y + half], [b0.r, b0.y - half]);
+        if (i > 0) pts.push([band[i - 1].r, b0.y - half]);
+      }
+      gHyper.appendChild(el("path", { d: smoothClosed(dedupe(pts), 14),
+        fill: hyper.color, "fill-opacity": 0.05, stroke: hyper.color,
+        "stroke-width": 2, "stroke-dasharray": "9 6", "stroke-linejoin": "round" }));
+      const lab = el("text", { x: (band[0].l + band[0].r) / 2,
+        y: band[0].y - half - 12, "text-anchor": "middle",
+        fill: hyper.color, class: "gn-hyper" });
+      lab.textContent = hyper.label; gHyper.appendChild(lab);
+    }
   }
 
   /* ── 5. 줌 · 팬 ─────────────────────────────────────────── */
@@ -184,6 +215,20 @@ export function makeGraph(host, { nodes, domains, edges, hyper, onSelect }) {
       zoomAt(r.width / 2, r.height / 2, 1.28); },
     zoomOut: () => { const r = host.getBoundingClientRect();
       zoomAt(r.width / 2, r.height / 2, 1 / 1.28); } };
+}
+
+/* 이웃한 같은 점을 지운다. 계단이 평평한 곳에서 꼭짓점이 겹치면 모서리 둥글리기가 깨진다 */
+function dedupe(p) {
+  const o = [];
+  for (const q of p) {
+    const l = o[o.length - 1];
+    if (!l || Math.abs(l[0] - q[0]) > 0.5 || Math.abs(l[1] - q[1]) > 0.5) o.push(q);
+  }
+  if (o.length > 1) {
+    const f = o[0], l = o[o.length - 1];
+    if (Math.abs(f[0] - l[0]) < 0.5 && Math.abs(f[1] - l[1]) < 0.5) o.pop();
+  }
+  return o;
 }
 
 /* ── 볼록껍질 (Andrew monotone chain) ─────────────────────── */
