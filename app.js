@@ -1,4 +1,4 @@
-import { makeGraph } from "./graph.js";
+"use strict";
 
 /* NEI 아키텍처 — data/*.json 에서 지도·막대그림·표를 만든다. */
 
@@ -101,7 +101,7 @@ function drawMap(){
   GRAPH?.destroy?.();
   const shown=DB.nodes.nodes.filter(n=>!STATE.off.has(n.domain));
   const ids=new Set(shown.map(n=>n.id));
-  GRAPH = makeGraph(host,{
+  GRAPH = window.NEIGraph.makeGraph(host,{
     nodes: shown, domains: DB.nodes.domains,
     edges: DB.edges.edges.filter(e=>ids.has(e.from)&&ids.has(e.to)),
     onSelect: id => { STATE.sel=id; renderPanel(); }
@@ -264,15 +264,23 @@ function renderScope(){
                claims:"claims",refs:"refs",meas:"measurements",scope:"scope",
                sources:"source-map"};
   try{
-    await Promise.all(Object.entries(files).map(async([k,f])=>{
-      const r=await fetch(`data/${f}.json`);
-      if(!r.ok) throw new Error(`data/${f}.json ${r.status}`);
-      DB[k]=await r.json(); }));
+    if(window.NEI_DATA){
+      for(const [k,f] of Object.entries(files)){
+        if(!Object.prototype.hasOwnProperty.call(window.NEI_DATA,f))
+          throw new Error(`offline bundle에 ${f}가 없습니다`);
+        DB[k]=window.NEI_DATA[f];
+      }
+    }else{
+      await Promise.all(Object.entries(files).map(async([k,f])=>{
+        const r=await fetch(`data/${f}.json`);
+        if(!r.ok) throw new Error(`data/${f}.json ${r.status}`);
+        DB[k]=await r.json(); }));
+    }
   }catch(e){
     document.getElementById("mapc").innerHTML=
       `<p class="err">데이터를 불러오지 못했습니다: ${esc(e.message)}<br>
-       <span class="muted">file:// 로 열면 브라우저가 fetch 를 막습니다.
-       <code>python3 -m http.server</code> 또는 GitHub Pages 에서 여세요.</span></p>`;
+       <span class="muted"><code>data/offline-data.js</code>를 다시 생성하거나
+       GitHub Pages에서 여세요.</span></p>`;
     return;
   }
   renderCharts(); renderFilters(); renderMapLegend(); renderCoverageSummary(); renderScope();

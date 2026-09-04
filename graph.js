@@ -1,7 +1,9 @@
+"use strict";
+
 /* 좌→우 계층형 DAG 렌더러. dependency depth를 가로축에 두고
    개념을 선택하면 인접한 dependency와 source coverage를 함께 보여준다. */
 
-export function makeGraph(host, { nodes, domains, edges, onSelect }) {
+function makeGraph(host, { nodes, domains, edges, onSelect }) {
   const NS = "http://www.w3.org/2000/svg";
   const el = (t, a = {}) => { const e = document.createElementNS(NS, t);
     for (const k in a) e.setAttribute(k, a[k]); return e; };
@@ -244,3 +246,5 @@ export function makeGraph(host, { nodes, domains, edges, onSelect }) {
     zoomOut: () => { const r = host.getBoundingClientRect();
       zoomAt(r.width / 2, r.height / 2, 1 / 1.28); } };
 }
+
+window.NEIGraph = Object.freeze({ makeGraph });

@@ -217,11 +217,12 @@ local minima를, energy ledger 전에는 energetic near-degeneracy를 말하지 
 
 ## 9. 저장소 구성
 
-- `index.html`, `krds.css`, `app.js` — research-meeting interactive map
+- `index.html`, `krds.css`, `app.js` — research-meeting interactive map; `index.html`을 직접 열어도 작동
 - `graph.js` — horizontal dependency-DAG renderer
-- `data/` — concepts, connectors, claims, references, measurements, scope, source map
+- `data/` — concepts, connectors, claims, references, measurements, scope, source map 및 file-mode bundle
 - `notes/` — definitions, derivations, audits, open questions
-- `code/` — reproducibility and validation code
+- `code/` — reproducibility and validation code. JSON 수정 뒤 `node code/build_offline_data.mjs`로
+  `data/offline-data.js`를 갱신하며 validator가 동기화를 확인한다.
 
 Recommended reading order: 이 README → [핵심 정의](notes/01-nei-measures-real-degeneracy.md)
 → [covariance identity](notes/03-trace-vs-spectrum.md)
