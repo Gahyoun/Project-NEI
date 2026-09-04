@@ -5,38 +5,74 @@
 ## 0. 이 문제가 놓인 자리
 
 이 연구는 **distance geometry**, **비볼록 역문제**, **무질서계 통계물리**가 겹치는
-자리에 있다. 세 분야가 모두 *degeneracy*를 쓰지만 지시대상이 다르다.
+자리에 있다. 세 분야가 모두 *degeneracy*를 쓰지만 지시대상이 다르다. 최소한 여섯을
+갈라야 한다.
 
-| 분야 | degeneracy가 가리키는 것 |
+| 이름 | 가리키는 것 |
 |---|---|
-| distance geometry | Gram의 rank 결손 · negative type 위배 — 즉 실현 불가능성 |
-| 비볼록 최적화 | 제약자격 실패, 해집합의 비유일성, degenerate stationary point |
-| 무질서계 통계물리 | 바닥상태 축퇴, Goldstone 모드, inherent structure 다중성 |
+| representability deficiency | $\Delta\notin\mathrm{EDM}_p$. $\mathcal D_p$가 재는 것 |
+| conic / Slater degeneracy | feasible set이 proper face에 놓이는 현상 |
+| quotient-Hessian degeneracy | rigid-body mode 제거 후 Hessian의 singularity |
+| terminal multiplicity | 분리된 terminal class의 존재 |
+| equal-stress degeneracy | 서로 다른 state의 stress 등가성 |
+| **realized terminal-geometry spread** | $\mu^{\rm adm}_{G,\Pi}$의 noncollapse. **NEI가 재는 것** |
 
-우리가 재는 것은 이 셋 중 어느 것도 아니고 **넷째**다 — 고정된 확률적 protocol이
-*실제로 도달한* terminal geometry의 다중성이며, protocol을 명시하지 않으면 정의되지
-않는다. 최적화 분야 안에서만도 이 어휘 혼선을 정리하는 데 논문 한 편이 필요했다
-(Drusvyatskiy–Wolkowicz 2017). 갈라놓지 않으면 어느 분야 심사자든 자기 뜻으로 읽는다.
+Drusvyatskiy–Wolkowicz(2017)가 다루는 것은 둘째 줄이다. multiple minima나 Hessian
+zero mode가 아니므로, 그 문헌은 *terminology를 경계하는 근거*로만 쓰고 landscape
+multiplicity의 정당화로 쓰면 category error다.
 
-**중심 대상은 표준 대상이 아니다.** admissibility에 조건부화한 terminal law
-$\mu_\Pi=(q\circ T_\Pi)_\#(\rho_0\otimes\rho_{\rm alg})$는 세 분야 어디에도 표준
-대상이 아니다. 위험이자 기회다 — 기존 정리를 그대로 빌릴 수 없고, 동시에 여기가 팔
-자리다. 이것이 단순한 새 표기에 그칠지 연구 대상이 될지는 네 물음이 답한다:
-well-posedness(protocol 공간의 위상을 정의해야 답할 수 있다), support recovery
-(Good–Turing 미관측 질량), algorithm-invariant core
-$\bigcap_\Pi\operatorname{supp}\mu_\Pi$, 그리고 $T=0$ quench 문헌과의 접속.
+**중요한 구조적 사실.** complete all-pairs metric이 정확히 Euclidean-representable이면
+centered Gram이 결정되므로 realization은 Euclidean isometry까지 유일하다. 따라서 NEI가
+보는 multiplicity는 고전적 *incomplete* distance-geometry ambiguity(sensor localization,
+graph realization)가 아니라 complete non-Euclidean graph metric의 **fixed-rank nonconvex
+approximation**에서 발생한다. 이 구분이 인용 배치를 정한다.
 
-**물리 질문은 열려 있고, 지금 결과가 그것이 사소하지 않음을 보인다.**
-링·격자는 $\mathcal D_2\approx0.4$로 심하게 좌절되어 있으면서 $\widehat{\mathcal I}_M$이
-numerical floor에 있고, ER·BA는 $\mathcal D_2\approx0.85$–$0.90$에서 floor보다 15자릿수
-이상 위에 있다. 허용오차를 12자릿수 낮춰도 질서 구조는 따라 내려가지만 ER·BA는 유효숫자
-5자리까지 불변이다. **좌절의 크기는 답이 아니다.** spin glass에서 좌절이 있다고 다 glass는
-아니듯 — 삼각격자 반강자성체는 좌절되어 있지만 무질서하지 않아 glass가 아니다 — 우리
-격자가 정확히 그 자리에 있다. 필요한 것은 좌절의 **배치**, 즉 무질서도이다.
+### 연구의 수학적 중심 — kernel
+
+중심은 확률측도 하나가 아니라 **graph-to-terminal-law kernel**이다.
+
+$$K_\Pi(\Delta,B)=\Pr\left[q\left(T_\Pi(\Delta,Z,\Xi)\right)\in B \mid \mathrm{Adm}\right]$$
+
+$$\mu^{\rm adm}_{G,\Pi}=K_\Pi(\Delta(G),\cdot),\qquad \mathcal I=\Phi(\mu^{\rm adm}_{G,\Pi})$$
+
+$$G\longmapsto\Delta(G)\longmapsto\mu^{\rm adm}_{G,\Pi}\longmapsto\{\mathcal I,\;K_{\rm eff},\;\lambda_{\rm soft},\ldots\}$$
+
+$\mathcal I$는 이 law의 functional 하나일 뿐이고 $K_{\rm eff}$, $\lambda_{\rm soft}$,
+class separation은 같은 law의 다른 functional이다. kernel로 세워야 protocol을 바꿀 때
+무엇이 변하고 무엇이 남는지 물을 수 있다.
+
+pushforward 자체에는 선례가 있다 — Stillinger–Weber의 inherent-structure 구성, Menck 등의
+basin stability. NEI의 차별점은 이를 quotient terminal geometry 전체에 대한 **primary
+estimand**로 삼은 구성이다.
+
+### 열린 물리 질문
+
+현재 결과가 지지하는 것은
+
+$$\mathcal D_p>0 \;\not\Rightarrow\; \mathcal I>0$$
+
+이다. stationarity 허용오차를 12자릿수 훑으면 질서 대조군의 NEI는 numerical floor로
+내려가고 ER·BA는 $O(10^{-1})$에 머문다. 전자는 **point mass로부터 unresolved**이고
+후자는 **tolerance-stable nonconcentration**이다. (마지막 단 $10^{-18}$은 double
+precision 범위를 넘으므로 saturation 확인으로만 쓴다.)
+
+따라서 질문은 이렇게 바뀐다:
+
+> *Which organization of geometric incompatibility, beyond its total magnitude, controls
+> the nonconcentration of the protocol-induced terminal law?*
+
+가장 유망한 mechanism은 **signed prestress의 organization**이다. raw-stress Hessian은
+개념적으로 $H_\perp=H_{\rm rigidity}+H_{\rm prestress}$로 분해되는데, $\mathcal D_p$나
+total stress는 mismatch의 총량을 압축하는 반면 $H_{\rm prestress}$는 residual의 부호,
+방향, 쌍의 위치를 보존한다. 이 prestress가 soft subspace와 어디서 겹치고 cancellation을
+만드는지가 branch formation을 좌우한다는 가설이 총량 가설보다 훨씬 물리적이다.
+
+$\mathcal I$ 하나로 "many minima"를 말해서는 안 된다. $K_{\rm eff}$(occupancy
+multiplicity), $\mathcal I_{\rm between}$(class separation), stress-equivalence test,
+$\lambda_{\rm soft}$와 continuation을 분리해 보고한다.
 
 연구 의제는 [`data/agenda.json`](data/agenda.json)에 항목별로 있고, 웹 지도의
 `연구 의제` 절에서 볼 수 있다.
-
 
 ## 0.1 독창성과 필요성
 

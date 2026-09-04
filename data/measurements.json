@@ -401,7 +401,7 @@
  },
  "floor_ladder": {
   "title": "허용오차 사다리 — floor 와 signal 의 분리",
-  "sub": "같은 초기조건 집합($M=16$)을 모든 단계에서 재사용하고 L-BFGS 의 gtol/ftol 만 낮춘다. floor 라면 $\\widehat{\\mathcal I}_M$ 이 허용오차를 따라 내려가고, signal 이라면 머문다.",
+  "sub": "같은 초기조건 집합($M=16$)을 모든 단계에서 재사용하고 L-BFGS 의 gtol/ftol 만 낮춘다. 명목 gtol 과 함께 **실제로 측정된 stationarity residual** $\\eta_g$ 를 싣는다 — 가로축을 명목값만으로 읽으면 안 된다.",
   "rungs": [
    "$10^{-6}$",
    "$10^{-10}$",
@@ -450,6 +450,34 @@
     "verdict": "signal"
    }
   ],
-  "verdict": "질서 구조는 $\\widehat{\\mathcal I}_M$ 이 허용오차를 따라 7 자릿수 내려가고 마지막 단에서 L-BFGS 가 더 내려가지 못해 포화한다. ER·BA 는 12 자릿수의 허용오차 변화에 유효숫자 5 자리까지 불변이다. 따라서 보고할 것은 두 측정값 사이의 간격이 아니라 **floor 대 signal 의 구분**이다 — 질서 구조의 값은 0 과 구분되지 않고, ER·BA 는 도달 가능한 어떤 floor 보다도 15 자릿수 이상 위에 있다."
+  "verdict": "보고할 형태는 두 문장이다. **ordered controls: unresolved from a point mass.** **ER/BA: tolerance-stable nonconcentration.** '17 자릿수' 같은 간격 서술은 쓰지 않는다 — 질서 구조의 값 자체가 0 과 구분되지 않으므로 두 측정값을 뺄 대상이 아니다.",
+  "eta": {
+   "격자 $8\\times8$": [
+    2.009e-07,
+    1.764e-07,
+    1.27e-10,
+    1.27e-10
+   ],
+   "링 $C_{60}$": [
+    3.696e-08,
+    3.696e-08,
+    6.217e-12,
+    6.217e-12
+   ],
+   "ER $n{=}100$": [
+    0.0001227,
+    1.409e-06,
+    1.175e-08,
+    1.175e-08
+   ],
+   "BA $n{=}100$": [
+    0.000114,
+    1.004e-06,
+    9.703e-09,
+    9.703e-09
+   ]
+  },
+  "caveat": "마지막 단($10^{-18}$)은 double precision 의 유효 범위를 넘어간다. 추가 정밀도의 증거가 아니라 **saturation 확인**으로만 쓴다. 실제로 $\\eta_g$ 가 세 번째 단과 같은 값에서 멈춘다.",
+  "verdict_en": "Across a 12-decade sweep of the stationarity tolerance, the NEI values of the ordered controls decreased toward the numerical floor, whereas those of the ER and BA networks remained $O(10^{-1})$. We therefore regard the former as unresolved from zero and the latter as tolerance-stable terminal-geometry spread under the declared protocol."
  }
 }

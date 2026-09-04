@@ -210,7 +210,7 @@
    "id": "C25",
    "status": "measured",
    "text": "$\\mathcal D_p$ 의 크기는 realized multiplicity 를 결정하지 않는다. 링·격자는 $\\mathcal D_2\\approx0.39$–$0.40$ 이면서 $\\widehat{\\mathcal I}_M$ 이 numerical floor 에 있고, ER·BA 는 $\\mathcal D_2\\approx0.85$–$0.90$ 에서 $\\widehat{\\mathcal I}_M\\approx10^{-1}$ 로 floor 보다 15 자릿수 이상 위에 있다.",
-   "basis": "쌍별 표준화 $\\widehat{\\mathcal I}_M$, polish 후. 질서 구조의 값 자체는 0 과 구분되지 않으므로 '$10^{-19}$ 대 $10^{-22}$' 같은 비교는 하지 않는다. floor 판정은 C31 의 허용오차 사다리에 근거한다.",
+   "basis": "쌍별 표준화 $\\widehat{\\mathcal I}_M$, polish 후. 질서 구조의 값은 point mass 로부터 unresolved 이므로 값끼리 비교하지 않는다. 지지되는 명제는 $\\mathcal D_p>0\\;\\not\\Rightarrow\\;\\mathcal I>0$ 이다.",
    "refs": [
     "schoenberg1935",
     "dokmanic2015"
@@ -266,11 +266,23 @@
   {
    "id": "C31",
    "status": "measured",
-   "text": "허용오차를 $10^{-6}$ 에서 $10^{-18}$ 까지 12 자릿수 낮추면 격자·링의 $\\widehat{\\mathcal I}_M$ 은 7 자릿수 따라 내려가 포화하고, ER·BA 는 유효숫자 5 자리까지 불변이다. 전자는 numerical floor, 후자는 signal 이다.",
-   "basis": "같은 초기조건 집합 $M=16$ 을 모든 단계에서 재사용해 표본 잡음을 제거했다. 격자 $3.71\\times10^{-12}\\to1.31\\times10^{-19}$, ER $1.0202\\times10^{-1}$ 로 전 구간 동일. 이 시험은 floor 와 signal 을 가르지만, signal 이 서로 다른 minimizer 에서 온다는 것까지 보이지는 않는다 — 그 판정에는 class 재현성이 필요하다.",
+   "text": "stationarity 허용오차를 12 자릿수 훑으면 질서 대조군의 NEI 는 numerical floor 로 내려가고 ER·BA 는 $O(10^{-1})$ 에 머문다. 전자는 **0 과 구분되지 않고**, 후자는 선언된 protocol 아래에서 **tolerance-stable 한 terminal-geometry spread** 이다.",
+   "basis": "같은 초기조건 집합 $M=16$ 재사용. 명목 gtol 과 함께 측정된 $\\eta_g$ 를 보고한다. 마지막 단 $10^{-18}$ 은 double precision 범위를 넘으므로 saturation 확인으로만 쓴다. 이 시험은 floor 와 signal 을 가르지만 signal 이 서로 다른 minimizer 에서 온다는 것까지 보이지 않는다.",
    "refs": [
     "nocedal2006",
     "higham2002"
+   ]
+  },
+  {
+   "id": "C32",
+   "status": "theorem",
+   "text": "complete all-pairs metric 이 정확히 Euclidean-representable 이면 centered Gram 이 결정되므로 realization 은 Euclidean isometry 까지 유일하다. 따라서 NEI 가 보는 multiplicity 는 고전적 incomplete distance-geometry ambiguity 가 아니라, complete non-Euclidean graph metric 의 **fixed-rank nonconvex approximation** 에서 발생한다.",
+   "basis": "이 구분이 문헌 배치를 정한다. graph realization / sensor localization 의 ambiguity 는 거리 일부만 주어질 때 생기지만, 여기서는 모든 쌍이 주어진다. 따라서 rigidity 계열의 결과를 그대로 인용하면 안 된다.",
+   "refs": [
+    "schoenberg1935",
+    "young1938",
+    "gortler2010",
+    "alfakih2018"
    ]
   }
  ]

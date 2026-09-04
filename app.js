@@ -295,12 +295,21 @@ function renderFloor(){
   document.getElementById("cap-floor-t").innerHTML=tex(esc(f.title));
   document.getElementById("cap-floor-s").innerHTML=tex(esc(f.sub));
   const sci=v=>v.toExponential(4).replace("e-","e−").replace("e+","e");
+  const sci2=v=>v.toExponential(2).replace("e-","e−").replace("e+","e");
   document.getElementById("tb-floor").innerHTML=
-    `<thead><tr><th>graph</th>${f.rungs.map(r=>`<th>gtol ${tex(r)}</th>`).join("")}<th>판정</th></tr></thead><tbody>${
-      f.rows.map(r=>`<tr><td>${tex(esc(r.k))}</td>${
-        r.v.map(v=>`<td style="font-variant-numeric:tabular-nums">${sci(v)}</td>`).join("")}
-        <td><span class="badge ${r.verdict==="signal"?"b-measured":"b-open"}">${esc(r.verdict)}</span></td></tr>`).join("")}</tbody>`;
-  document.getElementById("floor-verdict").innerHTML=tex(esc(f.verdict));
+    `<thead><tr><th rowspan="2">graph</th>${f.rungs.map(r=>`<th colspan="2">gtol ${tex(r)}</th>`).join("")}<th rowspan="2">판정</th></tr>
+      <tr>${f.rungs.map(()=>`<th style="font-weight:400">$\\widehat{\\mathcal I}_M$</th><th style="font-weight:400">$\\eta_g$</th>`).join("")}</tr></thead>
+     <tbody>${f.rows.map(r=>{
+        const e=(f.eta||{})[r.k]||[];
+        return `<tr><td>${tex(esc(r.k))}</td>${
+          r.v.map((v,i)=>`<td style="font-variant-numeric:tabular-nums">${sci(v)}</td>
+            <td class="muted" style="font-variant-numeric:tabular-nums;font-size:13px">${e[i]!=null?sci2(e[i]):"—"}</td>`).join("")}
+          <td><span class="badge ${r.verdict==="signal"?"b-measured":"b-open"}">${esc(r.verdict)}</span></td></tr>`;
+      }).join("")}</tbody>`;
+  document.getElementById("floor-verdict").innerHTML=
+    (f.caveat?`<span class="badge b-open">주의</span> ${tex(esc(f.caveat))}<br><br>`:"")
+    + tex(esc(f.verdict))
+    + (f.verdict_en?`<br><br><i>${tex(esc(f.verdict_en))}</i>`:"");
 }
 
 function renderAgenda(){
@@ -321,6 +330,15 @@ function renderAgenda(){
       +`<div class="callout ok">${tex(esc(o.minimum))}</div>`;
   }
   q("agFraming").innerHTML=tex(esc(a.framing));
+  if(a.kernel && q("kernelPanel")){
+    const K=a.kernel;
+    q("kernelPanel").innerHTML=`<h3>${tex(esc(K.title))}</h3>`
+      + K.eq.map(e=>`<div class="fml" style="text-align:center">${
+          (()=>{try{return katex.renderToString(e,{displayMode:true,throwOnError:false});}
+                catch{return esc(e);}})()}</div>`).join("")
+      + `<p style="font-size:15px">${tex(esc(K.body))}</p>`
+      + `<div class="callout">${tex(esc(K.precedent))}</div>`;
+  }
   q("agItems").innerHTML=a.items.map(it=>`
     <div class="panel wide" style="margin-bottom:14px">
       <h3>${esc(it.id)}. ${tex(esc(it.k))}</h3>
@@ -329,6 +347,7 @@ function renderAgenda(){
         it.senses.map(s=>`<tr><td class="k">${esc(s.k)}</td><td>${tex(esc(s.v))}</td></tr>`).join("")
         }</tbody></table></div><p style="font-size:15px"><b>우리가 재는 것</b> — ${tex(esc(it.ours))}</p>`:""}
       ${it.analogy?`<div class="callout" style="margin:10px 0">${tex(esc(it.analogy))}</div>`:""}
+      ${it.caution?`<div class="callout warn" style="margin:10px 0"><b>주의</b> — ${tex(esc(it.caution))}</div>`:""}
       <div class="sect">할 일</div>
       <ul style="font-size:14px;margin:6px 0 10px;padding-left:20px">${
         it.todo.map(x=>typeof x==="string"?`<li>${tex(esc(x))}</li>`

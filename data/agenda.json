@@ -1,37 +1,49 @@
 {
  "_note": "연구 의제. 무엇을 정의하고 무엇을 물을지의 목록이며, 주장이 아니다. 항목이 닫히면 claims.json 으로 옮긴다.",
- "framing": "이 문제는 distance geometry, 비볼록 역문제, 무질서계 통계물리가 겹치는 자리에 있다. 세 분야가 모두 degeneracy 를 쓰지만 지시대상이 다르고, 우리가 재는 것은 그 셋 중 어느 것도 아니다.",
+ "framing": "이 문제는 distance geometry, 비볼록 역문제, 무질서계 통계물리가 겹치는 자리에 있다. 세 분야가 모두 degeneracy 를 쓰지만 지시대상이 다르고, 우리가 재는 것은 그 셋 중 어느 것도 아니다. 연구의 수학적 중심은 확률측도 하나가 아니라 **graph-to-terminal-law kernel** 이다.",
  "items": [
   {
    "id": "A1",
-   "k": "세 분야의 degeneracy 를 갈라놓는다",
-   "why": "같은 단어가 세 뜻으로 쓰인다. 갈라놓지 않으면 어느 분야 심사자든 자기 뜻으로 읽고 틀렸다고 한다. Drusvyatskiy–Wolkowicz 가 최적화 안에서만도 이 혼선을 정리하는 데 논문 한 편을 썼다.",
+   "k": "여섯 종류의 degeneracy 를 분리한다",
+   "why": "같은 단어가 여러 뜻으로 쓰인다. 특히 Drusvyatskiy–Wolkowicz 가 다루는 것은 conic formulation 에서 strict feasibility 상실과 facial structure 이지 multiple minima 나 Hessian zero mode 가 아니다. 그 문헌은 **terminology 를 경계하는 근거**로만 쓰고 landscape multiplicity 의 정당화로 쓰면 category error 이다. 문서에서 최소한 아래 여섯을 갈라야 한다.",
    "senses": [
     {
-     "k": "distance geometry",
-     "v": "Gram 의 rank 결손 · negative type 위배. 즉 실현 불가능성. $\\mathcal D_p$ 가 재는 것."
+     "k": "representability deficiency",
+     "v": "$\\Delta\\notin\\mathrm{EDM}_p$. $\\mathcal D_p$ 가 재는 것."
     },
     {
-     "k": "비볼록 최적화",
-     "v": "제약자격 실패, 해집합의 비유일성, degenerate stationary point. 문제의 국소 구조."
+     "k": "conic / Slater degeneracy",
+     "v": "feasible set 이 proper face 에 놓이는 현상. 우리 대상이 아니다."
     },
     {
-     "k": "무질서계 통계물리",
-     "v": "바닥상태 축퇴, Goldstone 모드, inherent structure 다중성. 에너지 등가 상태의 수."
+     "k": "quotient-Hessian degeneracy",
+     "v": "rigid-body mode 제거 후 Hessian 의 singularity."
+    },
+    {
+     "k": "terminal multiplicity",
+     "v": "분리된 terminal class 의 존재."
+    },
+    {
+     "k": "equal-stress degeneracy",
+     "v": "서로 다른 state 의 stress 등가성."
+    },
+    {
+     "k": "realized terminal-geometry spread",
+     "v": "$\\mu^{\\rm adm}_{G,\\Pi}$ 의 noncollapse. **NEI 가 측정하는 대상.**"
     }
    ],
-   "ours": "고정된 확률적 protocol 이 **실제로 도달한** terminal geometry 의 다중성. 앞의 셋 중 어느 것도 아니고 넷째이며, protocol 을 명시하지 않으면 정의되지 않는다.",
+   "ours": "complete all-pairs metric 이 정확히 Euclidean-representable 이면 centered Gram 이 결정되어 realization 이 isometry 까지 유일하다. 따라서 NEI 의 multiplicity 는 고전적 incomplete distance-geometry ambiguity 가 아니라 complete non-Euclidean graph metric 의 **fixed-rank nonconvex approximation** 에서 발생한다. 이 구분이 인용 배치를 정한다.",
    "todo": [
-    "네 뜻을 한 표로 정리해 논문 §2 에 배치",
-    "각 뜻마다 우리가 그것을 재지 **않는다**는 문장을 명시",
-    "$\\ker H_\\perp\\ne0$ 이 연속족의 충분조건이 아님을 반례와 함께 (이미 C13)"
+    "여섯 뜻을 한 표로 논문 §2 에 배치",
+    "각 뜻마다 우리가 그것을 재지 않는다는 문장을 명시",
+    "rigidity 계열 결과를 incomplete-distance 문제로 오인용하지 않도록 경계 문장 추가"
    ],
-   "state": "정의 초안 있음 · 표 미작성"
+   "state": "분류 확정 · 표 미작성"
   },
   {
    "id": "A2",
-   "k": "$\\mu_\\Pi$ 를 중심 대상으로 세울 수 있는가",
-   "why": "$\\mu_\\Pi=(q\\circ T_\\Pi)_\\#(\\rho_0\\otimes\\rho_{\\rm alg})$ 를 numerical admissibility 에 조건부화한 law 는 세 분야 어디에도 표준 대상이 아니다. 위험이자 기회다. 위험은 기존 정리를 그대로 빌릴 수 없다는 것이고, 기회는 여기가 팔 자리라는 것이다. 단순한 새 표기에 그칠지 연구 대상이 될지는 아래 넷이 답한다.",
+   "k": "kernel $K_\\Pi$ 를 중심 대상으로 세울 수 있는가",
+   "why": "$\\mu^{\\rm adm}_{G,\\Pi}$ 는 kernel 을 한 graph 에 평가한 값이다. 세 분야 어디에도 표준 대상이 아니라는 것은 위험이자 기회다 — 기존 정리를 그대로 빌릴 수 없고, 동시에 여기가 팔 자리다. 단순한 새 표기에 그칠지 연구 대상이 될지는 아래 넷이 답한다.",
    "todo": [
     {
      "k": "well-posedness",
@@ -54,31 +66,32 @@
   },
   {
    "id": "A3",
-   "k": "좌절의 크기가 아니라면 무엇이 multiplicity 를 만드는가",
-   "why": "측정된 사실. 링·격자는 $\\mathcal D_2\\approx0.4$ 로 심하게 좌절되어 있으면서 $\\widehat{\\mathcal I}_M$ 이 numerical floor 에 있고, ER·BA 는 $\\mathcal D_2\\approx0.85$–$0.90$ 에서 floor 보다 15 자릿수 이상 위에 있다. 허용오차를 12 자릿수 낮춰도 이 구분이 유지된다. 좌절의 **크기**는 답이 아니다.",
-   "analogy": "spin glass 에서 좌절이 있다고 다 glass 는 아니다. 삼각격자 반강자성체는 좌절되어 있지만 무질서하지 않고 그래서 glass 가 아니다. 우리 격자가 정확히 그 자리에 있다. 필요한 것은 좌절의 **배치**, 즉 무질서도이다.",
+   "k": "총량이 아니라면 무엇이 nonconcentration 을 지배하는가",
+   "why": "현재 결과가 지지하는 것은 $\\mathcal D_p>0\\;\\not\\Rightarrow\\;\\mathcal I>0$ 이다. representability frustration 의 존재나 총량만으로 terminal spread 가 결정되지 않는다. 따라서 질문은 이렇게 바뀐다 — *Which organization of geometric incompatibility, beyond its total magnitude, controls the nonconcentration of the protocol-induced terminal law?*",
+   "analogy": "가장 유망한 mechanism 은 **signed prestress 의 organization** 이다. raw-stress Hessian 은 개념적으로 $H_\\perp=H_{\\rm rigidity}+H_{\\rm prestress}$ 로 분해된다. $\\mathcal D_p$ 나 total stress 는 mismatch 의 총량을 압축하지만, $H_{\\rm prestress}$ 는 residual 의 부호, 방향, 쌍의 위치를 보존한다. 이 prestress 가 soft subspace 와 어디서 겹치고 cancellation 을 만드는지가 branch formation 과 terminal multiplicity 를 좌우한다는 가설이 총량 가설보다 훨씬 물리적이다.",
    "todo": [
     {
-     "k": "좌절장의 정의",
-     "v": "인증된 minimizer 에서 $r_a=\\delta_a-d_a(X^\\star)$. minimizer 인증이 선행하므로 P0 에 의존한다. 인증 없이 잰 $r$ 은 잔여물과 구분되지 않는다."
+     "k": "prestress localization",
+     "v": "인증된 minimizer 에서 $H_{\\rm prestress}$ 를 분해하고, 그 지지집합이 soft subspace 와 겹치는 정도를 잰다. minimizer 인증이 선행하므로 P0 에 의존한다."
     },
     {
-     "k": "무질서 척도",
-     "v": "$r$ 의 공간적 상관길이인가, 참여비인가, 아니면 다른 것인가. 어느 것이 multiplicity 를 예측하는지는 경험적 문제이며 후보를 미리 선언하고 검정한다."
+     "k": "degree-preserving disorder interpolation",
+     "v": "격자에서 ER 로 가는 보간족(예: 무작위 재배선 $p$)에서 $\\widehat{\\mathcal I}_M(p)$ 를 본다. floor 에서 signal 로 넘어가는 것이 전이인지 crossover 인지는 유한크기 스케일링으로 가른다."
     },
     {
-     "k": "질서–무질서 보간족",
-     "v": "격자에서 ER 로 가는 보간족(예: 격자 + 무작위 재배선 $p$)을 만들어 $\\widehat{\\mathcal I}_M(p)$ 를 본다. floor 에서 signal 로 넘어가는 것이 전이인지 crossover 인지가 첫 질문이다. 유한크기 스케일링으로 가를 수 있다."
+     "k": "총량을 고정한 대조",
+     "v": "$\\mathcal D_2$ 가 같은데 배치만 다른 graph 쌍을 구성하거나 앙상블에서 골라 비교한다. 총량을 통제하고 organization 만 바꾸는 실험."
     },
     {
-     "k": "크기를 고정한 대조",
-     "v": "$\\mathcal D_2$ 가 같은데 배치만 다른 그래프 쌍을 구성하거나 앙상블에서 골라 $\\widehat{\\mathcal I}_M$ 을 비교한다. 크기를 통제하고 무질서만 바꾸는 실험."
+     "k": "branch continuation",
+     "v": "class 사이를 잇는 경로를 따라 stress 를 추적한다. 2차 일단락의 mechanism 문제."
     }
    ],
-   "state": "현상 확인 완료 (C25, C31) · 이론 없음"
+   "caution": "$\\mathcal I$ 하나로 'many minima' 를 말해서는 안 된다. 다음을 분리해 보고한다 — $K_{\\rm eff}$ (occupancy multiplicity), $\\mathcal I_{\\rm between}$ (terminal-class separation), stress-equivalence test (equal-stress 여부), $\\lambda_{\\rm soft}$ 와 continuation (local softness 와 continuous family 후보).",
+   "state": "현상 확인 완료 (C25, C31) · prestress 가설 미검정"
   }
  ],
- "closing": "A1 은 1차 일단락에 들어간다. A2 와 A3 는 2차 이후이며, 특히 A3 가 학위논문 분량의 물리이다. 그러나 A3 를 열어두는 것과 A1·A2 를 닫는 것은 양립한다 — 1차 논문은 대상을 정의하고 현상을 확립하며, 무엇이 열려 있는지를 정확히 적는 것으로 충분하다.",
+ "closing": "A1 은 1차 일단락에 들어간다. A2 의 네 물음과 A3 는 2차 이후이며, 특히 A3 가 학위논문 분량의 물리이다. 그러나 A3 를 열어두는 것과 A1·A2 를 닫는 것은 양립한다 — 1차 논문은 kernel 을 정의하고 floor 와 signal 을 가르는 것으로 충분하다. prestress localization, degree-preserving disorder interpolation, branch continuation 은 자연스럽게 2차의 mechanism 문제로 넘어간다.",
  "originality": {
   "title": "독창성과 필요성",
   "existing": [
@@ -113,5 +126,15 @@
    "아직 mechanism 이 아니다 — 무엇이 multiplicity 를 만드는지는 A3 로 열려 있다."
   ],
   "minimum": "최소 기여는 이것이다. 실제 network 에서 hop metric 의 Euclidean 실현 결손을 닫힌 형태로 재고, 같은 network 에서 protocol 이 만든 terminal geometry 의 산포가 수치 잔여물과 구분되는지를 재사용 가능한 시험으로 가른 것. 이 둘은 서로 독립이며, 둘을 함께 보고해야 임베딩 위의 결론이 언제 안전한지 말할 수 있다."
+ },
+ "kernel": {
+  "title": "연구의 수학적 중심 — kernel $K_\\Pi$",
+  "eq": [
+   "K_\\Pi(\\Delta,B)=\\Pr\\!\\left[q\\!\\left(T_\\Pi(\\Delta,Z,\\Xi)\\right)\\in B \\,\\middle|\\, \\mathrm{Adm}\\right]",
+   "\\mu^{\\rm adm}_{G,\\Pi}=K_\\Pi\\!\\left(\\Delta(G),\\cdot\\right),\\qquad \\mathcal I=\\Phi\\!\\left(\\mu^{\\rm adm}_{G,\\Pi}\\right)",
+   "G\\longmapsto\\Delta(G)\\longmapsto\\mu^{\\rm adm}_{G,\\Pi}\\longmapsto\\{\\mathcal I,\\;K_{\\rm eff},\\;\\lambda_{\\rm soft},\\ldots\\}"
+  ],
+  "body": "핵심은 probability measure 하나의 발명이 아니라 위 사슬이다. $\\mu^{\\rm adm}_{G,\\Pi}$ 는 kernel 을 한 graph 에 평가한 값이고, $\\mathcal I$ 는 그 law 의 functional 하나일 뿐이다. $K_{\\rm eff}$, $\\lambda_{\\rm soft}$, class separation 은 같은 law 의 다른 functional 이다. kernel 로 세워야 protocol 을 바꿀 때 무엇이 변하고 무엇이 남는지 물을 수 있다.",
+  "precedent": "pushforward 자체에는 선례가 있다. Stillinger–Weber 의 inherent-structure 구성은 초기 configuration 을 quench map 으로 minima 에 보내고, Menck 등의 basin stability 는 주어진 perturbation law 가 각 attractor basin 에 들어갈 확률을 측정한다. NEI 의 차별점은 이를 graph metric 의 quotient terminal geometry 전체에 대한 **primary estimand** 로 삼은 구성이다."
  }
 }

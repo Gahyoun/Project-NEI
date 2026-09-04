@@ -638,7 +638,7 @@
   "pages": "77–170",
   "verified": true,
   "area": "nonconvex optimization",
-  "why": "최적화에서 'degeneracy' 가 서로 다른 여러 대상을 가리킨다는 점을 정리한다. 이 논문이 어느 degeneracy 를 말하는지 분리해 쓰는 근거."
+  "why": "conic formulation 에서 strict feasibility 상실과 facial structure 를 다룬다. multiple minima 나 Hessian zero mode 와는 다른 개념이므로, 이 문헌은 **terminology 를 경계하는 근거**로만 쓰고 landscape multiplicity 의 정당화로 쓰지 않는다 — 그렇게 쓰면 category error 이다."
  },
  "busing2005": {
   "authors": "F. M. T. A. Busing, P. J. F. Groenen, W. J. Heiser",
@@ -650,5 +650,16 @@
   "verified": true,
   "area": "nonconvex optimization",
   "why": "MDS 계열에서 degenerate solution 이 알려진 실패 양식이라는 근거. 우리가 재는 multiplicity 와 구분해야 한다."
+ },
+ "menck2013": {
+  "authors": "P. J. Menck, J. Heitzig, N. Marwan, J. Kurths",
+  "year": 2013,
+  "title": "How basin stability complements the linear-stability paradigm",
+  "venue": "Nature Physics",
+  "volume": "9",
+  "pages": "89–92",
+  "verified": true,
+  "area": "disordered systems",
+  "why": "basin stability — 주어진 perturbation law 가 각 attractor basin 에 들어갈 확률. pushforward 를 관측량으로 삼는 선례이다. NEI 의 차별점은 이를 quotient terminal geometry 전체에 대한 primary estimand 로 삼은 구성이다."
  }
 }
