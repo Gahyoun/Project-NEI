@@ -10,6 +10,21 @@ const KO = { theorem:"theorem", definition:"definition", diagnostic:"diagnostic"
 const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const badge = s => `<span class="badge b-${s}">${KO[s]||s}</span>`;
 
+/* table placeholder를 Markdown형 hierarchical note host로 전환. */
+function noteHost(id, label){
+  const current=document.getElementById(id);
+  if(current?.tagName==="OL"){
+    current.setAttribute("aria-label",label);
+    return current;
+  }
+  const next=document.createElement("ol");
+  next.id=id;
+  next.className="note-tree note-depth-3";
+  next.setAttribute("aria-label",label);
+  current?.replaceWith(next);
+  return next;
+}
+
 function tex(s){
   return String(s).split(/(\$[^$]+\$)/g).map(part=>{
     if(part.startsWith("$") && part.endsWith("$")){
@@ -152,33 +167,43 @@ function renderPanel(){
   const kindLabel={direct:"직접 서술",partial:"부분 서술",none:"직접 대응 없음"};
   const sourceCards=Object.entries(DB.sources.sources).map(([key,meta])=>{
     const x=sm[key]||{kind:"none",location:"직접 대응 없음",summary:"Source mapping 미작성."};
-    return `<article class="source-card ${esc(meta.class)} is-${esc(x.kind)}">
-      <div class="source-head"><span class="source-name">${esc(meta.label)}</span>
+    return `<li class="source-slot"><article class="source-card ${esc(meta.class)} is-${esc(x.kind)}">
+      <div class="source-head"><h5 class="source-name">${esc(meta.label)}</h5>
         <span class="source-kind">${esc(kindLabel[x.kind]||x.kind)}</span></div>
-      <div class="source-file">${esc(meta.file)}</div>
-      <div class="source-location">${esc(x.location)}</div>
+      <dl class="source-meta">
+        <div><dt>File</dt><dd class="source-file">${esc(meta.file)}</dd></div>
+        <div><dt>Location</dt><dd class="source-location">${esc(x.location)}</dd></div>
+      </dl>
       <p>${tex(x.summary)}</p>
-    </article>`;
+    </article></li>`;
   }).join("");
+  const relationGroups=[
+    vias.length?`<li><section><h5>Connectors</h5><ul>${
+      vias.map(v=>`<li>${tex(DB.connectors[v].label)}</li>`).join("")}</ul></section></li>`:"",
+    inc.length?`<li><section><h5>Incoming dependencies</h5><ul>${
+      inc.map(e=>`<li>${badge(e.status)} ${esc(lbl(e.from))} → <i>${esc(e.label)}</i></li>`).join("")}</ul></section></li>`:"",
+    out.length?`<li><section><h5>Outgoing dependencies</h5><ul>${
+      out.map(e=>`<li>${badge(e.status)} <i>${esc(e.label)}</i> → ${esc(lbl(e.to))}</li>`).join("")}</ul></section></li>`:""
+  ].join("");
   el.innerHTML=`
-    <div class="node-inspector-head"><span class="node-dot" style="background:${esc(DB.nodes.domains[n.domain].color)}"></span>
-      <h3>${esc(n.label)}</h3></div>
-    <p class="muted" style="font-size:13px;margin:0 0 12px">${badge(n.status)}
-      &nbsp;${esc(DB.nodes.domains[n.domain].label)}</p>
-    ${n.formula?`<div class="fml">${texB(n.formula)}</div>`:""}
-    <p>${tex(n.def)}</p>
-    <div class="sect">Source inspector</div>
-    <div class="source-grid">${sourceCards}</div>
-    ${vias.length?`<div class="sect">Connectors</div><ul>${
-      vias.map(v=>`<li>${tex(DB.connectors[v].label)}</li>`).join("")}</ul>`:""}
-    ${inc.length?`<div class="sect">들어오는 연결</div><ul>${
-      inc.map(e=>`<li>${badge(e.status)} ${esc(lbl(e.from))} → <i>${esc(e.label)}</i></li>`).join("")}</ul>`:""}
-    ${out.length?`<div class="sect">나가는 연결</div><ul>${
-      out.map(e=>`<li>${badge(e.status)} <i>${esc(e.label)}</i> → ${esc(lbl(e.to))}</li>`).join("")}</ul>`:""}
-    ${n.refs.length?`<div class="sect">References</div><ul>${
-      n.refs.map(k=>{const r=DB.refs[k];
-        return `<li><a href="#ref-${esc(k)}">${esc(r.authors.split(",")[0])} (${r.year})</a> — ${esc(r.why)}</li>`;
-      }).join("")}</ul>`:""}`;
+    <article class="node-note" aria-labelledby="node-note-${esc(n.id)}">
+      <header class="node-inspector-head"><span class="node-dot" style="background:${esc(DB.nodes.domains[n.domain].color)}"></span>
+        <div><h3 id="node-note-${esc(n.id)}">${esc(n.label)}</h3>
+          <p class="muted note-kicker">${badge(n.status)} &nbsp;${esc(DB.nodes.domains[n.domain].label)}</p></div>
+      </header>
+      <ol class="note-tree note-depth-4">
+        ${n.formula?`<li><section><h4>Formula</h4><div class="fml">${texB(n.formula)}</div></section></li>`:""}
+        <li><section><h4>Definition and interpretation</h4><p>${tex(n.def)}</p></section></li>
+        <li><section><h4>Evidence traceability</h4>
+          <ol class="source-grid note-tree note-depth-5">${sourceCards}</ol>
+        </section></li>
+        ${relationGroups?`<li><section><h4>Relations</h4><ol class="note-tree note-depth-5">${relationGroups}</ol></section></li>`:""}
+        ${n.refs.length?`<li><section><h4>References</h4><ul>${
+          n.refs.map(k=>{const r=DB.refs[k];
+            return `<li><a href="#ref-${esc(k)}">${esc(r.authors.split(",")[0])} (${r.year})</a> — ${tex(r.why)}</li>`;
+          }).join("")}</ul></section></li>`:""}
+      </ol>
+    </article>`;
 }
 
 /* ── 필터 · 카드 · 표 ─────────────────────────────────── */
@@ -196,9 +221,13 @@ function renderFilters(){
 function renderConnectors(){
   document.getElementById("connectors").innerHTML=
     Object.entries(DB.connectors).filter(([k])=>!k.startsWith("_")).map(([,c])=>`
-      <div class="card"><h3>${tex(c.label)}</h3>
-        <p class="cx">잇는 것 — ${c.connects.map(esc).join(" · ")}</p>
-        <p>${tex(c.why)}</p></div>`).join("");
+      <article class="card connector-note"><h3>${tex(c.label)}</h3>
+        <ol class="note-tree note-depth-4">
+          <li><section><h4>Relation scope</h4>
+            <p class="cx">${c.connects.map(esc).join(" · ")}</p></section></li>
+          <li><section><h4>Rationale</h4><p>${tex(c.why)}</p></section></li>
+        </ol>
+      </article>`).join("");
 }
 function renderClaims(){
   const b=document.getElementById("claimFilter");
@@ -207,14 +236,17 @@ function renderClaims(){
       k==="all"?"전체":KO[k]}</button>`).join("");
   b.querySelectorAll("button").forEach(x=>x.onclick=()=>{STATE.claim=x.dataset.k;renderClaims();});
   const rows=DB.claims.claims.filter(c=>STATE.claim==="all"||c.status===STATE.claim);
-  document.getElementById("claimsTable").innerHTML=
-    `<thead><tr><th>id</th><th>상태</th><th>주장</th><th>근거</th></tr></thead><tbody>${
-      rows.map(c=>`<tr><td class="k">${esc(c.id)}</td><td>${badge(c.status)}</td>
-        <td>${tex(c.text)}</td>
-        <td class="muted" style="font-size:13px">${tex(c.basis)}${
-          c.refs.length?" · "+c.refs.map(k=>`<a href="#ref-${esc(k)}">${
-            esc(DB.refs[k].authors.split(",")[0].split(" ").pop())} ${DB.refs[k].year}</a>`).join(", "):""
-        }</td></tr>`).join("")}</tbody>`;
+  noteHost("claimsTable","Claim ledger").innerHTML=rows.map(c=>`
+    <li class="ledger-item"><article class="claim-note" aria-labelledby="claim-${esc(c.id)}">
+      <header class="ledger-head"><h3 id="claim-${esc(c.id)}"><code>${esc(c.id)}</code></h3>${badge(c.status)}</header>
+      <ol class="note-tree note-depth-4">
+        <li><section><h4>Claim</h4><p>${tex(c.text)}</p></section></li>
+        <li><section><h4>Basis</h4><p class="muted">${tex(c.basis)}</p>${
+          c.refs.length?`<section class="note-depth-5"><h5>References</h5><ul>${c.refs.map(k=>`<li><a href="#ref-${esc(k)}">${
+            esc(DB.refs[k].authors.split(",")[0].split(" ").pop())} ${DB.refs[k].year}</a></li>`).join("")}</ul></section>`:""
+        }</section></li>
+      </ol>
+    </article></li>`).join("");
 }
 function renderRefs(){
   const areas=["all",...new Set(Object.entries(DB.refs).filter(([k])=>!k.startsWith("_"))
@@ -226,36 +258,44 @@ function renderRefs(){
   const items=Object.entries(DB.refs).filter(([k])=>!k.startsWith("_"))
     .filter(([,r])=>STATE.refArea==="all"||r.area===STATE.refArea)
     .sort((a,b)=>a[1].year-b[1].year);
-  document.getElementById("refsTable").innerHTML=
-    `<thead><tr><th>key</th><th>reference</th><th>why</th></tr></thead><tbody>${
-      items.map(([k,r])=>`<tr id="ref-${esc(k)}"><td class="k"><code>${esc(k)}</code>${
-        r.verified?"":' <span class="badge b-open">미확인</span>'}</td>
-        <td>${esc(r.authors)} (${r.year}). ${esc(r.title)}. <i>${esc(r.venue)}</i>${
+  noteHost("refsTable","References").innerHTML=items.map(([k,r])=>`
+    <li class="ledger-item"><article class="reference-note" id="ref-${esc(k)}" aria-labelledby="ref-title-${esc(k)}">
+      <header class="ledger-head"><h3 id="ref-title-${esc(k)}"><code>${esc(k)}</code> — ${esc(r.title)}</h3>${
+        r.verified?"":' <span class="badge b-open">미확인</span>'}</header>
+      <ol class="note-tree note-depth-4">
+        <li><section><h4>Citation</h4><p>${esc(r.authors)} (${r.year}). <cite>${esc(r.title)}</cite>. <i>${esc(r.venue)}</i>${
           r.volume?" "+esc(r.volume):""}${r.pages?", "+esc(r.pages):""}.${
-          r.doi?` <a href="https://doi.org/${esc(r.doi)}" target="_blank" rel="noopener noreferrer">doi:${esc(r.doi)}</a>`:""}</td>
-        <td class="muted" style="font-size:13px">${esc(r.why)}</td></tr>`).join("")}</tbody>`;
+          r.doi?` <a href="https://doi.org/${esc(r.doi)}" target="_blank" rel="noopener noreferrer">doi:${esc(r.doi)}</a>`:""}</p></section></li>
+        <li><section><h4>Architecture role</h4><p class="muted">${tex(r.why)}</p></section></li>
+      </ol>
+    </article></li>`).join("");
 }
 
 /* ── 1차 일단락 ──────────────────────────────────────── */
 function renderScope(){
   const s=DB.scope.first_closure;
   document.getElementById("scopeThesis").innerHTML=tex(s.thesis);
-  document.getElementById("scopeClaims").innerHTML=s.four_claims.map(c=>`
-    <div class="claimline"><span class="n">${c.n}</span>
-      <span><span class="t">${tex(c.t)}</span>
-        <span class="s">${tex(c.state)}</span></span></div>`).join("");
+  document.getElementById("scopeClaims").innerHTML=`<ol class="note-tree note-depth-4">${s.four_claims.map(c=>`
+    <li class="claimline"><span class="n" aria-hidden="true">${c.n}</span><article><h4>Claim ${c.n}</h4>
+      <p class="t">${tex(c.t)}</p>
+      <dl class="note-meta"><div><dt>Status</dt><dd class="s">${tex(c.state)}</dd></div></dl>
+    </article></li>`).join("")}</ol>`;
   document.getElementById("scopeWhy").innerHTML=
-    s.why_this_line.map(w=>`<li>${tex(w)}</li>`).join("");
-  document.getElementById("scopeTodo").innerHTML=
-    `<thead><tr><th>Analysis</th><th>Rationale</th><th>Priority</th></tr></thead><tbody>${
-      s.todo.map(x=>`<tr><td>${tex(x.k)}</td>
-        <td class="muted" style="font-size:13px">${tex(x.w)}</td>
-        <td><span class="badge need-${esc(x.need)}">${esc(x.need)}</span></td></tr>`).join("")}</tbody>`;
-  document.getElementById("scopeOut").innerHTML=
-    `<thead><tr><th>Topic</th><th>Rationale</th><th>Stage</th></tr></thead><tbody>${
-      s.excluded.map(x=>`<tr><td>${tex(x.k)}</td>
-        <td class="muted" style="font-size:13px">${tex(x.w)}</td>
-        <td class="k">${esc(x.to)}</td></tr>`).join("")}</tbody>`;
+    s.why_this_line.map((w,i)=>`<li><article><h4>Boundary ${i+1}</h4><p>${tex(w)}</p></article></li>`).join("");
+  noteHost("scopeTodo","Required analyses").innerHTML=s.todo.map((x,i)=>`
+    <li><article class="scope-note" data-note-index="${i+1}"><h4>${tex(x.k)}</h4>
+      <dl class="note-meta">
+        <div><dt>Rationale</dt><dd class="muted">${tex(x.w)}</dd></div>
+        <div><dt>Priority</dt><dd><span class="badge need-${esc(x.need)}">${esc(x.need)}</span></dd></div>
+      </dl>
+    </article></li>`).join("");
+  noteHost("scopeOut","2차 일단락 대상").innerHTML=s.excluded.map((x,i)=>`
+    <li><article class="scope-note" data-note-index="${i+1}"><h4>${tex(x.k)}</h4>
+      <dl class="note-meta">
+        <div><dt>Rationale</dt><dd class="muted">${tex(x.w)}</dd></div>
+        <div><dt>Stage</dt><dd class="k">${esc(x.to)}</dd></div>
+      </dl>
+    </article></li>`).join("");
 }
 
 /* ── 부팅 ─────────────────────────────────────────────── */

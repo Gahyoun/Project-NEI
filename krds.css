@@ -39,11 +39,44 @@ h1{font-size:40px;line-height:1.5;font-weight:700;color:var(--foreground);
 h2{font-size:24px;line-height:1.5;font-weight:700;color:var(--foreground);
   margin:56px 0 10px;letter-spacing:-.01em}
 h3{font-size:19px;font-weight:700;color:var(--foreground);margin:0 0 6px}
+h4{font-size:16px;line-height:1.45;font-weight:750;color:var(--foreground);
+  margin:24px 0 8px;letter-spacing:-.005em}
+h5{font-size:14px;line-height:1.45;font-weight:750;color:var(--foreground);
+  margin:16px 0 6px}
 .lede{font-size:17px;color:var(--body);margin:0 0 20px;max-width:76ch}
 .fine{font-size:13px;color:var(--muted);margin:10px 0 0}
 .cap{font-size:15px;color:var(--body);margin:0 0 12px}
 .muted{color:var(--muted)}
 section{scroll-margin-top:72px}
+
+/* ── Markdown형 계층 노트: h1–h5 / list depth ≤ 5 ───────── */
+.hero>h2{margin-top:24px}
+.note-tree{max-width:84ch;margin:0 0 22px;padding-left:1.45rem}
+.note-tree li{margin:0 0 8px;padding-left:.18rem}
+.note-tree li::marker{color:var(--primary);font-weight:750}
+.note-tree :is(ul,ol){margin:8px 0 5px;padding-left:1.45rem;
+  border-left:1px solid #d8dde3}
+.note-tree :is(ul,ol) li{margin-bottom:6px}
+.note-tree :is(ul,ol) li::marker{color:#7a8793}
+.note-tree :is(ul,ol) :is(ul,ol){border-left-color:#e5e8eb}
+.note-tree :is(ul,ol) :is(ul,ol) :is(ul,ol){border-left-style:dashed}
+.note-tree :is(ul,ol) :is(ul,ol) :is(ul,ol) :is(ul,ol){border-left-style:dotted}
+.note-tree.lede{max-width:84ch}
+.note-tree.fine{max-width:96ch;font-size:14px;line-height:1.6}
+.note-tree b{color:var(--foreground)}
+.note-depth-3,.note-depth-4,.note-depth-5{list-style:none;padding-left:0;max-width:none}
+.note-depth-4>li{padding:0 0 0 15px;border-left:2px solid #d8dde3}
+.note-depth-5>li{padding:0 0 0 13px;border-left:1px dashed #d8dde3}
+.note-depth-4>li:last-child,.note-depth-5>li:last-child{margin-bottom:0}
+.note-tree section>h4,.note-tree section>h5{margin-top:0}
+.note-outline{max-width:84ch;margin:24px 0 0;padding:16px 18px;
+  border-left:4px solid var(--primary);background:var(--surface-primary);border-radius:0 7px 7px 0}
+.note-outline h3{font-size:15px;margin:0 0 8px}
+.note-outline ol{columns:2;column-gap:28px;margin:0;padding-left:1.35rem;font-size:14px}
+.note-outline li{break-inside:avoid;margin:0 0 5px}
+.note-outline a{text-decoration:none}
+.note-outline a:hover{text-decoration:underline}
+@media(max-width:720px){.note-outline ol{columns:1}}
 
 /* ── 태그 / 배지 ───────────────────────────────────────── */
 .tagbar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
@@ -125,6 +158,16 @@ figcaption .s{font-size:13px;color:var(--muted);display:block;margin-top:3px}
 .source-file{font-size:12px;color:currentColor;opacity:.72;overflow-wrap:anywhere}
 .source-location{font-size:12px;font-weight:700;color:currentColor;margin:6px 0}
 .detail .source-card p{font-size:14px;color:currentColor;margin:0;line-height:1.55}
+.node-note>.node-inspector-head{margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid #e6e8ea}
+.node-note>.note-tree{margin-bottom:0}
+.note-kicker{margin:2px 0 0!important;font-size:13px!important}
+.source-grid.note-tree{max-width:none;padding:0;border-left:0}
+.source-grid.note-tree>.source-slot{margin:0;padding:0;border-left:0;list-style:none}
+.source-meta,.note-meta{margin:8px 0 10px}
+.source-meta>div,.note-meta>div{display:grid;grid-template-columns:minmax(72px,auto) 1fr;
+  gap:10px;align-items:start;margin:0 0 5px}
+.source-meta dt,.note-meta dt{font-size:12px;font-weight:750;color:currentColor;opacity:.72}
+.source-meta dd,.note-meta dd{margin:0;min-width:0}
 
 /* ── 막대그림 ──────────────────────────────────────────── */
 .bars{display:flex;flex-direction:column;gap:9px}
@@ -240,3 +283,33 @@ code{background:var(--surface);border-radius:3px;padding:1px 6px;font-size:13px;
 .need-required{background:#fdecea;color:#a3260c}
 .need-recommended{background:#fff4e0;color:#8a5a00}
 .need-optional{background:var(--surface);color:var(--border-strong)}
+
+/* ── 동적 research-note 항목 ──────────────────────────── */
+.connector-note>.note-tree{margin:14px 0 0}
+.connector-note>.note-tree>li{margin-bottom:12px}
+.connector-note .cx{margin:0;font-size:13px}
+.tablewrap>.note-tree{margin:0;padding:16px 18px;max-width:none;background:var(--canvas)}
+.ledger-item{list-style:none;margin:0!important;padding:0!important;border-left:0!important}
+.ledger-item+ .ledger-item{border-top:1px solid #e6e8ea!important;padding-top:20px!important;margin-top:20px!important}
+.claim-note,.reference-note,.scope-note{min-width:0}
+.ledger-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
+.ledger-head h3{min-width:0;overflow-wrap:anywhere}
+.ledger-head+.note-tree{margin-bottom:0}
+.claim-note p,.reference-note p,.scope-note p{margin:0;font-size:15px;line-height:1.6}
+.reference-note cite{color:var(--foreground)}
+.scope-note>h4{margin:0 0 8px}
+.scope-note .note-meta{margin-bottom:0}
+.scope-note .note-meta>div{grid-template-columns:78px 1fr}
+.reasons{list-style:none;margin:0;padding:0;font-size:15px}
+.reasons>li{padding:0 0 0 15px;border-left:2px solid #d8dde3;margin:0 0 14px}
+.reasons h4{margin:0 0 5px}
+.reasons p{margin:0;line-height:1.6}
+.note-tree .claimline{display:grid;grid-template-columns:26px 1fr;gap:10px;
+  margin:0 0 14px;padding:0;border-left:0;list-style:none}
+.note-tree .claimline h4{margin:0 0 5px}
+@media(max-width:640px){
+  .tablewrap>.note-tree{padding:14px}
+  .ledger-head{display:block}
+  .ledger-head .badge{margin-top:6px}
+  .source-meta>div,.note-meta>div,.scope-note .note-meta>div{grid-template-columns:1fr;gap:1px}
+}
