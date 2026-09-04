@@ -131,3 +131,35 @@ a{color:var(--primary)}
 code{background:var(--surface);border-radius:3px;padding:1px 6px;font-size:13px;
   font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
 .err{color:var(--danger);font-size:15px}
+
+/* ── 줌 되는 계층형 캔버스 ─────────────────────────────── */
+.canvaswrap{position:relative;border:1px solid var(--hairline);border-radius:6px;
+  background:var(--canvas);overflow:hidden}
+.mapc{height:min(70vh,660px);width:100%;cursor:grab;touch-action:none}
+.mapc:active{cursor:grabbing}
+.graphsvg{display:block;user-select:none}
+.zoomctl{position:absolute;right:12px;top:12px;z-index:2;display:flex;gap:6px}
+.zb{width:34px;height:34px;border:1px solid var(--hairline);background:var(--canvas);
+  color:var(--body);border-radius:5px;font-size:17px;line-height:1;cursor:pointer;
+  font-family:inherit}
+.zb.wide{width:auto;padding:0 12px;font-size:14px}
+.zb:hover{border-color:var(--primary);color:var(--primary)}
+.gn{cursor:pointer}
+.gn-label{font-family:var(--sans);font-size:14px;font-weight:500}
+.gn-hyper{font-family:var(--sans);font-size:14px;font-weight:700}
+.gn:hover .gn-bg{fill:var(--surface-primary)}
+.gn.sel .gn-label{font-weight:700}
+.gn.sel .gn-bg{fill:var(--surface-primary)}
+.gn.dim{opacity:.26}
+
+/* ── 절단선 절 ─────────────────────────────────────────── */
+.reasons{margin:0;padding-left:20px;font-size:15px}
+.reasons li{margin:0 0 9px}
+.claimline{display:grid;grid-template-columns:26px 1fr;gap:10px;margin:0 0 14px}
+.claimline .n{width:24px;height:24px;border-radius:50%;background:var(--surface-primary);
+  color:var(--primary-deep);font-weight:700;font-size:13px;display:grid;place-items:center}
+.claimline .t{font-size:15px;margin:0 0 4px}
+.claimline .s{font-size:13px;color:var(--muted)}
+.need-필수{background:#fdecea;color:#a3260c}
+.need-권장{background:#fff4e0;color:#8a5a00}
+.need-선택{background:var(--surface);color:var(--border-strong)}

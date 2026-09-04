@@ -1,4 +1,4 @@
-# $\mathcal{I}$ 는 trace 이다 — 스칼라가 놓치는 것
+# 벡터로 energy landscape 를 분해한다 — trace 와 spectrum
 
 `2026-09-04`
 
@@ -12,9 +12,10 @@ Gram 행렬이 정확히 복원된다.
 $$\mathbf{G}_{\text{run}}=-\tfrac12 C_M\Delta^{\circ2}C_M,\qquad
 \operatorname{tr}\mathbf{G}_{\text{run}}=\frac{1}{\text{scale}^2}\sum_{i<j}\sigma_{ij}^2$$
 
-즉 **$\mathcal{I}$ 는 terminal covariance operator 의 trace 이다.** trace 는 크기만
-말하고 모양을 말하지 않는다. 분산이 한 방향에 갇혔는지(다중안정형) 여러 방향으로
-퍼졌는지(floppy) 는 eigenvalue spectrum 에만 들어 있다.
+즉 **$\mathcal{I}$ 는 terminal covariance operator 의 trace 이고, 같은 연산자의
+eigenvalue spectrum 이 그 모양을 담는다.** trace 는 degeneracy 의 크기를 주고,
+spectrum 은 degeneracy 가 몇 개의 자유도를 차지하는지를 준다 — 한 방향에 갇힌
+다중안정형과 여러 방향으로 퍼진 floppy 가 여기서 갈린다.
 
 $$d_{\text{eff}}=\frac{(\sum_a\nu_a)^2}{\sum_a\nu_a^2}$$
 
@@ -38,9 +39,9 @@ $$d_{\text{eff}}=\frac{(\sum_a\nu_a)^2}{\sum_a\nu_a^2}$$
 `socfb-Mich67` ($\mathcal{I}=0.0970$, $d_{\text{eff}}=52.9$) 는 $\mathcal{I}$ 가 소수점
 셋째 자리까지 같은데 차원이 10배 다르다.
 
-올바른 진술은 `독립` 이 아니라 **`결정되지 않는다`** 이다.
+정확한 진술은 **`$d_{\text{eff}}$ 가 $\mathcal{I}$ 와 독립한 정보를 담는다`** 이다.
 
-## 설계상의 문제: $M=100$ 으로는 해상되지 않는다
+## $d_{\text{eff}}$ 의 해상에는 더 큰 $M$ 이 필요하다
 
 $d_{\text{eff}}\le M-1=99$ 인데 관측 최댓값이 **98.98** 이다.
 

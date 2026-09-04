@@ -14,8 +14,8 @@
   <div class="inner">
     <span class="mark">NEI</span>
     <nav>
-      <a href="#result">핵심 결과</a><a href="#map">지도</a><a href="#conn">연결요소</a>
-      <a href="#repr">representability</a><a href="#scalar">스칼라의 한계</a>
+      <a href="#result">핵심 결과</a><a href="#map">지도</a><a href="#scope">PRE 2026</a><a href="#conn">연결요소</a>
+      <a href="#repr">representability</a><a href="#scalar">벡터 분해</a>
       <a href="#claims">주장 현황</a><a href="#refs">참고문헌</a>
     </nav>
   </div>
@@ -33,9 +33,9 @@
 
 <section id="result">
   <h2>핵심 결과 — NEI 는 energy landscape 의 real degeneracy 를 잰다</h2>
-  <p class="lede">SMACOF terminal 은 stationary point 가 아니다. sklearn 의 stopping rule 은 상대 stress
-  개선량이지 optimality gap 이 아니어서, 실측 $\eta_g$ 가 L-BFGS 보다 5 자릿수 크다. 그래서 각 terminal 을
-  L-BFGS 로 <b>polish</b> 해 진짜 stationary point 까지 밀어넣고 다시 측정했다.</p>
+  <p class="lede">sklearn 의 stopping rule 은 상대 stress 개선량을 기준으로 삼으며, 그 지점의 무차원
+  stationarity 지표 $\eta_g$ 는 L-BFGS 가 도달하는 값보다 5 자릿수 크다. 각 terminal 을 L-BFGS 로
+  <b>polish</b> 해 stationary point 까지 밀어넣고 거기서 다시 측정한다.</p>
   <div class="grid2">
     <figure class="panel"><figcaption id="cap-polish"></figcaption><div id="ch-polish"></div></figure>
     <figure class="panel"><figcaption id="cap-certify"></figcaption><div id="ch-certify"></div></figure>
@@ -48,17 +48,40 @@
     network 4개에서 $\mathcal{I}$ 는 optimizer 에 거의 의존하지 않는다 —
     수렴 품질이 6 자릿수 다른데 값은 15% 안에서 같다.
   </div>
-  <p class="fine">단, 이는 검사한 network 에 대한 진술이다. 전 표본으로 확장하려면 polish 를 전면 적용해야 한다.</p>
+  <p class="fine">이 진술의 범위는 검사한 network 이다. 전 표본으로 확장하려면 polish 를 전면 적용한다.</p>
 </section>
 
 <section id="map">
   <h2>전체 지도</h2>
-  <p class="lede">마디를 누르면 정의·수식·참고문헌과 그 마디가 지나는 연결요소가 아래에 나온다.
-  간선의 색은 그 연결이 정리인지, 이번 측정인지, 미해결인지를 나타낸다.</p>
+  <p class="lede">계층은 위상 깊이를 따른다. 위에서 아래로 갈수록 앞의 것에 의존한다.
+  간선의 색이 그 연결의 지위를 나타낸다 — 파랑은 정리, 주황은 이번 측정, 회색 점선은 미해결.
+  초록 점선은 PRE 2026 에서 일단락할 범위를 묶은 hyperedge 이다.</p>
   <div class="tagbar" id="domFilter"></div>
   <div class="legend" id="mapLegend"></div>
-  <div class="mapbox" id="mapc">불러오는 중…</div>
+  <div class="canvaswrap">
+    <div class="zoomctl">
+      <button class="zb" id="zIn"  title="확대">+</button>
+      <button class="zb" id="zOut" title="축소">−</button>
+      <button class="zb wide" id="zFit">맞춤</button>
+    </div>
+    <div class="mapc" id="mapc">불러오는 중…</div>
+  </div>
+  <p class="fine">휠로 확대·축소, 끌어서 이동. 마디를 누르면 이웃만 남는다.</p>
   <div class="panel detail" id="panel"><p class="muted">마디를 선택하세요.</p></div>
+</section>
+
+
+<section id="scope">
+  <h2>PRE 2026 절단선</h2>
+  <p class="lede" id="scopeThesis"></p>
+  <div class="grid2">
+    <div class="panel"><h3>네 주장</h3><div id="scopeClaims"></div></div>
+    <div class="panel"><h3>이 선을 고른 이유</h3><ul id="scopeWhy" class="reasons"></ul></div>
+  </div>
+  <div class="grid2">
+    <div class="panel"><h3>닫으려면 필요한 것</h3><div class="tablewrap"><table id="scopeTodo"></table></div></div>
+    <div class="panel"><h3>hyperedge 바깥 — 다음으로</h3><div class="tablewrap"><table id="scopeOut"></table></div></div>
+  </div>
 </section>
 
 <section id="conn">
@@ -71,25 +94,28 @@
 <section id="repr">
   <h2>Representability — protocol 이 개입하지 않는 축</h2>
   <p class="lede">$\mathcal{D}_p=0$ 은 graph metric 이 $\mathbb{R}^p$ 에서 정확히 실현되는 것과 동치이다(Schoenberg).
-  임베딩을 돌리지 않으므로 sampling 문제가 없다.</p>
+  eigendecomposition 한 번으로 닫힌 형태로 결정되며, graph metric 하나에만 의존한다.</p>
   <figure class="panel wide"><figcaption id="cap-Dp"></figcaption><div id="ch-Dp"></div></figure>
   <div class="callout warn">
-    random geometric graph 에서 Euclidean 인 것은 잠재 좌표이지 graph metric 이 아니다.
-    hop metric 의 $\mathcal{D}_2$ 는 $0.464$ 로 격자($0.406$)보다 <b>크고</b>, 밀도를 올리면 $0.648$ 로 더 나빠진다.
-    같은 점집합의 좌표 거리는 $\mathcal{D}_2=0.000$ 이다.
+    random geometric graph 에서 Euclidean 구조를 갖는 것은 잠재 좌표이다. 같은 점집합의
+    좌표 거리는 $\mathcal{D}_2=0.000$ 인 반면, hop metric 은 $\mathcal{D}_2=0.464$ 로 격자($0.406$)를
+    웃돌고 밀도를 올리면 $0.648$ 까지 커진다 — hop 이 포화하기 때문이다.
   </div>
 </section>
 
 <section id="scalar">
-  <h2>스칼라 하나로는 부족하다</h2>
-  <p class="lede">$\mathcal{I}$ 는 terminal covariance operator 의 <b>trace</b> 이다.
-  trace 는 크기만 말하고 모양을 말하지 않으므로, 다중안정형과 floppy 를 원리적으로 구분하지 못한다.</p>
+  <h2>벡터로 energy landscape 를 분해한다</h2>
+  <p class="lede">$\mathcal{I}$ 는 terminal covariance operator 의 <b>trace</b> 이고, 그 <b>spectrum</b> 이
+  같은 연산자의 모양을 담는다. trace 는 degeneracy 의 크기를, participation ratio
+  $d_{\mathrm{eff}}$ 는 degeneracy 가 차지하는 자유도의 수를 준다. 두 축이 함께
+  다중안정형과 floppy 를 가른다. spectrum 은 이미 저장된 $\Delta$ 에서 복원되므로 재실행이 필요 없다.</p>
   <div class="grid2">
     <figure class="panel"><figcaption id="cap-Ideff"></figcaption><div id="ch-Ideff"></div></figure>
     <figure class="panel"><figcaption id="cap-cens"></figcaption><div id="ch-cens"></div></figure>
   </div>
   <div class="panel wide">
-    <p class="cap">1차원 stress landscape 로 본 같은 이야기. 초기조건을 균등하게 뿌리고 $T=0$ 하강을 돌린 terminal 분포이다.</p>
+    <p class="cap">1차원 stress landscape 에서 같은 분해를 본다. 초기조건을 균등하게 뿌리고 $T=0$ 하강을
+    돌린 terminal 분포이며, 분산과 participation ratio 를 함께 읽는다.</p>
     <div class="tagbar" id="lsButtons"></div>
     <div class="lsRow">
       <canvas id="ls" width="720" height="300"></canvas>
@@ -118,7 +144,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
-<script src="app.js"></script>
+<script type="module" src="app.js"></script>
 </body>
 </html>

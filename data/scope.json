@@ -1,0 +1,41 @@
+{
+ "_note": "PRE 2026 절단선. 지도 위에 초록 점선 hyperedge 로 두른다. members 를 고치면 hyperedge 가 따라 바뀐다.",
+ "pre2026": {
+  "label": "PRE 2026 — 여기까지 일단락",
+  "color": "#207037",
+  "members": ["G","delta","schoenberg","Dp","strain","stress","shape",
+              "inherent","gate","softmode","NEI","deff","ident",
+              "rigid","split","floppy"],
+  "thesis": "고정된 topology-to-geometry protocol 아래에서 representability 와 identifiability 는 서로 다른 protocol 의존성을 갖는 두 축이며, 둘 다 측정 가능하고 서로를 결정하지 않는다.",
+  "why_this_line": [
+   "네 주장이 전부 측정으로 닫힌다. 해석 층위를 하나도 빌리지 않는다.",
+   "control 이 정리로 뒷받침된다. 경로 그래프는 $\\mathcal{D}_p=0$ 이므로 거기서 나오는 $\\mathcal{I}>0$ 은 전부 protocol 의 실패이다. 격자는 $\\mathcal{D}_2=0.406$ 이라 이 지위를 갖지 못한다.",
+   "순환이 없다. $\\mathcal{I}\\to0$ 을 convergence control 로만 쓰고 측도 타당성의 독립 증거로 세지 않는다.",
+   "protocol 의존성을 숨기지 않는다. optimizer 무관성을 측정으로 보이고, $\\rho_0$ 의존성은 조건으로 명시한다.",
+   "$\\mathcal{I}$ 를 인증된 local minimizer 위에서 측정하므로 'local minimum' 이라는 말을 쓸 자격이 생긴다."
+  ],
+  "four_claims": [
+   {"n":"1","t":"$\\mathcal{D}_p$ 는 protocol 이 개입하지 않는 representability 축이다. $\\mathcal{D}_p=0$ 이 정확한 실현과 동치이고(Schoenberg), 경로 그래프가 정리로 뒷받침되는 control 을 준다.","state":"측정 완료 (모형 10종). 실제 network 전 표본 계산 필요"},
+   {"n":"2","t":"인증된 local minimizer 위에서도 terminal ensemble 은 축퇴되어 있다. polish 후 $\\mathcal{I}$ 가 살아남고, terminal 이 전부 진짜 minimizer 이며, 서로 $O(1)$ 만큼 떨어져 있다.","state":"network 4개 완료. 전 표본 polish 필요"},
+   {"n":"3","t":"$\\mathcal{I}$ 는 terminal covariance 의 trace 이므로 불완전하다. $d_{\\mathrm{eff}}$ 가 두 번째 축이고, 저장된 $\\Delta$ 만으로 계산된다.","state":"측정 완료. $M$ 확대로 검열 해소 필요"},
+   {"n":"4","t":"두 축은 서로를 결정하지 않는다. $\\rho=+0.757$ 이지만 순위분산의 43% 가 설명되지 않고, $\\mathcal{I}$ 5분위 안에서 $d_{\\mathrm{eff}}$ 가 3–77배 벌어진다.","state":"측정 완료"}
+  ],
+  "todo": [
+   {"k":"polish 전면 적용","w":"약 80개 network. 가장 큰 계산 항목이지만 단순 반복이다.","need":"필수"},
+   {"k":"$M$ 확대","w":"$d_{\\mathrm{eff}}$ 가 $M=100$ 에서 27/77 검열된다. 층화 부표본에 $M=400$.","need":"필수"},
+   {"k":"$S_\\Delta$, $s_\\Delta$, run 별 $\\min d_{ij}$ 저장","w":"$\\eta_g$ 와 $\\chi_{\\mathrm{coll}}$ gate 를 전 표본에 보고하려면 필요하다. 스칼라 두 개를 안 저장해서 막혀 있다.","need":"필수"},
+   {"k":"$\\mathcal{D}_p$ 전 표본","w":"eigendecomposition 한 번씩. 몇 분이면 끝난다.","need":"필수"},
+   {"k":"경로 그래프 control 보고","w":"$P_n$ 에서 $\\mathcal{I}$ 를 재서 protocol 의 unit test 로 싣는다.","need":"필수"},
+   {"k":"비중복성","w":"$\\lambda_2$ · 평균 최단거리 · 차수 이질성과의 편상관. 지운 분석을 복원한다. 이것이 없으면 심사자는 redundant 하다고 가정한다.","need":"필수"},
+   {"k":"$\\rho_0$ 강건성","w":"uniform / cMDS+noise / spectral+noise 순위상관. optimizer 무관성은 이미 있다.","need":"권장"},
+   {"k":"automorphism 벤치마크","w":"$\\mathrm{Aut}(\\delta)$ 궤도가 주는 해석적 $\\mathcal{I}$. 정리로 뒷받침되고 계산이 싸지만 범위를 늘린다.","need":"선택"}
+  ],
+  "excluded": [
+   {"k":"soft mode 와 $r_i$ 의 정렬 (L6)","w":"가장 강한 물리 결과가 될 자리이지만 $X^{(m)}$ 저장과 전면 재실행이 필요하다.","to":"다음 논문"},
+   {"k":"장벽 · continuation (L7)","w":"'basin' 이라는 말을 쓰려면 필요하다. 별도 실험이다.","to":"다음 논문"},
+   {"k":"좌절의 무질서도","w":"격자는 $\\mathcal{D}_2=0.406$ 인데 $\\mathcal{I}\\approx0$ 이다. 좌절의 크기만으로는 landscape 가 거칠어지지 않는다. 이론이 없다.","to":"박사과정 주제"},
+   {"k":"rigidity 이론과의 접합","w":"Maxwell–Laman–Connelly 계보. 완전 쌍집합 위의 framework 이라 그래프 희소성이 곧 제약부족이 아니다. 맥락으로 인용만 한다.","to":"인용만"},
+   {"k":"metric embedding distortion","w":"Bourgain, LLR. $\\mathcal{D}_p$ 와 같은 비매장성을 다른 노름으로 잰다. 맥락으로 인용만 한다.","to":"인용만"}
+  ]
+ }
+}

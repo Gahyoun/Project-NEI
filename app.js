@@ -1,3 +1,5 @@
+import { makeGraph } from "./graph.js";
+
 /* NEI 아키텍처 — data/*.json 에서 지도·막대그림·표를 만든다. */
 
 const DB = {}, STATE = { off: new Set(), sel: null, claim: "all", refArea: "all" };
@@ -82,43 +84,29 @@ function renderCharts() {
 }
 
 /* ── 지도 ─────────────────────────────────────────────── */
-function mermaidSrc(){
-  // subgraph 레인은 거대한 빈 상자를 만든다. 레인 대신 색으로 영역을 구분하고
-  // 배치는 mermaid 에 맡긴다.
-  const shown = DB.nodes.nodes.filter(n=>!STATE.off.has(n.domain));
-  const ids = new Set(shown.map(n=>n.id));
-  const L=["flowchart LR"];
-  shown.forEach(n=>L.push(`  ${n.id}["${n.label.replace(/"/g,"'")}"]`));
-  DB.edges.edges.filter(e=>ids.has(e.from)&&ids.has(e.to)).forEach((e,i)=>{
-    const a=(e.status==="open"||e.status==="conjecture")?"-.->":"-->";
-    L.push(`  ${e.from} ${a}|"${e.label.replace(/"/g,"'")}"| ${e.to}`);
-    L.push(`  linkStyle ${i} stroke:${{theorem:"#256ef4",measured:"#ab5b00",
-      open:"#6d7882",conjecture:"#6a2d86",caution:"#6a2d86"}[e.status]||"#6d7882"},stroke-width:1.5px`);
+let GRAPH = null;
+function drawMap(){
+  const host=document.getElementById("mapc");
+  const shown=DB.nodes.nodes.filter(n=>!STATE.off.has(n.domain));
+  const ids=new Set(shown.map(n=>n.id));
+  const hy=DB.scope.pre2026;
+  GRAPH = makeGraph(host,{
+    nodes: shown, domains: DB.nodes.domains,
+    edges: DB.edges.edges.filter(e=>ids.has(e.from)&&ids.has(e.to)),
+    hyper: { label: hy.label, color: hy.color,
+             members: hy.members.filter(i=>ids.has(i)) },
+    onSelect: id => { STATE.sel=id; renderPanel(); }
   });
-  shown.forEach(n=>{
-    const c=DB.nodes.domains[n.domain].color;
-    L.push(`  style ${n.id} stroke:${c},stroke-width:1.8px,fill:#fff,color:#1e2124`);
-  });
-  shown.forEach(n=>L.push(`  click ${n.id} nodeClick`));
-  return L.join("\n");
 }
 function renderMapLegend(){
   const el=document.getElementById("mapLegend"); if(!el) return;
-  el.innerHTML=Object.entries(DB.nodes.domains).map(([d,m])=>
-    `<span><i style="background:${m.color}"></i>${m.label}</span>`).join("")
-    +`<span style="margin-left:14px"><i style="background:#256ef4"></i>정리</span>`
+  el.innerHTML=Object.entries(DB.nodes.domains).map(([,m])=>
+      `<span><i style="background:${m.color}"></i>${m.label}</span>`).join("")
+    +`<span style="margin-left:12px"><i style="background:#256ef4"></i>정리</span>`
     +`<span><i style="background:#ab5b00"></i>측정</span>`
-    +`<span><i style="background:#6d7882"></i>미해결(점선)</span>`;
+    +`<span><i style="background:#6d7882"></i>미해결</span>`
+    +`<span><i style="background:${DB.scope.pre2026.color}"></i>PRE 2026 hyperedge</span>`;
 }
-async function drawMap(){
-  const box=document.getElementById("mapc");
-  try{
-    const {svg,bindFunctions}=await mermaid.render("mp"+Date.now(),mermaidSrc());
-    box.innerHTML=svg; bindFunctions?.(box);
-  }catch(e){ box.innerHTML=`<p class="err">지도 렌더 실패: ${esc(e.message||e)}</p>`; }
-}
-window.nodeClick = id => { STATE.sel=id; renderPanel();
-  document.getElementById("panel").scrollIntoView({block:"nearest",behavior:"smooth"}); };
 
 function renderPanel(){
   const el=document.getElementById("panel");
@@ -197,6 +185,28 @@ function renderRefs(){
         <td class="muted" style="font-size:13px">${esc(r.why)}</td></tr>`).join("")}</tbody>`;
 }
 
+/* ── PRE 2026 절단선 ──────────────────────────────────── */
+function renderScope(){
+  const s=DB.scope.pre2026;
+  document.getElementById("scopeThesis").innerHTML=tex(esc(s.thesis));
+  document.getElementById("scopeClaims").innerHTML=s.four_claims.map(c=>`
+    <div class="claimline"><span class="n">${c.n}</span>
+      <span><span class="t">${tex(esc(c.t))}</span>
+        <span class="s">${tex(esc(c.state))}</span></span></div>`).join("");
+  document.getElementById("scopeWhy").innerHTML=
+    s.why_this_line.map(w=>`<li>${tex(esc(w))}</li>`).join("");
+  document.getElementById("scopeTodo").innerHTML=
+    `<thead><tr><th>항목</th><th>내용</th><th>지위</th></tr></thead><tbody>${
+      s.todo.map(x=>`<tr><td>${tex(esc(x.k))}</td>
+        <td class="muted" style="font-size:13px">${tex(esc(x.w))}</td>
+        <td><span class="badge need-${esc(x.need)}">${esc(x.need)}</span></td></tr>`).join("")}</tbody>`;
+  document.getElementById("scopeOut").innerHTML=
+    `<thead><tr><th>항목</th><th>내용</th><th>어디로</th></tr></thead><tbody>${
+      s.excluded.map(x=>`<tr><td>${tex(esc(x.k))}</td>
+        <td class="muted" style="font-size:13px">${tex(esc(x.w))}</td>
+        <td class="k">${esc(x.to)}</td></tr>`).join("")}</tbody>`;
+}
+
 /* ── landscape ────────────────────────────────────────── */
 const LS={ rigid:{n:"강체형",f:x=>0.9*(x-0.5)**2},
   multi:{n:"다중안정형",f:x=>0.28*Math.cos(6*Math.PI*x)/3+0.55*(x-0.5)**2},
@@ -232,12 +242,13 @@ function drawLS(){
   const p=hist.map(h=>h/M).filter(v=>v>0), pr=1/p.reduce((s,v)=>s+v*v,0);
   document.getElementById("lsOut").innerHTML=`
     <div><b>${LS[lsK].n}</b></div>
-    <div>분산 (𝓘 유비) <b>${va.toFixed(5)}</b></div>
+    <div>분산 (𝓘 대응) <b>${va.toFixed(5)}</b></div>
     <div>점유 bin <b>${p.length}</b> / ${B}</div>
-    <div>참여비 (d_eff 유비) <b>${pr.toFixed(2)}</b></div>
-    <p class="fine" style="max-width:24ch">분산은 크기만 잰다.
-    다중안정형은 좁은 봉우리 여러 개로, floppy 는 넓은 골 하나로 같은 분산을 낼 수 있고,
-    그 차이는 참여비에만 나타난다.</p>`;
+    <div>participation ratio <b>${pr.toFixed(2)}</b></div>
+    <p class="fine" style="max-width:26ch">분산은 degeneracy 의 크기를,
+    participation ratio 는 그것이 차지하는 자유도의 수를 준다. 다중안정형은 좁은 봉우리
+    여러 개로, floppy 는 넓은 골 하나로 같은 분산에 도달하며, 두 경우를 participation
+    ratio 가 가른다.</p>`;
 }
 function renderLsBtns(){
   const b=document.getElementById("lsButtons");
@@ -249,7 +260,7 @@ function renderLsBtns(){
 /* ── 부팅 ─────────────────────────────────────────────── */
 (async function(){
   const files={nodes:"nodes",edges:"edges",connectors:"connectors",
-               claims:"claims",refs:"refs",meas:"measurements"};
+               claims:"claims",refs:"refs",meas:"measurements",scope:"scope"};
   try{
     await Promise.all(Object.entries(files).map(async([k,f])=>{
       const r=await fetch(`data/${f}.json`);
@@ -262,12 +273,12 @@ function renderLsBtns(){
        <code>python3 -m http.server</code> 또는 GitHub Pages 에서 여세요.</span></p>`;
     return;
   }
-  mermaid.initialize({startOnLoad:false,securityLevel:"loose",theme:"neutral",
-    flowchart:{curve:"basis",nodeSpacing:30,rankSpacing:58,useMaxWidth:false},
-    themeVariables:{fontFamily:'"Pretendard GOV",Pretendard,system-ui,sans-serif',fontSize:"13px"}});
-  renderCharts(); renderFilters(); renderMapLegend(); renderConnectors();
-  renderClaims(); renderRefs(); renderLsBtns(); drawLS();
-  await drawMap();
+  renderCharts(); renderFilters(); renderMapLegend(); renderScope();
+  renderConnectors(); renderClaims(); renderRefs(); renderLsBtns(); drawLS();
+  drawMap();
+  document.getElementById("zIn").onclick  = ()=>GRAPH?.zoomIn();
+  document.getElementById("zOut").onclick = ()=>GRAPH?.zoomOut();
+  document.getElementById("zFit").onclick = ()=>{ GRAPH?.fit(); GRAPH?.select(null); };
   renderMathInElement(document.body,{delimiters:[
     {left:"$",right:"$",display:false}],throwOnError:false});
 })();

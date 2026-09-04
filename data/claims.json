@@ -66,14 +66,14 @@
   {
    "id": "C8",
    "status": "measured",
-   "text": "$\\mathcal{I}$ 와 $d_{\\mathrm{eff}}$ 는 강하게 상관하지만($\\rho=+0.757$) 서로를 결정하지 않는다. 순위분산의 43%가 설명되지 않으며, $\\mathcal{I}$ 5분위 안에서 $d_{\\mathrm{eff}}$ 가 3–77배 벌어진다.",
+   "text": "$d_{\\mathrm{eff}}$ 는 $\\mathcal{I}$ 와 독립한 정보를 담는다. Spearman $\\rho=+0.757$ 로 단조 연관이 있으나 순위분산의 43% 가 $d_{\\mathrm{eff}}$ 고유의 것이며, $\\mathcal{I}$ 5분위 안에서 $d_{\\mathrm{eff}}$ 가 3–77배에 걸쳐 분포한다.",
    "basis": "실제망 77개.",
    "refs": []
   },
   {
    "id": "C9",
    "status": "measured",
-   "text": "$M=100$ 으로는 $d_{\\mathrm{eff}}$ 가 해상되지 않는 망이 77개 중 27개이다. 상한이 $M-1=99$ 인데 관측 최댓값이 98.98 이다.",
+   "text": "$d_{\\mathrm{eff}}$ 를 해상하려면 $M$ 을 키워야 한다. 상한이 $M-1=99$ 인데 관측 최댓값이 98.98 이고, 77개 중 27개가 $0.5(M-1)$ 을 넘는다.",
    "basis": "participation ratio의 표본 편향과 검열.",
    "refs": []
   },
@@ -89,7 +89,7 @@
   {
    "id": "C11",
    "status": "measured",
-   "text": "그러나 SMACOF terminal은 stationary point이 아니다. $\\eta_g$ 가 L-BFGS 보다 4–5 자릿수 크다. sklearn 의 stopping rule은 상대 stress 개선량이지 optimality gap이 아니다.",
+   "text": "SMACOF 의 stopping rule 은 상대 stress 개선량을 기준으로 삼는다. 그 지점의 $\\eta_g$ 는 L-BFGS 가 도달하는 값보다 4–5 자릿수 크므로, stationarity 는 polish 로 확보한다.",
    "basis": "SMACOF $\\eta_g\\sim2\\times10^{-3}$ 대 L-BFGS $\\sim2\\times10^{-8}$.",
    "refs": [
     "scikitlearn",
@@ -141,7 +141,7 @@
   {
    "id": "C17",
    "status": "withdrawn",
-   "text": "0 이 아닌 NEI 는 다중 basin 구조의 관측량이다.",
+   "text": "0 이 아닌 $\\mathcal{I}$ 는 네 가지 landscape 구조와 양립한다 — 분리된 다중 minimizer, 평평한 방향을 가진 단일 minimizer, metric automorphism orbit, 미수렴 혼입. 이들을 가르려면 spectrum 과 Hessian 인증이 함께 필요하다.",
    "basis": "분리된 다중 최소, 평평한 방향을 가진 단일 최소, automorphism orbit, 미수렴 혼입 모두와 양립한다. 게다가 trace은 원리적으로 앞의 둘을 구분하지 못한다.",
    "refs": []
   },

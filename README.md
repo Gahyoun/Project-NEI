@@ -36,16 +36,42 @@ identifiability 는 표준 이론대로 두 갈래로 쪼개진다.
 철회한 주장은 [notes/04](notes/04-withdrawn-claims.md), 남은 물음은
 [notes/05](notes/05-open.md) 에 있다.
 
+## PRE 2026 절단선
+
+지도 위에 **초록 점선 hyperedge** 로 두른 22개 중 16개가 2026년에 일단락할 범위이다.
+쌍별 간선이 아니라 hyperedge 로 묶은 이유는, 이 범위가 몇 개의 연결이 아니라 마디의
+집합 하나로 닫히기 때문이다.
+
+**주장 네 개.**
+
+1. $\mathcal{D}_p$ 는 protocol 이 개입하지 않는 representability 축이다.
+   $\mathcal{D}_p=0$ 이 정확한 실현과 동치이고(Schoenberg), 경로 그래프가 정리로
+   뒷받침되는 control 을 준다.
+2. 인증된 local minimizer 위에서도 terminal ensemble 은 축퇴되어 있다.
+3. $\mathcal{I}$ 는 terminal covariance 의 trace 이고, 같은 연산자의 spectrum 이
+   $d_{\text{eff}}$ 를 준다.
+4. 두 축은 서로를 결정하지 않는다.
+
+**닫으려면 필요한 것** — polish 전면 적용, $M$ 확대, $S_\Delta\cdot s_\Delta\cdot\min d_{ij}$
+저장, $\mathcal{D}_p$ 전 표본, 경로 그래프 control, 표준 기술자와의 편상관.
+
+**hyperedge 바깥** — soft mode 와 $r_i$ 의 정렬(L6), 장벽·continuation(L7), 좌절의
+무질서도. 앞의 둘은 다음 논문, 마지막은 박사과정 주제이다.
+
+자세한 것은 웹 지도의 `PRE 2026 절단선` 절과 [`data/scope.json`](data/scope.json) 에 있다.
+
 ## 구성
 
 ```
-index.html  krds.css  app.js      웹 지도 (KRDS 디자인 시스템 참조)
+index.html  krds.css  app.js      줌·팬 되는 계층형 지도 (KRDS 디자인 시스템 참조)
+graph.js                          계층형 DAG 렌더러 (줌·팬, hyperedge)
 data/                             지도·표·참고문헌의 원본 JSON
   nodes.json  edges.json          개념과 연결
   connectors.json                 연결을 지탱하는 다섯 장치
   claims.json                     정리 / 측정 / 미해결 / 철회
   refs.json                       참고문헌 43건
   measurements.json               막대그림이 읽는 수치
+  scope.json                      PRE 2026 절단선 hyperedge
 notes/                            중간에 확정한 것들
 code/                             재현 코드
 ```
