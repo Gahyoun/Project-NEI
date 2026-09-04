@@ -1,5 +1,5 @@
 {
-  "_note": "Architecture node와 세 LaTeX source의 active text를 대응시킨다. direct, partial, none을 구분하며 comment와 외부 input은 근거에서 제외한다.",
+  "_note": "Architecture node와 세 LaTeX source의 active text 대응표. direct, partial, none 구분. comment와 외부 input은 근거에서 제외.",
   "sources": {
     "main": {"label": "본문", "file": "Project_NEI (2).tex", "class": "src-main", "color": "#c62828"},
     "si": {"label": "SI", "file": "Supplement_NEI_EN_overleaf_paragraph (1).tex", "class": "src-si", "color": "#207037"},
@@ -7,144 +7,144 @@
   },
   "nodes": {
     "G": {
-      "main": {"kind":"direct","location":"Introduction, lines 60–81; Methods, Eq. stress_function","summary":"Fixed connected graph G가 shortest-path dissimilarity와 stress landscape를 정한다."},
-      "si": {"kind":"direct","location":"sec:objects; eq:gram","summary":"Connected undirected graph G=(V,E)를 고정하고 N=|V|로 둔다."},
-      "note": {"kind":"direct","location":"lines 109–124; sec:metric_protocol","summary":"G, giant connected component와 directed-data policy를 선언하고 graph를 quenched constraint로 취급한다."}
+      "main": {"kind":"direct","location":"Introduction, lines 60–81; Methods, Eq. stress_function","summary":"Fixed connected graph G에 의한 shortest-path dissimilarity와 stress landscape 결정."},
+      "si": {"kind":"direct","location":"sec:objects; eq:gram","summary":"Connected undirected graph G=(V,E) 고정 및 N=|V| 설정."},
+      "note": {"kind":"direct","location":"lines 109–124; sec:metric_protocol","summary":"G, giant connected component와 directed-data policy 선언 및 graph를 quenched constraint로 취급."}
     },
     "delta": {
-      "main": {"kind":"direct","location":"MDS framework, lines 104–124; eq:stress_function","summary":"delta_ij=d_G(i,j)를 쓰며 weighted graph는 inverse edge weight를 length로 삼는다."},
-      "si": {"kind":"partial","location":"sec:objects; eq:gram","summary":"D_ij=d_G(i,j)인 shortest-path distance만 다룬다. 일반 map Phi:G→Delta는 없다."},
-      "note": {"kind":"direct","location":"sec:metric_protocol; eq:shortest_path","summary":"Edge length로 shortest-path dissimilarity를 선언하고 empirical/null graph에 같은 rule을 적용한다."}
+      "main": {"kind":"direct","location":"MDS framework, lines 104–124; eq:stress_function","summary":"delta_ij=d_G(i,j) 사용 및 weighted graph의 inverse edge weight를 length로 설정."},
+      "si": {"kind":"partial","location":"sec:objects; eq:gram","summary":"D_ij=d_G(i,j)인 shortest-path distance로 한정. 일반 map Phi:G→Delta는 부재."},
+      "note": {"kind":"direct","location":"sec:metric_protocol; eq:shortest_path","summary":"Edge length 기반 shortest-path dissimilarity 선언 및 empirical/null graph에 동일 rule 적용."}
     },
     "design": {
-      "main": {"kind":"direct","location":"Methods, lines 104–116; sec:dimensionality_effect","summary":"Target dimension p, w_ij=1과 distance rule을 고정하고 p-sweep을 별도로 분석한다."},
-      "si": {"kind":"partial","location":"sec:objects; eq:stress; eq:protocol","summary":"p와 weights를 protocol에 포함하지만 S_Delta,W normalization을 독립 정의하지 않는다."},
-      "note": {"kind":"partial","location":"eq:normalized_lack_of_fit; eq:stress; eq:dissimilarity_scale","summary":"p, W와 scale이 여러 절에 흩어져 있고 gate scale은 unweighted라 general-W architecture와 통일이 필요하다."}
+      "main": {"kind":"direct","location":"Methods, lines 104–116; sec:dimensionality_effect","summary":"Target dimension p, w_ij=1과 distance rule 고정 및 p-sweep 별도 분석."},
+      "si": {"kind":"partial","location":"sec:objects; eq:stress; eq:protocol","summary":"p와 weights를 protocol에 포함하나 S_Delta,W normalization의 독립 정의는 부재."},
+      "note": {"kind":"partial","location":"eq:normalized_lack_of_fit; eq:stress; eq:dissimilarity_scale","summary":"p, W와 scale은 여러 절에 분산. unweighted gate scale과 general-W architecture의 통일 필요."}
     },
     "protocol": {
-      "main": {"kind":"direct","location":"Methods, lines 139–157; sec:analytical_nei; tab:protocol_dependence","summary":"Initialization, SMACOF implementation, tolerance, cap, M과 optimizer choice를 sampling protocol로 기술한다."},
-      "si": {"kind":"direct","location":"sec:objects; eq:protocol; eq:pushforward; sec:tests","summary":"p, W, initialization, implementation, stopping rule과 tolerance를 고정한다."},
-      "note": {"kind":"partial","location":"sec:metric_protocol; eq:protocol–eq:rare_state_sample_size","summary":"Protocol control은 상세하지만 M을 population protocol 안에 넣고 rho_alg를 분리하지 않는다."}
+      "main": {"kind":"direct","location":"Methods, lines 139–157; sec:analytical_nei; tab:protocol_dependence","summary":"Initialization, SMACOF implementation, tolerance, cap, M과 optimizer choice를 포함한 sampling protocol 기술."},
+      "si": {"kind":"direct","location":"sec:objects; eq:protocol; eq:pushforward; sec:tests","summary":"p, W, initialization, implementation, stopping rule과 tolerance 고정."},
+      "note": {"kind":"partial","location":"sec:metric_protocol; eq:protocol–eq:rare_state_sample_size","summary":"상세한 protocol control에도 M을 population protocol에 포함하고 rho_alg는 미분리."}
     },
     "schoenberg": {
-      "main": {"kind":"partial","location":"Linear algebraic reformulation, lines 126–137","summary":"Double centering과 positive spectral truncation은 있으나 PSD-and-rank iff criterion은 명시되지 않는다."},
-      "si": {"kind":"direct","location":"sec:exact; eq:gram; tab:ledger","summary":"Centered Gram PSD와 Euclidean realizability의 동치 및 minimal dimension rank(B)를 제시한다."},
-      "note": {"kind":"direct","location":"eq:center–eq:double_centering; prop:schoenberg","summary":"Double centering, PSD/rank criterion과 minimal Euclidean embedding dimension을 증명한다."}
+      "main": {"kind":"partial","location":"Linear algebraic reformulation, lines 126–137","summary":"Double centering과 positive spectral truncation은 포함하나 PSD-and-rank iff criterion은 미명시."},
+      "si": {"kind":"direct","location":"sec:exact; eq:gram; tab:ledger","summary":"Centered Gram PSD와 Euclidean realizability의 동치 및 minimal dimension rank(B) 제시."},
+      "note": {"kind":"direct","location":"eq:center–eq:double_centering; prop:schoenberg","summary":"Double centering, PSD/rank criterion과 minimal Euclidean embedding dimension 증명."}
     },
     "negtype": {
-      "main": {"kind":"none","location":"직접 대응 없음","summary":"L1 hop metric의 realizability 언급은 있으나 conditional negative definiteness 정의가 없다."},
-      "si": {"kind":"direct","location":"sec:exact, Euclidean realizability item 3","summary":"z^T D^(2) z≤0 for z⊥1을 Euclidean condition과 동치로 제시한다."},
-      "note": {"kind":"partial","location":"prop:schoenberg, lines 589–618","summary":"Squared-distance CND는 제시하지만 Delta의 negative type과 sqrt(Delta)의 Hilbert embedding 구분은 없다."}
+      "main": {"kind":"none","location":"직접 대응 없음","summary":"L1 hop metric의 realizability 언급은 있으나 conditional negative definiteness 정의는 부재."},
+      "si": {"kind":"direct","location":"sec:exact, Euclidean realizability item 3","summary":"z^T D^(2) z≤0 for z⊥1과 Euclidean condition의 동치 제시."},
+      "note": {"kind":"partial","location":"prop:schoenberg, lines 589–618","summary":"Squared-distance CND는 제시하나 Delta의 negative type과 sqrt(Delta)의 Hilbert embedding 구분은 부재."}
     },
     "strain": {
-      "main": {"kind":"partial","location":"Linear algebraic reformulation; eq:top_p_eigenvalue","summary":"Classical MDS spectral truncation은 있으나 constrained Gram approximation problem은 직접 쓰지 않는다."},
-      "si": {"kind":"direct","location":"sec:exact; eq:psdapprox; eq:cmds; eq:relgap","summary":"Strain과 stress를 구분하고 positive spectral truncation 및 cutoff nonuniqueness를 증명한다."},
-      "note": {"kind":"direct","location":"prop:strain_not_stress; eq:strain–eq:strain_error_split","summary":"PSD rank-p projection, residual decomposition과 positive cutoff tie를 상세히 설명한다."}
+      "main": {"kind":"partial","location":"Linear algebraic reformulation; eq:top_p_eigenvalue","summary":"Classical MDS spectral truncation은 있으나 constrained Gram approximation problem의 직접 표기는 부재."},
+      "si": {"kind":"direct","location":"sec:exact; eq:psdapprox; eq:cmds; eq:relgap","summary":"Strain과 stress 구분, positive spectral truncation 및 cutoff nonuniqueness 증명."},
+      "note": {"kind":"direct","location":"prop:strain_not_stress; eq:strain–eq:strain_error_split","summary":"PSD rank-p projection, residual decomposition과 positive cutoff tie의 상세 설명."}
     },
     "Dp": {
-      "main": {"kind":"none","location":"직접 대응 없음","summary":"Spectral representability deficiency와 dim/negative decomposition이 없다."},
-      "si": {"kind":"partial","location":"sec:exact; eq:negmass; eq:residual","summary":"Frobenius/squared-eigenvalue residual eta_-+eta_+,p가 있으나 nuclear-norm D_p와 같은 지표가 아니다."},
-      "note": {"kind":"none","location":"직접 대응 없음","summary":"Negative spectral mass와 strain error는 있으나 normalized nuclear residual D_p는 정의되지 않는다."}
+      "main": {"kind":"none","location":"직접 대응 없음","summary":"Spectral representability deficiency와 dim/negative decomposition 부재."},
+      "si": {"kind":"partial","location":"sec:exact; eq:negmass; eq:residual","summary":"Frobenius/squared-eigenvalue residual eta_-+eta_+,p는 있으나 nuclear-norm D_p와는 상이."},
+      "note": {"kind":"none","location":"직접 대응 없음","summary":"Negative spectral mass와 strain error는 있으나 normalized nuclear residual D_p는 미정의."}
     },
     "stress": {
-      "main": {"kind":"direct","location":"Methods; eq:stress_function; SMACOF subsection","summary":"Raw stress와 SMACOF majorization update를 직접 정의한다."},
-      "si": {"kind":"direct","location":"sec:objects; eq:stress; sec:bridge","summary":"Raw metric stress를 정의하고 classical strain과 다른 objective임을 명시한다."},
-      "note": {"kind":"direct","location":"eq:stress; prop:stress_existence; SMACOF section","summary":"Raw stress, nonconvexity, gauge invariance, minimizer existence와 majorization을 상세히 전개한다."}
+      "main": {"kind":"direct","location":"Methods; eq:stress_function; SMACOF subsection","summary":"Raw stress와 SMACOF majorization update의 직접 정의."},
+      "si": {"kind":"direct","location":"sec:objects; eq:stress; sec:bridge","summary":"Raw metric stress 정의 및 classical strain과 상이한 objective임을 명시."},
+      "note": {"kind":"direct","location":"eq:stress; prop:stress_existence; SMACOF section","summary":"Raw stress, nonconvexity, gauge invariance, minimizer existence와 majorization의 상세 전개."}
     },
     "fit": {
-      "main": {"kind":"partial","location":"eq:stress_function; sec:dimensionality_effect","summary":"Residual stress는 비교하지만 normalized fidelity phi는 정의하지 않는다."},
-      "si": {"kind":"partial","location":"sec:tests, Protocol control and terminal geometry","summary":"Final stress distribution을 기록하지만 phi=F/S_Delta,W는 없다."},
-      "note": {"kind":"direct","location":"eq:normalized_lack_of_fit","summary":"phi=F/S_Delta를 representational fidelity로 두고 terminal variability와 분리한다."}
+      "main": {"kind":"partial","location":"eq:stress_function; sec:dimensionality_effect","summary":"Residual stress는 비교하나 normalized fidelity phi는 미정의."},
+      "si": {"kind":"partial","location":"sec:tests, Protocol control and terminal geometry","summary":"Final stress distribution은 기록하나 phi=F/S_Delta,W는 부재."},
+      "note": {"kind":"direct","location":"eq:normalized_lack_of_fit","summary":"phi=F/S_Delta를 representational fidelity로 설정하고 terminal variability와 분리."}
     },
     "shape": {
-      "main": {"kind":"direct","location":"eq:euclidean_group; eq:run_distance; sec:analytical_nei","summary":"E(p) quotient와 rigid-motion-invariant pair-distance representation을 사용한다."},
-      "si": {"kind":"partial","location":"sec:objects; sec:bridge; sec:tests","summary":"Distance invariance와 Procrustes 불필요성은 설명하지만 quotient Omega를 직접 정의하지 않는다."},
-      "note": {"kind":"direct","location":"eq:invariance_stress; eq:quotient–eq:quotient_basis","summary":"E(p) quotient, reflection, rank-stratified orbit과 tangent/complement basis를 설명한다."}
+      "main": {"kind":"direct","location":"eq:euclidean_group; eq:run_distance; sec:analytical_nei","summary":"E(p) quotient와 rigid-motion-invariant pair-distance representation 사용."},
+      "si": {"kind":"partial","location":"sec:objects; sec:bridge; sec:tests","summary":"Distance invariance와 Procrustes 불필요성은 설명하나 quotient Omega는 미정의."},
+      "note": {"kind":"direct","location":"eq:invariance_stress; eq:quotient–eq:quotient_basis","summary":"E(p) quotient, reflection, rank-stratified orbit과 tangent/complement basis 설명."}
     },
     "aut": {
-      "main": {"kind":"none","location":"직접 대응 없음","summary":"Aut(Delta) quotient와 labeled/unlabeled geometry policy가 없다."},
-      "si": {"kind":"none","location":"직접 대응 없음","summary":"Metric automorphism과 vertex relabeling policy가 없다."},
-      "note": {"kind":"none","location":"직접 대응 없음","summary":"Aut(Delta)-related states를 셀지에 대한 estimand policy가 없다."}
+      "main": {"kind":"none","location":"직접 대응 없음","summary":"Aut(Delta) quotient와 labeled/unlabeled geometry policy 부재."},
+      "si": {"kind":"none","location":"직접 대응 없음","summary":"Metric automorphism과 vertex relabeling policy 부재."},
+      "note": {"kind":"none","location":"직접 대응 없음","summary":"Aut(Delta)-related states의 집계 여부에 대한 estimand policy 부재."}
     },
     "terminal": {
-      "main": {"kind":"direct","location":"Introduction; sec:analytical_nei; eq:basin_occupancy","summary":"Initialization measure와 deterministic optimizer가 basin occupancy와 terminal geometry distribution을 유도한다."},
-      "si": {"kind":"direct","location":"sec:objects; eq:pairmoments; sec:bridge; eq:pushforward","summary":"Initialization-to-terminal pushforward law를 정의한다. Algorithmic randomness의 joint law는 생략한다."},
-      "note": {"kind":"partial","location":"eq:orbit_basin; fig:smacof_landscape; eq:terminal_distance","summary":"Terminal distance ensemble과 basin/group은 설명하지만 population pushforward 및 admissible conditional law가 없다."}
+      "main": {"kind":"direct","location":"Introduction; sec:analytical_nei; eq:basin_occupancy","summary":"Initialization measure와 deterministic optimizer에 의한 basin occupancy 및 terminal geometry distribution 유도."},
+      "si": {"kind":"direct","location":"sec:objects; eq:pairmoments; sec:bridge; eq:pushforward","summary":"Initialization-to-terminal pushforward law 정의. Algorithmic randomness의 joint law는 생략."},
+      "note": {"kind":"partial","location":"eq:orbit_basin; fig:smacof_landscape; eq:terminal_distance","summary":"Terminal distance ensemble과 basin/group은 설명하나 population pushforward 및 admissible conditional law는 부재."}
     },
     "hessian": {
-      "main": {"kind":"direct","location":"sec:curvature; eq:hess_block–eq:lam_rel","summary":"Projected Hessian, inertia, lowest eigenvalue, stationarity와 rigid-motion projection을 정의한다."},
-      "si": {"kind":"direct","location":"sec:bridge; eq:pairhessian; sec:tests, Local curvature","summary":"Pair Hessian과 block-Laplacian 조립 및 rigid-mode 제거 뒤 spectrum 검사를 제시한다."},
-      "note": {"kind":"direct","location":"eq:projected_objects; eq:block_laplacian; eq:lambda_soft","summary":"Quotient projection, exact Hessian blocks, inertia와 normalized softness를 상세히 다룬다."}
+      "main": {"kind":"direct","location":"sec:curvature; eq:hess_block–eq:lam_rel","summary":"Projected Hessian, inertia, lowest eigenvalue, stationarity와 rigid-motion projection 정의."},
+      "si": {"kind":"direct","location":"sec:bridge; eq:pairhessian; sec:tests, Local curvature","summary":"Pair Hessian과 block-Laplacian 조립 및 rigid-mode 제거 후 spectrum 검사 제시."},
+      "note": {"kind":"direct","location":"eq:projected_objects; eq:block_laplacian; eq:lambda_soft","summary":"Quotient projection, exact Hessian blocks, inertia와 normalized softness의 상세 논의."}
     },
     "rigidity": {
-      "main": {"kind":"direct","location":"sec:curvature, lines 354–362","summary":"Zero residual의 2R^TWR term과 finite residual의 prestress contribution을 구분한다."},
-      "si": {"kind":"partial","location":"sec:bridge; eq:pairhessian","summary":"Rigid-motion kernel은 설명하지만 H=2R^TWR+H_pre decomposition은 직접 쓰지 않는다."},
-      "note": {"kind":"direct","location":"eq:rigidity_limit–eq:prestress_quadratic_form","summary":"Rigidity matrix, residual-zero limit와 prestress term의 sign effect를 정확히 전개한다."}
+      "main": {"kind":"direct","location":"sec:curvature, lines 354–362","summary":"Zero residual의 2R^TWR term과 finite residual의 prestress contribution 구분."},
+      "si": {"kind":"partial","location":"sec:bridge; eq:pairhessian","summary":"Rigid-motion kernel은 설명하나 H=2R^TWR+H_pre decomposition의 직접 표기는 부재."},
+      "note": {"kind":"direct","location":"eq:rigidity_limit–eq:prestress_quadratic_form","summary":"Rigidity matrix, residual-zero limit와 prestress term의 sign effect를 정확히 전개."}
     },
     "gate": {
-      "main": {"kind":"partial","location":"sec:curvature; sec:clustering","summary":"Projected gradient, curvature, reoptimization과 recurrence는 있으나 하나의 A_num과 acceptance rate는 없다."},
-      "si": {"kind":"partial","location":"sec:objects; eq:collapse; sec:tests","summary":"Collapse, convergence flag와 Hessian inertia는 있으나 formal gate 및 alpha_Pi는 없다."},
-      "note": {"kind":"partial","location":"eq:projected_gradient_gate; eq:collision_gate; Convergence gate","summary":"Gate ingredients는 상세하지만 A_num event, conditional law와 acceptance probability로 통합되지 않는다."}
+      "main": {"kind":"partial","location":"sec:curvature; sec:clustering","summary":"Projected gradient, curvature, reoptimization과 recurrence는 있으나 단일 A_num 및 acceptance rate는 부재."},
+      "si": {"kind":"partial","location":"sec:objects; eq:collapse; sec:tests","summary":"Collapse, convergence flag와 Hessian inertia는 있으나 formal gate 및 alpha_Pi는 부재."},
+      "note": {"kind":"partial","location":"eq:projected_gradient_gate; eq:collision_gate; Convergence gate","summary":"Gate ingredients는 상세하나 A_num event, conditional law와 acceptance probability로 미통합."}
     },
     "morse": {
-      "main": {"kind":"partial","location":"sec:curvature, lines 363–365","summary":"Near-zero mode만으로 floppy manifold를 주장하지 않고 continuation을 요구하지만 Morse–Bott condition은 없다."},
-      "si": {"kind":"none","location":"직접 대응 없음","summary":"Near-zero diagnostic은 있으나 analytic Morse–Bott condition 또는 finite-continuation candidate test가 없다."},
-      "note": {"kind":"partial","location":"sec:continuation; eq:continuation_certificate","summary":"Finite-amplitude numerical candidate test는 상세하지만 positive-dimensional critical manifold, kernel–tangent equality와 normal positivity의 analytic Morse–Bott condition은 없다."}
+      "main": {"kind":"partial","location":"sec:curvature, lines 363–365","summary":"Near-zero mode만으로 floppy manifold를 주장하지 않으며 continuation을 요구하나 Morse–Bott condition은 부재."},
+      "si": {"kind":"none","location":"직접 대응 없음","summary":"Near-zero diagnostic은 있으나 analytic Morse–Bott condition 또는 finite-continuation candidate test는 부재."},
+      "note": {"kind":"partial","location":"sec:continuation; eq:continuation_certificate","summary":"Finite-amplitude numerical candidate test는 상세하나 positive-dimensional critical manifold, kernel–tangent equality와 normal positivity의 analytic Morse–Bott condition은 부재."}
     },
     "NEI": {
-      "main": {"kind":"direct","location":"First Moment; eq:pairwise_statistics–eq:NEI","summary":"Pairwise relative variance 평균, zero-mean handling과 scale invariance를 정의한다."},
-      "si": {"kind":"direct","location":"sec:objects; eq:pairmoments; eq:nei; eq:collapse","summary":"Empirical squared-CV average와 zero-mean pair의 undefined/collapse policy를 명시한다. Conditional-law 및 trace identity는 없다."},
-      "note": {"kind":"partial","location":"NEI section; eq:pairset–eq:second_moment","summary":"Empirical NEI와 scale invariance는 있으나 population conditional law와 standardized trace identity가 없다."}
+      "main": {"kind":"direct","location":"First Moment; eq:pairwise_statistics–eq:NEI","summary":"Pairwise relative variance 평균, zero-mean handling과 scale invariance 정의."},
+      "si": {"kind":"direct","location":"sec:objects; eq:pairmoments; eq:nei; eq:collapse","summary":"Empirical squared-CV average와 zero-mean pair의 undefined/collapse policy 명시. Conditional-law 및 trace identity는 부재."},
+      "note": {"kind":"partial","location":"NEI section; eq:pairset–eq:second_moment","summary":"Empirical NEI와 scale invariance는 있으나 population conditional law와 standardized trace identity는 부재."}
     },
     "deff": {
-      "main": {"kind":"none","location":"직접 대응 없음","summary":"Second Moment S는 pair heterogeneity이며 covariance participation-ratio d_eff와 다르다."},
-      "si": {"kind":"none","location":"직접 대응 없음","summary":"Terminal covariance effective rank는 없다; perturbation IPR은 다른 개념이다."},
-      "note": {"kind":"none","location":"직접 대응 없음","summary":"Standardized terminal covariance spectrum과 d_eff가 없다."}
+      "main": {"kind":"none","location":"직접 대응 없음","summary":"Second Moment S는 pair heterogeneity로서 covariance participation-ratio d_eff와 상이."},
+      "si": {"kind":"none","location":"직접 대응 없음","summary":"Terminal covariance effective rank 부재. Perturbation IPR은 별개 개념."},
+      "note": {"kind":"none","location":"직접 대응 없음","summary":"Standardized terminal covariance spectrum과 d_eff 부재."}
     },
     "Keff": {
-      "main": {"kind":"partial","location":"sec:clustering; sec:var_decomp; eq:basin_occupancy","summary":"Class occupancy는 있으나 Hill-number effective multiplicity 공식이 없다."},
-      "si": {"kind":"partial","location":"sec:tests, Terminal-state geometry","summary":"Occupied cluster count와 entropy를 권하지만 inverse-Simpson 및 exponential-Shannon formula는 없다."},
-      "note": {"kind":"none","location":"직접 정의 없음; closest eq:group_stats","summary":"K와 n_gamma/M은 있지만 K_eff formulas가 없다."}
+      "main": {"kind":"partial","location":"sec:clustering; sec:var_decomp; eq:basin_occupancy","summary":"Class occupancy는 있으나 Hill-number effective multiplicity 공식은 부재."},
+      "si": {"kind":"partial","location":"sec:tests, Terminal-state geometry","summary":"Occupied cluster count와 entropy를 권고하나 inverse-Simpson 및 exponential-Shannon formula는 부재."},
+      "note": {"kind":"none","location":"직접 정의 없음; closest eq:group_stats","summary":"K와 n_gamma/M은 있으나 K_eff formulas는 부재."}
     },
     "Egap": {
-      "main": {"kind":"none","location":"직접 대응 없음","summary":"Final stress 필요성만 언급하고 class normalized-stress equivalence test는 없다."},
-      "si": {"kind":"partial","location":"sec:tests, Protocol control and terminal geometry","summary":"Cluster별 terminal stress를 요구하지만 normalized e_gamma, margin과 equivalence CI는 없다."},
-      "note": {"kind":"none","location":"직접 대응 없음","summary":"Groupwise normalized stress와 equivalence-interval test가 없다."}
+      "main": {"kind":"none","location":"직접 대응 없음","summary":"Final stress 필요성만 언급하나 class normalized-stress equivalence test는 부재."},
+      "si": {"kind":"partial","location":"sec:tests, Protocol control and terminal geometry","summary":"Cluster별 terminal stress를 요구하나 normalized e_gamma, margin과 equivalence CI는 부재."},
+      "note": {"kind":"none","location":"직접 대응 없음","summary":"Groupwise normalized stress와 equivalence-interval test 부재."}
     },
     "multiplicity": {
-      "main": {"kind":"direct","location":"Introduction; sec:clustering; sec:var_decomp; sec:analytical_nei","summary":"Run-distance clustering, threshold stability, recurrence와 between/within decomposition으로 terminal multiplicity를 다룬다."},
-      "si": {"kind":"partial","location":"sec:bridge; sec:tests; tab:ledger","summary":"Terminal clustering은 요구하지만 rho_D, epsilon_D와 conditional support-diameter definition은 없다."},
-      "note": {"kind":"partial","location":"sec:grouping; eq:terminal_separation; regime discussion","summary":"Finite-sample grouping과 recurrence는 있으나 admissible population support의 metric-resolution definition은 없다."}
+      "main": {"kind":"direct","location":"Introduction; sec:clustering; sec:var_decomp; sec:analytical_nei","summary":"Run-distance clustering, threshold stability, recurrence와 between/within decomposition을 통한 terminal multiplicity 분석."},
+      "si": {"kind":"partial","location":"sec:bridge; sec:tests; tab:ledger","summary":"Terminal clustering은 요구하나 rho_D, epsilon_D와 conditional support-diameter definition은 부재."},
+      "note": {"kind":"partial","location":"sec:grouping; eq:terminal_separation; regime discussion","summary":"Finite-sample grouping과 recurrence는 있으나 admissible population support의 metric-resolution definition은 부재."}
     },
     "energydeg": {
-      "main": {"kind":"none","location":"직접 대응 없음","summary":"Normalized-stress equivalence criterion과 tau_E가 없다."},
-      "si": {"kind":"none","location":"직접 대응 없음","summary":"Separated minimum candidates의 objective-value equivalence를 판정하는 정의가 없다."},
-      "note": {"kind":"none","location":"직접 대응 없음","summary":"Similar stress 가능성만 언급하며 normalized-stress equivalence interval은 없다."}
+      "main": {"kind":"none","location":"직접 대응 없음","summary":"Normalized-stress equivalence criterion과 tau_E 부재."},
+      "si": {"kind":"none","location":"직접 대응 없음","summary":"Separated minimum candidates의 objective-value equivalence 판정 정의 부재."},
+      "note": {"kind":"none","location":"직접 대응 없음","summary":"Similar stress 가능성만 언급하며 normalized-stress equivalence interval은 부재."}
     },
     "robust": {
-      "main": {"kind":"direct","location":"Results; tab:protocol_dependence; fig:saturation","summary":"Null ensemble, tolerance/optimizer sensitivity, protocol comparison과 finite-M stability를 검사한다."},
-      "si": {"kind":"partial","location":"sec:nulls; sec:tests; eq:nulltest","summary":"Full-run bootstrap과 nested null inference는 강하지만 recurrence, finite-M stability와 protocol rank stability는 없다."},
-      "note": {"kind":"partial","location":"rare-state power; grouping; nulls; uncertainty/convergence","summary":"Bootstrap, independent batch와 null analysis는 강하지만 M/law 분리, alpha_Pi와 protocol rank correlation은 없다."}
+      "main": {"kind":"direct","location":"Results; tab:protocol_dependence; fig:saturation","summary":"Null ensemble, tolerance/optimizer sensitivity, protocol comparison과 finite-M stability 검사."},
+      "si": {"kind":"partial","location":"sec:nulls; sec:tests; eq:nulltest","summary":"Full-run bootstrap과 nested null inference는 강하나 recurrence, finite-M stability와 protocol rank stability는 부재."},
+      "note": {"kind":"partial","location":"rare-state power; grouping; nulls; uncertainty/convergence","summary":"Bootstrap, independent batch와 null analysis는 강하나 M/law 분리, alpha_Pi와 protocol rank correlation은 부재."}
     },
     "rigid": {
-      "main": {"kind":"direct","location":"Results, lines 481–483 and 516–519; model controls","summary":"Lattice/ring의 near-zero NEI를 single-geometry control로 사용한다."},
-      "si": {"kind":"none","location":"formal verdict 없음; closest sec:lattice","summary":"Low-NEI lattice 가능성을 말하지만 no-multiplicity-resolved verdict와 numerical bound는 없다."},
-      "note": {"kind":"partial","location":"eq:rigid_regime; eq:exact_euclidean_orbit","summary":"강체형이라 부르지만 architecture는 finite resolution에서 multiplicity를 resolve하지 못한 더 약한 verdict를 쓴다."}
+      "main": {"kind":"direct","location":"Results, lines 481–483 and 516–519; model controls","summary":"Lattice/ring의 near-zero NEI를 single-geometry control로 사용."},
+      "si": {"kind":"none","location":"formal verdict 없음; closest sec:lattice","summary":"Low-NEI lattice 가능성을 언급하나 no-multiplicity-resolved verdict와 numerical bound는 부재."},
+      "note": {"kind":"partial","location":"eq:rigid_regime; eq:exact_euclidean_orbit","summary":"강체형으로 명명하나 architecture는 finite resolution에서 multiplicity를 resolve하지 못한 더 약한 verdict를 사용."}
     },
     "split": {
-      "main": {"kind":"direct","location":"sec:clustering; eq:run_distance; sec:var_decomp","summary":"Recurrent separated groups와 between-group variance를 discrete multiplicity diagnostic으로 사용한다."},
-      "si": {"kind":"partial","location":"sec:bridge H3; sec:tests, Terminal-state geometry","summary":"Occupied clusters를 검사하지만 independent-batch recurrence가 포함된 verdict는 없다."},
-      "note": {"kind":"partial","location":"eq:multistable_regime; grouping/recurrence","summary":"Separated groups와 recurrence를 다루지만 multistability 명칭은 minimum/barrier certificate보다 강하다."}
+      "main": {"kind":"direct","location":"sec:clustering; eq:run_distance; sec:var_decomp","summary":"Recurrent separated groups와 between-group variance를 discrete multiplicity diagnostic으로 사용."},
+      "si": {"kind":"partial","location":"sec:bridge H3; sec:tests, Terminal-state geometry","summary":"Occupied clusters를 검사하나 independent-batch recurrence가 포함된 verdict는 부재."},
+      "note": {"kind":"partial","location":"eq:multistable_regime; grouping/recurrence","summary":"Separated groups와 recurrence를 다루나 multistability 명칭은 minimum/barrier certificate가 뒷받침하는 수준보다 강한 주장."}
     },
     "floppy": {
-      "main": {"kind":"direct","location":"sec:curvature, lines 354–365","summary":"Near-zero curvature를 soft-mode candidate로만 읽고 continuous path에는 continuation을 요구한다."},
-      "si": {"kind":"partial","location":"sec:bridge; eq:pairhessian; sec:tests","summary":"Near-zero Hessian directions는 진단하지만 finite continuation은 없다."},
-      "note": {"kind":"direct","location":"sec:continuation; eq:floppy_regime","summary":"Near-zero mode와 mesh-refined finite low-stress continuation을 함께 요구한다."}
+      "main": {"kind":"direct","location":"sec:curvature, lines 354–365","summary":"Near-zero curvature를 soft-mode candidate로만 해석하며 continuous path에는 continuation 요구."},
+      "si": {"kind":"partial","location":"sec:bridge; eq:pairhessian; sec:tests","summary":"Near-zero Hessian directions는 진단하나 finite continuation은 부재."},
+      "note": {"kind":"direct","location":"sec:continuation; eq:floppy_regime","summary":"Near-zero mode와 mesh-refined finite low-stress continuation을 함께 요구."}
     },
     "unresolved": {
-      "main": {"kind":"partial","location":"sec:decomposition; sec:var_decomp","summary":"NEI alone의 non-identifiability는 밝히지만 named unresolved/mixed verdict는 없다."},
-      "si": {"kind":"partial","location":"sec:perturbation; sec:bridge; tab:ledger","summary":"근거가 없으면 강한 결론을 보류하는 원칙은 있으나 failed-gate verdict는 없다."},
-      "note": {"kind":"partial","location":"eq:mixed_regime; fig:diagnostic_plane; convergence gate","summary":"Mixed/failed-gate cases를 다루지만 evidence 부족을 기본 unresolved verdict로 선언하지는 않는다."}
+      "main": {"kind":"partial","location":"sec:decomposition; sec:var_decomp","summary":"NEI alone의 non-identifiability는 명시하나 named unresolved/mixed verdict는 부재."},
+      "si": {"kind":"partial","location":"sec:perturbation; sec:bridge; tab:ledger","summary":"근거 부재 시 강한 결론을 보류하는 원칙은 있으나 failed-gate verdict는 부재."},
+      "note": {"kind":"partial","location":"eq:mixed_regime; fig:diagnostic_plane; convergence gate","summary":"Mixed/failed-gate cases를 다루나 evidence 부족을 기본 unresolved verdict로 선언하지는 않음."}
     }
   }
 }

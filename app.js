@@ -1,6 +1,6 @@
 "use strict";
 
-/* NEI 아키텍처 — data/*.json 에서 지도·막대그림·표를 만든다. */
+/* NEI architecture — data/*.json 기반의 map·bar chart·table rendering. */
 
 const DB = {}, STATE = { off: new Set(), sel: null, claim: "all", refArea: "all" };
 const KO = { theorem:"theorem", definition:"definition", diagnostic:"diagnostic",
@@ -144,14 +144,14 @@ function renderCoverageSummary(){
 function renderPanel(){
   const el=document.getElementById("panel");
   const n=DB.nodes.nodes.find(x=>x.id===STATE.sel);
-  if(!n){ el.innerHTML='<p class="muted">node를 선택하면 본문·SI·Note의 대응 위치와 서술 gap이 열립니다.</p>'; return; }
+  if(!n){ el.innerHTML='<p class="muted">node 선택 시 본문·SI·Note의 대응 위치와 서술 gap 표시.</p>'; return; }
   const lbl=i=>DB.nodes.nodes.find(x=>x.id===i)?.label||i;
   const inc=DB.edges.edges.filter(e=>e.to===n.id), out=DB.edges.edges.filter(e=>e.from===n.id);
   const vias=[...new Set([...inc,...out].map(e=>e.via))];
   const sm=DB.sources.nodes[n.id]||{};
   const kindLabel={direct:"직접 서술",partial:"부분 서술",none:"직접 대응 없음"};
   const sourceCards=Object.entries(DB.sources.sources).map(([key,meta])=>{
-    const x=sm[key]||{kind:"none",location:"직접 대응 없음",summary:"Source mapping이 아직 작성되지 않았다."};
+    const x=sm[key]||{kind:"none",location:"직접 대응 없음",summary:"Source mapping 미작성."};
     return `<article class="source-card ${esc(meta.class)} is-${esc(x.kind)}">
       <div class="source-head"><span class="source-name">${esc(meta.label)}</span>
         <span class="source-kind">${esc(kindLabel[x.kind]||x.kind)}</span></div>
@@ -267,7 +267,7 @@ function renderScope(){
     if(window.NEI_DATA){
       for(const [k,f] of Object.entries(files)){
         if(!Object.prototype.hasOwnProperty.call(window.NEI_DATA,f))
-          throw new Error(`offline bundle에 ${f}가 없습니다`);
+          throw new Error(`offline bundle에 ${f} 없음`);
         DB[k]=window.NEI_DATA[f];
       }
     }else{
@@ -278,9 +278,9 @@ function renderScope(){
     }
   }catch(e){
     document.getElementById("mapc").innerHTML=
-      `<p class="err">데이터를 불러오지 못했습니다: ${esc(e.message)}<br>
-       <span class="muted"><code>data/offline-data.js</code>를 다시 생성하거나
-       GitHub Pages에서 여세요.</span></p>`;
+      `<p class="err">데이터 불러오기 실패: ${esc(e.message)}<br>
+       <span class="muted"><code>data/offline-data.js</code> 재생성 또는
+       GitHub Pages에서 열기.</span></p>`;
     return;
   }
   renderCharts(); renderFilters(); renderMapLegend(); renderCoverageSummary(); renderScope();

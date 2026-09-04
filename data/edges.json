@@ -1,5 +1,5 @@
 {
-  "_note": "정리(theorem), 정의(definition), 진단(diagnostic), 측정(measured), 미해결(open), 주의(caution)를 분리한다.",
+  "_note": "정리(theorem), 정의(definition), 진단(diagnostic), 측정(measured), 미해결(open), 주의(caution)를 분리.",
   "edges": [
     {"from":"G","to":"delta","via":"pushforward","label":"graph-to-dissimilarity rule 선언","status":"definition"},
     {"from":"delta","to":"schoenberg","via":"double_centering","label":"squared-distance double centering","status":"theorem"},

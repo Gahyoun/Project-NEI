@@ -1,8 +1,8 @@
 {
- "_note": "막대그림이 읽는 수치. 전부 이번 회차에 직접 계산한 값이다.",
+ "_note": "막대그림이 읽는 수치. 전부 이번 회차에 직접 계산한 값.",
  "Dp_models": {
   "title": "Representability deficiency 𝒟ₚ — model network",
-  "sub": "고정된 graph-to-dissimilarity map과 p에서 eigendecomposition 한 번으로 얻는다. $0$이면 Δ가 $\\mathbb{R}^p$에서 정확히 실현된다.",
+  "sub": "고정된 graph-to-dissimilarity map과 p에서 eigendecomposition 한 번으로 산출. $0$이면 Δ가 $\\mathbb{R}^p$에서 정확히 실현됨.",
   "series": [
    "𝒟₁",
    "𝒟₂",
@@ -25,7 +25,7 @@
      0.0,
      0.0
     ],
-    "note": "graph metric 이 아니라 좌표 거리"
+    "note": "graph metric이 아닌 좌표 거리"
    },
    {
     "k": "링 C₂₀₀",
@@ -43,7 +43,7 @@
      0.4058,
      0.3621
     ],
-    "note": "graph metric 이 ℓ₁ 이라 0 이 아니다"
+    "note": "graph metric이 ℓ₁이므로 0이 아님"
    },
    {
     "k": "RGG r=0.12",
@@ -103,7 +103,7 @@
  },
  "polish": {
     "title": "Legacy polish 전후 — corrected gate 재실행 전 diagnostic",
-  "sub": "bn-mouse-visual-cortex-2 (N=193, M=24). ηg 는 로그 눈금이다.",
+  "sub": "bn-mouse-visual-cortex-2 (N=193, M=24). ηg는 로그 눈금.",
   "rows": [
    {
     "k": "ηg  SMACOF",
@@ -126,11 +126,11 @@
     "log": false
    }
   ],
-    "verdict": "Stated polishing schedule 뒤 $\\widehat{\\mathcal I}_M$은 0.1100에서 0.07665로 감소했으나 0으로 붕괴하지 않았다. 이 all-run ungated 결과만으로 multiplicity를 주장하지 않는다."
+    "verdict": "Stated polishing schedule 뒤 $\\widehat{\\mathcal I}_M$은 0.1100에서 0.07665로 감소했으나 0으로 붕괴하지 않음. 이 all-run ungated 결과만으로 multiplicity를 주장하지 않음."
  },
  "certify": {
   "title": "기존 Polish 후 terminal 검사 — 재검산 대기",
-  "sub": "원 Hessian projection이 negative mode를 제거할 수 있었으므로 corrected code 재실행 전에는 인증 결과가 아니다.",
+  "sub": "원 Hessian projection이 negative mode를 제거할 수 있었으므로 corrected code 재실행 전에는 인증 결과가 아님.",
   "rows": [
    {
     "k": "검사된 terminal (구 판정)",
@@ -168,11 +168,11 @@
     "v": 24
    }
   ],
-  "verdict": "24개 polished terminal geometries는 관측상 서로 분리되었다. 그러나 corrected stationarity/Hessian gate, independent-batch recurrence와 energy test 전에는 24개 minima 또는 degeneracy라고 부르지 않는다."
+  "verdict": "24개 polished terminal geometries는 관측상 서로 분리됨. 그러나 corrected stationarity/Hessian gate, independent-batch recurrence와 energy test 전에는 24개 minima 또는 degeneracy로 판정하지 않음."
  },
  "I_vs_deff": {
   "title": "기존 raw-cloud $d_{\\mathrm{eff}}$ — 표준화 재계산 필요",
-  "sub": "실제 network 77개에서 NEI와 raw-distance covariance effective rank의 Spearman $\\rho=+0.757$. pair-standardized covariance가 아니므로 같은 operator라는 해석과 $1-\\rho^2$ 정보량 해석은 보류한다.",
+  "sub": "실제 network 77개에서 NEI와 raw-distance covariance effective rank의 Spearman $\\rho=+0.757$. pair-standardized covariance가 아니므로 같은 operator라는 해석과 $1-\\rho^2$ 정보량 해석은 보류.",
   "rows": [
    {
     "k": "1분위",
@@ -207,8 +207,8 @@
   ]
  },
  "censoring": {
-  "title": "raw-cloud $d_{\\mathrm{eff}}$ 의 finite-M rank ceiling",
-  "sub": "$d_{\\mathrm{eff}}\\le M-1=99$이고 관측 최댓값이 98.98이다. $0.5(M-1)$는 heuristic flag이지 censoring의 수학적 경계가 아니다.",
+  "title": "raw-cloud $d_{\\mathrm{eff}}$의 finite-M rank ceiling",
+  "sub": "$d_{\\mathrm{eff}}\\le M-1=99$이고 관측 최댓값은 98.98. $0.5(M-1)$는 heuristic flag이며 censoring의 수학적 경계가 아님.",
   "rows": [
    {
     "k": "d_eff < 0.5(M−1)",

@@ -1,5 +1,5 @@
 {
- "_note": "NEI 아키텍처 지도의 참고문헌 DB. key 는 nodes.json / edges.json 에서 참조한다. 확인하지 못한 서지사항은 verified=false 로 표시한다.",
+ "_note": "NEI 아키텍처 지도의 참고문헌 DB. key는 nodes.json / edges.json에서 참조. 확인하지 못한 서지사항은 verified=false로 표시.",
  "schoenberg1935": {
   "authors": "I. J. Schoenberg",
   "year": 1935,
@@ -31,7 +31,7 @@
  "pages": "325–338",
   "doi": "10.1093/biomet/53.3-4.325",
   "verified": true,
-  "why": "principal coordinates analysis. cMDS 가 PCA 와 같은 대상임을 보인다."
+  "why": "principal coordinates analysis. cMDS가 PCA와 같은 대상임을 보여 주는 근거."
  },
  "torgerson1952": {
   "authors": "W. S. Torgerson",
@@ -53,7 +53,7 @@
  "pages": "211–218",
   "doi": "10.1007/bf02288367",
   "verified": true,
-  "why": "low-rank spectral approximation의 근거. cutoff singular/eigenvalue multiplicity가 있으면 최적 부분공간은 비유일할 수 있다."
+  "why": "low-rank spectral approximation의 근거. cutoff singular/eigenvalue multiplicity 존재 시 최적 부분공간의 비유일 가능성."
  },
  "kruskal1964": {
   "authors": "J. B. Kruskal",
@@ -250,7 +250,7 @@
  "pages": "036701",
   "doi": "10.1103/physreve.83.036701",
   "verified": true,
-  "why": "nonlinear least-squares model manifold의 기하. MDS stress와의 연결은 잔차모형·weights를 명시한 조건부 대응이다."
+  "why": "nonlinear least-squares model manifold의 기하. MDS stress와의 연결은 잔차모형·weights를 명시한 조건부 대응."
  },
  "kendall1984": {
   "authors": "D. G. Kendall",
@@ -271,7 +271,7 @@
   "volume": "12",
   "pages": "2825–2830",
   "verified": true,
-  "why": "본 측정에 사용한 소프트웨어 계보. 정확한 SMACOF stopping rule은 실행 당시 scikit-learn 버전과 API 문서를 별도로 고정해 보고해야 한다."
+  "why": "본 측정에 사용한 소프트웨어 계보. 정확한 SMACOF stopping rule 보고를 위한 실행 당시 scikit-learn 버전 및 해당 API 문서의 별도 고정 필요."
  },
  "cayley1841": {
   "authors": "A. Cayley",
@@ -351,7 +351,7 @@
  "pages": "",
   "doi": "10.1007/978-3-319-97846-8",
   "verified": true,
-  "why": "EDM 의 선형대수와 rigidity theory 를 직접 잇는 단행본. Gram 행렬 · 사영 · Hessian 을 같은 언어로 다룬다.",
+  "why": "EDM 의 선형대수와 rigidity theory 를 직접 잇는 단행본. Gram 행렬 · 사영 · Hessian 의 통합 서술.",
   "area": "distance geometry"
  },
  "gower1985": {
@@ -410,7 +410,7 @@
   "volume": "III",
   "pages": "573–586",
   "verified": true,
-  "why": "유한 metric space 를 이산수학과 기하학의 교차점으로 세운 개관. 이 연구가 놓인 분야를 한 편으로 요약한다.",
+  "why": "유한 metric space를 이산수학과 기하학의 교차점으로 세우고, 이 연구가 놓인 분야를 한 편으로 요약한 개관.",
   "area": "metric embedding"
  },
  "matousek2002": {
@@ -422,7 +422,7 @@
  "pages": "",
   "doi": "10.1007/978-1-4613-0039-7",
   "verified": true,
-  "why": "저왜곡 매장, Johnson–Lindenstrauss, metric space 의 기하를 다루는 표준 교재. 15장이 매장 이론이다.",
+  "why": "저왜곡 매장, Johnson–Lindenstrauss, metric space 의 기하를 다루는 표준 교재. 15장에 매장 이론 수록.",
   "area": "metric embedding"
  },
  "indykmatousek2004": {
@@ -434,7 +434,7 @@
  "pages": "",
   "doi": "10.1201/9781420035315-8",
   "verified": true,
-  "why": "매장 왜곡의 상한과 하한을 정리한 편람 장. distortion 과 D_p 의 관계를 잡는 데 쓴다.",
+  "why": "매장 왜곡의 상한과 하한을 정리한 편람 장. distortion 과 D_p 의 관계 설정에 활용.",
   "area": "metric embedding"
  },
  "naor2012": {
@@ -470,7 +470,7 @@
  "pages": "897–939",
   "doi": "10.1353/ajm.0.0132",
   "verified": true,
-  "why": "generic global rigidity 의 완전한 특성화. '유일한 실현' 이 그래프의 조합적 성질임을 확정한다.",
+  "why": "generic global rigidity 의 완전한 특성화. '유일한 실현' 이 그래프의 조합적 성질임을 확정.",
   "area": "rigidity"
  },
  "jacksonjordan2005": {
@@ -482,7 +482,7 @@
  "pages": "1–29",
   "doi": "10.1016/j.jctb.2004.11.002",
   "verified": true,
-  "why": "평면에서 유일 실현의 조합적 판정. K 가 1 이 되는 그래프 조건에 해당한다.",
+  "why": "평면에서 유일 실현의 조합적 판정. K 가 1 이 되는 그래프 조건에 대응.",
   "area": "rigidity"
  }
 }
