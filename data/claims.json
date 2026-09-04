@@ -248,8 +248,8 @@
   {
    "id": "C29",
    "status": "measured",
-   "text": "확정 표본 47개에서 $\\mathcal D_2$ 가 $0.107$–$0.986$ (중앙 $0.466$), $\\mathcal D^{\\rm neg}$ 가 $0.035$–$0.437$ (중앙 $0.162$) 이다. 전력망·도시 도로망이 아래쪽, 공저·사회망이 위쪽이다.",
-   "basis": "P1. 임베딩 없이 eigendecomposition 한 번. loader 는 sweep 과 동일 경로이며 weight_for_nei 는 이미 길이로 변환된 값이다 (strength_to_cost, inverse_distance_weight_csv). 순서는 관측이며 mechanism 주장이 아니다.",
+   "text": "확정 표본 48개 전수에서 $\\mathcal D_2$ 가 $0.107$–$0.986$ (중앙 $0.468$), $\\mathcal D^{\\rm neg}$ 가 $0.035$–$0.437$ (중앙 $0.162$) 이다. 유형별 중앙값이 전력망 $0.108$ 에서 사회망 $0.947$ 까지 단조로 늘어난다.",
+   "basis": "P1 전수. 임베딩 없이 eigendecomposition 한 번. 이 순서는 크기와 교란되어 있다 — $\\rho_S(N,\\mathcal D_2)=+0.575$ 이고 사회망이 가장 크다. $N$ 통제 비교는 하지 않았으므로 순서는 관측이며 mechanism 주장이 아니다.",
    "refs": [
     "schoenberg1935",
     "dokmanic2015",
@@ -259,7 +259,7 @@
   {
    "id": "C30",
    "status": "measured",
-   "text": "표본 정의를 내용 기준으로 확정했다. 후보 83개 파일에서 Weisfeiler-Lehman 과 edge hash 로 대표 56개를 뽑고, 근사 중복 6개와 수치 병리 1개를 더 제외해 분석 표본 47개를 얻었다.",
+   "text": "표본 정의를 내용 기준으로 확정했다. 후보 83개 파일에서 Weisfeiler-Lehman 과 edge hash 로 대표 56개를 뽑고, 근사 중복 7개와 수치 병리 1개를 더 제외해 분석 표본 48개를 얻었다.",
    "basis": "파일명 기준으로는 잡히지 않는 중복이 있었다 — power-US-Grid.mtx, inf-power.mtx, inf-power 2.mtx 가 같은 network 였다. WL hash 도 node 한둘 차이는 놓치므로 $|\\Delta N|\\le2$, $|\\Delta E|\\le2$, $\\mathcal D_2$ 4 자리 일치를 2 차 규칙으로 두었다. 제외 12 개는 .mtx.cleaned.tsv 변환이 Matrix Market 형식을 깨뜨린 7 개와 loader 가 $N=1,2,5$ 로 내놓는 5 개이다.",
    "refs": []
   },
@@ -283,6 +283,17 @@
     "young1938",
     "gortler2010",
     "alfakih2018"
+   ]
+  },
+  {
+   "id": "C33",
+   "status": "measured",
+   "text": "$\\mathcal D_p$ 의 분해가 유형을 가른다. 공항망은 $\\mathcal D_2=0.895$ 로 높지만 $\\mathcal D^{\\rm neg}=0.168$ 로 낮아 '차원이 모자란' 쪽이고, 사회망은 $\\mathcal D_2=0.947$ 에 $\\mathcal D^{\\rm neg}=0.380$ 으로 둘 다 높다.",
+   "basis": "두 성분은 전체적으로 강하게 상관하지만($\\rho_S=+0.896$) 공항망이 그 관계에서 벗어난다. $\\mathcal D_2$ 하나만 보면 공항망과 사회망이 같아 보이지만 분해하면 갈린다. 다만 표본이 3 개뿐이라 확인이 필요하다.",
+   "refs": [
+    "schoenberg1935",
+    "gower1985",
+    "dokmanic2015"
    ]
   }
  ]

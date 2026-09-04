@@ -12,15 +12,16 @@
 | | 상태 |
 |---|---|
 | $\mathcal D_p$ 정의와 정리 ($\mathcal D_p=0\iff$ exact realizability) | 완료 |
-| 표본 정의 (후보 83 → 대표 **56**, 내용 해시로 중복 제거) | 완료 |
-| $\mathcal D_p$ 전 표본 측정 | 완료 |
+| 표본 정의 (후보 83 → 대표 56 → 근사중복·병리 제외 → 분석 표본 **48**) | 완료 |
+| $\mathcal D_p$ 전 표본 측정 (48개 전수) | 완료 |
 | NEI를 kernel $K_\Pi$의 functional로 정의 | 완료 |
 | 유한표본 항등식 $\widehat{\mathcal I}_M=\operatorname{tr}(B_z)/M$ | 완료 |
 | floor 대 signal 판별 설계 + 모형망 결과 | 완료 |
 
 여기까지로 말할 수 있는 것: *representability는 protocol 없이 재고, terminal spread는
 protocol 조건부로 재며, 둘은 서로를 결정하지 않는다. 모형망에서 질서 구조는 point mass로부터
-unresolved이고 ER·BA는 tolerance-stable하다.*
+unresolved이고 ER·BA는 tolerance-stable하다. 실제 network 48개에서 $\mathcal D_2$가
+$0.108$–$0.986$에 걸치고 유형별로 단조 정렬되며, 분해가 공항망과 사회망을 가른다.*
 
 ## 추가로 드는 것
 

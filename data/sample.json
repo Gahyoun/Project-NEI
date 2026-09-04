@@ -1,7 +1,7 @@
 {
  "_note": "확정된 표본 정의. 내용 기준(Weisfeiler-Lehman + edge hash)으로 중복을 접었다. code/build_manifest.py 로 재생성하고, 모든 실행은 data/sample_paths.txt 를 --paths-file 로 쓴다.",
  "asof": "2026-09-05",
- "headline": "후보 83개 파일 → 내용 해시로 대표 56개 → 근사 중복 6개와 수치 병리 1개를 더 제외해 **분석 표본 47개**를 확정했다. 파일명 기준 중복 제거로는 잡히지 않는 것들이 있었다 — power-US-Grid.mtx 와 inf-power.mtx 와 inf-power 2.mtx 가 같은 network 였다.",
+ "headline": "후보 83개 파일 → 내용 해시로 대표 56개 → 근사 중복 7개와 수치 병리 1개를 더 제외해 **분석 표본 48개**를 확정했다. 파일명 기준 중복 제거로는 잡히지 않는 것들이 있었다 — power-US-Grid.mtx 와 inf-power.mtx 와 inf-power 2.mtx 가 같은 network 였다.",
  "counts": [
   {
    "k": "후보 파일",
@@ -192,6 +192,11 @@
    "dropped": "fb-pages-politician.edges.cleaned.tsv"
   },
   {
+   "k": "fb-pages-government.edges",
+   "b": "fb-pages-government.edges.cleaned.tsv",
+   "dropped": "fb-pages-government.edges.cleaned.tsv"
+  },
+  {
    "k": "ca-Erdos992.edges",
    "b": "ca-Erdos992.edges.cleaned.tsv",
    "dropped": "ca-Erdos992.edges.cleaned.tsv"
@@ -209,5 +214,5 @@
   ],
   "why": "reduced Chilean 은 weight 변환 후 거리 동적범위가 폭주해 Gram 이 거대 eigenvalue 하나에 지배당한다."
  },
- "final_n": 47
+ "final_n": 48
 }

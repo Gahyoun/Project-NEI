@@ -290,6 +290,18 @@ function renderCalib(){
   document.getElementById("calib-verdict").innerHTML=tex(esc(c.verdict));
 }
 
+function renderByType(){
+  const r=DB.meas.repr_full; if(!r||!r.bytype||!document.getElementById("ch-bytype")) return;
+  const hi=Math.max(...r.bytype.map(x=>x.hi));
+  document.getElementById("ch-bytype").innerHTML=`<div class="bars">${
+    r.bytype.map(x=>`<div class="bar rangebar">
+      <span class="k">${esc(x.k)} <span class="muted">n=${x.n}</span></span>
+      <span class="track"><span class="fill" style="left:${x.lo/hi*100}%;width:${
+        Math.max((x.hi-x.lo)/hi*100,1.2)}%"></span></span>
+      <span class="v">${x.med.toFixed(3)}</span></div>`).join("")}</div>`;
+  document.getElementById("bytype-caveat").innerHTML=tex(esc(r.caveat||""));
+}
+
 function renderFloor(){
   const f=DB.meas.floor_ladder; if(!f||!document.getElementById("tb-floor")) return;
   document.getElementById("cap-floor-t").innerHTML=tex(esc(f.title));
@@ -465,7 +477,7 @@ function renderScope(){
     return;
   }
   renderCharts(); renderFilters(); renderMapLegend(); renderCoverageSummary(); renderScope();
-  renderCalib(); renderFloor(); renderSweep(); renderSample(); renderVision(); renderAgenda();
+  renderCalib(); renderByType(); renderFloor(); renderSweep(); renderSample(); renderVision(); renderAgenda();
   renderConnectors(); renderClaims(); renderRefs();
   drawMap();
   document.getElementById("zIn").onclick  = ()=>GRAPH?.zoomIn();
