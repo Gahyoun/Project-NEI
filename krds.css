@@ -313,3 +313,9 @@ code{background:var(--surface);border-radius:3px;padding:1px 6px;font-size:13px;
   .ledger-head .badge{margin-top:6px}
   .source-meta>div,.note-meta>div,.scope-note .note-meta>div{grid-template-columns:1fr;gap:1px}
 }
+
+/* ── sweep · vision 배지 ───────────────────────────────── */
+.need-1차필수{background:#fdecea;color:#a3260c}
+.need-1차권장{background:#fff4e0;color:#8a5a00}
+.need-2차{background:var(--surface-primary);color:var(--primary-deep)}
+.need-2차이후{background:var(--surface);color:var(--border-strong)}

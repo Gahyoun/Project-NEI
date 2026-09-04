@@ -6,7 +6,7 @@
 <title>NEI 연구 아키텍처 — representability와 protocol-conditioned terminal geometry</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="stylesheet" href="vendor/katex/katex.min.css">
-<link rel="stylesheet" href="krds.css?v=5">
+<link rel="stylesheet" href="krds.css?v=7">
 </head>
 <body>
 
@@ -16,7 +16,7 @@
     <nav>
       <a href="#result">definition</a><a href="#map">map</a><a href="#scope">1차 일단락</a><a href="#conn">connectors</a>
       <a href="#repr">representability</a><a href="#scalar">decomposition</a>
-      <a href="#claims">claim ledger</a><a href="#refs">references</a>
+      <a href="#sweep">sweep</a><a href="#vision">vision</a><a href="#claims">claim ledger</a><a href="#refs">references</a>
     </nav>
   </div>
 </header>
@@ -393,6 +393,12 @@
   </ul>
 </section>
 
+<figure class="panel wide" id="calibFig">
+    <figcaption><span class="t" id="cap-calib-t"></span><span class="s" id="cap-calib-s"></span></figcaption>
+    <div id="ch-calib"></div>
+    <p class="fine" id="calib-verdict"></p>
+  </figure>
+
 <section id="scalar">
   <h2>6. One scalar — trace, spectrum, and occupancy decomposition</h2>
   <h3>6.1 Finite-sample identity</h3>
@@ -586,8 +592,32 @@
   </figure>
 </section>
 
+
+<section id="sweep">
+  <h2>7. Sweep status</h2>
+  <p class="lede" id="sweepHead"></p>
+  <div class="grid2">
+    <figure class="panel"><figcaption><span class="t">Convergence coverage</span>
+      <span class="s" id="sweepProto"></span></figcaption><div id="ch-sweep"></div></figure>
+    <div class="panel"><h3>Artifact coverage</h3><div id="sweepArt"></div></div>
+  </div>
+  <div class="grid2">
+    <div class="panel"><h3>Ranges</h3><div class="tablewrap"><table id="sweepRange"></table></div></div>
+    <div class="panel"><h3>Compute environment</h3><div class="tablewrap"><table id="sweepEnv"></table></div></div>
+  </div>
+</section>
+
+<section id="vision">
+  <h2>8. Vision — what closes the argument</h2>
+  <p class="lede" id="visionThesis"></p>
+  <div class="panel wide"><h3>세 갈래를 가르는 장치</h3><div class="tablewrap"><table id="visDisc"></table></div></div>
+  <div class="panel wide"><h3>Phases</h3><div id="visPhases"></div></div>
+  <div class="callout warn"><b id="visDecK"></b> <span id="visDecBody"></span>
+    <div class="tablewrap" style="margin-top:12px"><table id="visOpt"></table></div></div>
+</section>
+
 <section id="claims">
-  <h2>7. Claim ledger</h2>
+  <h2>9. Claim ledger</h2>
   <h3>7.1 Classification rule</h3>
   <ul class="note-tree lede">
     <li><b>Status classes:</b> definition, theorem, diagnostic, exploratory measurement,
@@ -603,7 +633,7 @@
 </section>
 
 <section id="refs">
-  <h2>8. References</h2>
+  <h2>10. References</h2>
   <h3>8.1 Citation rule</h3>
   <ul class="note-tree lede">
     <li><b><i>Why</i> field:</b> 해당 reference가 architecture에서 지지하는 정확한 proposition
@@ -620,9 +650,9 @@
 
 <script src="vendor/katex/katex.min.js"></script>
 <script src="vendor/katex/contrib/auto-render.min.js"></script>
-<script src="math-render.js?v=5"></script>
-<script src="data/offline-data.js?v=5"></script>
-<script src="graph.js?v=5"></script>
-<script src="app.js?v=5"></script>
+<script src="math-render.js?v=7"></script>
+<script src="data/offline-data.js?v=7"></script>
+<script src="graph.js?v=7"></script>
+<script src="app.js?v=7"></script>
 </body>
 </html>

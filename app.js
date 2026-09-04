@@ -116,9 +116,12 @@ function drawMap(){
   GRAPH?.destroy?.();
   const shown=DB.nodes.nodes.filter(n=>!STATE.off.has(n.domain));
   const ids=new Set(shown.map(n=>n.id));
+  const fc=DB.scope.first_closure;
   GRAPH = window.NEIGraph.makeGraph(host,{
     nodes: shown, domains: DB.nodes.domains,
     edges: DB.edges.edges.filter(e=>ids.has(e.from)&&ids.has(e.to)),
+    hyper: fc && fc.members ? { label: fc.label || "1차 일단락", color: fc.color || "#207037",
+                                members: fc.members.filter(i=>ids.has(i)) } : null,
     onSelect: id => { STATE.sel=id; renderPanel(); }
   });
 }
@@ -272,6 +275,62 @@ function renderRefs(){
 }
 
 /* ── 1차 일단락 ──────────────────────────────────────── */
+function renderCalib(){
+  const c=DB.meas.calibration; if(!c||!document.getElementById("ch-calib")) return;
+  document.getElementById("cap-calib-t").innerHTML=tex(esc(c.title));
+  document.getElementById("cap-calib-s").innerHTML=tex(esc(c.sub));
+  // I 는 자릿수가 22 자리에 걸치므로 log10 로 그린다
+  const lg=v=>Math.max(0,(Math.log10(v)+24)/24);
+  bars(document.getElementById("ch-calib"),
+    c.rows.map(r=>({k:r.k, v:[r.D2, lg(r.I_pol)],
+      vlabel:`${r.D2.toFixed(3)} / ${r.I_pol.toExponential(1).replace("e-","e−")}`})),
+    {max:1, cls:i=>i?"s2":"s1",
+     legend:`<span><i style="background:var(--primary)"></i>$\\mathcal D_2$</span>`+
+            `<span><i style="background:#7aa2e3"></i>$\\log_{10}\\widehat{\\mathcal I}_M$ (polish, 눈금 $10^{-24}$–$10^{0}$)</span>`});
+  document.getElementById("calib-verdict").innerHTML=tex(esc(c.verdict));
+}
+
+function renderSweep(){
+  const s=DB.sweep, q=id=>document.getElementById(id);
+  q("sweepHead").innerHTML=`<b>${esc(s.status)}</b> · ${esc(s.asof)}<br>${tex(esc(s.headline))}`;
+  q("sweepProto").innerHTML=tex(`$M=${s.protocol.M}$ · $p=${s.protocol.p}$ · max_iter ${s.protocol.max_iter} · eps ${s.protocol.eps} · ${s.protocol.optimizer} · polish ${s.protocol.polish}`);
+  bars(q("ch-sweep"), s.counts.map(c=>({k:c.k, v:c.v, vlabel:`${c.v} / ${c.of}`})), {max:97});
+  const a=s.artifacts;
+  q("sweepArt").innerHTML=`
+    <p style="font-size:15px;margin:0 0 10px">npz <b>${a.npz}</b> — ${a.nodes.map(esc).join(" · ")}</p>
+    <div class="sect">저장됨</div><ul style="font-size:14px;margin:4px 0 10px;padding-left:20px">${
+      a.stored.map(x=>`<li>${tex(esc(x))}</li>`).join("")}</ul>
+    <div class="sect">없음</div><ul style="font-size:14px;margin:4px 0 10px;padding-left:20px">${
+      a.missing.map(x=>`<li>${tex(esc(x))}</li>`).join("")}</ul>
+    <p class="fine">${tex(esc(a.consequence))}</p>`;
+  q("sweepRange").innerHTML=`<tbody>${s.ranges.map(r=>
+    `<tr><td class="k">${tex(esc(r.k))}</td><td>${tex(esc(r.v))}</td>
+     <td class="muted" style="font-size:13px">${tex(esc(r.note))}</td></tr>`).join("")}</tbody>`;
+  q("sweepEnv").innerHTML=`<tbody>${s.env.map(r=>
+    `<tr><td class="k">${esc(r.k)}</td><td><code>${esc(r.v)}</code></td>
+     <td class="muted" style="font-size:13px">${esc(r.note)}</td></tr>`).join("")}
+     <tr><td class="k">현재 실행</td><td colspan="2">${esc(s.running)}</td></tr></tbody>`;
+}
+
+function renderVision(){
+  const v=DB.vision, q=id=>document.getElementById(id);
+  q("visionThesis").innerHTML=`<b>${esc(v.target)}</b><br>${tex(esc(v.thesis))}`;
+  q("visDisc").innerHTML=`<thead><tr><th>갈래</th><th>가르는 장치</th><th>상태</th><th>왜</th></tr></thead><tbody>${
+    v.discriminators.map(d=>`<tr><td>${tex(esc(d.k))}</td><td>${tex(esc(d.test))}</td>
+      <td>${esc(d.state)}</td><td class="muted" style="font-size:13px">${tex(esc(d.why))}</td></tr>`).join("")}</tbody>`;
+  q("visPhases").innerHTML=v.phases.map(p=>`
+    <div class="claimline"><span class="n">${esc(p.id)}</span>
+      <span><span class="t"><b>${tex(esc(p.k))}</b> <span class="badge need-${esc(p.when.replace(/\s/g,""))}">${esc(p.when)}</span></span>
+        <ul style="font-size:14px;margin:6px 0 4px;padding-left:20px">${
+          p.items.map(x=>`<li>${tex(esc(x))}</li>`).join("")}</ul>
+        <span class="s">${tex(esc(p.note))}</span></span></div>`).join("");
+  q("visDecK").textContent=v.decision.k+".";
+  q("visDecBody").innerHTML=tex(esc(v.decision.body));
+  q("visOpt").innerHTML=`<thead><tr><th>선택지</th><th>필요 조건</th><th>위험</th></tr></thead><tbody>${
+    v.decision.options.map(o=>`<tr><td>${esc(o.k)}</td><td>${tex(esc(o.need))}</td>
+      <td class="muted" style="font-size:13px">${tex(esc(o.risk))}</td></tr>`).join("")}</tbody>`;
+}
+
 function renderScope(){
   const s=DB.scope.first_closure;
   document.getElementById("scopeThesis").innerHTML=tex(s.thesis);
@@ -300,7 +359,7 @@ function renderScope(){
 
 /* ── 부팅 ─────────────────────────────────────────────── */
 (async function(){
-  const files={nodes:"nodes",edges:"edges",connectors:"connectors",
+  const files={nodes:"nodes",edges:"edges",connectors:"connectors",sweep:"sweep",vision:"vision",
                claims:"claims",refs:"refs",meas:"measurements",scope:"scope",
                sources:"source-map"};
   try{
@@ -324,6 +383,7 @@ function renderScope(){
     return;
   }
   renderCharts(); renderFilters(); renderMapLegend(); renderCoverageSummary(); renderScope();
+  renderCalib(); renderSweep(); renderVision();
   renderConnectors(); renderClaims(); renderRefs();
   drawMap();
   document.getElementById("zIn").onclick  = ()=>GRAPH?.zoomIn();

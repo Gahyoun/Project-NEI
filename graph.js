@@ -3,7 +3,7 @@
 /* 좌→우 계층형 DAG 렌더러. dependency depth를 가로축에 두고
    개념을 선택하면 인접한 dependency와 source coverage를 함께 보여준다. */
 
-function makeGraph(host, { nodes, domains, edges, onSelect }) {
+function makeGraph(host, { nodes, domains, edges, hyper, onSelect }) {
   const NS = "http://www.w3.org/2000/svg";
   const el = (t, a = {}) => { const e = document.createElementNS(NS, t);
     for (const k in a) e.setAttribute(k, a[k]); return e; };
@@ -83,6 +83,19 @@ function makeGraph(host, { nodes, domains, edges, onSelect }) {
      vertical clearance made adjacent cards read as one block and left no
      space for crossing edges. */
   const NODE_W = 150, ROW_GAP = 88, COL_GAP = 58, H = 60;
+  /* hyperedge 원소를 열마다 위쪽으로 모은다. 원소가 열마다 흩어져 있으면 어떤
+     껍질을 씌워도 비원소를 삼키므로, 열 안에서 안정 분할해 원소 영역이 열마다
+     하나의 구간이 되게 한다. 그 구간들을 가로로 이어 붙이면 계단형 폴리곤이
+     원소만 감싼다. */
+  const MEM = new Set(hyper ? hyper.members : []);
+  if (MEM.size) {
+    rows.forEach(r => {
+      const inn = r.filter(id => MEM.has(id)), out2 = r.filter(id => !MEM.has(id));
+      r.length = 0; r.push(...inn, ...out2);
+      r.forEach((id, i) => pos.set(id, i));
+    });
+  }
+
   const geo = new Map();
   const colWidths = rows.map(() => NODE_W);
   const colX = [];
@@ -102,8 +115,42 @@ function makeGraph(host, { nodes, domains, edges, onSelect }) {
 
   /* ── 4. 그린다 ───────────────────────────────────────────── */
   const cam = el("g", { id: "cam" });
+  const gHyper = el("g", { class: "graph-hyper" });
   const gEdge = el("g", { class: "graph-edges" }), gNode = el("g");
-  cam.append(gEdge, gNode); svg.appendChild(cam);
+  cam.append(gHyper, gEdge, gNode); svg.appendChild(cam);
+
+  if (hyper && MEM.size) {
+    const PADY = 16, band = [];
+    rows.forEach(r => {
+      const ms = r.filter(id => MEM.has(id) && geo.has(id));
+      if (!ms.length) return;
+      const gs = ms.map(id => geo.get(id));
+      band.push({
+        x: gs[0].x,
+        t: Math.min(...gs.map(g => g.y - g.h / 2)) - PADY,
+        b: Math.max(...gs.map(g => g.y + g.h / 2)) + PADY,
+        hw: NODE_W / 2 + COL_GAP / 2 - 6
+      });
+    });
+    if (band.length) {
+      const pts = [];
+      band.forEach((c, i) => {                       // 위쪽을 따라 오른쪽으로
+        pts.push([c.x - c.hw, c.t], [c.x + c.hw, c.t]);
+        if (i < band.length - 1) pts.push([band[i + 1].x - band[i + 1].hw, c.t]);
+      });
+      for (let i = band.length - 1; i >= 0; i--) {   // 아래쪽을 따라 왼쪽으로
+        const c = band[i];
+        pts.push([c.x + c.hw, c.b], [c.x - c.hw, c.b]);
+        if (i > 0) pts.push([band[i - 1].x + band[i - 1].hw, c.b]);
+      }
+      gHyper.appendChild(el("path", { d: hullPath(dedupePts(pts), 12),
+        fill: hyper.color, "fill-opacity": 0.055, stroke: hyper.color,
+        "stroke-width": 2, "stroke-dasharray": "9 6", "stroke-linejoin": "round" }));
+      const lab = el("text", { x: band[0].x - band[0].hw + 4, y: band[0].t - 10,
+        fill: hyper.color, class: "gn-hyper" });
+      lab.textContent = hyper.label; gHyper.appendChild(lab);
+    }
+  }
 
   const EC = { theorem: "#256ef4", definition: "#477a56", diagnostic: "#477a56",
                measured: "#ab5b00", open: "#6d7882",
@@ -245,6 +292,39 @@ function makeGraph(host, { nodes, domains, edges, onSelect }) {
       zoomAt(r.width / 2, r.height / 2, 1.28); },
     zoomOut: () => { const r = host.getBoundingClientRect();
       zoomAt(r.width / 2, r.height / 2, 1 / 1.28); } };
+}
+
+/* 이웃한 같은 점 제거 — 계단이 평평한 곳에서 꼭짓점이 겹치면 모서리 둥글리기가 깨진다 */
+function dedupePts(p) {
+  const o = [];
+  for (const q of p) {
+    const l = o[o.length - 1];
+    if (!l || Math.abs(l[0] - q[0]) > 0.5 || Math.abs(l[1] - q[1]) > 0.5) o.push(q);
+  }
+  if (o.length > 1) {
+    const f = o[0], l = o[o.length - 1];
+    if (Math.abs(f[0] - l[0]) < 0.5 && Math.abs(f[1] - l[1]) < 0.5) o.pop();
+  }
+  return o;
+}
+/* 폴리곤 꼭짓점을 잘라 둥글게 닫는다 */
+function hullPath(h, r) {
+  if (h.length < 3) return "";
+  const n = h.length, seg = [];
+  const lerp = (a, b, s) => [a[0] + (b[0] - a[0]) * s, a[1] + (b[1] - a[1]) * s];
+  for (let i = 0; i < n; i++) {
+    const p = h[i], a = h[(i - 1 + n) % n], b = h[(i + 1) % n];
+    const da = Math.hypot(p[0] - a[0], p[1] - a[1]) || 1;
+    const db = Math.hypot(b[0] - p[0], b[1] - p[1]) || 1;
+    seg.push({ s: lerp(p, a, Math.min(r / da, 0.5)), p, e: lerp(p, b, Math.min(r / db, 0.5)) });
+  }
+  let d = `M${seg[0].s[0].toFixed(1)},${seg[0].s[1].toFixed(1)}`;
+  for (let i = 0; i < n; i++) {
+    const c = seg[i], nx = seg[(i + 1) % n];
+    d += ` Q${c.p[0].toFixed(1)},${c.p[1].toFixed(1)} ${c.e[0].toFixed(1)},${c.e[1].toFixed(1)}`;
+    d += ` L${nx.s[0].toFixed(1)},${nx.s[1].toFixed(1)}`;
+  }
+  return d + " Z";
 }
 
 window.NEIGraph = Object.freeze({ makeGraph });

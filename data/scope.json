@@ -1,36 +1,170 @@
 {
-  "_note": "1차 일단락을 위한 최소 claim set 후보. 정의와 theorem은 닫되, numerical result가 아직 지지하지 않는 해석은 open으로 유지.",
-  "first_closure": {
-    "thesis": "고정된 graph realization과 predeclared graph-to-dissimilarity/embedding/optimization protocol 아래에서 두 대상을 분리 측정. $\\mathcal D_p$는 target dissimilarity의 spectral representability를, $\\mathcal I$는 numerical gate를 통과한 terminal law의 geometry-weighted spread를 측정. Reproducibility는 independent-batch recurrence와 finite-$M$ stability로 별도 평가. ‘Realized geometric degeneracy’는 $\\alpha_\\Pi>0$인 admissible terminal law가 declared metric과 resolution에서 point mass로 붕괴하지 않는다는 protocol-conditioned operational definition으로만 사용.",
-    "why_this_line": [
-      "논리 순서는 input/protocol → theorem → estimator → numerical gate → empirical result → allowed interpretation. 지도에서 연결된 두 node가 곧 causal, equivalent 또는 jointly sufficient함을 뜻하지 않음.",
-      "$\\mathcal D_p$는 고정된 $(\\Delta,p)$의 optimizer-independent spectral diagnostic이고, $\\mathcal I$는 fully specified $\\Pi$에 조건부인 terminal-law observable. 둘의 association은 별도 empirical question이며 theorem이 아님.",
-      "Numerical admissibility(stationarity, collision, quotient-Hessian inertia)와 representational fidelity($\\phi$와 residual profile)를 분리. 전자는 terminal을 second-order candidate로 분류하고, 후자는 embedded geometry에 대한 substantive interpretation의 범위를 제한. 어느 하나도 다른 하나를 보증하지 않음.",
-      "Geometric spread $\\mathcal I$, occupancy concentration $K_{\\rm eff}$, normalized-stress equivalence와 finite continuation은 각각 ‘얼마나 다른가’, ‘어떻게 점유되는가’, ‘stress objective가 같은가’, ‘연속 candidate인가’를 묻는 항목. 네 답을 degeneracy라는 한 단어로 통합하지 않음.",
-      "Finite-$M$ stability와 protocol robustness도 분리. independent batches와 M 확대는 sampling question, $\\rho_0$/optimizer perturbation은 protocol question, graph null ensemble은 structural-baseline question. finite M은 arbitrarily rare support를 배제하지 못함."
-    ],
-    "four_claims": [
-      {"n":"1","t":"finite, symmetric, hollow, nonnegative $\\Delta$와 고정된 $p$에서 $\\mathcal D_p=0$은 exact Euclidean realizability와 동치. $\\mathcal D_p^{\\rm dim}$과 $\\mathcal D^{\\rm neg}$는 positive rank-truncation residual과 negative-spectrum obstruction을 분리하지만, positive deficiency의 크기를 stress roughness로 해석하지 않음.","state":"theorem complete · full-network measurement required"},
-      {"n":"2","t":"NEI의 population estimand는 $\\mu_\\Pi=(q\\circ T_\\Pi)_\\#(\\rho_0\\otimes\\rho_{\\rm alg})$이 유도하는 admissible terminal law의 functional. prespecified pair set에서 finite positive moments를 가정하면 $\\mathcal I=\\tfrac12\\mathbb E\\rho_\\mu^2(D,D')$이고 $\\mathcal I=0$ iff 이 law가 point mass. $M$은 sample size이고 $\\varepsilon_D$가 geometric resolution을 결정.","state":"definition complete · protocol sensitivity required"},
-      {"n":"3","t":"pair-standardized run vector $z_{ma}=d_a^{(m)}/(\\bar d_a\\sqrt{N_+})$에 대해 finite-sample plug-in identity $\\widehat{\\mathcal I}_M=\\operatorname{tr}B_z/M$이 성립. 이는 population unbiasedness나 support recovery를 뜻하지 않으며, $d_{\\rm eff}$도 같은 standardized covariance operator에서 계산해야 함.","state":"theorem complete · unavailable from the existing raw-Δ artifact"},
-      {"n":"4","t":"corrected numerical gate를 통과하고 independent batches에서 재현되는 $\\varepsilon_D$-separated terminal classes가 있으면 declared $(M,\\varepsilon_D)$에서 observed protocol-realized geometric multiplicity로 판정. finite $M$은 complete population support를 인증하지 않음. distinct strict-minimum candidates, normalized-stress near-equivalence와 analytic continuous minimizer manifold는 각각 class-wise test, equivalence interval과 Morse–Bott structure를 추가로 요구.","state":"core empirical claim candidate · corrected full rerun required"}
-    ],
-    "todo": [
-      {"k":"full rerun with corrected polishing and quotient Hessian","w":"objective-gradient coefficient와 quotient projection을 수정. 모든 terminal의 optimizer success, $\\eta_g$, collision, quotient-Hessian inertia, normalized stress, raw $S_{\\Delta,W}$와 run-wise $\\min_{i<j}d_{ij}^{(m)}$를 다시 저장. Network-level gate acceptance와 failure reason도 함께 보고.","need":"required"},
-      {"k":"store pair-standardized run vectors","w":"기존 global-scale run-distance matrix $\\Delta^{(\\rm raw)}$는 NEI와 같은 covariance를 복원하지 않음. $z_m$ 또는 $\\Delta^{(z)}$를 저장해 $d_{\\rm eff}$를 재계산.","need":"required"},
-      {"k":"independent batches and finite-$M$ scaling","w":"$K=M$은 coverage가 포화되지 않았다는 경고이며 state count가 $M$이라는 결론이 아님. $M=25,50,100,200,400$ rarefaction, recurrence, singleton/doubleton count, new-class rate, $K_{\\rm eff}$와 confidence interval을 보고. Complete-support detection probability를 언급하려면 minimum class mass 또는 missing-mass assumption을 명시.","need":"required"},
-      {"k":"class-wise stress-equivalence ledger","w":"predeclared representative $X_\\gamma^\\star$에 대해 $e_\\gamma=\\mathcal F(X_\\gamma^\\star)/S_{\\Delta,W}$와 pairwise difference interval을 저장. interval 전체가 declared margin 안에 포함되어야 $\\tau_E$-near-equivalence 판정 가능. $\\mathcal F$는 thermodynamic energy가 아니라 embedding stress objective.","need":"required"},
-      {"k":"representational fidelity","w":"normalized stress, Shepard residual과 hop-shell residual을 보고해 어떤 pair 또는 shell에서 geometric interpretation이 유지되는지 판정. 하나의 global fit threshold로 ‘topology가 보존됨’을 선언하지 않음. Poor fit도 stationary local minimum일 수 있으므로 이 criterion을 numerical admissibility와 통합하지 않음.","need":"required"},
-      {"k":"$\\mathcal D_p$ full-sample decomposition","w":"$\\mathcal D_p^{\\rm dim}$, $\\mathcal D^{\\rm neg}$와 cMDS cutoff eigengap을 함께 저장.","need":"required"},
-      {"k":"conditional nonredundancy of the two axes","w":"network size, mean distance, density와 degree heterogeneity를 matched or stratified ensemble에서 conditional mutual information 또는 out-of-sample incremental prediction을 permutation null과 비교. 결론은 analyzed ensemble 안의 conditional association으로 제한.","need":"required"},
-      {"k":"graph null ensembles","w":"degree-preserving connected rewiring과 matched ER가 각각 무엇을 보존하고 무엇을 깨뜨리는지 먼저 선언. connectedness conditioning, rewiring mixing과 null sample size를 점검하고 graph-to-graph variance와 within-graph restart variance를 hierarchical하게 분리.","need":"recommended"},
-      {"k":"initialization/optimizer robustness","w":"uniform, cMDS+noise와 spectral+noise initialization, SMACOF/L-BFGS optimizer에서 value, gate acceptance, class recurrence와 network-rank stability를 각각 보고. 일치하지 않으면 intrinsic descriptor가 아닌 protocol response로 유지.","need":"recommended"}
-    ],
-    "excluded": [
-      {"k":"continuous-degeneracy certificate","w":"finite continuation은 declared resolution에서 numerical candidate evidence. analytic conclusion에는 smooth fixed-rank quotient stratum에서 positive-dimensional critical manifold, kernel–tangent equality와 positive-definite normal Hessian을 갖는 Morse–Bott structure가 필요. finite-size scaling은 $N$-persistence를 실제로 주장할 때만 추가.","to":"2차 일단락 대상"},
-      {"k":"barrier · physical metastability","w":"terminal separation만으로 barrier를 알 수 없음. minimax path 또는 saddle search가 필요.","to":"2차 일단락 대상"},
-      {"k":"symmetry-resolved degeneracy","w":"$\\operatorname{Aut}(\\Delta)$ quotient 여부를 estimand policy로 먼저 선언하고 group orbit와 accidental multiplicity를 분리.","to":"2차 일단락 대상"},
-      {"k":"mechanism-level frustration interpretation","w":"representation mismatch와 terminal spread의 association만으로 landscape roughness의 mechanism을 설명할 수 없음. competing covariates를 통제한 null comparison, explicit disorder control parameter와 scaling evidence가 필요.","to":"2차 일단락 대상"}
-    ]
-  }
+ "_note": "1차 일단락을 위한 최소 claim set 후보. 정의와 theorem은 닫되, numerical result가 아직 지지하지 않는 해석은 open으로 유지.",
+ "first_closure": {
+  "thesis": "고정된 graph realization과 predeclared graph-to-dissimilarity/embedding/optimization protocol 아래에서 두 대상을 분리 측정. $\\mathcal D_p$는 target dissimilarity의 spectral representability를, $\\mathcal I$는 numerical gate를 통과한 terminal law의 geometry-weighted spread를 측정. Reproducibility는 independent-batch recurrence와 finite-$M$ stability로 별도 평가. ‘Realized geometric degeneracy’는 $\\alpha_\\Pi>0$인 admissible terminal law가 declared metric과 resolution에서 point mass로 붕괴하지 않는다는 protocol-conditioned operational definition으로만 사용.",
+  "why_this_line": [
+   "논리 순서는 input/protocol → theorem → estimator → numerical gate → empirical result → allowed interpretation. 지도에서 연결된 두 node가 곧 causal, equivalent 또는 jointly sufficient함을 뜻하지 않음.",
+   "$\\mathcal D_p$는 고정된 $(\\Delta,p)$의 optimizer-independent spectral diagnostic이고, $\\mathcal I$는 fully specified $\\Pi$에 조건부인 terminal-law observable. 둘의 association은 별도 empirical question이며 theorem이 아님.",
+   "Numerical admissibility(stationarity, collision, quotient-Hessian inertia)와 representational fidelity($\\phi$와 residual profile)를 분리. 전자는 terminal을 second-order candidate로 분류하고, 후자는 embedded geometry에 대한 substantive interpretation의 범위를 제한. 어느 하나도 다른 하나를 보증하지 않음.",
+   "Geometric spread $\\mathcal I$, occupancy concentration $K_{\\rm eff}$, normalized-stress equivalence와 finite continuation은 각각 ‘얼마나 다른가’, ‘어떻게 점유되는가’, ‘stress objective가 같은가’, ‘연속 candidate인가’를 묻는 항목. 네 답을 degeneracy라는 한 단어로 통합하지 않음.",
+   "Finite-$M$ stability와 protocol robustness도 분리. independent batches와 M 확대는 sampling question, $\\rho_0$/optimizer perturbation은 protocol question, graph null ensemble은 structural-baseline question. finite M은 arbitrarily rare support를 배제하지 못함."
+  ],
+  "four_claims": [
+   {
+    "n": "1",
+    "t": "finite, symmetric, hollow, nonnegative $\\Delta$와 고정된 $p$에서 $\\mathcal D_p=0$은 exact Euclidean realizability와 동치. $\\mathcal D_p^{\\rm dim}$과 $\\mathcal D^{\\rm neg}$는 positive rank-truncation residual과 negative-spectrum obstruction을 분리하지만, positive deficiency의 크기를 stress roughness로 해석하지 않음.",
+    "state": "theorem complete · full-network measurement required"
+   },
+   {
+    "n": "2",
+    "t": "NEI의 population estimand는 $\\mu_\\Pi=(q\\circ T_\\Pi)_\\#(\\rho_0\\otimes\\rho_{\\rm alg})$이 유도하는 admissible terminal law의 functional. prespecified pair set에서 finite positive moments를 가정하면 $\\mathcal I=\\tfrac12\\mathbb E\\rho_\\mu^2(D,D')$이고 $\\mathcal I=0$ iff 이 law가 point mass. $M$은 sample size이고 $\\varepsilon_D$가 geometric resolution을 결정.",
+    "state": "definition complete · protocol sensitivity required"
+   },
+   {
+    "n": "3",
+    "t": "pair-standardized run vector $z_{ma}=d_a^{(m)}/(\\bar d_a\\sqrt{N_+})$에 대해 finite-sample plug-in identity $\\widehat{\\mathcal I}_M=\\operatorname{tr}B_z/M$이 성립. 이는 population unbiasedness나 support recovery를 뜻하지 않으며, $d_{\\rm eff}$도 같은 standardized covariance operator에서 계산해야 함.",
+    "state": "theorem complete · unavailable from the existing raw-Δ artifact"
+   },
+   {
+    "n": "4",
+    "t": "corrected numerical gate를 통과하고 independent batches에서 재현되는 $\\varepsilon_D$-separated terminal classes가 있으면 declared $(M,\\varepsilon_D)$에서 observed protocol-realized geometric multiplicity로 판정. finite $M$은 complete population support를 인증하지 않음. distinct strict-minimum candidates, normalized-stress near-equivalence와 analytic continuous minimizer manifold는 각각 class-wise test, equivalence interval과 Morse–Bott structure를 추가로 요구.",
+    "state": "core empirical claim candidate · corrected full rerun required"
+   }
+  ],
+  "todo": [
+   {
+    "k": "full rerun with corrected polishing and quotient Hessian",
+    "w": "objective-gradient coefficient와 quotient projection을 수정. 모든 terminal의 optimizer success, $\\eta_g$, collision, quotient-Hessian inertia, normalized stress, raw $S_{\\Delta,W}$와 run-wise $\\min_{i<j}d_{ij}^{(m)}$를 다시 저장. Network-level gate acceptance와 failure reason도 함께 보고.",
+    "need": "required"
+   },
+   {
+    "k": "store pair-standardized run vectors",
+    "w": "기존 global-scale run-distance matrix $\\Delta^{(\\rm raw)}$는 NEI와 같은 covariance를 복원하지 않음. $z_m$ 또는 $\\Delta^{(z)}$를 저장해 $d_{\\rm eff}$를 재계산.",
+    "need": "required"
+   },
+   {
+    "k": "independent batches and finite-$M$ scaling",
+    "w": "$K=M$은 coverage가 포화되지 않았다는 경고이며 state count가 $M$이라는 결론이 아님. $M=25,50,100,200,400$ rarefaction, recurrence, singleton/doubleton count, new-class rate, $K_{\\rm eff}$와 confidence interval을 보고. Complete-support detection probability를 언급하려면 minimum class mass 또는 missing-mass assumption을 명시.",
+    "need": "required"
+   },
+   {
+    "k": "class-wise stress-equivalence ledger",
+    "w": "predeclared representative $X_\\gamma^\\star$에 대해 $e_\\gamma=\\mathcal F(X_\\gamma^\\star)/S_{\\Delta,W}$와 pairwise difference interval을 저장. interval 전체가 declared margin 안에 포함되어야 $\\tau_E$-near-equivalence 판정 가능. $\\mathcal F$는 thermodynamic energy가 아니라 embedding stress objective.",
+    "need": "required"
+   },
+   {
+    "k": "representational fidelity",
+    "w": "normalized stress, Shepard residual과 hop-shell residual을 보고해 어떤 pair 또는 shell에서 geometric interpretation이 유지되는지 판정. 하나의 global fit threshold로 ‘topology가 보존됨’을 선언하지 않음. Poor fit도 stationary local minimum일 수 있으므로 이 criterion을 numerical admissibility와 통합하지 않음.",
+    "need": "required"
+   },
+   {
+    "k": "$\\mathcal D_p$ full-sample decomposition",
+    "w": "$\\mathcal D_p^{\\rm dim}$, $\\mathcal D^{\\rm neg}$와 cMDS cutoff eigengap을 함께 저장.",
+    "need": "required"
+   },
+   {
+    "k": "conditional nonredundancy of the two axes",
+    "w": "network size, mean distance, density와 degree heterogeneity를 matched or stratified ensemble에서 conditional mutual information 또는 out-of-sample incremental prediction을 permutation null과 비교. 결론은 analyzed ensemble 안의 conditional association으로 제한.",
+    "need": "required"
+   },
+   {
+    "k": "graph null ensembles",
+    "w": "degree-preserving connected rewiring과 matched ER가 각각 무엇을 보존하고 무엇을 깨뜨리는지 먼저 선언. connectedness conditioning, rewiring mixing과 null sample size를 점검하고 graph-to-graph variance와 within-graph restart variance를 hierarchical하게 분리.",
+    "need": "recommended"
+   },
+   {
+    "k": "initialization/optimizer robustness",
+    "w": "uniform, cMDS+noise와 spectral+noise initialization, SMACOF/L-BFGS optimizer에서 value, gate acceptance, class recurrence와 network-rank stability를 각각 보고. 일치하지 않으면 intrinsic descriptor가 아닌 protocol response로 유지.",
+    "need": "recommended"
+   }
+  ],
+  "excluded": [
+   {
+    "k": "continuous-degeneracy certificate",
+    "w": "finite continuation은 declared resolution에서 numerical candidate evidence. analytic conclusion에는 smooth fixed-rank quotient stratum에서 positive-dimensional critical manifold, kernel–tangent equality와 positive-definite normal Hessian을 갖는 Morse–Bott structure가 필요. finite-size scaling은 $N$-persistence를 실제로 주장할 때만 추가.",
+    "to": "2차 일단락 대상"
+   },
+   {
+    "k": "barrier · physical metastability",
+    "w": "terminal separation만으로 barrier를 알 수 없음. minimax path 또는 saddle search가 필요.",
+    "to": "2차 일단락 대상"
+   },
+   {
+    "k": "symmetry-resolved degeneracy",
+    "w": "$\\operatorname{Aut}(\\Delta)$ quotient 여부를 estimand policy로 먼저 선언하고 group orbit와 accidental multiplicity를 분리.",
+    "to": "2차 일단락 대상"
+   },
+   {
+    "k": "mechanism-level frustration interpretation",
+    "w": "representation mismatch와 terminal spread의 association만으로 landscape roughness의 mechanism을 설명할 수 없음. competing covariates를 통제한 null comparison, explicit disorder control parameter와 scaling evidence가 필요.",
+    "to": "2차 일단락 대상"
+   }
+  ],
+  "label": "1차 일단락 (2026-09-17)",
+  "color": "#207037",
+  "members": [
+   "G",
+   "delta",
+   "design",
+   "protocol",
+   "schoenberg",
+   "strain",
+   "Dp",
+   "fit",
+   "stress",
+   "shape",
+   "terminal",
+   "gate",
+   "hessian",
+   "NEI",
+   "calib",
+   "Egap",
+   "robust",
+   "cmnull",
+   "recur",
+   "multiplicity",
+   "rigid",
+   "split",
+   "unresolved"
+  ],
+  "member_note": "hyperedge 안이 1차 일단락 범위이다. 안쪽은 정의·정리로 닫히거나 1차에 반드시 측정할 항목이고, 바깥은 2차로 넘긴다.",
+  "excluded_nodes": [
+   {
+    "k": "deff",
+    "w": "현재 값은 raw-distance covariance 의 effective rank 로, NEI 연산자의 것이 아니다. 쌍별 표준화 $z$ 로 재계산하기 전에는 1차에 넣지 않는다."
+   },
+   {
+    "k": "Keff",
+    "w": "occupancy 는 optimizer 에 의존한다. 같은 $X^{(0)}$ 에서 서로 다른 하강 사상이 다른 terminal 로 가므로 support 수준 진술만 한다."
+   },
+   {
+    "k": "floppy",
+    "w": "continuous-degeneracy certificate 가 필요하다. $\\ker H_\\perp\\ne0$ 은 연속족의 충분조건이 아니다."
+   },
+   {
+    "k": "morse",
+    "w": "같은 이유. Morse–Bott / continuation 은 2차."
+   },
+   {
+    "k": "energydeg",
+    "w": "class 간 normalized-stress near-equivalence 의 해석. 검정($E_{\\rm gap}$)은 1차에 넣되 해석은 2차."
+   },
+   {
+    "k": "aut",
+    "w": "symmetry-resolved degeneracy 는 2차. 정리로 뒷받침되고 계산도 싸지만 범위를 늘린다."
+   },
+   {
+    "k": "negtype",
+    "w": "discrete geometry 맥락. 인용만."
+   },
+   {
+    "k": "rigidity",
+    "w": "Maxwell–Laman–Connelly 계보. 완전 쌍집합 위의 framework 이라 그래프 희소성이 곧 제약부족이 아니다. 인용만."
+   },
+   {
+    "k": "resid",
+    "w": "잔차장의 무질서도가 multiplicity 를 지배하는가. 2차 일단락의 알맹이 후보이며 지금은 가설."
+   }
+  ]
+ }
 }

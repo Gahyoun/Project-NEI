@@ -1,48 +1,362 @@
 {
-  "_note": "정리(theorem), 정의(definition), 진단(diagnostic), 측정(measured), 미해결(open), 주의(caution)를 분리.",
-  "edges": [
-    {"from":"G","to":"delta","via":"pushforward","label":"graph-to-dissimilarity rule 선언","status":"definition"},
-    {"from":"delta","to":"schoenberg","via":"double_centering","label":"squared-distance double centering","status":"theorem"},
-    {"from":"schoenberg","to":"negtype","via":"double_centering","label":"PSD ↔ CND of Δ²","status":"theorem"},
-    {"from":"schoenberg","to":"Dp","via":"double_centering","label":"zero-set의 spectral diagnostic","status":"theorem"},
-    {"from":"design","to":"Dp","via":"double_centering","label":"target dimension p","status":"definition"},
-    {"from":"schoenberg","to":"strain","via":"objective","label":"positive spectral truncation","status":"theorem"},
-    {"from":"delta","to":"stress","via":"objective","label":"target dissimilarities","status":"definition"},
-    {"from":"design","to":"stress","via":"objective","label":"dimension p와 weights W","status":"definition"},
-    {"from":"strain","to":"stress","via":"objective","label":"서로 다른 objective","status":"caution"},
-    {"from":"stress","to":"fit","via":"objective","label":"최종 residual 크기","status":"diagnostic"},
-    {"from":"stress","to":"shape","via":"quotient","label":"E(p)-invariant","status":"theorem"},
-    {"from":"delta","to":"aut","via":"quotient","label":"metric symmetry","status":"theorem"},
-    {"from":"shape","to":"aut","via":"quotient","label":"두 번째 quotient는 선택사항","status":"caution"},
-    {"from":"protocol","to":"terminal","via":"pushforward","label":"ρ0와 optimizer가 occupancy를 결정","status":"definition"},
-    {"from":"stress","to":"terminal","via":"pushforward","label":"algorithmic descent terminal","status":"measured"},
-    {"from":"shape","to":"terminal","via":"quotient","label":"distance-space representation","status":"theorem"},
-    {"from":"stress","to":"rigidity","via":"hessian","label":"zero-residual / prestress decomposition","status":"theorem"},
-    {"from":"rigidity","to":"hessian","via":"hessian","label":"quotient curvature","status":"theorem"},
-    {"from":"shape","to":"hessian","via":"hessian","label":"실제 orbit tangent 제거","status":"theorem"},
-    {"from":"hessian","to":"gate","via":"hessian","label":"inertia와 stationarity 검사","status":"diagnostic"},
-    {"from":"terminal","to":"gate","via":"pushforward","label":"admissible subset 정의","status":"diagnostic"},
-    {"from":"hessian","to":"morse","via":"hessian","label":"zero mode만으로는 불충분","status":"caution"},
-    {"from":"terminal","to":"NEI","via":"covariance","label":"standardized covariance trace","status":"theorem"},
-    {"from":"terminal","to":"deff","via":"covariance","label":"standardized covariance spectrum","status":"diagnostic"},
-    {"from":"terminal","to":"Keff","via":"degeneracy_ledger","label":"class occupancy","status":"diagnostic"},
-    {"from":"terminal","to":"Egap","via":"degeneracy_ledger","label":"class별 normalized stress","status":"diagnostic"},
-    {"from":"gate","to":"multiplicity","via":"degeneracy_ledger","label":"인증된 terminal만 포함","status":"definition"},
-    {"from":"NEI","to":"multiplicity","via":"degeneracy_ledger","label":"point-mass zero set 공유 · threshold calibration 필요","status":"caution"},
-    {"from":"Keff","to":"multiplicity","via":"degeneracy_ledger","label":"점유 class의 유효 수","status":"diagnostic"},
-    {"from":"aut","to":"multiplicity","via":"quotient","label":"symmetry contribution 정책","status":"caution"},
-    {"from":"Egap","to":"energydeg","via":"degeneracy_ledger","label":"normalized-stress equivalence","status":"open"},
-    {"from":"multiplicity","to":"energydeg","via":"degeneracy_ledger","label":"geometric multiplicity보다 강한 주장","status":"caution"},
-    {"from":"gate","to":"rigid","via":"robustness","label":"admissible-sample prerequisite","status":"definition"},
-    {"from":"NEI","to":"rigid","via":"robustness","label":"numerical-noise equivalence bound","status":"diagnostic"},
-    {"from":"multiplicity","to":"split","via":"degeneracy_ledger","label":"recurrence + separation","status":"open"},
-    {"from":"morse","to":"floppy","via":"hessian","label":"finite-continuation candidate evidence","status":"open"},
-    {"from":"gate","to":"unresolved","via":"robustness","label":"gate 실패 또는 증거 부족","status":"definition"},
-    {"from":"terminal","to":"robust","via":"robustness","label":"독립 batch와 protocol perturbation","status":"open"},
-    {"from":"robust","to":"rigid","via":"robustness","label":"network-level 판정","status":"open"},
-    {"from":"robust","to":"split","via":"robustness","label":"network-level 판정","status":"open"},
-    {"from":"robust","to":"floppy","via":"robustness","label":"network-level 판정","status":"open"},
-    {"from":"robust","to":"unresolved","via":"robustness","label":"불확실성 유지","status":"definition"},
-    {"from":"Dp","to":"fit","via":"objective","label":"관련 가능하지만 동일하지 않음","status":"open"}
-  ]
+ "_note": "정리(theorem), 정의(definition), 진단(diagnostic), 측정(measured), 미해결(open), 주의(caution)를 분리.",
+ "edges": [
+  {
+   "from": "G",
+   "to": "delta",
+   "via": "pushforward",
+   "label": "graph-to-dissimilarity rule 선언",
+   "status": "definition"
+  },
+  {
+   "from": "delta",
+   "to": "schoenberg",
+   "via": "double_centering",
+   "label": "squared-distance double centering",
+   "status": "theorem"
+  },
+  {
+   "from": "schoenberg",
+   "to": "negtype",
+   "via": "double_centering",
+   "label": "PSD ↔ CND of Δ²",
+   "status": "theorem"
+  },
+  {
+   "from": "schoenberg",
+   "to": "Dp",
+   "via": "double_centering",
+   "label": "zero-set의 spectral diagnostic",
+   "status": "theorem"
+  },
+  {
+   "from": "design",
+   "to": "Dp",
+   "via": "double_centering",
+   "label": "target dimension p",
+   "status": "definition"
+  },
+  {
+   "from": "schoenberg",
+   "to": "strain",
+   "via": "objective",
+   "label": "positive spectral truncation",
+   "status": "theorem"
+  },
+  {
+   "from": "delta",
+   "to": "stress",
+   "via": "objective",
+   "label": "target dissimilarities",
+   "status": "definition"
+  },
+  {
+   "from": "design",
+   "to": "stress",
+   "via": "objective",
+   "label": "dimension p와 weights W",
+   "status": "definition"
+  },
+  {
+   "from": "strain",
+   "to": "stress",
+   "via": "objective",
+   "label": "서로 다른 objective",
+   "status": "caution"
+  },
+  {
+   "from": "stress",
+   "to": "fit",
+   "via": "objective",
+   "label": "최종 residual 크기",
+   "status": "diagnostic"
+  },
+  {
+   "from": "stress",
+   "to": "shape",
+   "via": "quotient",
+   "label": "E(p)-invariant",
+   "status": "theorem"
+  },
+  {
+   "from": "delta",
+   "to": "aut",
+   "via": "quotient",
+   "label": "metric symmetry",
+   "status": "theorem"
+  },
+  {
+   "from": "shape",
+   "to": "aut",
+   "via": "quotient",
+   "label": "두 번째 quotient는 선택사항",
+   "status": "caution"
+  },
+  {
+   "from": "protocol",
+   "to": "terminal",
+   "via": "pushforward",
+   "label": "ρ0와 optimizer가 occupancy를 결정",
+   "status": "definition"
+  },
+  {
+   "from": "stress",
+   "to": "terminal",
+   "via": "pushforward",
+   "label": "algorithmic descent terminal",
+   "status": "measured"
+  },
+  {
+   "from": "shape",
+   "to": "terminal",
+   "via": "quotient",
+   "label": "distance-space representation",
+   "status": "theorem"
+  },
+  {
+   "from": "stress",
+   "to": "rigidity",
+   "via": "hessian",
+   "label": "zero-residual / prestress decomposition",
+   "status": "theorem"
+  },
+  {
+   "from": "rigidity",
+   "to": "hessian",
+   "via": "hessian",
+   "label": "quotient curvature",
+   "status": "theorem"
+  },
+  {
+   "from": "shape",
+   "to": "hessian",
+   "via": "hessian",
+   "label": "실제 orbit tangent 제거",
+   "status": "theorem"
+  },
+  {
+   "from": "hessian",
+   "to": "gate",
+   "via": "hessian",
+   "label": "inertia와 stationarity 검사",
+   "status": "diagnostic"
+  },
+  {
+   "from": "terminal",
+   "to": "gate",
+   "via": "pushforward",
+   "label": "admissible subset 정의",
+   "status": "diagnostic"
+  },
+  {
+   "from": "hessian",
+   "to": "morse",
+   "via": "hessian",
+   "label": "zero mode만으로는 불충분",
+   "status": "caution"
+  },
+  {
+   "from": "terminal",
+   "to": "NEI",
+   "via": "covariance",
+   "label": "standardized covariance trace",
+   "status": "theorem"
+  },
+  {
+   "from": "terminal",
+   "to": "deff",
+   "via": "covariance",
+   "label": "standardized covariance spectrum",
+   "status": "diagnostic"
+  },
+  {
+   "from": "terminal",
+   "to": "Keff",
+   "via": "degeneracy_ledger",
+   "label": "class occupancy",
+   "status": "diagnostic"
+  },
+  {
+   "from": "terminal",
+   "to": "Egap",
+   "via": "degeneracy_ledger",
+   "label": "class별 normalized stress",
+   "status": "diagnostic"
+  },
+  {
+   "from": "gate",
+   "to": "multiplicity",
+   "via": "degeneracy_ledger",
+   "label": "인증된 terminal만 포함",
+   "status": "definition"
+  },
+  {
+   "from": "NEI",
+   "to": "multiplicity",
+   "via": "degeneracy_ledger",
+   "label": "point-mass zero set 공유 · threshold calibration 필요",
+   "status": "caution"
+  },
+  {
+   "from": "Keff",
+   "to": "multiplicity",
+   "via": "degeneracy_ledger",
+   "label": "점유 class의 유효 수",
+   "status": "diagnostic"
+  },
+  {
+   "from": "aut",
+   "to": "multiplicity",
+   "via": "quotient",
+   "label": "symmetry contribution 정책",
+   "status": "caution"
+  },
+  {
+   "from": "Egap",
+   "to": "energydeg",
+   "via": "degeneracy_ledger",
+   "label": "normalized-stress equivalence",
+   "status": "open"
+  },
+  {
+   "from": "multiplicity",
+   "to": "energydeg",
+   "via": "degeneracy_ledger",
+   "label": "geometric multiplicity보다 강한 주장",
+   "status": "caution"
+  },
+  {
+   "from": "gate",
+   "to": "rigid",
+   "via": "robustness",
+   "label": "admissible-sample prerequisite",
+   "status": "definition"
+  },
+  {
+   "from": "NEI",
+   "to": "rigid",
+   "via": "robustness",
+   "label": "numerical-noise equivalence bound",
+   "status": "diagnostic"
+  },
+  {
+   "from": "multiplicity",
+   "to": "split",
+   "via": "degeneracy_ledger",
+   "label": "recurrence + separation",
+   "status": "open"
+  },
+  {
+   "from": "morse",
+   "to": "floppy",
+   "via": "hessian",
+   "label": "finite-continuation candidate evidence",
+   "status": "open"
+  },
+  {
+   "from": "gate",
+   "to": "unresolved",
+   "via": "robustness",
+   "label": "gate 실패 또는 증거 부족",
+   "status": "definition"
+  },
+  {
+   "from": "terminal",
+   "to": "robust",
+   "via": "robustness",
+   "label": "독립 batch와 protocol perturbation",
+   "status": "open"
+  },
+  {
+   "from": "robust",
+   "to": "rigid",
+   "via": "robustness",
+   "label": "network-level 판정",
+   "status": "open"
+  },
+  {
+   "from": "robust",
+   "to": "split",
+   "via": "robustness",
+   "label": "network-level 판정",
+   "status": "open"
+  },
+  {
+   "from": "robust",
+   "to": "floppy",
+   "via": "robustness",
+   "label": "network-level 판정",
+   "status": "open"
+  },
+  {
+   "from": "robust",
+   "to": "unresolved",
+   "via": "robustness",
+   "label": "불확실성 유지",
+   "status": "definition"
+  },
+  {
+   "from": "Dp",
+   "to": "fit",
+   "via": "objective",
+   "label": "관련 가능하지만 동일하지 않음",
+   "status": "open"
+  },
+  {
+   "from": "Dp",
+   "to": "calib",
+   "via": "double_centering",
+   "label": "$\\mathcal D_p=0$ 이면 minimizer 유일",
+   "status": "theorem"
+  },
+  {
+   "from": "calib",
+   "to": "NEI",
+   "via": "double_centering",
+   "label": "잡음 바닥 대비로 보고",
+   "status": "measured"
+  },
+  {
+   "from": "delta",
+   "to": "cmnull",
+   "via": "pushforward",
+   "label": "degree sequence 보존 randomization",
+   "status": "open"
+  },
+  {
+   "from": "cmnull",
+   "to": "NEI",
+   "via": "double_centering",
+   "label": "$z_{\\mathcal I}$ 로 비중복성 판정",
+   "status": "open"
+  },
+  {
+   "from": "terminal",
+   "to": "recur",
+   "via": "pushforward",
+   "label": "독립 batch · 다른 optimizer",
+   "status": "open"
+  },
+  {
+   "from": "recur",
+   "to": "multiplicity",
+   "via": "hessian",
+   "label": "집합 일치가 landscape 성질을 뜻함",
+   "status": "open"
+  },
+  {
+   "from": "Dp",
+   "to": "resid",
+   "via": "double_centering",
+   "label": "크기는 재지만 무질서도는 못 잰다",
+   "status": "caution"
+  },
+  {
+   "from": "resid",
+   "to": "multiplicity",
+   "via": "hessian",
+   "label": "잔차장의 무질서도가 지배하는가",
+   "status": "open"
+  }
+ ]
 }

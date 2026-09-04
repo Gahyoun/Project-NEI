@@ -1,0 +1,33 @@
+{
+ "_note": "sweep 현황. 숫자는 4개 노드의 out/sweep*.csv 를 합쳐 실측한 값이다. 갱신 시 여기만 고친다.",
+ "asof": "2026-09-04",
+ "status": "legacy sweep 완료 · corrected rerun 미착수",
+ "headline": "legacy sweep 은 97개 network 를 시도해 82개에서 값을 얻었으나, iteration cap 을 전혀 쓰지 않은 network 는 11개뿐이다. 이 데이터로는 terminal 이 stationary point 라고 말할 수 없다.",
+ "protocol": {
+  "M": 100, "p": 2, "max_iter": 300, "eps": "1e-10",
+  "init": "Uniform$[0,1]^{N\\times p}$", "optimizer": "sklearn SMACOF", "polish": "없음"
+ },
+ "counts": [
+  {"k": "시도한 network", "v": 97, "of": 97, "note": "중복 edge-set 제거 전"},
+  {"k": "$\\mathcal I$ 값 확보", "v": 82, "of": 97, "note": "나머지는 loader 실패 또는 $N$ 초과로 skip"},
+  {"k": "cap 을 전혀 쓰지 않음", "v": 11, "of": 82, "note": "이것만이 수렴 후보이다"},
+  {"k": "일부 run 이 cap 소진", "v": 26, "of": 82, "note": ""},
+  {"k": "모든 run 이 cap 소진", "v": 45, "of": 82, "note": "$\\eta_g$ 를 신뢰할 수 없다"}
+ ],
+ "ranges": [
+  {"k": "$N$", "v": "2 – 5908 (중앙 677)", "note": "$N=2$ 는 loader 오류 잔재이며 제외 대상"},
+  {"k": "$\\widehat{\\mathcal I}_M$", "v": "$6.7\\times10^{-33}$ – $4.3\\times10^{1}$ (중앙 $6.2\\times10^{-2}$)", "note": "상한 $M-1=99$. 큰 값은 개별 점검 필요"}
+ ],
+ "artifacts": {
+  "npz": 91, "nodes": ["node0 27", "node1 21", "node2 21", "node3 22"],
+  "stored": ["Delta (M×M, 전역 Frobenius 스케일)", "stress", "n_iter", "proj_grad", "lam_min (8 run 표본)", "ipr0"],
+  "missing": ["terminal configuration $X^{(m)}$", "쌍별 표준화 run vector $z$", "$S_\\Delta$, $s_\\Delta$", "run 별 $\\min d_{ij}$"],
+  "consequence": "쌍별 표준화 $\\widehat{\\mathcal I}_M$ 도, $\\eta_g$·$\\chi_{\\rm coll}$ gate 도 기존 artifact 로는 사후 계산이 불가능하다. corrected rerun 이 필요한 이유이다."
+ },
+ "env": [
+  {"k": "node0", "v": "~/miniconda3/bin/python", "note": "conda 유지"},
+  {"k": "node1–3", "v": "~/nei-env/bin/python", "note": "venv 복구 (numpy 2.5.2 · sklearn 1.9.0)"},
+  {"k": "node26", "v": "접속 불가", "note": "publickey 거부"}
+ ],
+ "running": "없음. corrected rerun 미착수."
+}

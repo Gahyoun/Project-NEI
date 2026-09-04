@@ -102,7 +102,7 @@
   ]
  },
  "polish": {
-    "title": "Legacy polish 전후 — corrected gate 재실행 전 diagnostic",
+  "title": "Legacy polish 전후 — corrected gate 재실행 전 diagnostic",
   "sub": "bn-mouse-visual-cortex-2 (N=193, M=24). ηg는 로그 눈금.",
   "rows": [
    {
@@ -126,7 +126,7 @@
     "log": false
    }
   ],
-    "verdict": "Stated polishing schedule 뒤 $\\widehat{\\mathcal I}_M$은 0.1100에서 0.07665로 감소했으나 0으로 붕괴하지 않음. 이 all-run ungated 결과만으로 multiplicity를 주장하지 않음."
+  "verdict": "Stated polishing schedule 뒤 $\\widehat{\\mathcal I}_M$은 0.1100에서 0.07665로 감소했으나 0으로 붕괴하지 않음. 이 all-run ungated 결과만으로 multiplicity를 주장하지 않음."
  },
  "certify": {
   "title": "기존 Polish 후 terminal 검사 — 재검산 대기",
@@ -223,5 +223,73 @@
     "v": 4
    }
   ]
+ },
+ "calibration": {
+  "title": "Calibration null — $\\mathcal D_p$ 의 크기는 multiplicity 를 만들지 않는다",
+  "sub": "쌍별 표준화 $\\widehat{\\mathcal I}_M=\\frac1{N_+}\\sum_a \\operatorname{Var}_m d_a^{(m)}/\\bar d_a^2$, $M=24$, $p=2$, SMACOF(max_iter $3\\times10^3$, eps $10^{-12}$) 후 L-BFGS polish. $\\mathcal D_p=0$ 인 경로 그래프가 수치 잡음 바닥을 정의한다.",
+  "columns": [
+   "$\\mathcal D_2$",
+   "$\\mathcal I$ SMACOF",
+   "$\\mathcal I$ polish"
+  ],
+  "rows": [
+   {
+    "k": "경로 $P_{60}$",
+    "N": 60,
+    "D2": 0.0,
+    "I_raw": 9.974e-09,
+    "I_pol": 2.919e-16,
+    "note": "$\\mathcal D_2=0$ · 정리상 minimizer 유일"
+   },
+   {
+    "k": "경로 $P_{120}$",
+    "N": 120,
+    "D2": 0.0,
+    "I_raw": 1.081e-08,
+    "I_pol": 8.874e-17,
+    "note": ""
+   },
+   {
+    "k": "링 $C_{60}$",
+    "N": 60,
+    "D2": 0.3913,
+    "I_raw": 4.117e-16,
+    "I_pol": 1.507e-22,
+    "note": ""
+   },
+   {
+    "k": "격자 $8\\times8$",
+    "N": 64,
+    "D2": 0.3983,
+    "I_raw": 1.25e-12,
+    "I_pol": 2.694e-20,
+    "note": "$\\mathcal D_2\\approx0.4$ 인데 $\\mathcal I$ 는 바닥"
+   },
+   {
+    "k": "격자 $12\\times12$",
+    "N": 144,
+    "D2": 0.4045,
+    "I_raw": 1.808e-12,
+    "I_pol": 1.192e-19,
+    "note": ""
+   },
+   {
+    "k": "BA $n{=}120$",
+    "N": 120,
+    "D2": 0.8468,
+    "I_raw": 0.07603,
+    "I_pol": 0.07359,
+    "note": "polish 가 거의 바꾸지 못한다"
+   },
+   {
+    "k": "ER $n{=}120$",
+    "N": 120,
+    "D2": 0.8956,
+    "I_raw": 0.1013,
+    "I_pol": 0.09874,
+    "note": ""
+   }
+  ],
+  "verdict": "두 가지가 동시에 나온다. (i) $\\mathcal D_2$ 가 $0.40$ 에서 $0.85$ 로 두 배가 될 때 $\\mathcal I$ 는 17 자릿수 뛴다 — 완만한 증가가 아니라 분리이다. (ii) polish 는 질서 구조에서 $\\mathcal I$ 를 7 자릿수 떨어뜨리지만 ER·BA 에서는 거의 바꾸지 못한다. 수치 잔여물과 구조적 spread 가 이 대비로 갈린다."
  }
 }

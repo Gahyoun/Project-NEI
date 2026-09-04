@@ -1,0 +1,57 @@
+{
+ "_note": "1차 일단락(2026-09-17)까지의 계획과 그 이후. phase 는 순서가 아니라 의존관계로 읽는다.",
+ "target": "2026-09-17 · 1차 일단락 범위 확정",
+ "thesis": "SMACOF 로 드러나는 realized geometric degeneracy 가 network 의 별도 관측량임을 보인다. 그러려면 (a) 알고리즘 인공물, (b) 알려진 graph descriptor 의 재기술, (c) 새로운 관측량 셋을 가르는 장치가 각각 있어야 한다.",
+ "discriminators": [
+  {"k": "(a) 알고리즘 인공물이 아님",
+   "test": "calibration null 대비 초과 + 서로 다른 하강 사상에서 얻은 $\\varepsilon_D$-분리 class 집합의 양방향 일치",
+   "state": "calibration null 측정 완료 · class 재현성 미착수",
+   "why": "스칼라 $\\mathcal I$ 의 일치는 약한 증거이다. 서로 다른 두 집합이 비슷한 spread 를 가질 수 있다. $\\mathcal F$ 의 minimizer 는 하강 사상의 성질이 아니므로 집합 일치가 결정적이다."},
+  {"k": "(b) 기존 descriptor 의 재기술이 아님",
+   "test": "configuration model $z_{\\mathcal I}$ + descriptor battery 에 대한 조건부 비중복성 + matched pair 제시",
+   "state": "미착수 — 현재 설계에 graph null 이 없다",
+   "why": "null 없이는 '무엇에 비해서' 가 없다. 이것이 심사에서 가장 먼저 죽는 지점이다."},
+  {"k": "(c) 관측량으로서의 자격",
+   "test": "모형족을 따라 $\\mathcal I(N)$ 의 유한크기 거동 · protocol 변형에 대한 순위 안정성",
+   "state": "미착수",
+   "why": "$N$ 거동이 없는 양은 관측량이 아니라 통계량이다."}
+ ],
+ "phases": [
+  {"id": "P0", "k": "corrected rerun", "when": "1차 필수",
+   "items": ["polish 를 전 표본에 적용", "$X^{(m)}$ 과 쌍별 표준화 $z$ 저장",
+             "$S_\\Delta$·$s_\\Delta$·run 별 $\\min d_{ij}$ 저장",
+             "quotient Hessian 을 corrected code 로 재계산", "독립 batch 2개"],
+   "note": "기존 artifact 로는 쌍별 표준화 $\\widehat{\\mathcal I}_M$ 도 gate 도 계산할 수 없다. 다른 모든 항목이 여기에 의존한다."},
+  {"id": "P1", "k": "protocol-free 축 마무리", "when": "1차 필수",
+   "items": ["$\\mathcal D_p$ 전 표본 계산", "$\\mathcal D_p^{\\rm dim}$·$\\mathcal D^{\\rm neg}$ 분해 보고",
+             "경로 그래프 calibration null 을 protocol unit test 로 수록"],
+   "note": "계산이 싸고 정리로 뒷받침된다. 지금 착수해도 좋다."},
+  {"id": "P2", "k": "null 과 비중복성", "when": "1차 필수",
+   "items": ["configuration model 앙상블 $z_{\\mathcal I}$", "descriptor battery 조건부 회귀",
+             "matched pair 제시"],
+   "note": "(b) 를 가르는 유일한 장치."},
+  {"id": "P3", "k": "class 재현성", "when": "1차 필수",
+   "items": ["독립 batch 간 class 일치", "SMACOF+polish 대 L-BFGS 간 class 일치",
+             "$\\varepsilon_D$ 를 calibration null 로 사전 선언"],
+   "note": "(a) 를 가르는 결정적 실험."},
+  {"id": "P4", "k": "유한크기 거동", "when": "1차 권장",
+   "items": ["모형족을 따라 $\\mathcal I(N)$", "$M$ scaling 으로 $K_{\\rm obs}$ 포화 확인"],
+   "note": "$K_{\\rm obs}=M$ 은 '적어도 $M$ 개' 라는 뜻이라 $M$ 을 늘려야 한다."},
+  {"id": "P5", "k": "residual disorder", "when": "2차",
+   "items": ["인증된 minimizer 에서 $r_a=\\delta_a-d_a(X^\\star)$ 측정",
+             "$r$ 의 공간적 상관구조와 multiplicity 의 관계"],
+   "note": "격자는 $\\mathcal D_2\\approx0.40$ 인데 $\\mathcal I$ 가 바닥이다. 크기가 아니라 무질서도가 지배한다는 가설을 검정한다. 2차 일단락의 알맹이 후보."},
+  {"id": "P6", "k": "mechanism 과 장벽", "when": "2차 이후",
+   "items": ["soft mode 국소화와 재현 실패 위치의 정렬", "class 사이 경로 위 stress profile"],
+   "note": "'basin' 이라는 말을 쓰려면 여기까지 필요하다."}
+ ],
+ "decision": {
+  "k": "9/17 에 결정할 것",
+  "body": "P0 가 9/17 까지 끝나지 않으면 1차 일단락은 methods + representability 논문이 되고 degeneracy 결과는 2차로 넘어간다. 이 분기를 회의에서 명시적으로 정한다.",
+  "options": [
+   {"k": "A · 전체 주장", "need": "P0–P3 완료", "risk": "일정이 빠듯하다"},
+   {"k": "B · 축소 주장", "need": "P1 + calibration null 만", "risk": "degeneracy 가 빠져 기여가 얇아진다"},
+   {"k": "C · 분할", "need": "P0–P2 를 1차, P3 를 2차", "risk": "(a) 를 가르는 장치가 1차에 없다"}
+  ]
+ }
+}
