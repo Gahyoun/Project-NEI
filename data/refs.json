@@ -1,0 +1,451 @@
+{
+ "_note": "NEI 아키텍처 지도의 참고문헌 DB. key 는 nodes.json / edges.json 에서 참조한다. 확인하지 못한 서지사항은 verified=false 로 표시한다.",
+ "schoenberg1935": {
+  "authors": "I. J. Schoenberg",
+  "year": 1935,
+  "title": "Remarks to Maurice Fréchet's article “Sur la définition axiomatique d'une classe d'espaces vectoriels distanciés applicables vectoriellement sur l'espace de Hilbert”",
+  "venue": "Annals of Mathematics",
+  "volume": "36",
+  "pages": "724–732",
+  "verified": true,
+  "why": "distance matrix이 유클리드 realizable할 필요충분조건. D_p 의 근거."
+ },
+ "young1938": {
+  "authors": "G. Young, A. S. Householder",
+  "year": 1938,
+  "title": "Discussion of a set of points in terms of their mutual distances",
+  "venue": "Psychometrika",
+  "volume": "3",
+  "pages": "19–22",
+  "verified": true,
+  "why": "double centering로 거리에서 Gram 행렬을 복원하는 구성."
+ },
+ "gower1966": {
+  "authors": "J. C. Gower",
+  "year": 1966,
+  "title": "Some distance properties of latent root and vector methods used in multivariate analysis",
+  "venue": "Biometrika",
+  "volume": "53",
+  "pages": "325–338",
+  "verified": true,
+  "why": "principal coordinates analysis. cMDS 가 PCA 와 같은 대상임을 보인다."
+ },
+ "torgerson1952": {
+  "authors": "W. S. Torgerson",
+  "year": 1952,
+  "title": "Multidimensional scaling: I. Theory and method",
+  "venue": "Psychometrika",
+  "volume": "17",
+  "pages": "401–419",
+  "verified": true,
+  "why": "classical MDS 의 표준 정식화."
+ },
+ "eckart1936": {
+  "authors": "C. Eckart, G. Young",
+  "year": 1936,
+  "title": "The approximation of one matrix by another of lower rank",
+  "venue": "Psychometrika",
+  "volume": "1",
+  "pages": "211–218",
+  "verified": true,
+  "why": "strain 최소화의 global optimum가 유일함의 근거."
+ },
+ "kruskal1964": {
+  "authors": "J. B. Kruskal",
+  "year": 1964,
+  "title": "Multidimensional scaling by optimizing goodness of fit to a nonmetric hypothesis",
+  "venue": "Psychometrika",
+  "volume": "29",
+  "pages": "1–27",
+  "verified": true,
+  "why": "stress 도입. strain 과 다른 objective."
+ },
+ "deleeuw1977": {
+  "authors": "J. de Leeuw",
+  "year": 1977,
+  "title": "Applications of convex analysis to multidimensional scaling",
+  "venue": "Recent Developments in Statistics (North-Holland)",
+  "volume": "",
+  "pages": "133–146",
+  "verified": false,
+  "why": "SMACOF majorization 의 원전. 페이지는 판본에 따라 다를 수 있음."
+ },
+ "borg2005": {
+  "authors": "I. Borg, P. J. F. Groenen",
+  "year": 2005,
+  "title": "Modern Multidimensional Scaling: Theory and Applications, 2nd ed.",
+  "venue": "Springer",
+  "volume": "",
+  "pages": "",
+  "verified": true,
+  "why": "SMACOF, Guttman transform, local minimum 문제의 표준 참고서."
+ },
+ "groenen1995": {
+  "authors": "P. J. F. Groenen, R. Mathar, W. J. Heiser",
+  "year": 1995,
+  "title": "The majorization approach to multidimensional scaling for Minkowski distances",
+  "venue": "Journal of Classification",
+  "volume": "12",
+  "pages": "3–19",
+  "verified": false,
+  "why": "stress 의 local minimum 다수성. 서지사항 재확인 필요."
+ },
+ "dezalaurent1997": {
+  "authors": "M. M. Deza, M. Laurent",
+  "year": 1997,
+  "title": "Geometry of Cuts and Metrics",
+  "venue": "Springer (Algorithms and Combinatorics 15)",
+  "volume": "",
+  "pages": "",
+  "verified": true,
+  "why": "negative type cone, cut cone. D_p 가 사는 이산기하 영역."
+ },
+ "bourgain1985": {
+  "authors": "J. Bourgain",
+  "year": 1985,
+  "title": "On Lipschitz embedding of finite metric spaces in Hilbert space",
+  "venue": "Israel Journal of Mathematics",
+  "volume": "52",
+  "pages": "46–52",
+  "verified": true,
+  "why": "임의 n점 거리공간의 l2 embedding 왜곡 상한 O(log n)."
+ },
+ "llr1995": {
+  "authors": "N. Linial, E. London, Y. Rabinovich",
+  "year": 1995,
+  "title": "The geometry of graphs and some of its algorithmic applications",
+  "venue": "Combinatorica",
+  "volume": "15",
+  "pages": "215–245",
+  "verified": true,
+  "why": "graph metric의 저왜곡 embedding과 알고리즘 응용."
+ },
+ "maxwell1864": {
+  "authors": "J. C. Maxwell",
+  "year": 1864,
+  "title": "On the calculation of the equilibrium and stiffness of frames",
+  "venue": "Philosophical Magazine",
+  "volume": "27",
+  "pages": "294–299",
+  "verified": true,
+  "why": "constraint 세기(counting)의 원형."
+ },
+ "laman1970": {
+  "authors": "G. Laman",
+  "year": 1970,
+  "title": "On graphs and rigidity of plane skeletal structures",
+  "venue": "Journal of Engineering Mathematics",
+  "volume": "4",
+  "pages": "331–340",
+  "verified": true,
+  "why": "평면 일반강성의 조합적 특성화."
+ },
+ "connelly1982": {
+  "authors": "R. Connelly",
+  "year": 1982,
+  "title": "Rigidity and energy",
+  "venue": "Inventiones Mathematicae",
+  "volume": "66",
+  "pages": "11–33",
+  "verified": true,
+  "why": "에너지 함수와 강성의 연결. prestress 개념."
+ },
+ "connelly1996": {
+  "authors": "R. Connelly, W. Whiteley",
+  "year": 1996,
+  "title": "Second-order rigidity and prestress stability for tensegrity frameworks",
+  "venue": "SIAM Journal on Discrete Mathematics",
+  "volume": "9",
+  "pages": "453–491",
+  "verified": true,
+  "why": "prestress 항이 curvature에 기여하는 방식. 잔차가 0 이 아닐 때 Hessian 의 추가 항."
+ },
+ "jacobs1995": {
+  "authors": "D. J. Jacobs, M. F. Thorpe",
+  "year": 1995,
+  "title": "Generic rigidity percolation: the pebble game",
+  "venue": "Physical Review Letters",
+  "volume": "75",
+  "pages": "4051–4054",
+  "verified": true,
+  "why": "강성 퍼콜레이션. 국소 under-constraint 영역의 조합적 classification."
+ },
+ "stillinger1982": {
+  "authors": "F. H. Stillinger, T. A. Weber",
+  "year": 1982,
+  "title": "Hidden structure in liquids",
+  "venue": "Physical Review A",
+  "volume": "25",
+  "pages": "978–989",
+  "verified": true,
+  "why": "inherent structure. T=0 하강으로 정의되는 terminal ensemble의 원형."
+ },
+ "stillinger1995": {
+  "authors": "F. H. Stillinger",
+  "year": 1995,
+  "title": "A topographic view of supercooled liquids and glass formation",
+  "venue": "Science",
+  "volume": "267",
+  "pages": "1935–1939",
+  "verified": true,
+  "why": "landscape 지형 관점과 basin 점유."
+ },
+ "ohern2003": {
+  "authors": "C. S. O'Hern, L. E. Silbert, A. J. Liu, S. R. Nagel",
+  "year": 2003,
+  "title": "Jamming at zero temperature and zero applied stress: The epitome of disorder",
+  "venue": "Physical Review E",
+  "volume": "68",
+  "pages": "011306",
+  "verified": true,
+  "why": "constraint수와 자유도의 균형에서 오는 marginal stability과 low-frequency 모드."
+ },
+ "wyart2005": {
+  "authors": "M. Wyart",
+  "year": 2005,
+  "title": "On the rigidity of amorphous solids",
+  "venue": "Annales de Physique",
+  "volume": "30",
+  "pages": "1–96",
+  "verified": true,
+  "why": "비정질 고체의 soft mode 와 constraint 세기의 관계."
+ },
+ "transtrum2010": {
+  "authors": "M. K. Transtrum, B. B. Machta, J. P. Sethna",
+  "year": 2010,
+  "title": "Why are nonlinear fits to data so challenging?",
+  "venue": "Physical Review Letters",
+  "volume": "104",
+  "pages": "060201",
+  "verified": true,
+  "why": "sloppy 방향. Hessian eigenvalue이 수십 자릿수에 걸치는 구조."
+ },
+ "transtrum2011": {
+  "authors": "M. K. Transtrum, B. B. Machta, J. P. Sethna",
+  "year": 2011,
+  "title": "Geometry of nonlinear least squares with applications to sloppy models and optimization",
+  "venue": "Physical Review E",
+  "volume": "83",
+  "pages": "036701",
+  "verified": true,
+  "why": "least squares 문제의 기하. stress 가 정확히 이 부류이다."
+ },
+ "kendall1984": {
+  "authors": "D. G. Kendall",
+  "year": 1984,
+  "title": "Shape manifolds, Procrustean metrics, and complex projective spaces",
+  "venue": "Bulletin of the London Mathematical Society",
+  "volume": "16",
+  "pages": "81–121",
+  "verified": true,
+  "why": "rigid motion quotient space(shape space). Omega = R^{Np}/E(p) 의 표준 배경."
+ },
+ "scikitlearn": {
+  "authors": "F. Pedregosa et al.",
+  "year": 2011,
+  "title": "Scikit-learn: Machine learning in Python",
+  "venue": "Journal of Machine Learning Research",
+  "volume": "12",
+  "pages": "2825–2830",
+  "verified": true,
+  "why": "본 측정이 사용한 SMACOF 구현. stopping rule은 상대 stress 개선량 기준이다."
+ },
+ "cayley1841": {
+  "authors": "A. Cayley",
+  "year": 1841,
+  "title": "On a theorem in the geometry of position",
+  "venue": "Cambridge Mathematical Journal",
+  "volume": "2",
+  "pages": "267–271",
+  "verified": false,
+  "why": "Cayley–Menger determinant. 거리만으로 실현 가능성을 판정하는 최초의 대수적 조건.",
+  "area": "distance geometry"
+ },
+ "menger1928": {
+  "authors": "K. Menger",
+  "year": 1928,
+  "title": "Untersuchungen über allgemeine Metrik",
+  "venue": "Mathematische Annalen",
+  "volume": "100",
+  "pages": "75–163",
+  "verified": false,
+  "why": "metric space 의 합동 이론. distance geometry 를 독립 분야로 세운 작업.",
+  "area": "distance geometry"
+ },
+ "schoenberg1938": {
+  "authors": "I. J. Schoenberg",
+  "year": 1938,
+  "title": "Metric spaces and positive definite functions",
+  "venue": "Transactions of the American Mathematical Society",
+  "volume": "44",
+  "pages": "522–536",
+  "verified": true,
+  "why": "negative type 와 positive definite kernel 의 대응. 1935 논문의 확장판이며 D_p 의 이론적 배경.",
+  "area": "distance geometry"
+ },
+ "blumenthal1953": {
+  "authors": "L. M. Blumenthal",
+  "year": 1953,
+  "title": "Theory and Applications of Distance Geometry",
+  "venue": "Oxford University Press",
+  "volume": "",
+  "pages": "",
+  "verified": true,
+  "why": "distance geometry 의 표준 단행본. Cayley–Menger, Schoenberg, 합동 정리의 통합 서술.",
+  "area": "distance geometry"
+ },
+ "saxe1979": {
+  "authors": "J. B. Saxe",
+  "year": 1979,
+  "title": "Embeddability of weighted graphs in k-space is strongly NP-hard",
+  "venue": "Proc. 17th Allerton Conference on Communication, Control and Computing",
+  "volume": "",
+  "pages": "480–489",
+  "verified": false,
+  "why": "주어진 거리를 R^k 에서 실현하는 문제가 강한 의미로 NP-hard. representability 를 '판정' 이 아니라 '결손의 정도' 로 재야 하는 계산복잡도상의 이유.",
+  "area": "complexity"
+ },
+ "liberti2014": {
+  "authors": "L. Liberti, C. Lavor, N. Maculan, A. Mucherino",
+  "year": 2014,
+  "title": "Euclidean distance geometry and applications",
+  "venue": "SIAM Review",
+  "volume": "56",
+  "pages": "3–69",
+  "verified": true,
+  "why": "현대 distance geometry 개관. 실현 문제, 완성 문제, 알고리즘을 한자리에 모은 표준 survey.",
+  "area": "distance geometry"
+ },
+ "alfakih2018": {
+  "authors": "A. Y. Alfakih",
+  "year": 2018,
+  "title": "Euclidean Distance Matrices and Their Applications in Rigidity Theory",
+  "venue": "Springer",
+  "volume": "",
+  "pages": "",
+  "verified": true,
+  "why": "EDM 의 선형대수와 rigidity theory 를 직접 잇는 단행본. Gram 행렬 · 사영 · Hessian 을 같은 언어로 다룬다.",
+  "area": "distance geometry"
+ },
+ "gower1985": {
+  "authors": "J. C. Gower",
+  "year": 1985,
+  "title": "Properties of Euclidean and non-Euclidean distance matrices",
+  "venue": "Linear Algebra and its Applications",
+  "volume": "67",
+  "pages": "81–97",
+  "verified": true,
+  "why": "비유클리드 거리행렬의 스펙트럼 성질. 음의 eigenvalue 가 무엇을 뜻하는지에 대한 고전적 분석.",
+  "area": "distance geometry"
+ },
+ "cailliez1983": {
+  "authors": "F. Cailliez",
+  "year": 1983,
+  "title": "The analytical solution of the additive constant problem",
+  "venue": "Psychometrika",
+  "volume": "48",
+  "pages": "305–308",
+  "verified": true,
+  "why": "dissimilarity 에 상수를 얼마나 더해야 유클리드가 되는지의 닫힌 해. 비유클리드성을 하나의 수로 재는 고전적 방식이며 D_p 의 선행 개념.",
+  "area": "distance geometry"
+ },
+ "djokovic1973": {
+  "authors": "D. Ž. Djoković",
+  "year": 1973,
+  "title": "Distance-preserving subgraphs of hypercubes",
+  "venue": "Journal of Combinatorial Theory B",
+  "volume": "14",
+  "pages": "263–267",
+  "verified": true,
+  "why": "어떤 그래프의 hop metric 이 hypercube 에 등거리 매장되는지의 특성화. 격자의 graph metric 이 l1 인 이유.",
+  "area": "graph metric"
+ },
+ "grahamwinkler1985": {
+  "authors": "R. L. Graham, P. M. Winkler",
+  "year": 1985,
+  "title": "On isometric embeddings of graphs",
+  "venue": "Transactions of the American Mathematical Society",
+  "volume": "288",
+  "pages": "527–536",
+  "verified": true,
+  "why": "graph metric 의 등거리 매장 이론. l1 매장 가능한 그래프의 구조.",
+  "area": "graph metric"
+ },
+ "linial2002": {
+  "authors": "N. Linial",
+  "year": 2002,
+  "title": "Finite metric spaces: combinatorics, geometry and algorithms",
+  "venue": "Proceedings of the ICM (Beijing)",
+  "volume": "III",
+  "pages": "573–586",
+  "verified": true,
+  "why": "유한 metric space 를 이산수학과 기하학의 교차점으로 세운 개관. 이 연구가 놓인 분야를 한 편으로 요약한다.",
+  "area": "metric embedding"
+ },
+ "matousek2002": {
+  "authors": "J. Matoušek",
+  "year": 2002,
+  "title": "Lectures on Discrete Geometry",
+  "venue": "Springer (Graduate Texts in Mathematics 212)",
+  "volume": "",
+  "pages": "",
+  "verified": true,
+  "why": "저왜곡 매장, Johnson–Lindenstrauss, metric space 의 기하를 다루는 표준 교재. 15장이 매장 이론이다.",
+  "area": "metric embedding"
+ },
+ "indykmatousek2004": {
+  "authors": "P. Indyk, J. Matoušek",
+  "year": 2004,
+  "title": "Low-distortion embeddings of finite metric spaces",
+  "venue": "Handbook of Discrete and Computational Geometry",
+  "volume": "",
+  "pages": "",
+  "verified": false,
+  "why": "매장 왜곡의 상한과 하한을 정리한 편람 장. distortion 과 D_p 의 관계를 잡는 데 쓴다.",
+  "area": "metric embedding"
+ },
+ "naor2012": {
+  "authors": "A. Naor",
+  "year": 2012,
+  "title": "An introduction to the Ribe program",
+  "venue": "Japanese Journal of Mathematics",
+  "volume": "7",
+  "pages": "167–233",
+  "verified": true,
+  "why": "metric space 의 성질을 선형 이론 없이 다루는 현대적 강령. 비선형 기하로 넘어갈 때의 지도.",
+  "area": "metric embedding"
+ },
+ "connelly2005": {
+  "authors": "R. Connelly",
+  "year": 2005,
+  "title": "Generic global rigidity",
+  "venue": "Discrete & Computational Geometry",
+  "volume": "33",
+  "pages": "549–563",
+  "verified": true,
+  "why": "주어진 거리에서 배치가 유일하게 결정되는 조건. embedding identifiability 의 조합기하 대응물.",
+  "area": "rigidity"
+ },
+ "gortler2010": {
+  "authors": "S. J. Gortler, A. D. Healy, D. P. Thurston",
+  "year": 2010,
+  "title": "Characterizing generic global rigidity",
+  "venue": "American Journal of Mathematics",
+  "volume": "132",
+  "pages": "897–939",
+  "verified": true,
+  "why": "generic global rigidity 의 완전한 특성화. '유일한 실현' 이 그래프의 조합적 성질임을 확정한다.",
+  "area": "rigidity"
+ },
+ "jacksonjordan2005": {
+  "authors": "B. Jackson, T. Jordán",
+  "year": 2005,
+  "title": "Connected rigidity matroids and unique realizations of graphs",
+  "venue": "Journal of Combinatorial Theory B",
+  "volume": "94",
+  "pages": "1–29",
+  "verified": true,
+  "why": "평면에서 유일 실현의 조합적 판정. K 가 1 이 되는 그래프 조건에 해당한다.",
+  "area": "rigidity"
+ }
+}

@@ -1,0 +1,193 @@
+{
+ "_note": "주장 현황. status 는 theorem / measured / open / withdrawn 넷 중 하나. 이 페이지의 모든 서술은 이 표에 등록되어야 한다.",
+ "claims": [
+  {
+   "id": "C1",
+   "status": "theorem",
+   "text": "$\\mathcal{D}_p=0$ 은 graph metric이 $\\mathbb{R}^p$ 에서 정확히 실현되는 것과 동치이다.",
+   "basis": "Schoenberg criterion",
+   "refs": [
+    "schoenberg1935"
+   ]
+  },
+  {
+   "id": "C2",
+   "status": "theorem",
+   "text": "$\\mathcal{D}_p=0$ 이면 $\\min\\mathcal{F}=0$ 이고 그 minimizer은 $\\Omega$ 에서 유일하다. 역은 성립하지 않는다.",
+   "basis": "완전 distance matrix이 configuration를 등거리사상까지 결정한다. 역의 반례는 정사각격자이다.",
+   "refs": [
+    "schoenberg1935",
+    "young1938"
+   ]
+  },
+  {
+   "id": "C3",
+   "status": "theorem",
+   "text": "classical MDS 는 초기조건이 없는 닫힌 형태이므로 $\\mathcal{I}_{\\mathrm{cMDS}}\\equiv 0$ 이다. 이는 관측이 아니라 항등식이다.",
+   "basis": "double centering 후 eigendecomposition. distance matrix은 eigenvector 부호와 degeneracy 부분공간 회전에 불변.",
+   "refs": [
+    "torgerson1952",
+    "gower1966",
+    "eckart1936"
+   ]
+  },
+  {
+   "id": "C4",
+   "status": "theorem",
+   "text": "metric automorphism $\\sigma$ 가 있으면 stationary point $X^\\star$ 에 대해 행치환 $X^\\sigma$ 도 같은 stress 의 stationary point이며, $D^\\star$ 가 $\\sigma$-불변이 아니면 서로 다른 terminal이다.",
+   "basis": "stress 의 첨자 대칭성.",
+   "refs": [
+    "dezalaurent1997"
+   ]
+  },
+  {
+   "id": "C5",
+   "status": "measured",
+   "text": "정사각격자의 graph metric은 $\\ell_1$ 이므로 $\\mathcal{D}_2=0.406>0$ 이다. 격자는 '정확히 realizable한' 대조군이 아니다.",
+   "basis": "14x14 격자, 직접 계산.",
+   "refs": []
+  },
+  {
+   "id": "C6",
+   "status": "measured",
+   "text": "random geometric graph 의 graph metric은 유클리드가 아니다. $\\mathcal{D}_2=0.464$ ($r=0.12$) 로 격자보다 크며, 밀도를 올리면 $0.648$ 로 더 나빠진다. 같은 점집합의 좌표 거리는 $\\mathcal{D}_2=0.000$ 이다.",
+   "basis": "$n=400$ RGG, 직접 계산. 원고의 'Euclidean by construction' 서술을 반증한다.",
+   "refs": []
+  },
+  {
+   "id": "C7",
+   "status": "measured",
+   "text": "경로 그래프 $P_n$ 은 $\\mathcal{D}_1=\\mathcal{D}_2=0$ 이다. 정리로 뒷받침되는 유일한 그래프 수준 protocol 대조군이다.",
+   "basis": "$P_{200}$ 에서 $2.6\\times10^{-15}$.",
+   "refs": [
+    "schoenberg1935"
+   ]
+  },
+  {
+   "id": "C8",
+   "status": "measured",
+   "text": "$\\mathcal{I}$ 와 $d_{\\mathrm{eff}}$ 는 강하게 상관하지만($\\rho=+0.757$) 서로를 결정하지 않는다. 순위분산의 43%가 설명되지 않으며, $\\mathcal{I}$ 5분위 안에서 $d_{\\mathrm{eff}}$ 가 3–77배 벌어진다.",
+   "basis": "실제망 77개.",
+   "refs": []
+  },
+  {
+   "id": "C9",
+   "status": "measured",
+   "text": "$M=100$ 으로는 $d_{\\mathrm{eff}}$ 가 해상되지 않는 망이 77개 중 27개이다. 상한이 $M-1=99$ 인데 관측 최댓값이 98.98 이다.",
+   "basis": "participation ratio의 표본 편향과 검열.",
+   "refs": []
+  },
+  {
+   "id": "C10",
+   "status": "measured",
+   "text": "$\\mathcal{I}$ 는 최적화기를 바꿔도 거의 같다. 진짜 stationary point에 도달하는 L-BFGS($\\eta_g\\sim10^{-8}$)도 SMACOF와 같은 크기의 $\\mathcal{I}$ 를 준다. 따라서 NEI 신호는 최적화 실패의 인공물이 아니다.",
+   "basis": "bn-mouse-visual-cortex-2: 0.110 / 0.110 / 0.0925. ca-netscience: 0.0554 / 0.0461 / 0.0539.",
+   "refs": [
+    "scikitlearn"
+   ]
+  },
+  {
+   "id": "C11",
+   "status": "measured",
+   "text": "그러나 SMACOF terminal은 stationary point이 아니다. $\\eta_g$ 가 L-BFGS 보다 4–5 자릿수 크다. sklearn 의 stopping rule은 상대 stress 개선량이지 optimality gap이 아니다.",
+   "basis": "SMACOF $\\eta_g\\sim2\\times10^{-3}$ 대 L-BFGS $\\sim2\\times10^{-8}$.",
+   "refs": [
+    "scikitlearn",
+    "borg2005"
+   ]
+  },
+  {
+   "id": "C12",
+   "status": "measured",
+   "text": "같은 초기조건에서 SMACOF 와 L-BFGS 는 서로 다른 terminal에 도달한다(distance matrix 상대차 약 9–10%, 24개 run 중 0개만 일치). 즉 $X^{(0)}\\mapsto[X^\\star]$ 사상은 최적화기에 의존하며, basin occupancy measure는 landscape 만의 성질이 아니다.",
+   "basis": "동일 $X^{(0)}$ 짝지어 비교.",
+   "refs": [
+    "stillinger1982"
+   ]
+  },
+  {
+   "id": "C13",
+   "status": "open",
+   "text": "terminal 군집이 이산인지 연속인지. 이봉성 검정은 널 설정이 취약하므로 independent batch 재현성으로 classification해야 한다.",
+   "basis": "distance matrix 구름은 비음·삼각부등식으로 구속되어 Gaussian null 이 맞지 않는다. 다만 C21 이 보이듯 polish 후에는 cutoff 자체가 무의미해지므로, 이 문제는 판정 방법의 문제가 아니라 수렴의 문제였다.",
+   "refs": []
+  },
+  {
+   "id": "C14",
+   "status": "open",
+   "text": "soft mode 가 사는 노드와 재현이 안 되는 노드가 같은가. 이 정렬이 확인되면 '위상이 만든 평평한 방향이 곧 기하적 비유일성의 원인'이라는 인과 서술이 가능하다.",
+   "basis": "terminal configuration $X^{(m)}$ 를 저장해야 계산 가능. 현재 미저장.",
+   "refs": [
+    "wyart2005",
+    "transtrum2011"
+   ]
+  },
+  {
+   "id": "C15",
+   "status": "open",
+   "text": "두 terminal 사이에 실제 장벽이 있는가. terminal 분포의 gap 은 장벽의 정황이지 증거가 아니다.",
+   "basis": "continuation 또는 경로 위 stress 프로파일이 필요하다.",
+   "refs": [
+    "stillinger1995"
+   ]
+  },
+  {
+   "id": "C16",
+   "status": "withdrawn",
+   "text": "NEI 가 측정하는 분산은 inter-basin 이다.",
+   "basis": "전제였던 'terminal은 local minimum이고 정지허용오차가 optimality gap을 준다'가 둘 다 성립하지 않는다. C11, C12 가 이를 직접 반증한다.",
+   "refs": []
+  },
+  {
+   "id": "C17",
+   "status": "withdrawn",
+   "text": "0 이 아닌 NEI 는 다중 basin 구조의 관측량이다.",
+   "basis": "분리된 다중 최소, 평평한 방향을 가진 단일 최소, automorphism orbit, 미수렴 혼입 모두와 양립한다. 게다가 trace은 원리적으로 앞의 둘을 구분하지 못한다.",
+   "refs": []
+  },
+  {
+   "id": "C18",
+   "status": "withdrawn",
+   "text": "NEI 는 위상 constraint의 intrinsic 측도이다.",
+   "basis": "$\\rho_0$ 가 point mass이면 $\\mathcal{I}\\equiv0$ 이 강제된다. NEI 는 (위상, sampling protocol) 쌍의 성질이다.",
+   "refs": []
+  },
+  {
+   "id": "C19",
+   "status": "measured",
+   "text": "SMACOF terminal 을 L-BFGS 로 polish 하면 $\\eta_g$ 가 $2.19\\times10^{-3}\\to2.00\\times10^{-8}$ 로 5 자릿수 내려가고, 그 뒤에도 $\\mathcal{I}$ 가 $0.110\\to0.0767$ 로 살아남는다.",
+   "basis": "bn-mouse-visual-cortex-2, $M=24$. stress 추가 하강분은 중앙 $1.8\\times10^{-5}$ 에 불과하다.",
+   "refs": [
+    "scikitlearn",
+    "borg2005"
+   ]
+  },
+  {
+   "id": "C20",
+   "status": "measured",
+   "text": "polish 된 terminal 은 전부 진짜 local minimizer 이다. $\\mathrm{E}(p)$ zero mode 를 제거한 projected Hessian 에서 음의 eigenvalue 가 하나도 없고 $\\lambda_{\\min}/\\kappa_+$ 중앙값이 $+1.6\\times10^{-3}$ 이다.",
+   "basis": "8개 표본 전부 saddle 아님.",
+   "refs": [
+    "connelly1996",
+    "transtrum2011"
+   ]
+  },
+  {
+   "id": "C21",
+   "status": "measured",
+   "text": "polish 후 24개 run 이 서로 다른 24개 minimizer 로 간다. run 사이 최소 상대거리가 $7.9\\times10^{-2}$ 이고, $K=24$ 가 cutoff $10^{-8}$ 부터 $10^{-2}$ 까지 6 자릿수 내내 불변이다.",
+   "basis": "cutoff 보정 문제는 landscape 때문이 아니라 수렴을 안 해서 생긴 것이었다.",
+   "refs": []
+  },
+  {
+   "id": "C22",
+   "status": "measured",
+   "text": "따라서 NEI 가 재는 것은 SMACOF 의 인공물이 아니라 stress landscape 의 실제 degeneracy 이다. 인증된 minimizer 위에서 측정해도 $\\mathcal{I}$ 는 같은 크기로 남는다.",
+   "basis": "C19–C21 의 결론. 다만 이는 검사한 network 에 대한 진술이며 전 표본으로 확장하려면 polish 를 전면 적용해야 한다.",
+   "refs": [
+    "stillinger1995",
+    "transtrum2011"
+   ]
+  }
+ ]
+}

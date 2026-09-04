@@ -1,0 +1,33 @@
+{
+  "_note": "연결요소. '이 개념이 저 개념과 왜 같은 대상인가'를 지탱하는 수학적 장치. NEI 지도의 간선은 전부 이 다섯 중 하나를 지난다.",
+  "double_centering": {
+    "label": "double centering  $-\\tfrac12 C\\Delta^{(2)}C$",
+    "connects": ["graph metric", "Gram 행렬", "PCA / 관성텐서", "negative type cone"],
+    "why": "거리는 병진에 불변이지만 좌표는 아니다. 중심화는 병진 게이지를 고정하는 사영이며, 그 결과 거리제곱 행렬이 내적 행렬로 바뀐다. 이 한 번의 변환이 이산기하(negative type)와 다변량통계(PCA)와 metricembedding 이론을 같은 대상 위에 올린다.",
+    "refs": ["young1938", "gower1966", "schoenberg1935", "dezalaurent1997"]
+  },
+  "hessian": {
+    "label": "Hessian  $H_\\perp$",
+    "connects": ["탄성 동역학", "Fisher 정보", "rigidity matrix", "sloppiness 스펙트럼"],
+    "why": "같은 행렬이 네 가지로 읽힌다. 물리에서는 harmonic approximation의 force constant 행렬이고, 통계에서는 관측 Fisher 정보이며, 조합기하에서는 잔차가 0일 때 $2R^{\\mathsf T}WR$ 로 rigidity matrix 에 환원되고, 역문제에서는 sloppy/stiff 방향을 가른다. 국소 식별가능성이 곧 이 행렬의 계수이다.",
+    "refs": ["connelly1996", "transtrum2011", "wyart2005", "ohern2003"]
+  },
+  "quotient": {
+    "label": "quotient space  $\\Omega=\\mathbb{R}^{N\\times p}/\\mathrm{E}(p)$",
+    "connects": ["Kendall shape space", "Goldstone 모드", "게이지 고정", "정렬 없는 비교"],
+    "why": "stress 는 rigid motion에 불변이므로 좌표공간의 Hessian 은 결코 positive definite가 될 수 없다. 대칭군을 몫으로 제거해야 '유일한 minimizer'이라는 말이 성립한다. distance matrix은 반사에도 불변이므로 몫은 $\\mathrm{SE}(p)$ 가 아니라 $\\mathrm{E}(p)$ 이며, 그 덕에 terminal을 정렬 없이 비교할 수 있다.",
+    "refs": ["kendall1984", "connelly1982"]
+  },
+  "trace_vs_spectrum": {
+    "label": "trace 대 스펙트럼",
+    "connects": ["NEI", "participation ratio $d_{\\mathrm{eff}}$", "유효 차원", "이산 대 연속 degeneracy"],
+    "why": "$\\mathcal{I}$ 는 terminal 공분산 연산자의 trace이다. trace은 크기만 말하고 모양을 말하지 않는다. 분산이 한 방향에 갇혔는지 여러 방향으로 퍼졌는지는 eigenvalue 스펙트럼에만 들어 있고, 그것이 다중안정형과 floppy 를 가르는 유일한 정보이다.",
+    "refs": ["stillinger1995", "transtrum2010"]
+  },
+  "quenched_annealed": {
+    "label": "quenched / annealed 분리",
+    "connects": ["그래프 = quenched disorder", "초기조건 = sampling", "inherent structure", "occupancy measure"],
+    "why": "그래프와 그로부터 정한 dissimilarity 는 동결된 constraint이고, 바뀌는 것은 초기좌표뿐이다. $T=0$ 하강이므로 열적 기여가 없고 terminal은 inherent structure 에 해당한다. 다만 어느 terminal에 도달하는지는 최적화기의 동역학이 정하므로, occupancy measure는 landscape 만의 성질이 아니다.",
+    "refs": ["stillinger1982", "stillinger1995"]
+  }
+}

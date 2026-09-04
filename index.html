@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEI 아키텍처 — representability와 identifiability</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="krds.css">
+</head>
+<body>
+
+<header class="gnb">
+  <div class="inner">
+    <span class="mark">NEI</span>
+    <nav>
+      <a href="#result">핵심 결과</a><a href="#map">지도</a><a href="#conn">연결요소</a>
+      <a href="#repr">representability</a><a href="#scalar">스칼라의 한계</a>
+      <a href="#claims">주장 현황</a><a href="#refs">참고문헌</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section class="hero">
+  <p class="eyebrow">고정된 topology-to-geometry protocol</p>
+  <h1>네트워크의 geometric representability와<br>embedding identifiability</h1>
+  <p class="lede">두 명사는 서로 다른 질문이고, 결정적으로 protocol 의존성이 서로 다르다.
+  representability 는 graph metric 하나에서 eigendecomposition 한 번으로 나오는 닫힌 형태이고,
+  identifiability 는 비퇴화 확률 protocol 아래에서만 정의되는 sampling estimator 이다.</p>
+</section>
+
+<section id="result">
+  <h2>핵심 결과 — NEI 는 SMACOF 의 인공물이 아니다</h2>
+  <p class="lede">SMACOF terminal 은 stationary point 가 아니다. sklearn 의 stopping rule 은 상대 stress
+  개선량이지 optimality gap 이 아니어서, 실측 $\eta_g$ 가 L-BFGS 보다 5 자릿수 크다. 그래서 각 terminal 을
+  L-BFGS 로 <b>polish</b> 해 진짜 stationary point 까지 밀어넣고 다시 측정했다.</p>
+  <div class="grid2">
+    <figure class="panel"><figcaption id="cap-polish"></figcaption><div id="ch-polish"></div></figure>
+    <figure class="panel"><figcaption id="cap-certify"></figcaption><div id="ch-certify"></div></figure>
+  </div>
+  <div class="callout ok">
+    <b>결론.</b> polish 된 terminal 은 전부 진짜 local minimizer 이고(음의 eigenvalue 0개),
+    24개 run 이 서로 다른 24개 minimizer 로 가며, $K$ 는 cutoff 를 6 자릿수 움직여도 변하지 않는다.
+    인증된 minimizer 위에서 재도 $\mathcal{I}$ 는 같은 크기로 남는다.
+    <b>NEI 가 재는 것은 stress landscape 의 실제 degeneracy 이다.</b>
+  </div>
+  <p class="fine">단, 이는 검사한 network 에 대한 진술이다. 전 표본으로 확장하려면 polish 를 전면 적용해야 한다.</p>
+</section>
+
+<section id="map">
+  <h2>전체 지도</h2>
+  <p class="lede">마디를 누르면 정의·수식·참고문헌과 그 마디가 지나는 연결요소가 아래에 나온다.
+  간선의 색은 그 연결이 정리인지, 이번 측정인지, 미해결인지를 나타낸다.</p>
+  <div class="tagbar" id="domFilter"></div>
+  <div class="legend" id="mapLegend"></div>
+  <div class="mapbox" id="mapc">불러오는 중…</div>
+  <div class="panel detail" id="panel"><p class="muted">마디를 선택하세요.</p></div>
+</section>
+
+<section id="conn">
+  <h2>연결요소 — 무엇이 이 개념들을 같은 대상으로 만드는가</h2>
+  <p class="lede">지도의 모든 간선은 아래 다섯 장치 중 하나를 지난다.
+  개념이 많아 보여도 연결을 지탱하는 수학적 장치는 다섯 개뿐이다.</p>
+  <div id="connectors" class="cards"></div>
+</section>
+
+<section id="repr">
+  <h2>Representability — protocol 이 개입하지 않는 축</h2>
+  <p class="lede">$\mathcal{D}_p=0$ 은 graph metric 이 $\mathbb{R}^p$ 에서 정확히 실현되는 것과 동치이다(Schoenberg).
+  임베딩을 돌리지 않으므로 sampling 문제가 없다.</p>
+  <figure class="panel wide"><figcaption id="cap-Dp"></figcaption><div id="ch-Dp"></div></figure>
+  <div class="callout warn">
+    random geometric graph 에서 Euclidean 인 것은 잠재 좌표이지 graph metric 이 아니다.
+    hop metric 의 $\mathcal{D}_2$ 는 $0.464$ 로 격자($0.406$)보다 <b>크고</b>, 밀도를 올리면 $0.648$ 로 더 나빠진다.
+    같은 점집합의 좌표 거리는 $\mathcal{D}_2=0.000$ 이다.
+  </div>
+</section>
+
+<section id="scalar">
+  <h2>스칼라 하나로는 부족하다</h2>
+  <p class="lede">$\mathcal{I}$ 는 terminal covariance operator 의 <b>trace</b> 이다.
+  trace 는 크기만 말하고 모양을 말하지 않으므로, 다중안정형과 floppy 를 원리적으로 구분하지 못한다.</p>
+  <div class="grid2">
+    <figure class="panel"><figcaption id="cap-Ideff"></figcaption><div id="ch-Ideff"></div></figure>
+    <figure class="panel"><figcaption id="cap-cens"></figcaption><div id="ch-cens"></div></figure>
+  </div>
+  <div class="panel wide">
+    <p class="cap">1차원 stress landscape 로 본 같은 이야기. 초기조건을 균등하게 뿌리고 $T=0$ 하강을 돌린 terminal 분포이다.</p>
+    <div class="tagbar" id="lsButtons"></div>
+    <div class="lsRow">
+      <canvas id="ls" width="720" height="300"></canvas>
+      <div class="readout" id="lsOut"></div>
+    </div>
+  </div>
+</section>
+
+<section id="claims">
+  <h2>주장 현황</h2>
+  <p class="lede">무엇이 정리이고, 무엇이 이번 측정이며, 무엇이 미해결이고, 무엇을 철회했는지.</p>
+  <figure class="panel wide"><figcaption id="cap-status"></figcaption><div id="ch-status"></div></figure>
+  <div class="tagbar" id="claimFilter"></div>
+  <div class="tablewrap"><table id="claimsTable"></table></div>
+</section>
+
+<section id="refs">
+  <h2>참고문헌</h2>
+  <p class="lede">각 항목의 <i>왜</i>는 이 지도에서 그 문헌이 무엇을 지탱하는지이다.
+  서지사항을 직접 확인하지 못한 항목은 표시했다.</p>
+  <div class="tagbar" id="refFilter"></div>
+  <div class="tablewrap"><table id="refsTable"></table></div>
+</section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

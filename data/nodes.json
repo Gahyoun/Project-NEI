@@ -1,0 +1,40 @@
+{
+  "_note": "지도의 마디. domain 이 레인을 정하고, status 가 색을 정한다. 이 파일만 고치면 페이지의 플로우차트가 따라 바뀐다.",
+  "domains": {
+    "input":    {"label": "입력",            "color": "#5b6470"},
+    "discrete": {"label": "이산수학 · 그래프기하", "color": "#1f468a"},
+    "physics":  {"label": "통계물리 · disordered system",   "color": "#207037"},
+    "stats":    {"label": "통계 · 역문제",       "color": "#7a3fa0"},
+    "measure":  {"label": "측정량",           "color": "#ab5b00"},
+    "verdict":  {"label": "Regime classification",             "color": "#a8332a"}
+  },
+  "nodes": [
+    {"id":"G","domain":"input","label":"네트워크 G","formula":"G=(V,E)","def":"단순 무방향 연결 그래프. 동결된 constraint(quenched)이다.","refs":[],"status":"given"},
+    {"id":"delta","domain":"input","label":"graph metric δ","formula":"\\delta_{ij}=d_{\\mathrm{hop}}(i,j)","def":"shortest path hop 수. 이것이 유일한 입력이며, 이후 모든 양은 δ 의 함수이다.","refs":["llr1995"],"status":"given"},
+
+    {"id":"schoenberg","domain":"discrete","label":"Schoenberg criterion","formula":"\\Delta\\ \\text{realizable in}\\ \\mathbb{R}^r \\iff \\mathbf{G}\\succeq0,\\ \\mathrm{rank}\\,\\mathbf{G}\\le r","def":"distance matrix이 유클리드 realizable할 필요충분조건. double centering한 Gram 행렬의 positive semidefinite성과 계수로 완전히 결정된다.","refs":["schoenberg1935","young1938"],"status":"theorem"},
+    {"id":"negtype","domain":"discrete","label":"negative type / cut cone","formula":"-\\tfrac12 C\\Delta^{(2)}C\\succeq0","def":"거리공간이 negative type 이라는 것과 ℓ2 제곱거리로 embedding된다는 것이 동치이다. ℓ1 embedding 가능한 metric은 항상 negative type 이다. D_p 가 사는 이산기하 영역.","refs":["dezalaurent1997"],"status":"theorem"},
+    {"id":"distortion","domain":"discrete","label":"metric embedding distortion","formula":"\\mathrm{dist}(f)=\\|f\\|_{\\mathrm{Lip}}\\cdot\\|f^{-1}\\|_{\\mathrm{Lip}}","def":"임의 n점 metric은 O(log n) 왜곡으로 ℓ2 에 embedding된다(Bourgain). 왜곡은 최대·최소 비의 곱셈적 양이고, D_p 는 같은 non-embeddability을 L2 스펙트럼으로 재는 완화판이다.","refs":["bourgain1985","llr1995"],"status":"theorem"},
+    {"id":"rigidity","domain":"discrete","label":"강성 / rigidity matrix","formula":"\\mathbf{H}=2R^{\\mathsf T}WR+\\mathbf{H}_{\\mathrm{pre}}","def":"잔차가 정확히 0 이면 Hessian 이 rigidity matrix 의 quadratic form으로 환원된다. 다만 stress 는 완전 쌍집합 위에 정의되므로 R 은 그래프의 것이 아니라 완전그래프의 것이며, 따라서 그래프 희소성이 곧 under-constraint을 뜻하지 않는다.","refs":["maxwell1864","laman1970","connelly1982","connelly1996"],"status":"theorem"},
+    {"id":"aut","domain":"discrete","label":"metric automorphism Aut(δ)","formula":"\\delta_{\\sigma(i)\\sigma(j)}=\\delta_{ij}","def":"위상이 두 노드를 구별하지 못하면 그 위치는 결정되지 않는다. automorphism orbit는 정확히 계산 가능한 비식별성이며, NEI 의 해석적 벤치마크를 준다.","refs":["dezalaurent1997"],"status":"theorem"},
+
+    {"id":"strain","domain":"stats","label":"strain (cMDS)","formula":"\\|\\mathbf{G}-XX^{\\mathsf T}\\|_F^2","def":"XX^T 에 대해 볼록. Eckart–Young 으로 global optimum가 유일하고 닫힌 형태이다. 초기조건이 없으므로 반복해도 결과가 같다.","refs":["torgerson1952","gower1966","eckart1936"],"status":"theorem"},
+    {"id":"stress","domain":"stats","label":"stress (SMACOF)","formula":"\\mathcal{F}(X)=\\sum_{i<j}w_{ij}(\\delta_{ij}-d_{ij}(X))^2","def":"비볼록. 다중 local minimum가 실재한다. strain 과 다른 objective이며, NEI 의 정보는 전적으로 이쪽에서 나온다.","refs":["kruskal1964","deleeuw1977","borg2005","groenen1995"],"status":"theorem"},
+    {"id":"ident","domain":"stats","label":"식별가능성","formula":"\\mathrm{rank}\\,H_\\perp,\\ \\text{likelihood multimodality}","def":"국소 비식별은 Fisher 정보(=Hessian)의 영방향, 전역 비식별은 가능도의 다봉성. stress 를 음의 로그가능도로 읽으면 대응이 정확하다.","refs":["transtrum2010","transtrum2011"],"status":"theorem"},
+    {"id":"shape","domain":"stats","label":"shape space","formula":"\\Omega=\\mathbb{R}^{N\\times p}/\\mathrm{E}(p)","def":"rigid motion 몫. distance matrix은 반사에도 불변이므로 몫은 SE(p) 가 아니라 E(p) 이고, 그래서 terminal을 정렬 없이 비교할 수 있다.","refs":["kendall1984"],"status":"theorem"},
+
+    {"id":"inherent","domain":"physics","label":"inherent structure","formula":"X^{(0)}\\xrightarrow{T=0}\\ X^\\star","def":"T=0 하강으로 정의되는 terminal ensemble. 열적 기여가 없으므로 산포는 전부 초기조건에서 온다. 다만 어느 terminal에 가는지는 하강 동역학이 정하므로 landscape 만의 성질이 아니다.","refs":["stillinger1982","stillinger1995"],"status":"theorem"},
+    {"id":"softmode","domain":"physics","label":"soft mode / low-frequency 스펙트럼","formula":"\\widetilde\\lambda_{\\mathrm{soft}}=\\lambda_{\\min}(H_\\perp)/\\kappa_+","def":"비정질 고체와 jamming 에서 constraint과 자유도의 균형이 low-frequency 모드를 만든다. 여기서는 under-constraint이 아니라 frustration(비실현성)이 만드는 prestress 가 그 역할을 한다.","refs":["ohern2003","wyart2005"],"status":"theorem"},
+    {"id":"sloppy","domain":"physics","label":"sloppiness","formula":"\\lambda_1/\\lambda_k \\sim 10^{k}","def":"least squares 문제의 Hessian eigenvalue이 수십 자릿수에 걸쳐 퍼지는 보편적 구조. stress 가 정확히 이 부류이며, sloppy 방향이 곧 국소 비식별 방향이다.","refs":["transtrum2010","transtrum2011"],"status":"theorem"},
+    {"id":"frustration","domain":"physics","label":"기하적 frustration","formula":"\\mathcal{D}_p>0","def":"모든 쌍 constraint을 동시에 만족시킬 수 없는 상태. 삼각격자 반강자성체와 같은 구조이며, frustration이 거친 landscape 와 경쟁하는 저-stress 기하들을 만든다.","refs":["wyart2005"],"status":"conjecture"},
+
+    {"id":"Dp","domain":"measure","label":"𝒟ₚ  representability deficiency","formula":"\\mathcal{D}_p=\\frac{\\sum_{a>p}\\mu_a^{+}+\\sum_a\\mu_a^{-}}{\\sum_a|\\mu_a|}","def":"임베딩 없이 eigenvalue 분해 한 번. 프로토콜 무관, dimensionless, p 에 대해 비증가. D_p=0 이 exact realization과 동치이다.","refs":["schoenberg1935"],"status":"measured"},
+    {"id":"NEI","domain":"measure","label":"𝓘  NEI (크기)","formula":"\\mathcal{I}=\\tfrac{1}{N_+}\\sum_{i<j}\\sigma_{ij}^2/\\overline{d}_{ij}^{\\,2}=\\tr\\mathbf{G}_{\\mathrm{run}}","def":"terminal 공분산 연산자의 trace. 프로토콜 조건부이며 ρ0 가 비퇴화일 때만 정의된다. 크기만 말하고 모양을 말하지 않는다.","refs":["stillinger1995"],"status":"measured"},
+    {"id":"deff","domain":"measure","label":"d_eff  (차원)","formula":"d_{\\mathrm{eff}}=\\frac{(\\sum_a\\nu_a)^2}{\\sum_a\\nu_a^2}","def":"같은 연산자의 eigenvalue 스펙트럼 participation ratio. 비유일성이 몇 개의 독립 자유도인지를 센다. 저장된 Δ 만으로 계산되며 재실행이 필요 없다.","refs":["transtrum2010"],"status":"measured"},
+    {"id":"gate","domain":"measure","label":"convergence gate","formula":"\\eta_g=\\|g_\\perp\\|/\\sqrt{S_\\Delta},\\ \\chi_{\\mathrm{coll}},\\ \\text{cap}","def":"dimensionless 정류성 지표. 통과하지 못한 terminal에는 curvature classification을 부여하지 않는다. 현재 표본의 약 90%가 미인증이다.","refs":["scikitlearn"],"status":"measured"},
+
+    {"id":"rigid","domain":"verdict","label":"강체형 · 식별 가능","formula":"\\mathcal{I}\\approx0","def":"terminal ensemble이 한 점에 집중한다.","refs":[],"status":"verdict"},
+    {"id":"split","domain":"verdict","label":"다중안정형 · 전역 비식별","formula":"K\\ge2,\\ d_{\\mathrm{eff}}\\ \\text{작음}","def":"비길 만한 stress 의 분리된 terminal 무리가 independent batch 에서 재현된다.","refs":[],"status":"verdict"},
+    {"id":"floppy","domain":"verdict","label":"floppy · 국소 비식별","formula":"K=1,\\ \\widetilde\\lambda_{\\mathrm{soft}}\\approx0,\\ d_{\\mathrm{eff}}\\ \\text{큼}","def":"단일 무리 안에서 평평한 방향을 따라 연속적으로 퍼진다. gate 통과가 전제이다.","refs":[],"status":"verdict"}
+  ]
+}
