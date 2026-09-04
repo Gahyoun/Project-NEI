@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NEI 연구 아키텍처 — representability와 terminal degeneracy</title>
+<title>NEI 연구 아키텍처 — representability와 protocol-conditioned terminal geometry</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
 <link rel="stylesheet" href="krds.css">
@@ -24,67 +24,89 @@
 <main class="wrap">
 
 <section class="hero">
-  <p class="eyebrow">fully specified topology-to-geometry protocol</p>
-  <h1>네트워크의 geometric representability와<br>protocol-induced terminal multiplicity</h1>
-  <p class="lede">Population protocol $\Pi$는 $G\mapsto\Delta$, target dimension, pair weights,
-  optimization rule, initialization law $\rho_0$와 algorithmic randomness $\rho_{\rm alg}$를
-  고정한다. $\mathcal D_p$는 fixed $(\Delta,p)$의 spectral diagnostic이고, $\mathcal I$는
-  $\Pi$가 유도한 terminal law에 조건부인 response observable이다. 반복수 $M$은 이 law의
-  finite-sample resolution이지 population estimand의 일부가 아니다.</p>
+  <p class="eyebrow">define the ensemble before reading the observable</p>
+  <h1>Graph metric의 geometric representability와<br>embedding protocol의 terminal multiplicity</h1>
+  <p class="lede">측정 대상부터 고정한다. Population protocol $\Pi$는 $G\mapsto\Delta$,
+  target dimension $p$, pair weights, optimizer, stopping rule, initialization law $\rho_0$와
+  algorithmic randomness $\rho_{\rm alg}$를 모두 포함한다. $\mathcal D_p$는 fixed
+  $(\Delta,p)$에서의 spectral representability diagnostic이고, $\mathcal I$는 $\Pi$가
+  유도하는 terminal-geometry law의 response observable이다. 둘은 같은 network를 다루지만
+  같은 질문에 답하지 않는다. 반복수 $M$은 population estimand가 아니라 empirical
+  estimator의 sample size, Monte Carlo precision과 rare-class detection power를 정한다.
+  geometric resolution은 별도로 선언한 $\varepsilon_D$가 정한다.</p>
 </section>
 
 <section id="result">
-  <h2>Definition: degeneracy</h2>
+  <h2>Definition — realized geometric degeneracy</h2>
   <p class="lede definition-statement"><b>Realized geometric degeneracy</b>는 fully specified
-  protocol 아래 admissible terminal law가, 선언한 pair-distance resolution $\varepsilon_D$에서
-  하나의 geometry로 붕괴하지 않는 경우로 정의한다. 즉, 선언한 dimensionless metric
-  $\rho_D$에 대해
+  protocol 아래의 admissible terminal law가, 사전에 선언한 dimensionless pair-distance metric
+  $\rho_D$와 resolution $\varepsilon_D$에서 한 점으로 수축하지 않는 성질이다. 따라서
+  prespecified positive-weight pair set $\mathcal P$, $S_{\Delta,W}>0$ 및
+  $\alpha_\Pi>0$ 아래 population-level definition은
   $\operatorname{diam}_{\rho_D}\operatorname{supp}(\mu_\Pi^{\rm adm})>\varepsilon_D$이다.
-  NEI는 이 law의 geometry-weighted second moment를 정량화하지만, total support size와
-  energy equivalence를 단독으로 판정하지 않는다.</p>
+  $N_+=|\mathcal P|$로 두고, 모든 prespecified pair $a\in\mathcal P$에서
+  $0<\mathbb E[d_a]<\infty$와 $\mathbb E[d_a^2]<\infty$를 가정하고
+  $\rho_\mu^2(d,d')=N_+^{-1}\sum_{a\in\mathcal P}
+  [(d_a-d'_a)/\mathbb E(d_a)]^2$로 두면, iid $D,D'\sim\mu_\Pi^{\rm adm}$에 대해
+  $\mathcal I=\tfrac12\mathbb E[\rho_\mu^2(D,D')]$이다. 따라서 $\mathcal I=0$ iff
+  $\mu_\Pi^{\rm adm}$ is a point mass. 이것이 NEI의 정확한 zero-set statement다.
+  그러나 $\rho_\mu$와 $\rho_D$는 positive threshold에서 일반적으로 동치가 아니므로,
+  $\mathcal I>0$만으로 $\rho_D$-diameter가 $\varepsilon_D$를 넘는다고 결론내리지 않는다.
+  NEI의 크기는 이 distribution의 geometry-weighted second moment를 측정한다. state count,
+  equal-energy degeneracy, barrier 또는 continuous minimizer manifold는 이 scalar 하나로
+  식별되지 않는다.</p>
   <p class="fine">여기서 $\mu_\Pi^{\rm adm}=\mathcal L(q(T_\Pi)\mid A_{\rm num})$이고
   $\alpha_\Pi=\Pr(A_{\rm num})$를 함께 보고한다. $A_{\rm num}$은 optimizer success,
-  stationarity, collision과 quotient curvature를 판정한다. 별도의 representational-fidelity
-  criterion은 topology-to-geometry interpretation의 범위를 제한하며 local-minimum
-  classification과 동일한 gate가 아니다.</p>
+  stationarity, collision과 quotient-Hessian inertia를 검사한다. 별도의
+  representational-fidelity criterion은 topology-to-geometry interpretation이 유효한 범위를
+  정한다. numerical admissibility와 representational fidelity는 서로 다른 질문에 답하며
+  서로를 대체하지 않는다.</p>
   <div class="grid2">
     <figure class="panel"><figcaption id="cap-polish"></figcaption><div id="ch-polish"></div></figure>
     <figure class="panel"><figcaption id="cap-certify"></figcaption><div id="ch-certify"></div></figure>
   </div>
   <div class="callout warn">
-    <b>현재 증거가 지지하는 결론.</b> 기존 실행에서 $\eta_g$가
+    <b>현재 evidence가 허용하는 결론.</b> legacy runs에서 $\eta_g$가
     $2.19\times10^{-3}$에서 $2.00\times10^{-8}$로 감소하는 동안
     $\widehat{\mathcal I}_M$는 $0.1100$에서 $0.07665$로 감소했고, 24개 terminal
-    distance matrices는 보고된 cutoff 범위에서 분리되어 있었다. 즉, 그 polishing
-    schedule은 observed dispersion을 제거하지 못했다. 그러나 이 값은 corrected
-    implementation 이전의 legacy all-run ungated diagnostic이다. corrected numerical
-    gate와 independent-batch recurrence 전에는 recurrent terminal multiplicity 또는
-    multiple local minima를 확정하지 않는다.
+    distance matrices는 보고된 cutoff 범위에서 분리되어 있었다. 이 결과가 직접 말하는
+    것은 stated polishing schedule이 observed terminal-distance dispersion을 제거하지
+    못했다는 사실뿐이다. corrected implementation 이전의 all-run ungated diagnostic이므로,
+    corrected numerical gate와 independent-batch recurrence 전에는 recurrent terminal
+    multiplicity나 multiple local minima를 결론으로 올리지 않는다.
   </div>
-  <p class="fine"><b>Terminology.</b> 여기서 “realized”는 finite-$M$ 표본에서 곧바로
-  population support를 증명했다는 뜻이 아니다. gate acceptance rate, independent-batch
-  recurrence와 $M$-saturation이 함께 보고되어야 한다. equal stress, continuous minimum
-  manifold와 optimizer-independent global nonuniqueness는 별도 claim이다.</p>
+  <p class="fine"><b>Terminology.</b> “Realized”는 declared protocol이 실제로 점유하는
+  terminal geometry를 가리키며, finite-$M$ 표본이 population support를 이미
+  certified했다는 뜻이 아니다. gate acceptance rate, independent-batch recurrence와
+  finite-$M$ stability를 함께 보고해야 한다. complete-support detection에는 minimum-mass
+  또는 missing-mass assumption이 추가로 필요하다. equal stress, continuous minimizer manifold와
+  optimizer-independent global nonuniqueness는 각각 별도 certificate를 요구한다.</p>
   <div class="tablewrap"><table>
-    <thead><tr><th>Evidence</th><th>Allowed conclusion</th></tr></thead>
+    <thead><tr><th>Evidence</th><th>Allowed conclusion</th><th>Not yet implied</th></tr></thead>
     <tbody>
-      <tr><td>$\widehat{\mathcal I}_M$이 numerical-noise bound를 초과</td><td>terminal-distance dispersion</td></tr>
-      <tr><td>independent batches에서 recurrent $\varepsilon_D$-separated classes</td><td>protocol-conditioned terminal multiplicity</td></tr>
-      <tr><td>각 class에 class-wise strict-minimum certificate</td><td>multiple local minima</td></tr>
-      <tr><td>energy-difference interval이 $[-\tau_E,\tau_E]$ 안에 포함</td><td>$\tau_E$-near-degenerate minima</td></tr>
-      <tr><td>barrier 또는 residence-time evidence</td><td>metastability</td></tr>
-      <tr><td>Morse--Bott condition 또는 refinement-stable continuation</td><td>continuous minimizer manifold</td></tr>
+      <tr><td>$\widehat{\mathcal I}_M$이 predeclared numerical-noise bound를 초과</td><td>resolved terminal-distance dispersion</td><td>multiple minima</td></tr>
+      <tr><td>independent batches에서 recurrent $\varepsilon_D$-separated classes</td><td>declared $(M,\varepsilon_D)$에서 observed recurrent terminal multiplicity; population multiplicity의 evidence</td><td>complete population support 또는 equal-energy degeneracy</td></tr>
+      <tr><td>앞선 조건과 함께, 각 class에서 stationarity 및 positive-definite quotient Hessian을 tolerance-stable하게 확인</td><td>declared tolerance에서 distinct strict-local-minimum candidates</td><td>exact, global or equal-depth minima</td></tr>
+      <tr><td>normalized-stress difference interval 전체가 $[-\tau_E,\tau_E]$ 안에 포함</td><td>$\tau_E$-near-equivalent stress minima</td><td>thermodynamic or global-minimum degeneracy</td></tr>
+      <tr><td>barrier 또는 residence-time evidence</td><td>metastability under the tested dynamics</td><td>equilibrium phase structure</td></tr>
+      <tr><td>finite-amplitude continuation이 refinement와 tolerance 변화에도 낮은 residual·bounded stress rise·no collision을 유지</td><td>numerically resolved continuous-degeneracy candidate</td><td>exact minimizer manifold</td></tr>
+      <tr><td>smooth fixed-rank quotient stratum에서 $\dim\mathcal M\ge1$, $\mathcal M\subset\operatorname{Crit}(\mathcal F)$, $\ker H_X=T_X\mathcal M$ 및 positive-definite normal Hessian</td><td>analytic Morse–Bott local minimizer manifold</td><td>universality or $N\to\infty$ persistence</td></tr>
     </tbody>
   </table></div>
+  <p class="fine">각 row는 독립적인 shortcut이 아니라 누적 evidence ladder다. 특히 class-wise
+  certificate는 먼저 분리된 class와 admissible terminal을 전제로 하며, numerical
+  continuation은 analytic existence theorem이 아니라 declared resolution에서의 candidate
+  certificate로 읽는다.</p>
 </section>
 
 <section id="map">
   <h2>Architecture map</h2>
-  <p class="lede">각 layer는 dependency depth를 따라 왼쪽에서 오른쪽으로 흐른다. 오른쪽으로
-  갈수록 앞의 정의와 측정에 조건부이다. node를 누르면 본문·SI·Note에서 이 개념을
-  어디서 어떻게 설명하는지, 그리고 직접 서술되지 않은 gap이 무엇인지 열린다.
-  node 글자색과 간선 색은 각각 concept와 relation의 epistemic status를 나타낸다.
-  node의 왼쪽 점은 research domain을 나타내며 status와 혼동하지 않는다.</p>
+  <p class="lede">지도는 정의에서 diagnostic과 certificate를 거쳐 allowed conclusion으로
+  진행한다. 오른쪽 node는 왼쪽 node의 내용을 단순히 반복하는 것이 아니라, 추가 가정이나
+  evidence에 조건부이다. 따라서 arrow는 dependency 또는 named relation을 뜻하며 causality를
+  뜻하지 않는다. node를 누르면 본문·SI·Note의 정확한 대응 위치와 아직 직접 서술되지 않은
+  gap을 함께 볼 수 있다. node text color는 epistemic status를, 왼쪽 dot은 research domain을,
+  edge color는 relation status를 나타낸다.</p>
   <div class="source-legend" aria-label="source text colors">
     <span class="src-main"><i></i>본문</span>
     <span class="src-si"><i></i>SI</span>
@@ -102,7 +124,9 @@
     </div>
     <div class="mapc" id="mapc">불러오는 중…</div>
   </div>
-  <p class="fine">휠로 확대·축소하고 drag로 이동한다. node를 누르면 dependency 이웃과 source inspector가 함께 열린다. ‘맞춤’은 전체 좌→우 architecture를 다시 한 화면에 맞춘다.</p>
+  <p class="fine">휠로 확대·축소하고 drag로 이동한다. node에 pointer나 keyboard focus를
+  두면 incident edge만 강조되고, 누르면 dependency 이웃과 source inspector가 함께 열린다.
+  ‘맞춤’은 전체 좌→우 architecture를 다시 한 화면에 맞춘다.</p>
   <div class="panel detail" id="panel"><p class="muted">node를 선택하면 본문·SI·Note의 대응 위치와 서술 gap이 열립니다.</p></div>
 </section>
 
@@ -122,47 +146,53 @@
 
 <section id="conn">
   <h2>Connectors — equivalence, implication, and analogy</h2>
-  <p class="lede">각 edge는 named connector로 정당화하며 equivalence, implication과
-  analogy를 구분한다. connector는 개념을 잇는 근거이지 모든 연결이 theorem이라는
-  뜻은 아니다. 각 edge의 epistemic status를 함께 읽는다.</p>
+  <p class="lede">각 edge에는 관계의 이름과 epistemic status를 붙인다. equivalence는
+  양방향 명제, implication은 명시된 가정 아래의 단방향 명제, analogy는 해석을 돕는
+  대응일 뿐 증명이 아니다. graph의 연결 자체를 mechanism이나 causality로 읽지 않는다.</p>
   <div id="connectors" class="cards"></div>
 </section>
 
 <section id="repr">
   <h2>Representability — fixed $(\Delta,p)$의 spectral diagnostic</h2>
-  <p class="lede">finite, symmetric, hollow, nonnegative dissimilarity $\Delta$에 대해
-  $\mathcal D_p=0$은 $\Delta$가 $\mathbb R^p$에서 정확히 실현되는 것과 동치이다.
-  $B=0$에는 $\mathcal D_p=0$ convention을 쓴다. optimizer에는 무관하지만
-  graph-to-dissimilarity map과 p에는 의존하며, $\mathcal D_p^{\rm dim}$과
-  $\mathcal D^{\rm neg}$를 분리해 해석한다.</p>
+  <p class="lede">finite, symmetric, hollow, nonnegative dissimilarity $\Delta$를 고정하자.
+  이때 $\mathcal D_p=0$은 $\Delta$가 $\mathbb R^p$에서 exact Euclidean realization을
+  갖는 것과 동치이다. $B=0$에는 $\mathcal D_p=0$ convention을 쓴다. 이 zero set은
+  theorem이지만, positive magnitude는 chosen normalization에 따른 diagnostic이다.
+  $\mathcal D_p$는 optimizer-independent이되 $G\mapsto\Delta$와 $p$에는 의존한다.
+  해석할 때는 positive-spectrum rank truncation인 $\mathcal D_p^{\rm dim}$과
+  negative-spectrum obstruction인 $\mathcal D^{\rm neg}$를 먼저 분리한다.</p>
   <figure class="panel wide"><figcaption id="cap-Dp"></figcaption><div id="ch-Dp"></div></figure>
   <div class="callout warn">
-    random geometric graph 에서 Euclidean 구조를 갖는 것은 잠재 좌표이다. 같은 점집합의
-    좌표 거리는 $\mathcal{D}_2=0.000$인 반면 hop metric은 $\mathcal{D}_2=0.464$로 격자($0.406$)를
-    웃돌고, 이 표본에서는 밀도를 올릴 때 $0.648$까지 커진다. 이는 높은 density에서
-    hop-distance shells가 압축되는 현상과 정합적이지만, mechanism claim에는 density와
-    $N$을 matched한 graph ensemble이 필요하다.
+    <b>Baseline before interpretation.</b> random geometric graph의 Euclidean object는 latent
+    coordinate metric이지 hop metric이 아니다. 같은 point cloud에서 coordinate distance는
+    $\mathcal{D}_2=0.000$이지만 hop metric은 $\mathcal{D}_2=0.464$이고, 이 한 표본에서는
+    lattice($0.406$)보다 크며 density 증가와 함께 $0.648$까지 커졌다. 이 ordering은
+    descriptive result다. hop-shell compression을 mechanism으로 주장하려면 $N$, density,
+    connectedness와 degree heterogeneity를 matched한 graph ensemble 및 rewiring null이 먼저다.
   </div>
 </section>
 
 <section id="scalar">
-  <h2>Terminal vector를 trace·spectrum·occupancy로 분해한다</h2>
+  <h2>한 scalar를 trace, spectrum, occupancy로 되읽는다</h2>
   <p class="lede">pair-standardized vector
   $z_{ma}=d_a^{(m)}/(\bar d_a\sqrt{N_+})$에 대해서만 finite-sample plug-in identity
   $\widehat{\mathcal I}_M=\operatorname{tr}B_z/M$이 정확하다. 이는 population NEI의
-  unbiasedness statement가 아니다. 그 spectrum의 participation ratio는
-  covariance effective rank이고, class occupancy의 $K_{\rm eff}$와 다른 양이다.
+  unbiasedness statement가 아니다. 같은 operator의 spectrum에서 얻는 participation ratio는
+  covariance effective rank이고, class occupancy에서 얻는 $K_{\rm eff}$와 다른 observable이다.
+  전자는 terminal cloud가 퍼지는 독립 방향의 유효 수를, 후자는 observed class probability가
+  나뉘는 유효 수를 요약한다.
   기존 global-scale run-distance matrix $\Delta^{(\rm raw)}$는 raw-cloud spectrum만
   복원하므로 standardized artifact $\Delta^{(z)}$를 다시 저장해야 한다. 어떤
-  $\bar d_a=0$이면 NEI는 undefined이며 해당 pair를 post hoc으로 버리지 않는다.</p>
+  $\bar d_a=0$이면 NEI는 undefined이며 해당 pair를 post hoc으로 제거해 estimand를 바꾸지
+  않는다.</p>
   <div class="grid2">
     <figure class="panel"><figcaption id="cap-Ideff"></figcaption><div id="ch-Ideff"></div></figure>
     <figure class="panel"><figcaption id="cap-cens"></figcaption><div id="ch-cens"></div></figure>
   </div>
   <figure class="panel wide landscape-figure">
     <figcaption>
-      <span class="t">Protocol-conditioned terminal geometry: 세 canonical candidate</span>
-      <span class="s">stress landscape의 schematic projection이며 histogram이나 finite-$M$ 추정치가 아니다.</span>
+      <span class="t">Protocol-conditioned terminal geometry — 세 diagnostic candidate</span>
+      <span class="s">stress landscape의 schematic projection이며 histogram, data fit 또는 finite-$M$ estimate가 아니다.</span>
     </figcaption>
     <div class="landscape-svg-wrap">
       <svg class="regime-figure" viewBox="0 0 1200 455" role="img"
@@ -193,7 +223,7 @@
           </g>
           <path class="landscape" d="M40 140 C95 178 125 270 200 270 C275 270 305 178 360 140"/>
           <circle class="terminal terminal-green" cx="200" cy="270" r="10"/>
-          <text class="mathline" x="200" y="315" text-anchor="middle">K_obs = 1 · Î_M ≈ 0</text>
+          <text class="mathline" x="200" y="315" text-anchor="middle">K_obs = 1 · NEI(M) ≈ 0</text>
           <text class="mathline" x="200" y="341" text-anchor="middle">λ̃_soft⁽¹⁾ &gt; τ_λ  (gate 후)</text>
           <text class="conclusion title-green" x="200" y="377" text-anchor="middle">reproducible terminal geometry</text>
           <text class="qualifier" x="200" y="400" text-anchor="middle">under the declared protocol</text>
@@ -216,7 +246,7 @@
           <circle class="terminal terminal-blue" cx="105" cy="250" r="9"/>
           <circle class="terminal terminal-blue" cx="215" cy="270" r="9"/>
           <circle class="terminal terminal-blue" cx="330" cy="250" r="9"/>
-          <text class="mathline" x="200" y="315" text-anchor="middle">1 &lt; K_obs &lt; M · Î_M &gt; 0</text>
+          <text class="mathline" x="200" y="315" text-anchor="middle">1 &lt; K_obs &lt; M · NEI(M) &gt; 0</text>
           <text class="mathline" x="200" y="341" text-anchor="middle">class-wise λ̃_soft⁽γ⁾ &gt; τ_λ</text>
           <text class="conclusion title-blue" x="200" y="377" text-anchor="middle">terminal multiplicity</text>
           <text class="qualifier" x="200" y="400" text-anchor="middle">energy equivalence는 별도 test</text>
@@ -243,28 +273,31 @@
           <circle class="terminal terminal-orange" cx="240" cy="270" r="8"/>
           <path class="flat-span" d="M165 294 L235 294"/>
           <text class="mathline" x="200" y="325" text-anchor="middle">λ̃_soft⁽¹⁾ ≈ 0  (gate 후)</text>
-          <text class="mathline" x="200" y="351" text-anchor="middle">Î_M &gt; 0 가능 · K_obs는 resolution-dependent</text>
-          <text class="conclusion title-orange" x="200" y="387" text-anchor="middle">continuation candidate only</text>
+          <text class="mathline" x="200" y="351" text-anchor="middle">NEI(M) &gt; 0 가능 · K_obs는 resolution-dependent</text>
+          <text class="conclusion title-orange" x="200" y="387" text-anchor="middle">continuous-degeneracy candidate</text>
           <text class="qualifier" x="200" y="410" text-anchor="middle">finite low-stress path 인증 필요</text>
         </g>
       </svg>
     </div>
-    <p class="landscape-caption">각 곡선은 quotient/shape space의 한 schematic coordinate에 투영한
-      stress landscape이지 실제 high-dimensional landscape의 reconstruction이 아니다.
-      회색 점은 initialization을, colored point는 admissibility gate를 통과한 terminal geometry를
-      나타내며 point 수는 sample size $M$을 뜻하지 않는다.</p>
+    <p class="landscape-caption">각 곡선은 quotient/shape space의 한 schematic coordinate에
+      투영한 stress landscape다. 실제 high-dimensional landscape의 reconstruction이나 fitted
+      free-energy profile이 아니다. 회색 점은 initialization을, colored point는 admissibility
+      gate를 통과한 terminal geometry를 나타내며, point 수는 sample size $M$ 또는 state count를
+      뜻하지 않는다.</p>
     <ul class="landscape-guardrails">
       <li><b>Single-terminal:</b> declared protocol에서의 reproducibility이며 global uniqueness의 증명이 아니다.</li>
       <li><b>Separated-terminal:</b> recurrent terminal multiplicity이며 equal-energy degeneracy 또는 metastability의 증명이 아니다.</li>
-      <li><b>Near-zero curvature:</b> soft direction의 diagnostic이며 continuous minimizer manifold는 continuation 또는 Morse--Bott evidence가 필요하다.</li>
+      <li><b>Near-zero curvature:</b> soft direction의 diagnostic이다. finite continuation은 numerical candidate evidence이고, exact local manifold에는 analytic Morse–Bott structure가 필요하다.</li>
     </ul>
   </figure>
 </section>
 
 <section id="claims">
   <h2>Claim ledger</h2>
-  <p class="lede">definition, theorem, diagnostic, exploratory measurement, open certificate와
-  withdrawn claim을 구분한다.</p>
+  <p class="lede">각 문장을 definition, theorem, diagnostic, exploratory measurement,
+  open certificate 또는 withdrawn claim으로 분류한다. 숫자가 있다는 이유만으로 diagnostic을
+  conclusion으로 승격하지 않는다. 각 row의 basis는 그 claim을 허용하는 가정·계산·baseline을
+  명시한다.</p>
   <figure class="panel wide"><figcaption id="cap-status"></figcaption><div id="ch-status"></div></figure>
   <div class="tagbar" id="claimFilter"></div>
   <div class="tablewrap"><table id="claimsTable"></table></div>
@@ -272,8 +305,9 @@
 
 <section id="refs">
   <h2>References</h2>
-  <p class="lede">각 항목의 <i>why</i>는 이 지도에서 그 문헌이 무엇을 지탱하는지이다.
-  서지사항을 직접 확인하지 못한 항목은 표시했다.</p>
+  <p class="lede">각 항목의 <i>why</i>는 해당 문헌이 이 architecture에서 지지하는 정확한
+  명제나 method를 적는다. 인접한 주제를 다룬다는 이유만으로 직접 근거처럼 인용하지 않는다.
+  서지사항을 직접 확인하지 못한 항목은 별도로 표시한다.</p>
   <div class="tagbar" id="refFilter"></div>
   <div class="tablewrap"><table id="refsTable"></table></div>
 </section>

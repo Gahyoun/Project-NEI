@@ -39,24 +39,28 @@ A_{\rm num}=\{\mathrm{success},\eta_g\le\tau_g,
 \alpha_\Pi=\Pr_\Pi(A_{\rm num})
 \]
 
-이다. 즉 NEI가 보는 것은 좌표 자체가 아니라 \(\mathrm E(p)\)를 이미 몫한 terminal
-distance geometry의 conditional distribution이다. \(M\)은 이 population law의 인자가
-아니라 empirical measure \(\widehat\mu_{\Pi,M}\)의 sample size다.
+이다. conditional law를 정의하려면 \(\alpha_\Pi>0\)이어야 한다. 즉 NEI가 보는 것은
+좌표 자체가 아니라 \(\mathrm E(p)\)를 이미 몫한 terminal distance geometry의 conditional
+distribution이다. \(M\)은 이 population law의 인자가 아니라 empirical measure
+\(\widehat\mu_{\Pi,M}\)의 sample size다. 따라서 \(M\)은 Monte Carlo precision과
+rare-class detection power를 제한하고, geometric resolution은 \(\varepsilon_D\)가 정한다.
 
-일반 weight에서는
+prespecified pair set \(\mathcal P\)에서 \(w_a>0\)이고 \(S_{\Delta,W}>0\)이라 하자. 일반
+weight에서는
 
 \[
-S_{\Delta,W}=\sum_{i<j}w_{ij}\Delta_{ij}^2,
+S_{\Delta,W}=\sum_{a\in\mathcal P}w_a\Delta_a^2,
 \qquad
 \rho_D(d,d')=\left[
-\frac{\sum_{i<j}w_{ij}(d_{ij}-d'_{ij})^2}{S_{\Delta,W}}
+\frac{\sum_{a\in\mathcal P}w_a(d_a-d'_a)^2}{S_{\Delta,W}}
 \right]^{1/2}
 \]
 
 를 사용한다. 그러면 population definition은
 \(\operatorname{diam}_{\rho_D}\operatorname{supp}(\mu_\Pi^{\rm adm})>
 \varepsilon_D\)이다. finite sample은 recurrent \(\varepsilon_D\)-separated classes를
-관측할 뿐 non-singleton population support를 certify하지 않는다.
+관측할 뿐 arbitrarily rare population support를 배제하지 못한다. complete-support
+detection claim에는 minimum class mass 또는 missing-mass assumption이 필요하다.
 
 이 정의에서 **realized**는 “수치적으로 실제 관측되었다”는 뜻이고, 다음 세 뜻은
 포함하지 않는다.
@@ -71,9 +75,10 @@ S_{\Delta,W}=\sum_{i<j}w_{ij}\Delta_{ij}^2,
 > declared embedding protocol.**
 
 independent-batch recurrence까지 확인하기 전에는 `terminal-distance dispersion`, 그
-뒤에는 `protocol-conditioned terminal multiplicity`라고 부른다. class-wise minimum
-certificate가 있어야 `multiple local minima`, energy-equivalence test가 있어야
-`near-degenerate minima`, barrier evidence가 있어야 `metastability`라고 부른다.
+뒤에는 `observed recurrent terminal multiplicity at $(M,\varepsilon_D)$`라고 부른다.
+class-wise numerical test 뒤에는 `strict-local-minimum candidates`, stress-equivalence
+interval 뒤에는 `normalized-stress near-equivalence`, barrier evidence 뒤에는
+`metastability under the tested dynamics`라고 부른다.
 
 ## 2. 서로 다른 네 종류의 degeneracy
 
@@ -113,15 +118,18 @@ n_-(H_\perp),\qquad n_0(H_\perp),\qquad n_+(H_\perp).
 - \(n_-=0\), 추가 영모드 존재: infinitesimal soft-mode 후보이다.
 
 마지막 경우가 곧 연속 degeneracy는 아니다. \(f(x)=x^4\)는 고립된 strict minimum을
-가지지만 \(f''(0)=0\)이다. 실제 minimizer manifold \(\mathcal M\)을 주장하려면 적어도
-\(\mathcal M\)의 국소 존재를 보이고
+가지지만 \(f''(0)=0\)이다. analytic minimizer manifold \(\mathcal M\)을 주장하려면 smooth
+fixed-rank quotient stratum에서 \(\dim\mathcal M\ge1\),
+\(\mathcal M\subset\operatorname{Crit}(\mathcal F)\)를 먼저 보이고 모든
+\(X\in\mathcal M\)에서
 
 \[
 \ker H_X=T_X\mathcal M,\qquad
 H_X\big|_{(T_X\mathcal M)^\perp}\succ0
 \]
 
-인 Morse--Bott 구조 또는 동등한 continuation certificate가 필요하다.
+인 Morse–Bott 구조가 필요하다. finite continuation은 declared resolution에서의 numerical
+continuous-degeneracy candidate를 지지하지만 exact manifold의 증명은 아니다.
 
 프로젝트 내부의 더 강한 반례는 path control이다. $P_n$을 $p=2$에서
 $X_i=(a_i,0)$로 exact embedding하고 transverse perturbation
@@ -144,7 +152,7 @@ quotient Hessian에는 transverse zero modes가 있지만 full distance matrix�
 realization은 $\mathrm E(2)$까지 유일하다. 즉 extra kernel과 isolated minimum이
 공존하며, 이 예를 Hessian classifier의 필수 unit test로 사용한다.
 
-### 2.3 Energetic degeneracy
+### 2.3 Normalized-stress near-equivalence
 
 서로 분리된 terminal class를 \(\gamma\)라 하고 대표점의 무차원 stress를
 
@@ -152,7 +160,9 @@ realization은 $\mathrm E(2)$까지 유일하다. 즉 extra kernel과 isolated m
 e_\gamma=\frac{\mathcal F(X_\gamma^\star)}{S_{\Delta,W}}
 \]
 
-라 하자. 두 class의 energy-difference confidence interval이 수치오차와 반복실험
+라 하자. 여기서 \(X_\gamma^\star\)는 사전에 정한 class representative이고,
+\(\mathcal F\)는 thermodynamic energy가 아니라 embedding stress objective다. 두 class의
+stress-difference confidence interval이 수치오차와 반복실험
 불확실성을 포함한 declared equivalence margin \([-\tau_E,\tau_E]\) 안에 들어갈 때만
 `\(\tau_E\)-near-degenerate`라고 부른다. null hypothesis를 기각하지 못했다는 사실만으로
 equivalence가 성립하지 않는다. NEI는 거리를 사용하므로 \(e_\gamma\)의 equivalence를
@@ -166,7 +176,7 @@ V_E=\sum_\gamma P_\gamma(e_\gamma-\bar e)^2,
 \Delta_E=\max_\gamma e_\gamma-\min_\gamma e_\gamma
 \]
 
-이다. energy 의미의 말을 쓰려면 \(\Delta_E\), 각 \(e_\gamma\)의 uncertainty와
+이다. objective-value equivalence를 말하려면 \(\Delta_E\), 각 \(e_\gamma\)의 uncertainty와
 equivalence margin을 반드시 함께 보고한다.
 
 ### 2.4 Realized terminal multiplicity
@@ -188,7 +198,8 @@ population state count는 식별되지 않는다.
 ## 3. Representability spectrum에서의 두 degeneracy
 
 finite, symmetric, hollow, nonnegative $\Delta$에 대해
-$B=-C\Delta^{\circ2}C/2$의 spectrum에서는
+$B=-C\Delta^{\circ2}C/2$의 spectrum에서
+$\mu_a^+=\max(\mu_a,0)$, $\mu_a^-=\max(-\mu_a,0)$로 두면
 
 \[
 \mathcal D_p^{\rm dim}
@@ -215,6 +226,26 @@ cMDS cutoff에서 $\mu_p=\mu_{p+1}>0$이면 optimal subspace가 비유일하고,
 개별 eigenvector 대신 spectral projector를 보고하는 것이 basis-invariant하다.
 
 ## 4. NEI의 정확한 선형대수 표현
+
+prespecified pair set \(\mathcal P\), \(N_+=|\mathcal P|\)에서
+\(0<\mathbb E[d_a]<\infty\), \(\mathbb E[d_a^2]<\infty\)를 가정하고
+
+\[
+\rho_\mu^2(d,d')=\frac1{N_+}\sum_{a\in\mathcal P}
+\left(\frac{d_a-d'_a}{\mathbb E[d_a]}\right)^2
+\]
+
+로 두자. iid \(D,D'\sim\mu_\Pi^{\rm adm}\)에 대해
+
+\[
+\mathcal I(\mu_\Pi^{\rm adm})
+=\frac12\mathbb E[\rho_\mu^2(D,D')].
+\]
+
+따라서 \(\mathcal I=0\) iff \(\mu_\Pi^{\rm adm}\) is a point mass. 다만
+population-dependent \(\rho_\mu\)와 predeclared \(\rho_D\)는 positive threshold에서
+동일한 양이 아니므로, NEI alone은
+\(\operatorname{diam}_{\rho_D}\operatorname{supp}\mu>\varepsilon_D\)의 estimator가 아니다.
 
 쌍 \(a=(i,j)\), \(a=1,\dots,N_+\)에 대해
 
@@ -268,7 +299,8 @@ d_{\rm eff}=\frac{(\sum_a\nu_a)^2}{\sum_a\nu_a^2}
 는 covariance의 spectral participation ratio이다. 이는 선형 분산의 유효 rank이지
 minimizer manifold의 위상적 차원도, 독립 physical degree of freedom의 개수도 아니다.
 이산 점구름도 큰 \(d_{\rm eff}\)를 가질 수 있고 굽은 1차원 manifold도 여러 선형
-주성분을 요구할 수 있다.
+주성분을 요구할 수 있다. \(\operatorname{tr}\Sigma_z=0\)이면 numerator와 denominator가
+모두 0이므로 \(d_{\rm eff}\)는 NA로 보고한다.
 
 ## 5. Exact-convergence decomposition
 
@@ -336,12 +368,15 @@ Gram이 유일하지 않을 수 있다. zero-eigenvalue tie는 이 비유일성�
    계산한다.
 5. **Recurrence and separation** — declared \(\rho_D,\varepsilon_D\) 아래 independent batches에서 class가 재현되고,
    between-class separation이 within-class 수치산포보다 크다.
-6. **Energy test** — near-degeneracy를 말하려면 energy-difference interval이
-   \([-\tau_E,\tau_E]\)에 포함되는 equivalence test를 통과한다.
-7. **Continuation** — continuous degeneracy를 말하려면 soft eigenvector를 따라 유한한
-   기하변위, 작은 gradient, bounded stress rise, no collision을 함께 보인다.
+6. **Normalized-stress equivalence** — objective-value near-equivalence를 말하려면
+   stress-difference interval이 \([-\tau_E,\tau_E]\)에 포함되는 equivalence test를
+   통과한다. 이는 thermodynamic energy degeneracy가 아니다.
+7. **Continuation과 analytic structure** — finite continuation에서 유한한 기하변위,
+   작은 gradient, bounded stress rise와 no collision을 함께 보이면 numerical candidate다.
+   exact local manifold에는 positive-dimensional Morse–Bott critical manifold가 필요하다.
 8. **Finite-\(M\) uncertainty** — \(K_{\rm eff}\), \(\mathcal I\), spectrum을 독립 batch
-   또는 bootstrap으로 보고하고 \(M\)에 대한 포화를 검사한다.
+   또는 bootstrap으로 보고하고 \(M\)에 대한 stability를 검사한다. complete-support
+   detection probability에는 minimum class mass 또는 missing-mass assumption이 필요하다.
 9. **Protocol robustness** — network-level descriptor라고 부르려면 여러 \(\rho_0\)와
    optimizer에서 값 또는 적어도 network 순위의 안정성을 보인다.
 
@@ -353,6 +388,6 @@ batch recurrence가 아직 없다. 따라서 재검산 전의 정확한 상태�
 > **In the legacy runs, the stated polishing schedule did not eliminate the observed
 > terminal-distance dispersion. Because those results are ungated and predate the
 > corrected implementation, recurrent terminal multiplicity, multiple local minima,
-> energetic near-degeneracy, and a continuous minimizer manifold remain open.**
+> normalized-stress near-equivalence, and a continuous minimizer manifold remain open.**
 
 이다.

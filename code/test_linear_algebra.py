@@ -44,6 +44,18 @@ def test_nei_trace_identity() -> None:
     nei = np.mean(np.var(D, axis=0, ddof=0) / mean**2)
     np.testing.assert_allclose(nei, np.trace(Bz) / M, rtol=1e-12, atol=1e-12)
 
+    # For the empirical law, rho_mu is the pair-mean-standardized Euclidean
+    # metric.  Averaging over two iid draws gives exactly twice the variance.
+    rho2 = np.sum((Z[:, None, :] - Z[None, :, :]) ** 2, axis=2)
+    np.testing.assert_allclose(nei, 0.5 * np.mean(rho2), rtol=1e-12, atol=1e-12)
+
+    point_mass = np.repeat(D[:1], M, axis=0)
+    np.testing.assert_allclose(
+        np.mean(np.var(point_mass, axis=0, ddof=0) / point_mass.mean(axis=0) ** 2),
+        0.0,
+        atol=1e-15,
+    )
+
     raw = np.sum(np.var(D, axis=0, ddof=0)) / np.sum(mean**2)
     if np.isclose(nei, raw, rtol=1e-5, atol=1e-8):
         raise AssertionError("test data failed to distinguish raw and standardized traces")
@@ -81,10 +93,9 @@ def main() -> int:
     test_derivatives()
     test_nei_trace_identity()
     test_path_zero_modes_do_not_imply_continuum()
-    print("OK: derivatives, NEI trace normalization, path quartic counterexample")
+    print("OK: derivatives, NEI trace/pair-distance identities, path quartic counterexample")
     return 0
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -1,16 +1,16 @@
 {
-  "_note": "연구미팅 claim ledger. definition, theorem, diagnostic, measurement, open, withdrawn을 분리하며, 재검산 전 결과는 open으로 둔다.",
+  "_note": "연구미팅 claim ledger. 각 문장을 definition, theorem, diagnostic, empirical measurement, open question, withdrawn claim으로 분류한다. 수치 결과는 해당 protocol·gate·finite-M 범위에서만 읽고, 재검산 전 결과는 결론이 아니라 audit trail로 남긴다.",
   "claims": [
     {
       "id": "C1", "status": "theorem",
-      "text": "finite, symmetric, hollow, nonnegative Δ와 고정된 p에 대해 $\\mathcal D_p=0$인 것과 Δ가 $\\mathbb R^p$에서 정확히 실현되는 것은 동치이다.",
-      "basis": "Schoenberg EDM criterion: $B=-CΔ^{\\circ2}C/2\\succeq0$ and $\\operatorname{rank}B\\le p$. $B=0$에는 $\\mathcal D_p=0$ convention을 쓴다.",
+      "text": "finite, symmetric, hollow, nonnegative Δ와 고정된 p에 대해 $\\mathcal D_p=0$인 것과 Δ가 $\\mathbb R^p$에서 exact Euclidean realization을 갖는 것은 동치이다.",
+      "basis": "Schoenberg EDM criterion: $B=-CΔ^{\\circ2}C/2\\succeq0$ and $\\operatorname{rank}B\\le p$. 이는 representability theorem이며 optimization outcome에 대한 명제가 아니다. $B=0$에는 $\\mathcal D_p=0$ convention을 쓴다.",
       "refs": ["schoenberg1935","young1938"]
     },
     {
       "id": "C2", "status": "theorem",
       "text": "모든 off-diagonal weight가 양수이면 $\\mathcal D_p=0\\iff\\min_X\\mathcal F(X)=0$이며, zero-stress realization은 $\\mathrm E(p)$ quotient에서 유일하다.",
-      "basis": "완전 pair-distance matrix는 configuration을 Euclidean congruence까지 결정한다. 이는 positive-stress local minima의 부재나 optimizer의 global convergence를 뜻하지 않는다.",
+      "basis": "모든 pair가 positive weight를 가지므로 zero stress는 모든 target distance의 exact agreement를 뜻하고, complete pair-distance matrix는 configuration을 Euclidean congruence까지 결정한다. 이는 positive-stress local minima의 부재, cMDS/SMACOF objective의 동일성 또는 optimizer의 global convergence를 뜻하지 않는다.",
       "refs": ["schoenberg1935","young1938"]
     },
     {
@@ -22,7 +22,7 @@
     {
       "id": "C4", "status": "diagnostic",
       "text": "$\\mathcal D_p=\\mathcal D_p^{\\rm dim}+\\mathcal D^{\\rm neg}$로 분해해 positive-spectrum rank-truncation residual과 negative-spectrum obstruction을 구분한다.",
-      "basis": "$\\mathcal D_p^{\\rm dim}=\\sum_{a>p}\\mu_a^+/\\sum|\\mu_a|$, $\\mathcal D^{\\rm neg}=\\sum_a\\mu_a^-/\\sum|\\mu_a|$.",
+      "basis": "$\\mu_a^+=\\max(\\mu_a,0)$, $\\mu_a^-=\\max(-\\mu_a,0)$로 두면 $\\mathcal D_p^{\\rm dim}=\\sum_{a>p}\\mu_a^+/\\sum|\\mu_a|$, $\\mathcal D^{\\rm neg}=\\sum_a\\mu_a^-/\\sum|\\mu_a|$이다.",
       "refs": ["gower1985"]
     },
     {
@@ -34,19 +34,19 @@
     {
       "id": "C6", "status": "diagnostic",
       "text": "고정된 deterministic cMDS implementation을 같은 입력에 반복하면 $\\mathcal I_{\\rm cMDS}=0$이다.",
-      "basis": "동일한 algorithmic map을 문자 그대로 반복한 항등식이며 strain minimizer의 수학적 유일성 주장이 아니다.",
+      "basis": "같은 input에 같은 deterministic algorithmic map을 적용하면 출력이 반복되는 항등식이다. 이는 strain minimizer의 mathematical uniqueness나 raw-stress landscape의 single-basin structure를 검정하지 않는다.",
       "refs": ["torgerson1952"]
     },
     {
       "id": "C7", "status": "definition",
-      "text": "NEI의 population estimand는 고정 graph의 intrinsic scalar가 아니라 $\\mu_\\Pi=(q\\circ T_\\Pi)_\\#(\\rho_0\\otimes\\rho_{\\rm alg})$가 유도하는 protocol-conditioned terminal law다.",
-      "basis": "$\\Pi$에는 graph-to-dissimilarity map, p, W, initialization law, algorithmic-randomness law, optimizer와 stopping/polish rule이 들어간다. $M$은 $\\widehat\\mu_{\\Pi,M}$의 sample size이지 population law의 인자가 아니다.",
+      "text": "NEI의 population estimand는 graph 하나에 무조건 부여되는 intrinsic scalar가 아니라 $\\mu_\\Pi=(q\\circ T_\\Pi)_\\#(\\rho_0\\otimes\\rho_{\\rm alg})$가 유도하는 protocol-conditioned terminal law의 functional이다.",
+      "basis": "$\\Pi$에는 graph realization, graph-to-dissimilarity map, p, W, initialization law, algorithmic-randomness law, optimizer와 stopping/polish rule이 들어간다. $M$은 $\\widehat\\mu_{\\Pi,M}$의 sample size이지 population law의 인자가 아니다. Network descriptor라는 더 강한 언어는 protocol robustness가 확보된 뒤에만 허용된다.",
       "refs": ["stillinger1982","stillinger1995"]
     },
     {
       "id": "C8", "status": "theorem",
       "text": "empirical mean $\\bar d_a>0$와 $z_{ma}=d_a^{(m)}/(\\bar d_a\\sqrt{N_+})$를 쓰면 finite-sample identity $\\widehat{\\mathcal I}_M=\\operatorname{tr}(B_z)/M$이 성립한다.",
-      "basis": "$B_z=C_MZZ^{\\mathsf T}C_M$이며 $\\|C_MZ\\|_F^2/M$이 divisor $M$을 쓴 plug-in coefficient-of-variation 평균과 정확히 같다. 이는 population NEI의 unbiasedness를 뜻하지 않으며, 어떤 $\\bar d_a=0$이면 NEI를 undefined로 보고한다.",
+      "basis": "$B_z=C_MZZ^{\\mathsf T}C_M$이며 $\\|C_MZ\\|_F^2/M$이 divisor $M$을 쓴 plug-in coefficient-of-variation 평균과 정확히 같다. 이 algebraic identity는 population NEI의 unbiasedness, consistency at the observed M 또는 support recovery를 뜻하지 않는다. 어떤 $\\bar d_a=0$이면 NEI를 undefined로 보고한다.",
       "refs": ["gower1966"]
     },
     {
@@ -57,14 +57,14 @@
     },
     {
       "id": "C10", "status": "theorem",
-      "text": "terminal class γ에 대해 $\\mathcal I=\\mathcal I_{\\rm within}+\\mathcal I_{\\rm between}$이며, 고립된 minimizer orbit으로 정확히 수렴하면 within 항은 0이다.",
-      "basis": "Law of total variance, pairwise standardized 뒤 평균. exact-convergence 극한의 I에는 Hessian spectrum이 직접 나타나지 않는다.",
+      "text": "declared terminal class γ에 대해 $\\mathcal I=\\mathcal I_{\\rm within}+\\mathcal I_{\\rm between}$이며, 각 class가 하나의 isolated minimizer orbit으로 exact convergence하면 within 항은 0이다.",
+      "basis": "Law of total variance를 pairwise standardized variance에 적용한 뒤 평균한다. 이 exact-convergence limit에서 I는 class occupancy와 class geometry로 정해지며 Hessian spectrum은 식에 직접 나타나지 않는다. 따라서 I와 softness는 동일한 축이 아니다.",
       "refs": []
     },
     {
       "id": "C11", "status": "definition",
-      "text": "realized geometric degeneracy는 $\\operatorname{diam}_{\\rho_D}\\operatorname{supp}(\\mu_\\Pi^{\\rm adm})>\\varepsilon_D$인 경우를 뜻한다.",
-      "basis": "$\\mu_\\Pi^{\\rm adm}=\\mathcal L(q(T_\\Pi)\\mid A_{\\rm num})$와 acceptance $\\alpha_\\Pi=\\Pr(A_{\\rm num})$를 함께 보고한다. finite sample은 recurrent $\\varepsilon_D$-separated classes를 관측할 뿐 population support를 인증하지 않는다.",
+      "text": "$\\alpha_\\Pi>0$일 때 realized geometric degeneracy는 fully specified $\\Pi$와 declared metric/resolution에서 $\\operatorname{diam}_{\\rho_D}\\operatorname{supp}(\\mu_\\Pi^{\\rm adm})>\\varepsilon_D$인 경우를 뜻한다.",
+      "basis": "$\\mu_\\Pi^{\\rm adm}=\\mathcal L(q(T_\\Pi)\\mid A_{\\rm num})$와 acceptance $\\alpha_\\Pi=\\Pr(A_{\\rm num})$를 함께 보고한다. $S_{\\Delta,W}>0$과 prespecified positive-weight pair set을 가정한다. finite positive pair moments 아래 $\\mathcal I=0$ iff 이 law가 point mass지만, $\\mathcal I>0$만으로 $\\rho_D$-diameter가 $\\varepsilon_D$를 넘는지는 정해지지 않는다. finite sample은 recurrent separated classes를 관측할 뿐 complete population support를 인증하지 않는다.",
       "refs": ["stillinger1995"]
     },
     {
@@ -76,13 +76,13 @@
     {
       "id": "C13", "status": "theorem",
       "text": "$\\ker H_\\perp\\ne0$은 continuous minimizer family의 충분조건이 아니다.",
-      "basis": "$f(x)=x^4$와 p=2의 exact collinear path embedding은 추가 quotient zero modes와 isolated minimum이 공존하는 반례이다. Morse–Bott 또는 finite continuation이 필요하다.",
+      "basis": "$f(x)=x^4$와 p=2의 exact collinear path embedding은 추가 quotient zero modes와 isolated minimum이 공존하는 반례이다. finite continuation은 numerical candidate evidence다. Analytic conclusion에는 smooth fixed-rank quotient stratum에서 $\\dim\\mathcal M\\ge1$, $\\mathcal M\\subset\\operatorname{Crit}(\\mathcal F)$, $\\ker H_X=T_X\\mathcal M$ 및 positive-definite normal Hessian이 필요하다.",
       "refs": ["connelly1996"]
     },
     {
       "id": "C14", "status": "definition",
-      "text": "분리된 admissible minima들의 normalized-stress difference에 대한 equivalence interval이 선언한 margin $[-\\tau_E,\\tau_E]$ 안에 있을 때만 $\\tau_E$-near-degeneracy라고 부른다.",
-      "basis": "$e_\\gamma=\\mathcal F_\\gamma/S_{\\Delta,W}$, $S_{\\Delta,W}=\\sum_{i<j}w_{ij}\\Delta_{ij}^2$. 단순한 non-rejection이나 NEI만으로 energy equivalence를 판정할 수 없다.",
+      "text": "서로 분리되고 class별 minimum-candidate test를 통과한 terminal class pair의 normalized-stress difference interval이 선언한 margin $[-\\tau_E,\\tau_E]$ 안에 포함될 때만 $\\tau_E$-near-equivalence라고 부른다.",
+      "basis": "predeclared representative $X_\\gamma^\\star$에 대해 $e_\\gamma=\\mathcal F(X_\\gamma^\\star)/S_{\\Delta,W}$로 둔다. $\\mathrm{CI}_{1-\\alpha}(e_\\gamma-e_{\\gamma'})\\subset[-\\tau_E,\\tau_E]$가 필요하며 non-rejection은 equivalence가 아니다. $\\mathcal F$는 thermodynamic energy가 아니라 embedding stress objective다.",
       "refs": []
     },
     {
@@ -99,32 +99,32 @@
     },
     {
       "id": "C17", "status": "open",
-      "text": "corrected $\\widehat{\\mathcal I}_M$이 predeclared numerical-noise null 또는 equivalence bound를 tighter-tolerance 및 independent-batch sensitivity 뒤에도 초과하는가.",
-      "basis": "legacy 측정은 $\\widehat{\\mathcal I}_M:0.1100\\to0.07665$였으나 all-run ungated diagnostic이다. positive point estimate만으로 terminal multiplicity를 주장하지 않는다.",
+      "text": "corrected $\\widehat{\\mathcal I}_M$이 predeclared numerical-noise null/equivalence bound를 tighter tolerance, larger M와 independent batches에서도 초과하는가.",
+      "basis": "legacy 측정은 $\\widehat{\\mathcal I}_M:0.1100\\to0.07665$였으나 all-run ungated diagnostic이다. Positive point estimate는 numerical residue, rare terminals와 protocol dependence를 구분하지 못하므로 terminal multiplicity의 증거로 단독 사용하지 않는다.",
       "refs": ["borg2005"]
     },
     {
       "id": "C18", "status": "measured",
-      "text": "legacy 실행에서 polished terminal distance matrices 24개는 보고된 관측 해상도에서 모두 서로 분리되었다.",
-      "basis": "최소 상대거리 0.0795, cutoff $10^{-8}$–$10^{-2}$에서 $K_{\\rm obs}=24$인 all-run ungated result다. 이는 distinct sampled configurations이지 recurrent classes, certified minima 또는 equal-energy states의 수가 아니다.",
+      "text": "legacy 실행에서 polished terminal distance matrices 24개는 사용한 sample metric과 cutoff 범위에서 서로 분리되어 관측되었다.",
+      "basis": "최소 상대거리 0.0795, cutoff $10^{-8}$–$10^{-2}$에서 $K_{\\rm obs}=24$인 all-run ungated result다. 이는 해당 batch의 distinct sampled geometries이지 recurrent classes, certified minima, population-support size 또는 equal-energy states의 수가 아니다.",
       "refs": []
     },
     {
       "id": "C19", "status": "diagnostic",
       "text": "$K_{\\rm obs}=M=24$에서는 state coverage와 occupancy가 식별되지 않는다.",
-      "basis": "모든 관측이 singleton이므로 independent-batch recurrence, larger-M saturation, singleton/doubleton 및 new-state rate가 필요하다.",
+      "basis": "모든 관측이 singleton이므로 independent-batch recurrence, larger-M stability, singleton/doubleton 및 new-state rate가 필요하다. 어떤 finite M도 arbitrarily rare support를 배제하지 못하므로 complete-support claim에는 minimum class mass 또는 missing-mass assumption이 추가로 필요하다.",
       "refs": []
     },
     {
       "id": "C20", "status": "measured",
-      "text": "네 network의 exploratory comparison에서는 optimizer별 NEI가 동일한 자릿수 범위에 있었으나 protocol equality 또는 optimizer independence는 확립되지 않았다.",
-      "basis": "표본은 네 network뿐이고 terminal law 자체가 optimizer에 따라 달라졌다. 후속 비교에서는 사전 선언한 relative-difference statistic, uncertainty와 rank stability를 보고한다.",
+      "text": "네 network의 exploratory comparison에서 optimizer별 NEI는 같은 order of magnitude였지만 protocol equality 또는 optimizer invariance는 확립되지 않았다.",
+      "basis": "표본은 네 network뿐이고 optimizer가 바뀌면 terminal law 자체가 바뀐다. 후속 비교에서는 predeclared relative-difference statistic과 uncertainty를 within-network에서 보고하고, network ranking의 stability를 별도로 평가한다.",
       "refs": ["borg2005"]
     },
     {
       "id": "C21", "status": "measured",
       "text": "분석된 77개 network artifact에서 raw-distance covariance effective rank와 NEI 사이의 descriptive Spearman correlation은 0.757이었다.",
-      "basis": "sampling frame에 대한 population generalization이 아닌 artifact-specific raw-cloud result다. pairwise-standardized covariance의 $d_{\\rm eff}$로 재계산하기 전에는 ‘same operator’ 결과가 아니다.",
+      "basis": "이 값은 현재 sampling frame과 preprocessing에 조건부인 descriptive association이며 population generalization이나 mechanism을 뜻하지 않는다. Pairwise-standardized covariance의 $d_{\\rm eff}$로 재계산하기 전에는 두 양을 ‘same operator’에서 나온 결과라고 부를 수 없다.",
       "refs": []
     },
     {
@@ -135,14 +135,14 @@
     },
     {
       "id": "C23", "status": "open",
-      "text": "spectral representability $(\\mathcal D_p^{\\rm dim},\\mathcal D^{\\rm neg})$와 protocol-conditioned terminal observables $(\\mathcal I,d_{\\rm eff})$가 비중복적인가.",
-      "basis": "size·mean distance·density·degree heterogeneity를 matched/stratified한 ensemble에서 conditional MI 또는 out-of-sample incremental prediction과 permutation null을 사용한다. 허용 결론은 analyzed ensemble 내 conditional association이다.",
+      "text": "spectral representability $(\\mathcal D_p^{\\rm dim},\\mathcal D^{\\rm neg})$와 protocol-conditioned terminal observables $(\\mathcal I,d_{\\rm eff})$가 network covariates를 조건화한 뒤에도 nonredundant한가.",
+      "basis": "size, mean distance, density와 degree heterogeneity를 matched/stratified한 ensemble에서 conditional MI 또는 out-of-sample incremental prediction을 permutation null과 비교한다. 허용 결론은 analyzed ensemble 내 conditional association/nonredundancy이며 causal mechanism이나 universality가 아니다.",
       "refs": []
     },
     {
       "id": "C24", "status": "open",
-      "text": "NEI가 energy landscape의 realized geometric degeneracy를 잰다는 population-level 문장은 corrected numerical gates, declared metric/resolution, recurrence, finite-$M$ stability와 protocol sensitivity 뒤에 판정한다.",
-      "basis": "현재 지지되는 것은 legacy polishing schedule이 terminal-distance dispersion을 제거하지 못했다는 관측뿐이다. terminal multiplicity, $\\tau_E$-near-degeneracy와 continuous minimizer manifold는 각각 recurrence, energy equivalence test와 continuation이 필요하다.",
+      "text": "NEI는 $\\mu_\\Pi^{\\rm adm}$의 population functional로 정의된다. open question은 corrected data가 resolved nonzero spread를 확립하는지, 그리고 그 결과가 declared protocol perturbation에 얼마나 robust한지다.",
+      "basis": "현재 자료가 직접 지지하는 것은 legacy polishing schedule 뒤에도 terminal-distance dispersion이 남았다는 관측뿐이다. Recurrent terminal multiplicity, normalized-stress near-equivalence와 analytic continuous minimizer manifold는 각각 recurrence/class certification, equivalence interval과 Morse–Bott structure를 요구한다. finite continuation은 마지막 항의 numerical candidate evidence일 뿐이다.",
       "refs": ["stillinger1995"]
     }
   ]

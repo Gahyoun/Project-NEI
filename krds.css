@@ -189,8 +189,8 @@ code{background:var(--surface);border-radius:3px;padding:1px 6px;font-size:13px;
 /* ── 줌 되는 계층형 캔버스 ─────────────────────────────── */
 .canvaswrap{position:relative;border:1px solid var(--hairline);border-radius:6px;
   background:var(--canvas);overflow:hidden}
-#map .canvaswrap{left:50%;width:min(1680px,calc(100vw - 32px));transform:translateX(-50%)}
-.mapc{height:clamp(440px,52vh,580px);width:100%;cursor:grab;touch-action:none}
+#map .canvaswrap{left:50%;width:min(1840px,calc(100vw - 32px));transform:translateX(-50%)}
+.mapc{height:clamp(540px,64vh,720px);width:100%;cursor:grab;touch-action:none}
 .mapc:active{cursor:grabbing}
 .graphsvg{display:block;user-select:none}
 .zoomctl{position:absolute;right:12px;top:12px;z-index:2;display:flex;gap:6px}
@@ -199,16 +199,29 @@ code{background:var(--surface);border-radius:3px;padding:1px 6px;font-size:13px;
   font-family:inherit}
 .zb.wide{width:auto;padding:0 12px;font-size:14px}
 .zb:hover{border-color:var(--primary);color:var(--primary)}
+.graph-edges .ge{fill:none;pointer-events:none;stroke-linecap:round;stroke-linejoin:round;
+  vector-effect:non-scaling-stroke;transition:opacity .16s,stroke-width .16s}
+.graph-edges .ge-line{stroke-width:1.9;opacity:.88}
+.graph-edges .ge-line.ge-body{pointer-events:stroke;cursor:help}
+.graph-edges .ge-line.ge-body:hover{stroke-width:2.8;opacity:1}
+.graph-edges .ge-halo{stroke:#fff;stroke-width:6;opacity:.96}
+.graph-edges .ge-arrow.ge-line{stroke-width:2.1;opacity:.96}
+.graph-edges .ge-arrow.ge-halo{stroke-width:6.5}
+.graph-edges .ge.subdued{opacity:.07}
+.graph-edges .ge-line.incident{stroke-width:3.1;opacity:1}
+.graph-edges .ge-halo.incident{stroke-width:8;opacity:1}
+.graph-edges .ge-arrow.ge-line.incident{stroke-width:3.3}
 .gn{cursor:pointer}
 .gn:focus-visible{outline:none}
 .gn:focus-visible .gn-bg{stroke:var(--node-domain);stroke-width:2.8}
 .gn-bg{transition:fill .14s,stroke-width .14s,filter .14s}
-.gn-label{font-family:var(--sans);font-size:13.5px;font-weight:680}
+.gn-label{font-family:var(--sans);font-size:14.2px;font-weight:680}
 .gn:hover .gn-bg{fill:var(--surface-primary);stroke:var(--node-domain);stroke-width:2.4;
   filter:drop-shadow(0 2px 3px rgba(30,33,36,.14))}
 .gn.sel .gn-label{font-weight:700}
 .gn.sel .gn-bg{fill:var(--surface-primary);stroke:var(--node-domain);stroke-width:3}
 .gn.dim{opacity:.26}
+@media(max-width:760px){.mapc{height:600px}}
 
 /* ── 1차 일단락 ───────────────────────────────────────── */
 .reasons{margin:0;padding-left:20px;font-size:15px}

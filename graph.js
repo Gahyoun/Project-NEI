@@ -77,7 +77,10 @@ export function makeGraph(host, { nodes, domains, edges, onSelect }) {
     return lines.slice(0, 3);
   };
 
-  const NODE_W = 144, ROW_GAP = 66, COL_GAP = 28, H = 56;
+  /* A connection needs its own visual room.  In particular, the old 10 px
+     vertical clearance made adjacent cards read as one block and left no
+     space for crossing edges. */
+  const NODE_W = 150, ROW_GAP = 88, COL_GAP = 58, H = 60;
   const geo = new Map();
   const colWidths = rows.map(() => NODE_W);
   const colX = [];
@@ -93,11 +96,11 @@ export function makeGraph(host, { nodes, domains, edges, onSelect }) {
     cursorX += cw + COL_GAP;
   });
   const graphW = Math.max(cursorX - COL_GAP, 1);
-  const bounds = { x0: -60, y0: -maxH / 2 - 76, x1: graphW + 60, y1: maxH / 2 + 76 };
+  const bounds = { x0: -70, y0: -maxH / 2 - 82, x1: graphW + 70, y1: maxH / 2 + 82 };
 
   /* ── 4. 그린다 ───────────────────────────────────────────── */
   const cam = el("g", { id: "cam" });
-  const gEdge = el("g"), gNode = el("g");
+  const gEdge = el("g", { class: "graph-edges" }), gNode = el("g");
   cam.append(gEdge, gNode); svg.appendChild(cam);
 
   const EC = { theorem: "#256ef4", definition: "#477a56", diagnostic: "#477a56",
@@ -106,20 +109,48 @@ export function makeGraph(host, { nodes, domains, edges, onSelect }) {
   const NC = { given: "#5b6470", theorem: "#256ef4", definition: "#207037",
     diagnostic: "#ab5b00", measured: "#ab5b00", open: "#6d7882",
     caution: "#6a2d86", conjecture: "#6a2d86", verdict: "#a8332a" };
-  E.forEach(e => {
-    const a = geo.get(e.from), b = geo.get(e.to);
-    const x0 = a.x + a.w / 2, x1 = b.x - b.w / 2, mx = (x0 + x1) / 2;
-    const d = `M${x0},${a.y} C${mx},${a.y} ${mx},${b.y} ${x1},${b.y}`;
-    const p = el("path", { d, fill: "none", stroke: EC[e.status] || "#6d7882",
-      "data-from": e.from, "data-to": e.to,
-      "stroke-width": 1.3, opacity: 0.75,
-      "stroke-dasharray": (e.status === "open" || e.status === "conjecture") ? "5 4" : "" });
+  /* Spread incident edges over independent side ports instead of forcing all
+     curves through the centre of a card.  Sorting by the opposite endpoint
+     also preserves the barycentric order and avoids gratuitous crossings. */
+  const ports = new Map();
+  const portOffset = (i, n) => n < 2 ? 0 : (i - (n - 1) / 2) * Math.min(9, 34 / (n - 1));
+  let selectedId = null, hoveredId = null;
+  nodes.forEach(n => {
+    const outgoing = E.map((e, i) => ({ e, i })).filter(x => x.e.from === n.id)
+      .sort((u, v) => geo.get(u.e.to).y - geo.get(v.e.to).y);
+    const incoming = E.map((e, i) => ({ e, i })).filter(x => x.e.to === n.id)
+      .sort((u, v) => geo.get(u.e.from).y - geo.get(v.e.from).y);
+    outgoing.forEach((x, i) => {
+      const p = ports.get(x.i) || { sy: 0, ty: 0 };
+      p.sy = portOffset(i, outgoing.length); ports.set(x.i, p);
+    });
+    incoming.forEach((x, i) => {
+      const p = ports.get(x.i) || { sy: 0, ty: 0 };
+      p.ty = portOffset(i, incoming.length); ports.set(x.i, p);
+    });
+  });
+
+  E.forEach((e, ei) => {
+    const a = geo.get(e.from), b = geo.get(e.to), po = ports.get(ei) || { sy: 0, ty: 0 };
+    const x0 = a.x + a.w / 2, x1 = b.x - b.w / 2;
+    const y0 = a.y + po.sy, y1 = b.y + po.ty;
+    const bend = Math.max(30, Math.min(92, (x1 - x0) * 0.42));
+    const d = `M${x0},${y0} C${x0 + bend},${y0} ${x1 - bend},${y1} ${x1},${y1}`;
+    const arrow = `M${x1 - 7},${y1 - 4.5} L${x1},${y1} L${x1 - 7},${y1 + 4.5}`;
+    const common = { "data-from": e.from, "data-to": e.to };
+
+    /* The white under-stroke separates crossings without inventing an edge
+       hierarchy.  Draw it immediately before its coloured line so that each
+       later edge forms a small, legible bridge at a crossing. */
+    gEdge.appendChild(el("path", { d, ...common, class: "ge ge-halo ge-body" }));
+    const p = el("path", { d, ...common, class: "ge ge-line ge-body",
+      stroke: EC[e.status] || "#6d7882",
+      "stroke-dasharray": (e.status === "open" || e.status === "conjecture") ? "7 5" : "" });
     const ti = el("title"); ti.textContent = `${e.label}  (${e.status})`; p.appendChild(ti);
     gEdge.appendChild(p);
-    const hd = el("path", { d: `M${x1 - 5.4},${b.y - 3.6} L${x1},${b.y} L${x1 - 5.4},${b.y + 3.6}`,
-      "data-from": e.from, "data-to": e.to,
-      fill: "none", stroke: EC[e.status] || "#6d7882", "stroke-width": 1.3, opacity: 0.85 });
-    gEdge.appendChild(hd);
+    gEdge.appendChild(el("path", { d: arrow, ...common, class: "ge ge-halo ge-arrow" }));
+    gEdge.appendChild(el("path", { d: arrow, ...common, class: "ge ge-line ge-arrow",
+      stroke: EC[e.status] || "#6d7882" }));
   });
 
   nodes.forEach(n => {
@@ -131,7 +162,7 @@ export function makeGraph(host, { nodes, domains, edges, onSelect }) {
       "stroke-width": 1.5, class: "gn-bg" }));
     g.appendChild(el("circle", { cx: g0.x - g0.w / 2 + 15, cy: g0.y,
       r: 5, fill: c, class: "gn-dot" }));
-    const lines = wrapLabel(n.label), lineH = 13.5;
+    const lines = wrapLabel(n.label), lineH = 14.2;
     const t = el("text", { class: "gn-label", x: g0.x + 7,
       y: g0.y - (lines.length - 1) * lineH / 2 + 4,
       "text-anchor": "middle", fill: sc });
@@ -144,6 +175,10 @@ export function makeGraph(host, { nodes, domains, edges, onSelect }) {
     g.onkeydown = ev => { if (ev.key === "Enter" || ev.key === " ") {
       ev.preventDefault(); g.onclick();
     }};
+    g.onmouseenter = () => { hoveredId = n.id; renderEdgeFocus(); };
+    g.onmouseleave = () => { if (hoveredId === n.id) hoveredId = null; renderEdgeFocus(); };
+    g.onfocus = () => { hoveredId = n.id; renderEdgeFocus(); };
+    g.onblur = () => { if (hoveredId === n.id) hoveredId = null; renderEdgeFocus(); };
     gNode.appendChild(g);
   });
 
@@ -180,10 +215,18 @@ export function makeGraph(host, { nodes, domains, edges, onSelect }) {
   });
   svg.addEventListener("pointerup", () => { drag = null; svg.style.cursor = ""; });
 
+  function renderEdgeFocus() {
+    const focusId = hoveredId || selectedId;
+    gEdge.querySelectorAll(".ge").forEach(p => {
+      const incident = focusId && (p.dataset.from === focusId || p.dataset.to === focusId);
+      p.classList.toggle("incident", Boolean(incident));
+      p.classList.toggle("subdued", Boolean(focusId && !incident));
+    });
+  }
   function select(id) {
+    selectedId = id || null;
     gNode.querySelectorAll(".gn").forEach(g => g.classList.remove("sel", "dim"));
-    gEdge.querySelectorAll("path").forEach(p => p.style.opacity = "");
-    if (!id) return;
+    if (!id) { renderEdgeFocus(); return; }
     const near = new Set([id]);
     E.forEach(e => { if (e.from === id) near.add(e.to); if (e.to === id) near.add(e.from); });
     gNode.querySelectorAll(".gn").forEach(g => {
@@ -191,10 +234,7 @@ export function makeGraph(host, { nodes, domains, edges, onSelect }) {
       g.classList.toggle("sel", i === id);
       g.classList.toggle("dim", !near.has(i));
     });
-    gEdge.querySelectorAll("path").forEach(p => {
-      const incident = p.dataset.from === id || p.dataset.to === id;
-      p.style.opacity = incident ? "0.95" : "0.08";
-    });
+    renderEdgeFocus();
   }
   const ro = new ResizeObserver(() => fit());
   ro.observe(host);

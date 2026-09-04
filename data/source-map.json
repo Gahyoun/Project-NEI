@@ -88,8 +88,8 @@
     },
     "morse": {
       "main": {"kind":"partial","location":"sec:curvature, lines 363–365","summary":"Near-zero mode만으로 floppy manifold를 주장하지 않고 continuation을 요구하지만 Morse–Bott condition은 없다."},
-      "si": {"kind":"none","location":"직접 대응 없음","summary":"Near-zero diagnostic은 있으나 Morse–Bott 또는 finite continuation certificate가 없다."},
-      "note": {"kind":"partial","location":"sec:continuation; eq:continuation_certificate","summary":"Finite-amplitude continuation은 상세하지만 ker H=T M 및 normal positivity의 Morse–Bott condition은 없다."}
+      "si": {"kind":"none","location":"직접 대응 없음","summary":"Near-zero diagnostic은 있으나 analytic Morse–Bott condition 또는 finite-continuation candidate test가 없다."},
+      "note": {"kind":"partial","location":"sec:continuation; eq:continuation_certificate","summary":"Finite-amplitude numerical candidate test는 상세하지만 positive-dimensional critical manifold, kernel–tangent equality와 normal positivity의 analytic Morse–Bott condition은 없다."}
     },
     "NEI": {
       "main": {"kind":"direct","location":"First Moment; eq:pairwise_statistics–eq:NEI","summary":"Pairwise relative variance 평균, zero-mean handling과 scale invariance를 정의한다."},
@@ -107,9 +107,9 @@
       "note": {"kind":"none","location":"직접 정의 없음; closest eq:group_stats","summary":"K와 n_gamma/M은 있지만 K_eff formulas가 없다."}
     },
     "Egap": {
-      "main": {"kind":"none","location":"직접 대응 없음","summary":"Final stress 필요성만 언급하고 class energy gap/equivalence test는 없다."},
+      "main": {"kind":"none","location":"직접 대응 없음","summary":"Final stress 필요성만 언급하고 class normalized-stress equivalence test는 없다."},
       "si": {"kind":"partial","location":"sec:tests, Protocol control and terminal geometry","summary":"Cluster별 terminal stress를 요구하지만 normalized e_gamma, margin과 equivalence CI는 없다."},
-      "note": {"kind":"none","location":"직접 대응 없음","summary":"Groupwise normalized stress와 energy-equivalence test가 없다."}
+      "note": {"kind":"none","location":"직접 대응 없음","summary":"Groupwise normalized stress와 equivalence-interval test가 없다."}
     },
     "multiplicity": {
       "main": {"kind":"direct","location":"Introduction; sec:clustering; sec:var_decomp; sec:analytical_nei","summary":"Run-distance clustering, threshold stability, recurrence와 between/within decomposition으로 terminal multiplicity를 다룬다."},
@@ -117,13 +117,13 @@
       "note": {"kind":"partial","location":"sec:grouping; eq:terminal_separation; regime discussion","summary":"Finite-sample grouping과 recurrence는 있으나 admissible population support의 metric-resolution definition은 없다."}
     },
     "energydeg": {
-      "main": {"kind":"none","location":"직접 대응 없음","summary":"Equal-energy/equivalence criterion과 tau_E가 없다."},
-      "si": {"kind":"none","location":"직접 대응 없음","summary":"Separated minima의 energy equivalence를 판정하는 정의가 없다."},
-      "note": {"kind":"none","location":"직접 대응 없음","summary":"Similar stress 가능성만 언급하며 energetic near-degeneracy certificate는 없다."}
+      "main": {"kind":"none","location":"직접 대응 없음","summary":"Normalized-stress equivalence criterion과 tau_E가 없다."},
+      "si": {"kind":"none","location":"직접 대응 없음","summary":"Separated minimum candidates의 objective-value equivalence를 판정하는 정의가 없다."},
+      "note": {"kind":"none","location":"직접 대응 없음","summary":"Similar stress 가능성만 언급하며 normalized-stress equivalence interval은 없다."}
     },
     "robust": {
-      "main": {"kind":"direct","location":"Results; tab:protocol_dependence; fig:saturation","summary":"Null ensemble, tolerance/optimizer sensitivity, protocol comparison과 M-convergence를 검사한다."},
-      "si": {"kind":"partial","location":"sec:nulls; sec:tests; eq:nulltest","summary":"Full-run bootstrap과 nested null inference는 강하지만 recurrence, M-saturation과 protocol rank stability는 없다."},
+      "main": {"kind":"direct","location":"Results; tab:protocol_dependence; fig:saturation","summary":"Null ensemble, tolerance/optimizer sensitivity, protocol comparison과 finite-M stability를 검사한다."},
+      "si": {"kind":"partial","location":"sec:nulls; sec:tests; eq:nulltest","summary":"Full-run bootstrap과 nested null inference는 강하지만 recurrence, finite-M stability와 protocol rank stability는 없다."},
       "note": {"kind":"partial","location":"rare-state power; grouping; nulls; uncertainty/convergence","summary":"Bootstrap, independent batch와 null analysis는 강하지만 M/law 분리, alpha_Pi와 protocol rank correlation은 없다."}
     },
     "rigid": {
