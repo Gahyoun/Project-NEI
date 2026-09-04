@@ -25,8 +25,8 @@ stress, collision과 corrected quotient-Hessian inertia가 모두 없다. 다음
 
 $$
 \{X^{(m)},D^{(m)},z_m,S_{\Delta,W},\mathcal F_m/S_{\Delta,W},\eta_{g,m},
-\min_{i<j}d_{ij}^{(m)},\chi_{{\rm coll},m},n_{-,m},n_{0,m},
-\lambda_{{\rm soft},m}\}
+\min_{i<j}d_{ij}^{(m)},\chi_{\mathrm{coll},m},n_{-,m},n_{0,m},
+\lambda_{\mathrm{soft},m}\}
 $$
 
 을 저장한다. 저장 용량을 줄일 때에는 $X^{(m)}$를 compact source of truth로 두고
@@ -39,7 +39,7 @@ subsample을 쓰면 그 결과는 exploratory coverage로 따로 표시한다.
 
 $$
 s_{\Delta,W}=\sqrt{S_{\Delta,W}/\sum_{i<j}w_{ij}},\qquad
-\chi_{{\rm coll},m}=\frac{\min_{i<j}d_{ij}^{(m)}}{s_{\Delta,W}}
+\chi_{\mathrm{coll},m}=\frac{\min_{i<j}d_{ij}^{(m)}}{s_{\Delta,W}}
 $$
 
 를 쓴다. 현재 implementation의 $W\equiv1$에서는
