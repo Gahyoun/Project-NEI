@@ -336,23 +336,21 @@
    "id": "calib",
    "domain": "measure",
    "label": "calibration null",
-   "formula": "\\mathcal I_{\\rm floor}=\\mathcal I\\big|_{\\mathcal D_p=0}",
-   "def": "$\\mathcal D_p=0$ 인 그래프는 minimizer 가 유일함이 정리이므로, 같은 protocol 에서 잰 $\\widehat{\\mathcal I}_M$ 이 곧 그 protocol 의 수치 잡음 바닥이다. 경로 그래프 $P_n$ 에서 polish 후 $\\sim10^{-16}$. 모든 $\\mathcal I$ 는 이 바닥 대비로 보고한다.",
+   "formula": "\\widehat{\\mathcal I}_{M,\\rm ctrl}\\quad\\text{with verified zero-stress realization}",
+   "def": "complete pair set의 exact Euclidean target에서 $\\mathcal D_p=0$은 global zero-stress realization의 $\\mathrm E(p)$-orbit 유일성을 보장. nonglobal local minima의 부재나 arbitrary initialization의 global convergence는 보장하지 않음. control의 terminal distances가 target을 재현하는지 별도 확인 후 residual spread를 protocol·size·conditioning별 numerical baseline으로 사용. path control은 rank-deficient geometry이므로 full-rank control과 함께 비교. 기존 calibration 수치는 gradient factor-2 수정 전 결과이며 corrected rerun 대상. 하나의 control 값을 모든 network의 universal floor로 사용하지 않음.",
    "refs": [
     "schoenberg1935",
     "higham2002"
    ],
-   "status": "measured"
+   "status": "diagnostic"
   },
   {
    "id": "cmnull",
    "domain": "physics",
    "label": "graph null ensemble",
-   "formula": "z_{\\mathcal I}=\\frac{\\mathcal I(G)-\\langle\\mathcal I\\rangle_{\\rm CM}}{\\sigma_{\\rm CM}}",
-   "def": "degree sequence 를 보존한 randomization 앙상블. $\\mathcal I$ 가 앙상블 안에서 재현되면 그것은 degree sequence 의 함수일 뿐이다. $z\\ne0$ 이어야 topology 가 정한다고 말할 자격이 생긴다. 현재 설계에 없는 항목이며 1차 일단락의 필수 조건.",
-   "refs": [
-    "wiseman1995"
-   ],
+   "formula": "z_{\\mathcal I}=\\frac{\\widehat{\\mathcal I}(G)-\\langle\\widehat{\\mathcal I}\\rangle_{\\rm null}}{s_{\\rm null}}\\quad(s_{\\rm null}>0)",
+   "def": "prespecified graph null ensemble과 동일 embedding protocol 아래 NEI의 상대적 위치 비교. degree-preserving randomization에서 재현되더라도 NEI가 degree sequence만의 함수라는 증명은 아님. nonzero z-score 자체도 significance 또는 mechanism의 증거가 아님. sampler의 제약·mixing, connectivity 및 weight 처리, null sample size와 uncertainty 보고. degree sequence를 넘는 association을 주장할 때 필요한 비교이며 observable 정의 자체의 필수 조건은 아님.",
+   "refs": [],
    "status": "open"
   },
   {
@@ -360,11 +358,8 @@
    "domain": "measure",
    "label": "class recurrence",
    "formula": "\\mathcal C_1 \\leftrightarrow \\mathcal C_2 \\ (\\varepsilon_D)",
-   "def": "서로 다른 하강 사상과 독립 batch 에서 얻은 $\\varepsilon_D$-분리 class 집합의 양방향 일치. $\\mathcal F$ 의 minimizer 는 하강 사상의 성질이 아니므로, 집합이 일치하면 그 class 들은 landscape 의 성질이다. 스칼라 $\\mathcal I$ 의 일치는 이보다 훨씬 약한 증거이다.",
-   "refs": [
-    "lee2016gradient",
-    "trosset1997"
-   ],
+   "def": "독립 batch 및 명시한 optimizer family에서 ε_D-separated terminal classes의 재현 여부 비교. class-set matching, occupancy uncertainty, unmatched classes와 rare-class detection power를 함께 보고. recurrence는 tested protocol family에 대한 robustness evidence이며 objective의 모든 minima를 찾았다는 증명은 아님. class별 stationarity·collision·quotient-curvature certificate는 별도. scalar NEI의 일치만으로 class geometry의 일치를 대체하지 않음.",
+   "refs": [],
    "status": "open"
   },
   {
@@ -372,11 +367,8 @@
    "domain": "physics",
    "label": "residual disorder",
    "formula": "r_a=\\delta_a-d_a(X^\\star)",
-   "def": "인증된 minimizer 에서의 쌍별 잔차장. $\\mathcal D_p$ 가 $\\lVert r\\rVert$ 의 크기를 재는 반면, multiplicity 는 $r$ 의 공간적 무질서도가 지배할 것으로 보인다 — 격자에서 $r$ 은 질서적이고 ER 에서는 무질서하다. 2차 일단락의 후보 alegorithm 이며 지금은 가설이다.",
-   "refs": [
-    "wiseman1995",
-    "wales2003"
-   ],
+   "def": "인증된 terminal configuration에서 signed pair residual field를 측정하는 mechanism hypothesis. 여기서는 $r_a=\\delta_a-d_a$ convention이며 $\\mathcal D_p$는 cMDS strain의 normalized spectral deficiency이므로 stress residual norm과 동일하지 않음. residual의 norm·sign pattern·correlation과 Hessian의 prestress contribution을 분리 비교. lattice와 randomized controls 사이 multiplicity 차이를 residual organization이 설명하는지 검증할 2차 일단락 대상. 현재는 가설이며 lattice/ER residual ordering을 확정 결과로 사용하지 않음.",
+   "refs": [],
    "status": "conjecture"
   }
  ]

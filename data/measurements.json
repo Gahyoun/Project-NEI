@@ -168,7 +168,7 @@
     "v": 24
    }
   ],
-  "verdict": "24개 polished terminal geometries는 관측상 서로 분리됨. 그러나 corrected stationarity/Hessian gate, independent-batch recurrence와 energy test 전에는 24개 minima 또는 degeneracy로 판정하지 않음."
+  "verdict": "24개 polished terminal geometries는 관측상 서로 분리됨. corrected stationarity·collision·quotient-curvature gate와 independent-batch recurrence 전에는 certified local minima로 판정하지 않음. equal-stress degeneracy를 주장할 경우에만 별도의 stress-equivalence test 필요. class count 자체는 equal-energy degeneracy의 증거가 아님."
  },
  "I_vs_deff": {
   "title": "기존 raw-cloud $d_{\\mathrm{eff}}$ — 표준화 재계산 필요",

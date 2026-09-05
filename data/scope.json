@@ -126,7 +126,7 @@
    "split",
    "unresolved"
   ],
-  "member_note": "hyperedge 안이 1차 일단락 범위이다. 안쪽은 정의·정리로 닫히거나 1차에 반드시 측정할 항목이고, 바깥은 2차로 넘긴다.",
+  "member_note": "members는 1차 일단락 논의 대상의 metadata. 지도에는 enclosing hyperedge를 표시하지 않으며, node text color는 epistemic status를 표시. membership 자체는 검증 완료 또는 필수 분석의 판정이 아님. 구체적 claim과 필요한 evidence는 scope와 claim ledger에서 확인.",
   "excluded_nodes": [
    {
     "k": "cmnull",

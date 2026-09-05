@@ -306,56 +306,56 @@
    "from": "Dp",
    "to": "calib",
    "via": "double_centering",
-   "label": "$\\mathcal D_p=0$ 이면 minimizer 유일",
+   "label": "complete EDM: global zero-stress orbit 유일성",
    "status": "theorem"
   },
   {
    "from": "calib",
    "to": "NEI",
-   "via": "double_centering",
-   "label": "잡음 바닥 대비로 보고",
-   "status": "measured"
+   "via": "robustness",
+   "label": "matched numerical baseline과 비교",
+   "status": "diagnostic"
   },
   {
    "from": "delta",
    "to": "cmnull",
-   "via": "pushforward",
+   "via": "robustness",
    "label": "degree sequence 보존 randomization",
    "status": "open"
   },
   {
    "from": "cmnull",
    "to": "NEI",
-   "via": "double_centering",
-   "label": "$z_{\\mathcal I}$ 로 비중복성 판정",
+   "via": "robustness",
+   "label": "prespecified null 대비 association 검증",
    "status": "open"
   },
   {
    "from": "terminal",
    "to": "recur",
-   "via": "pushforward",
+   "via": "robustness",
    "label": "독립 batch · 다른 optimizer",
    "status": "open"
   },
   {
    "from": "recur",
    "to": "multiplicity",
-   "via": "hessian",
-   "label": "집합 일치가 landscape 성질을 뜻함",
+   "via": "robustness",
+   "label": "tested protocol family의 class recurrence",
    "status": "open"
   },
   {
    "from": "Dp",
    "to": "resid",
-   "via": "double_centering",
-   "label": "크기는 재지만 무질서도는 못 잰다",
+   "via": "objective",
+   "label": "spectral strain과 signed stress residual의 구분",
    "status": "caution"
   },
   {
    "from": "resid",
    "to": "multiplicity",
    "via": "hessian",
-   "label": "잔차장의 무질서도가 지배하는가",
+   "label": "residual organization의 mechanism hypothesis",
    "status": "open"
   }
  ]

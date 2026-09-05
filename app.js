@@ -135,12 +135,10 @@ function drawMap(){
   GRAPH?.destroy?.();
   const shown=DB.nodes.nodes.filter(n=>!STATE.off.has(n.domain));
   const ids=new Set(shown.map(n=>n.id));
-  const fc=DB.scope.first_closure;
   GRAPH = window.NEIGraph.makeGraph(host,{
     nodes: shown, domains: DB.nodes.domains,
     edges: DB.edges.edges.filter(e=>ids.has(e.from)&&ids.has(e.to)),
-    hyper: fc && fc.members ? { label: fc.label || "1차 일단락", color: fc.color || "#207037",
-                                members: fc.members.filter(i=>ids.has(i)) } : null,
+    hyper: null,
     onSelect: id => { STATE.sel=id; renderPanel(); }
   });
 }

@@ -153,7 +153,7 @@ figcaption .s{font-size:13px;color:var(--muted);display:block;margin-top:3px}
 .source-card.is-none{background:var(--surface);opacity:.76;border-top-style:dashed}
 .source-card.is-partial{border-top-style:dotted}
 .source-head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:4px}
-.source-name{font-weight:800;font-size:16px}.source-kind{font-size:12px;font-weight:700;
+.source-name{font-weight:800;font-size:16px;color:inherit}.source-kind{font-size:12px;font-weight:700;
   border:1px solid currentColor;border-radius:999px;padding:1px 7px;white-space:nowrap}
 .source-file{font-size:12px;color:currentColor;opacity:.72;overflow-wrap:anywhere}
 .source-location{font-size:12px;font-weight:700;color:currentColor;margin:6px 0}

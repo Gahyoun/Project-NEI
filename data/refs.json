@@ -33,7 +33,7 @@
   "pages": "325–338",
   "doi": "10.1093/biomet/53.3-4.325",
   "verified": true,
-  "why": "principal coordinates analysis. cMDS가 PCA와 같은 대상임을 보여 주는 근거.",
+  "why": "Complete interpoint distances에서 principal coordinates를 복원하고 real Euclidean solution의 필요충분조건을 제시. PCA correspondence는 Euclidean observations에서 유도된 distances와 compatible centering/scaling 아래의 관계. Arbitrary non-Euclidean graph dissimilarity에 대한 cMDS=PCA 주장의 근거 아님.",
   "area": "distance geometry"
  },
  "torgerson1952": {
@@ -362,7 +362,7 @@
   "volume": "",
   "pages": "480–489",
   "verified": false,
-  "why": "주어진 거리를 R^k 에서 실현하는 문제가 강한 의미로 NP-hard. representability 를 '판정' 이 아니라 '결손의 정도' 로 재야 하는 계산복잡도상의 이유.",
+  "why": "Fixed k에서 일부 edge lengths만 주어진 weighted graph의 exact Euclidean embeddability, 즉 incomplete distance-geometry decision problem의 strong NP-hardness. Complete distance matrix의 EDM/target-rank spectral test나 D_p 계산의 NP-hardness를 뜻하지 않음.",
   "area": "complexity"
  },
  "liberti2014": {
@@ -517,7 +517,7 @@
   "pages": "1–29",
   "doi": "10.1016/j.jctb.2004.11.002",
   "verified": true,
-  "why": "평면에서 유일 실현의 조합적 판정. K 가 1 이 되는 그래프 조건에 대응.",
+  "why": "2D generic bar-and-joint framework의 global rigidity를 3-connectivity와 redundant rigidity로 특성화(작은 complete graph 예외 포함). 주어진 edge lengths의 realization uniqueness up to Euclidean isometry에 관한 결과. Shortest-path full-distance raw-stress optimization의 terminal class가 K=1이라는 결론은 제공하지 않음.",
   "area": "rigidity"
  },
  "absil2008": {
@@ -551,7 +551,7 @@
   "pages": "1246–1257",
   "verified": true,
   "area": "nonconvex optimization",
-  "why": "임의 초기화 gradient descent 가 strict saddle 을 확률 1로 피한다. terminal 이 saddle 이 아니라고 말할 때 근거가 되지만, SMACOF 는 정확한 gradient flow 가 아니므로 그대로 적용되지 않는다."
+  "why": "C^2 objective, L-Lipschitz gradient, constant step size 0<alpha<1/L 및 Lebesgue-absolutely-continuous initialization 아래에서 any fixed strict saddle로 수렴할 확률이 0이라는 결과. 모든 limit가 local minimum이라는 결론에는 strict-saddle coverage, saddle set의 countability와 limit existence 등 추가 조건 필요. SMACOF majorization이나 line-search polish에는 자동 적용 불가."
  },
  "trosset1997": {
   "authors": "M. W. Trosset, R. Mathar",
@@ -562,7 +562,7 @@
   "pages": "158–162",
   "verified": false,
   "area": "nonconvex optimization",
-  "why": "stress 에 nonglobal minimizer 가 존재함을 구성적으로 보인다. 다중성이 알고리즘 결함이 아니라는 직접 근거."
+  "why": "Metric MDS raw-STRESS가 nonglobal minimizer를 가질 수 있는 constructive instance 제시. Objective의 nonconvex multimodality 가능성을 지지. 현재 graph에서의 multiple minima, observed recurrence, numerical admissibility 또는 spread의 nonalgorithmic origin을 인증하지 않음."
  },
  "raue2009": {
   "authors": "A. Raue, C. Kreutz, T. Maiwald, J. Bachmann, M. Schilling, U. Klingmüller, J. Timmer",
@@ -573,7 +573,7 @@
   "pages": "1923–1929",
   "verified": true,
   "area": "identifiability",
-  "why": "structural(국소) 대 practical(전역) 식별가능성의 표준 구분. 이 논문의 local/global 비식별 구분이 정확히 이 분류를 따른다."
+  "why": "Partially observed dynamical-system parameter inference에서 structural non-identifiability와 finite/noisy-data에 의한 practical non-identifiability를 profile likelihood로 구분. Structural=local, practical=global이라는 축이 아니며 embedding objective의 local/global minima나 terminal multiplicity 분류에 직접 대응하지 않음."
  },
  "dokmanic2015": {
   "authors": "I. Dokmanić, R. Parhizkar, J. Ranieri, M. Vetterli",
@@ -606,7 +606,7 @@
   "pages": "606–610",
   "verified": true,
   "area": "numerics",
-  "why": "effective rank 의 정의. participation ratio 계열 양을 쓸 때 무엇을 재는지 명시한다."
+  "why": "Normalized singular values의 Shannon entropy를 지수화한 entropy effective rank의 정의. Inverse-Simpson participation ratio는 별도의 spectral functional. Spectrum 전반의 effective dimensionality를 요약한다는 선례를 제공하지만 본문의 participation-ratio formula를 직접 지지하지 않음."
  },
  "marchenko1967": {
   "authors": "V. A. Marchenko, L. A. Pastur",
@@ -639,7 +639,7 @@
   "pages": "",
   "verified": true,
   "area": "disordered systems",
-  "why": "landscape 의 minimum 집합과 연결성을 다루는 표준 단행본. 'basin' 을 쓰려면 여기 수준의 증거가 필요하다."
+  "why": "Energy-landscape의 minima, descent/quench에 따른 basins of attraction, transition states와 connectivity를 구분하는 표준 출처. Basin은 declared minimization map의 catchment/preimage로 정의 가능하며 barrier 측정은 명칭의 전제 아님. Barrier·transition-state evidence는 connectivity, kinetics 또는 metastability 주장에 별도 필요."
  },
  "drusvyatskiy2017": {
   "authors": "D. Drusvyatskiy, H. Wolkowicz",
