@@ -319,3 +319,27 @@ code{background:var(--surface);border-radius:3px;padding:1px 6px;font-size:13px;
 .need-1차권장{background:#fff4e0;color:#8a5a00}
 .need-2차{background:var(--surface-primary);color:var(--primary-deep)}
 .need-2차이후{background:var(--surface);color:var(--border-strong)}
+
+/* Reviewed discussion hierarchy; source audit is distinct from a confirmed gap. */
+.review-stamp{font-size:13px;font-weight:650;color:var(--muted);letter-spacing:.02em}
+.proof-note{margin:18px 0;padding:16px 20px;border:1px solid var(--hairline);border-radius:8px;background:var(--surface)}
+.proof-note summary{cursor:pointer;font-weight:700;color:var(--primary-deep)}
+.proof-note[open] summary{margin-bottom:16px}
+.proof-note .katex-display,.fml{overflow-x:auto;overflow-y:hidden;padding:5px 0}
+.research-panel{margin-bottom:18px;scroll-margin-top:90px}
+.research-tree{font-size:15px;line-height:1.7;max-width:none}
+.research-tree>li{margin-bottom:17px}
+.research-tree p{margin:5px 0 10px;font-size:15px;line-height:1.7}
+.research-tree li>strong{color:var(--foreground);font-size:15px}
+.research-tree ul{margin-top:8px}
+.source-card.is-unreviewed{border-style:dashed;background:var(--surface)}
+.need-주장조건부{background:#fff4e0;color:#8a5a00}
+.need-2차대상{background:var(--surface-primary);color:var(--primary-deep)}
+#review-status{font-size:15px;line-height:1.65}
+#kernelPanel{min-width:0}
+.research-discussion-list{padding:0;max-width:none;list-style:none}
+.research-discussion-list>li{padding:0;margin:0 0 20px}
+.research-discussion{scroll-margin-top:85px}
+.research-discussion p,#origBody p,#kernelPanel p{font-size:15px;line-height:1.7;margin:6px 0 12px}
+.research-discussion>.note-tree,#origBody>.note-tree,#kernelPanel>.note-tree{font-size:15px;line-height:1.7}
+@media(max-width:640px){.proof-note{padding:13px}.research-tree{padding-left:18px}}

@@ -33,10 +33,11 @@
 
 ## W3. `NEI 는 위상 제약의 intrinsic 측도이다`
 
-$\rho_0$ 가 point mass 이면 optimizer map 이 결정론적이므로 terminal ensemble 이 한
-점으로 붕괴하고 $\mathcal{I}\equiv0$ 이 **알고리즘적으로 강제**된다. classical MDS 와
-spectral layout 이 정확히 그 경우이다. NEI 는 (topology, sampling protocol) 쌍의
-성질이며, 같은 소절이 열 줄 뒤에서 스스로 그렇게 적고 있었다.
+$\rho_0$와 $\rho_{\rm alg}$가 모두 point mass이고 terminal map이 결정론적이면 terminal
+ensemble이 한 점으로 붕괴하고 $\mathcal{I}\equiv0$이 **알고리즘적으로 강제**된다.
+고정된 deterministic eigensolver와 tie-breaking을 쓰는 classical MDS와 spectral layout이
+그 경우이다. NEI는 (topology, sampling protocol) 쌍의 성질이며, 같은 소절이 열 줄 뒤에서
+스스로 그렇게 적고 있었다.
 
 ## W4. `Eq.(inter_basin_variance) 가 $\mathcal{I}$ 를 알고리즘 불안정성에서 수학적으로 분리한다`
 
@@ -46,7 +47,10 @@ initialization` — 아래에서만 성립하는 $M\to\infty$ 극한이다. 알�
 
 **측정으로도 무너진다.** 같은 $X^{(0)}$ 에서 SMACOF 와 L-BFGS 는 서로 다른 terminal 로
 간다 (상대차 9–10%, 24개 중 일치 0개). $X^{(0)}\mapsto[X^\star]$ 사상이 optimizer 에
-의존하므로 basin occupancy $P_\gamma$ 는 landscape 만의 성질이 아니다.
+의존하므로 basin occupancy $P_\gamma$ 는 landscape 만의 성질이 아니다. exact
+convergence에서도 local curvature, barrier와 basin-boundary geometry가 $P_\gamma$를
+바꿀 수 있다. Hessian spectrum이 conditional variance identity에 직접 나타나지 않는다는
+사실은 dynamical irrelevance의 정리가 아니다.
 
 ## W5. `random geometric graph 의 metric 은 구성상 Euclidean 이다`
 
@@ -64,6 +68,21 @@ $\sigma_{ij}^2=P(1-P)\Delta_{ij}^2$ 자체는 옳다. 그러나 $\mathcal{I}$ �
 $r_{ij}=\sigma_{ij}^2/\overline{d}_{ij}^{\,2}$ 이고 분모
 $\overline{d}_{ij}=Pa+(1-P)b$ 도 $P$ 에 의존한다. 따라서 $r_{ij}$ 의 최대는 $P=1/2$ 가
 아니라 $P^\star=b/(a+b)$ 이고 그 값은 $(a-b)^2/(4ab)$ 이다.
+
+## W8. `$\mathcal D_p$와 $\mathcal I$는 statistically independent하다`
+
+두 양은 **정의상 서로 다른 functional**이다. $\mathcal D_p$는 fixed $(\Delta,p)$의
+optimizer-independent spectral diagnostic이고, $\mathcal I$는 protocol-induced terminal
+law의 functional이다. 그러나 이 구분에서 graph ensemble에 대한 statistical independence는
+따라오지 않는다. 두 양이 같은 $\Delta$와 graph covariates를 공유하므로 association,
+conditional independence와 mechanism은 각각 별도 empirical hypothesis다.
+
+## W9. `full EDM realization의 유일성은 다른 local minima를 배제한다`
+
+full exact distance matrix는 그 zero-stress realization을 $\mathrm E(p)$ congruence까지
+유일하게 정한다. 이 identity가 nonconvex raw-stress objective의 positive-stress local
+minima 부재를 뜻하지는 않는다. 따라서 exact EDM uniqueness는 global zero-set의
+statement이고 landscape uniqueness의 certificate가 아니다.
 
 ## 기록: 내가 틀렸던 것
 

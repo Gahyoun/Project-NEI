@@ -39,6 +39,11 @@ $$
 $\mathcal D_p=0$ convention을 쓴다. 여기서 $\Delta$는 finite, symmetric, hollow,
 nonnegative dissimilarity로 가정한다. 따라서
 
+Primary implementation의 numerator는
+$\sum_{a>p}\mu_a^++\sum_a\mu_a^-$이며 factor $2$를 붙이지 않는다.
+이는 Hermitian nuclear-norm projection residual과 일치한다. Full symmetric
+pair-matrix의 off-diagonal Frobenius bookkeeping에서 생기는 factor $2$와 혼합하지 않는다.
+
 - $\delta\mapsto c\delta$에 불변이다.
 - $p$에 대해 비증가한다.
 - $\mathcal D_p=0$은 $\Delta$가 $\mathbb R^p$에서 exact Euclidean realizable인
@@ -46,7 +51,7 @@ nonnegative dissimilarity로 가정한다. 따라서
 - zero set은 Schoenberg 정리로 canonical하지만 양의 결손에 사용할 norm과
   normalization은 하나의 diagnostic 선택이다.
 
-## 두 성분은 물리적으로 다르다
+## 두 성분의 linear-algebraic 구분
 
 $$
 \mathcal D_p=\mathcal D_p^{\rm dim}+\mathcal D^{\rm neg},

@@ -9,10 +9,10 @@
 | L0 | 어떤 $G\mapsto\Delta$, $p$, $W$를 썼는가 | 선언 필요 |
 | L1 | $\Delta$는 $\mathbb R^p$에서 얼마나 representable한가 | $\mathcal D_p^{\rm dim}$, $\mathcal D^{\rm neg}$ |
 | L2 | 얻은 embedding이 $\Delta$를 충분히 보존하는가 | normalized stress와 residual profile 필요 |
-| L3 | terminal이 stationary하고 regular한가 | corrected all-run gate 재실행 필요 |
+| L3 | terminal이 stationary한 numerical second-order candidate인가 | corrected all-run gate 재실행 필요 |
 | L4 | admissible terminal law가 얼마나 퍼졌는가 | standardized NEI 재계산 |
-| L5 | 점유된 terminal class가 몇 개인가 | independent-batch recurrence와 $K_{\rm eff}$ |
-| L6 | class들이 같은 energy인가 | $\Delta_E$ 미측정 |
+| L5 | recurrent terminal class와 occupancy가 어떻게 분포하는가 | independent-batch recurrence와 $K_{\rm eff}$ |
+| L6 | certified class들이 normalized stress에서 near-equivalent한가 | 해당 claim에 한해 equivalence test 필요 |
 | L7 | 추가 zero mode가 finite motion으로 이어지는가 | continuation 미측정 |
 | L8 | separated states 사이에 barrier가 있는가 | path/saddle search 미측정 |
 | L9 | 결과가 protocol과 graph null을 넘어 안정적인가 | robustness와 null ensemble 필요 |
@@ -75,7 +75,8 @@ degree-preserving null과 비교한다. 이는 degenerate eigenspace 안의 임�
 ## continuous degeneracy
 
 $H_\perp$의 near-zero eigenvalue는 higher-order candidate다. 다음 세 조건을 같이
-만족하는 constrained continuation이 필요하다.
+만족하는 constrained continuation은 declared resolution에서 numerical candidate를
+지지한다.
 
 1. soft direction으로 quotient distance가 유한하게 증가
 2. $\|\nabla_\perp\mathcal F\|$가 tolerance 안에 유지
@@ -83,7 +84,13 @@ $H_\perp$의 near-zero eigenvalue는 higher-order candidate다. 다음 세 조�
 
 경로 $P_n$의 collinear exact embedding은 필수 negative control이다. 이 경우 extra
 Hessian zero modes가 있어도 stress는 transverse displacement에서 quartic하게 증가하고
-minimum continuum은 없다.
+continuous minimizer family는 없다.
+
+Smooth nontrivial critical family가 존재하면 그 tangent는 Hessian kernel에 포함되지만
+converse는 성립하지 않는다. Analytic family는 direct construction과 local-minimality
+argument로 증명 가능. Kernel–tangent equality와 positive-definite normal Hessian의
+Morse–Bott condition은 strong sufficient certificate이지 continuous degeneracy의
+필요조건이 아니다.
 
 ## barrier와 metastability
 
@@ -127,26 +134,31 @@ G^{(b)}\sim\mathcal E_{\rm null},\qquad
 X_0^{(b,m)}\sim\rho_0.
 $$
 
-- degree-preserving simple connected rewiring
-- matched $G(N,E)$ 또는 density null
+- ordered $k$-regular graph와 동일한 $(N,E,k)$의 connected random-regular ensemble
+- 일반 graph의 degree-preserving simple connected rewiring
+- random-regular ensemble과 matched $G(N,E)$ 또는 density-null ER
 - exact-realizable path control
 - symmetry-rich control
 
 모든 null에 같은 preprocessing, $\Delta$, $p$, $W$, optimizer, polish와 $M$을 적용한다.
-real network에 대한 핵심 비교는
+첫 비교는 degree를 고정한 edge organization, 두 번째 비교는 full degree sequence,
+세 번째 비교는 degree heterogeneity까지 순서대로 해제한다. Real network가 두 null보다
+작다는 hypothesis를 쓸 경우 다음 one-sided contrasts를 사전 선언할 수 있다.
 
 $$
 \mathcal I_{\rm real}<\widetilde{\mathcal I}_{\rm deg},\qquad
 \mathcal I_{\rm real}<\widetilde{\mathcal I}_{\rm ER}
 $$
 
-두 방향이면 충분하며, 두 null 사이의 순서를 강제하지 않는다. graph-to-graph
-variation과 within-graph restart variation을 계층적으로 분리한다.
+두 방향의 관측은 해당 hypothesis를 지지하지만 방향 자체를 narrative로 강제하지 않는다.
+두 null 사이의 순서도 강제하지 않는다. graph-to-graph variation과 within-graph restart
+variation을 계층적으로 분리한다.
 
-## 비중복성
+## nonredundancy
 
-representability와 terminal reproducibility가 서로를 결정하지 않는다는 주장은
-$\mathcal I$–$d_{\rm eff}$ correlation으로 검증되지 않는다. 필요한 것은
+Representability와 terminal reproducibility가 different estimands라는 정의적 구분은
+statistical independence 또는 nonredundancy를 함의하지 않는다.
+$\mathcal I$–$d_{\rm eff}$ correlation도 그 주장을 검정하지 않는다. 필요한 것은
 
 $$
 \mathcal D_p^{\rm dim},\mathcal D^{\rm neg}

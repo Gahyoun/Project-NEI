@@ -1,41 +1,53 @@
 {
- "_note": "확정된 표본 정의. 내용 기준(Weisfeiler-Lehman + edge hash)으로 중복을 접었다. code/build_manifest.py 로 재생성하고, 모든 실행은 data/sample_paths.txt 를 --paths-file 로 쓴다.",
+ "_note": "Legacy sample manifest와 수치 보존. 2026-09-05 audit: current subset 48 ≠ certified sampling frame. Duplicate candidates 및 exclusion heuristics 재검토 필요.",
  "asof": "2026-09-05",
- "headline": "후보 83개 파일 → 내용 해시로 대표 56개 → 근사 중복 7개와 수치 병리 1개를 더 제외해 **분석 표본 48개**를 확정했다. 파일명 기준 중복 제거로는 잡히지 않는 것들이 있었다 — power-US-Grid.mtx 와 inf-power.mtx 와 inf-power 2.mtx 가 같은 network 였다.",
+ "headline": "현재 분석 subset 48개. Legacy selection: 후보 83 → hash grouping 및 loader screening 후 56 → near-duplicate candidate 7개와 numerical-review candidate 1개 제외 후 48. 계산 완료와 selection validity는 별도 판정.",
  "counts": [
   {
-   "k": "후보 파일",
+   "k": "Candidate files",
    "v": 83
   },
   {
-   "k": "대표 (표본)",
+   "k": "Hash-screened representatives",
    "v": 56
   },
   {
-   "k": "중복으로 접힘",
+   "k": "Initial grouped files",
    "v": 15
   },
   {
-   "k": "제외",
+   "k": "Initial loader/small-N exclusions",
    "v": 12
+  },
+  {
+   "k": "Additional heuristic exclusions",
+   "v": 8
+  },
+  {
+   "k": "Current analyzed subset",
+   "v": 48
   }
  ],
  "method": [
   {
    "k": "edge hash",
-   "v": "GCC 의 정렬된 edge 목록 SHA-1. label 이 같은 완전 중복을 정확히 잡는다."
+   "v": "현 구현은 label이 있는 unweighted edge 목록의 SHA-1. 동일 hash는 weight·weight-to-length rule의 일치를 보장하지 않음. Weighted graph에는 normalized weight와 loader provenance를 포함한 signature 필요."
   },
   {
    "k": "WL hash",
-   "v": "Weisfeiler-Lehman graph hash (3 iteration). label 이 달라도 같은 구조를 잡는다. 완전한 isomorphism invariant 는 아니지만 $(N,E)$ 와 함께 쓰면 실용상 안전하다."
+   "v": "3-iteration Weisfeiler–Lehman hash는 isomorphism invariant지만 complete invariant가 아님. 서로 다른 regular graphs도 같은 hash 가능. (N,E,WL)은 candidate screening에만 사용. Merge 전 weighted isomorphism 또는 선언된 metric-equivalence policy에 따른 확인 필요."
   },
   {
-   "k": "대표 선택",
-   "v": "파생본(.cleaned.tsv)이 아닌 것 우선, 그 다음 경로가 짧은 것."
+   "k": "Representative selection",
+   "v": "Legacy tie-break: 원본 우선, 다음으로 짧은 path. Graph/metric equivalence 인증 후에만 적용 가능한 provenance rule."
   },
   {
-   "k": "제외 규칙",
-   "v": "loader 예외, 또는 $N<20$ (loader 실패 의심)."
+   "k": "Loader screening",
+   "v": "Loader exception과 N<20은 재검토 flag. 작은 graph라는 이유만으로 loader failure 확정 불가. Raw format, edge semantics, GCC policy를 확인한 뒤 inclusion decision 기록."
+  },
+  {
+   "k": "Summary provenance",
+   "v": "아래 composition·weighted·N_range 메타데이터는 first-stage 56개 기준. 48개 subset의 확정 descriptive statistics로 재사용 금지."
   }
  ],
  "composition": {
@@ -168,8 +180,8 @@
    "why": "drop: N=2 < 20 (loader 실패 의심)"
   }
  ],
- "open": "reduced Chilean power grid 는 대표로 남아 있으나 $|\\mu_{\\min}|=1.5\\times10^{31}$, $\\mathrm{rank}_\\epsilon=6$ 의 수치 병리를 낸다. $N$ 문턱으로는 걸러지지 않으므로 numerical admissibility 플래그를 따로 두어야 한다.",
- "near_duplicate_rule": "WL hash 는 node 한둘 차이를 잡지 못한다 — ca-GrQc.edges($N{=}4057$)와 그 .cleaned.tsv($N{=}4058$)가 그 예다. 그래서 2 차 규칙을 둔다: $|\\Delta N|\\le2$, $|\\Delta E|\\le2$, $\\mathcal D_2$ 가 소수 4 자리까지 일치하면 근사 중복으로 보고 .cleaned.tsv 쪽을 버린다.",
+ "open": "Audit pending: weighted equivalence, 7개 near-duplicate candidate의 raw-data provenance, reduced Chilean graph의 weight-to-length conversion과 dynamic range. 선택된 48개 값은 유지하되, 56개 및 exclusion-corrected sample에 대한 sensitivity comparison 전까지 확정 sample이라는 표현 유보.",
+ "near_duplicate_rule": "Legacy heuristic: |ΔN|≤2, |ΔE|≤2, D₂ 소수 4자리 일치. 이는 graph equality나 metric equality의 증명이 아님. 분석 대상 D₂에 의존한 exclusion으로 selection bias 가능. Raw-file lineage와 edit correspondence로 재검토하고 include/exclude sensitivity 보고.",
  "near_duplicates": [
   {
    "k": "soc-hamsterster.edges.cleaned.tsv",
@@ -208,11 +220,11 @@
   }
  ],
  "numerical_exclusion": {
-  "rule": "$|\\mu_{\\min}|>10^{12}$ 또는 $\\mathrm{rank}_\\epsilon<0.1N$",
+  "rule": "Legacy flags: $|\\mu_{\\min}|>10^{12}$ 또는 $\\mathrm{rank}_\\epsilon<0.1N$. 자동 제외 근거로 사용하지 않음.",
   "hit": [
    "the reduced Chilean power grid (Seung-Woo Son).csv"
   ],
-  "why": "reduced Chilean 은 weight 변환 후 거리 동적범위가 폭주해 Gram 이 거대 eigenvalue 하나에 지배당한다."
+  "why": "Absolute eigenvalue는 거리 scale에 의존하고 low rank는 유효한 graph metric에서도 가능. Nonfinite entries, symmetry, diagonal, relative spectrum, scale-normalized dynamic range 및 weight semantics 검증 후 판정. Reduced Chilean의 원인은 현재 코드 감사만으로 확정하지 않음."
  },
  "final_n": 48
 }

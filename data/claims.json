@@ -90,14 +90,14 @@
    "id": "C10",
    "status": "theorem",
    "text": "declared terminal class γ에 대해 $\\mathcal I=\\mathcal I_{\\rm within}+\\mathcal I_{\\rm between}$이며, 각 class가 하나의 isolated minimizer orbit으로 exact convergence하면 within 항은 0.",
-   "basis": "Law of total variance를 pairwise standardized variance에 적용한 뒤 평균. 이 exact-convergence limit에서 I는 class occupancy와 class geometry로 정해지며 Hessian spectrum은 식에 직접 나타나지 않음. 따라서 I와 softness는 동일한 축이 아님.",
+   "basis": "Law of total variance를 pairwise standardized variance에 적용한 뒤 평균. 이 exact-convergence limit에서 I는 class occupancy와 class geometry로 정해지며 Hessian spectrum은 식에 explicit term으로 나타나지 않음. 다만 curvature는 basin map과 class occupancy를 바꾸어 I에 간접적으로 들어올 수 있으므로 statistical independence를 뜻하지 않음. 따라서 I와 softness는 동일한 observable이 아님.",
    "refs": []
   },
   {
    "id": "C11",
    "status": "definition",
    "text": "$\\alpha_\\Pi>0$일 때 realized geometric degeneracy는 fully specified $\\Pi$와 declared metric/resolution에서 $\\operatorname{diam}_{\\rho_D}\\operatorname{supp}(\\mu_\\Pi^{\\rm adm})>\\varepsilon_D$인 경우를 의미.",
-   "basis": "$\\mu_\\Pi^{\\rm adm}=\\mathcal L(q(T_\\Pi)\\mid A_{\\rm num})$와 acceptance $\\alpha_\\Pi=\\Pr(A_{\\rm num})$를 함께 보고. $S_{\\Delta,W}>0$과 prespecified positive-weight pair set을 가정. finite positive pair moments 아래 $\\mathcal I=0$ iff 이 law가 point mass지만, $\\mathcal I>0$만으로 $\\rho_D$-diameter가 $\\varepsilon_D$를 넘는지는 정해지지 않음. finite sample은 recurrent separated classes를 관측할 뿐 complete population support를 인증하지 않음.",
+   "basis": "$\\mu_\\Pi^{\\rm adm}=\\mathcal L(q(T_\\Pi)\\mid A_{\\rm num})$와 acceptance $\\alpha_\\Pi=\\Pr(A_{\\rm num})$를 함께 보고. Primary estimand는 모든 off-diagonal pair를 positive weight로 포함하고 $S_{\\Delta,W}>0$을 가정. finite positive pair moments 아래 $\\mathcal I=0$ iff full pair-distance law가 point mass. proper pair subset을 쓰면 이 zero-set statement는 선택된 coordinate projection에만 성립. $\\mathcal I>0$만으로 $\\rho_D$-diameter가 $\\varepsilon_D$를 넘는지는 정해지지 않으며, finite sample은 complete population support를 인증하지 않음.",
    "refs": [
     "stillinger1995"
    ]
@@ -114,8 +114,8 @@
   {
    "id": "C13",
    "status": "theorem",
-   "text": "$\\ker H_\\perp\\ne0$은 continuous minimizer family의 충분조건이 아님.",
-   "basis": "$f(x)=x^4$와 p=2의 exact collinear path embedding은 추가 quotient zero modes와 isolated minimum이 공존하는 반례. finite continuation은 numerical candidate evidence. Analytic conclusion에는 smooth fixed-rank quotient stratum에서 $\\dim\\mathcal M\\ge1$, $\\mathcal M\\subset\\operatorname{Crit}(\\mathcal F)$, $\\ker H_X=T_X\\mathcal M$ 및 positive-definite normal Hessian이 필요.",
+   "text": "smooth fixed-rank quotient stratum의 nontrivial critical curve를 따라서는 $T_X\\mathcal M\\subseteq\\ker H_\\perp$이지만, $\\ker H_\\perp\\ne0$은 continuous minimizer family의 충분조건이 아님.",
+   "basis": "$f(x)=x^4$와 p=2의 exact collinear path embedding은 추가 quotient zero modes와 isolated minimum이 공존하는 반례. finite continuation은 numerical candidate evidence. Family의 직접 구성과 local minimality가 analytic proof를 줄 수 있음. $\\ker H_X=T_X\\mathcal M$과 positive-definite normal Hessian을 갖는 Morse–Bott structure는 regular local-minimum manifold를 보이는 strong sufficient certificate이지 continuous degeneracy의 필요조건이 아님.",
    "refs": [
     "connelly1996"
    ]
@@ -201,16 +201,16 @@
    "id": "C24",
    "status": "open",
    "text": "NEI는 $\\mu_\\Pi^{\\rm adm}$의 population functional로 정의. open question은 corrected data가 resolved nonzero spread를 확립하는지, 그리고 그 결과가 declared protocol perturbation에 얼마나 robust한지 여부.",
-   "basis": "현재 자료가 직접 지지하는 것은 legacy polishing schedule 뒤에도 terminal-distance dispersion이 남았다는 관측에 한정. Recurrent terminal multiplicity, normalized-stress near-equivalence와 analytic continuous minimizer manifold는 각각 recurrence/class certification, equivalence interval과 Morse–Bott structure를 요구. finite continuation은 마지막 항의 numerical candidate evidence에 그침.",
+   "basis": "현재 자료가 직접 지지하는 것은 legacy polishing schedule 뒤에도 terminal-distance dispersion이 남았다는 관측에 한정. Recurrent terminal multiplicity에는 recurrence/class certification이 필요. Normalized-stress near-equivalence를 별도로 주장할 때만 equivalence interval이 필요. Analytic continuous minimizer family에는 direct existence/local-minimality proof가 필요하며 Morse–Bott은 가능한 sufficient certificate 중 하나. finite continuation은 numerical candidate evidence에 그침.",
    "refs": [
     "stillinger1995"
    ]
   },
   {
    "id": "C25",
-   "status": "measured",
-   "text": "$\\mathcal D_p$ 의 크기는 realized multiplicity 를 결정하지 않는다. 링·격자는 $\\mathcal D_2\\approx0.39$–$0.40$ 이면서 $\\widehat{\\mathcal I}_M$ 이 numerical floor 에 있고, ER·BA 는 $\\mathcal D_2\\approx0.85$–$0.90$ 에서 $\\widehat{\\mathcal I}_M\\approx10^{-1}$ 로 floor 보다 15 자릿수 이상 위에 있다.",
-   "basis": "쌍별 표준화 $\\widehat{\\mathcal I}_M$, polish 후. 질서 구조의 값은 point mass 로부터 unresolved 이므로 값끼리 비교하지 않는다. 지지되는 명제는 $\\mathcal D_p>0\\;\\not\\Rightarrow\\;\\mathcal I>0$ 이다.",
+   "status": "open",
+   "text": "$\\mathcal D_p$의 positive magnitude만으로 protocol-conditioned terminal nonconcentration을 예측할 수 있는가. 현재 ordered controls와 ER·BA의 대비는 이 질문을 제기하지만 결론을 닫지 않음.",
+   "basis": "Legacy 표는 링·격자의 $\\widehat{\\mathcal I}_M$이 numerical floor에 가깝고 ER·BA가 $O(10^{-1})$인 pattern을 보였으나, objective–gradient coefficient가 불일치한 implementation에서 산출. 또한 $\\mathcal D_p$가 matched된 comparison이 아니고 ordered value는 population zero로 인증되지 않음. 따라서 $\\mathcal D_p>0\\not\\Rightarrow\\mathcal I>0$, 자릿수 간격 또는 mechanism claim은 허용되지 않음. Corrected rerun과 $\\mathcal D_p$/covariate-matched null이 필요.",
    "refs": [
     "schoenberg1935",
     "dokmanic2015"
@@ -218,9 +218,9 @@
   },
   {
    "id": "C26",
-   "status": "measured",
-   "text": "polish 는 질서 구조에서 $\\widehat{\\mathcal I}_M$ 을 허용오차와 함께 끌어내리지만 ER·BA 에서는 실질적으로 바꾸지 못한다.",
-   "basis": "같은 실행. 수치 잔여물에 의한 spread 는 stationarity 를 높이면 사라지고, 구조적 spread 는 남는다는 대비. 이는 artifact 판별의 필요조건이며, terminal 이 서로 다른 minimizer 라는 충분조건은 아니다 — 그 판정에는 corrected Hessian 인증과 class 재현성이 필요하다.",
+   "status": "diagnostic",
+   "text": "Legacy implementation에서 polish와 tighter nominal tolerances에 대한 ordered-control/ER·BA response가 달랐다는 diagnostic pattern.",
+   "basis": "objective와 supplied gradient의 coefficient 불일치가 있고 gtol과 ftol을 함께 변경했으므로, 이 표는 stationarity tolerance의 단독 효과나 artifact 배제를 측정하지 않음. Corrected derivative check와 rerun 뒤에도 pattern이 유지되어야 tolerance stability로 승격 가능. 유지되더라도 distinct minimizer 또는 physical mechanism의 충분조건은 아님.",
    "refs": [
     "nocedal2006",
     "higham2002"
@@ -229,8 +229,8 @@
   {
    "id": "C27",
    "status": "open",
-   "text": "$\\mathcal I$ 가 degree sequence 의 함수를 넘어서는가. configuration model 앙상블에 대한 $z_{\\mathcal I}=(\\mathcal I(G)-\\langle\\mathcal I\\rangle_{\\rm CM})/\\sigma_{\\rm CM}$ 이 필요하다.",
-   "basis": "현재 설계에 graph null model 이 없다. null 없이는 $\\mathcal I$ 가 새로운 관측량인지 기존 기술자의 재기술인지 가를 수 없다. 1차 일단락의 필수 항목.",
+   "text": "$\\mathcal I$가 degree sequence와 edge organization 중 어느 구조에 반응하는가. ordered $k$-regular graph에는 connected random-regular null, 일반 graph에는 connected degree-preserving rewiring, degree heterogeneity 분리에는 matched ER comparison이 필요.",
+   "basis": "현재 설계에 validated graph null ensemble이 없음. Ring/lattice 대 random regular는 $(N,E,k)$를 고정하고 edge organization을 바꾸며, random regular 대 ER는 degree heterogeneity까지 바꿈. Null 없는 값도 protocol-level spread로 보고할 수 있지만, degree sequence를 넘어선 structural novelty 또는 mechanism attribution에는 이 비교가 필요.",
    "refs": [
     "wiseman1995"
    ]
@@ -248,8 +248,8 @@
   {
    "id": "C29",
    "status": "measured",
-   "text": "확정 표본 48개 전수에서 $\\mathcal D_2$ 가 $0.107$–$0.986$ (중앙 $0.468$), $\\mathcal D^{\\rm neg}$ 가 $0.035$–$0.437$ (중앙 $0.162$) 이다. 유형별 중앙값이 전력망 $0.108$ 에서 사회망 $0.947$ 까지 단조로 늘어난다.",
-   "basis": "P1 전수. 임베딩 없이 eigendecomposition 한 번. 이 순서는 크기와 교란되어 있다 — $\\rho_S(N,\\mathcal D_2)=+0.575$ 이고 사회망이 가장 크다. $N$ 통제 비교는 하지 않았으므로 순서는 관측이며 mechanism 주장이 아니다.",
+   "text": "Provisional 48-network analysis frame에서 $\\mathcal D_2$가 $0.107$–$0.986$ (중앙 $0.468$), $\\mathcal D^{\\rm neg}$가 $0.035$–$0.437$ (중앙 $0.162$)로 측정. 유형별 descriptive median은 전력망 $0.108$에서 사회망 $0.947$까지 증가.",
+   "basis": "Provisional 48-network analysis frame의 eigendecomposition 결과. 이 순서는 크기와 교란되어 있다 — $\\rho_S(N,\\mathcal D_2)=+0.575$ 이고 사회망이 가장 큼. Exact isomorphism audit와 prespecified numerical-admissibility rule이 끝나기 전까지 표본과 수치는 descriptive. $N$ 통제 비교도 없으므로 mechanism 주장이 아님.",
    "refs": [
     "schoenberg1935",
     "dokmanic2015",
@@ -258,16 +258,16 @@
   },
   {
    "id": "C30",
-   "status": "measured",
-   "text": "표본 정의를 내용 기준으로 확정했다. 후보 83개 파일에서 Weisfeiler-Lehman 과 edge hash 로 대표 56개를 뽑고, 근사 중복 7개와 수치 병리 1개를 더 제외해 분석 표본 48개를 얻었다.",
-   "basis": "파일명 기준으로는 잡히지 않는 중복이 있었다 — power-US-Grid.mtx, inf-power.mtx, inf-power 2.mtx 가 같은 network 였다. WL hash 도 node 한둘 차이는 놓치므로 $|\\Delta N|\\le2$, $|\\Delta E|\\le2$, $\\mathcal D_2$ 4 자리 일치를 2 차 규칙으로 두었다. 제외 12 개는 .mtx.cleaned.tsv 변환이 Matrix Market 형식을 깨뜨린 7 개와 loader 가 $N=1,2,5$ 로 내놓는 5 개이다.",
+   "status": "diagnostic",
+   "text": "현재 분석 frame은 후보 83개 파일에서 hash 기반 대표 56개를 고른 뒤 근사 중복 7개와 수치 병리 1개를 제외한 provisional 48-network set.",
+   "basis": "현 unweighted edge hash는 같은 labeling의 edge set만 확인하며 weight equality는 보장하지 않음. 또한 WL hash equality는 graph isomorphism의 충분조건이 아님. $|\\Delta N|,|\\Delta E|$와 $\\mathcal D_2$ 출력값을 사용한 근사 중복 규칙 및 output-based numerical exclusion은 selection sensitivity를 만들 수 있음. Exact isomorphism 확인, input-only exclusion rule과 포함/제외 sensitivity audit 뒤에만 표본을 확정.",
    "refs": []
   },
   {
    "id": "C31",
-   "status": "measured",
-   "text": "stationarity 허용오차를 12 자릿수 훑으면 질서 대조군의 NEI 는 numerical floor 로 내려가고 ER·BA 는 $O(10^{-1})$ 에 머문다. 전자는 **0 과 구분되지 않고**, 후자는 선언된 protocol 아래에서 **tolerance-stable 한 terminal-geometry spread** 이다.",
-   "basis": "같은 초기조건 집합 $M=16$ 재사용. 명목 gtol 과 함께 측정된 $\\eta_g$ 를 보고한다. 마지막 단 $10^{-18}$ 은 double precision 범위를 넘으므로 saturation 확인으로만 쓴다. 이 시험은 floor 와 signal 을 가르지만 signal 이 서로 다른 minimizer 에서 온다는 것까지 보이지 않는다.",
+   "status": "diagnostic",
+   "text": "Legacy $M=16$ summary에서 jointly tightened gtol/ftol에 따라 ordered controls의 $\\widehat{\\mathcal I}_M$은 감소하고 ER·BA 값은 거의 유지되는 pattern이 보고됨. Corrected rerun 전에는 tolerance-stable spread의 measurement가 아님.",
+   "basis": "같은 initialization set과 graph seeds를 재사용했다는 summary만 있고 raw result artifact와 independent replication은 없음. objective gradient에는 constant-factor coefficient mismatch가 확인되었고 보고된 $\\eta_g$도 같은 gradient를 사용. gtol과 ftol을 동시에 바꾸어 어느 stopping control의 효과인지 분리되지 않으며 마지막 두 rung의 achieved residual은 plateau. $10^{-18}$이라는 absolute threshold 자체가 double precision 표현 범위 밖인 것은 아님. 따라서 all-artifact exclusion, distinct minima 또는 physical mechanism을 지지하지 않음.",
    "refs": [
     "nocedal2006",
     "higham2002"
@@ -289,11 +289,29 @@
    "id": "C33",
    "status": "measured",
    "text": "$\\mathcal D_p$ 의 분해가 유형을 가른다. 공항망은 $\\mathcal D_2=0.895$ 로 높지만 $\\mathcal D^{\\rm neg}=0.168$ 로 낮아 '차원이 모자란' 쪽이고, 사회망은 $\\mathcal D_2=0.947$ 에 $\\mathcal D^{\\rm neg}=0.380$ 으로 둘 다 높다.",
-   "basis": "두 성분은 전체적으로 강하게 상관하지만($\\rho_S=+0.896$) 공항망이 그 관계에서 벗어난다. $\\mathcal D_2$ 하나만 보면 공항망과 사회망이 같아 보이지만 분해하면 갈린다. 다만 표본이 3 개뿐이라 확인이 필요하다.",
+   "basis": "Provisional 48-network frame에서 두 성분은 전체적으로 강하게 상관하지만($\\rho_S=+0.896$) 공항망이 그 관계에서 벗어남. $\\mathcal D_2$ 하나만 보면 공항망과 사회망이 같아 보이지만 분해하면 갈림. Exact isomorphism/input-only exclusion audit 전의 descriptive pattern이고 공항 표본도 3개뿐이라 확인이 필요.",
    "refs": [
     "schoenberg1935",
     "gower1985",
     "dokmanic2015"
+   ]
+  },
+  {
+   "id": "C34",
+   "status": "diagnostic",
+   "text": "Terminal nonconcentration의 mechanism은 realization, occupancy와 separation의 세 층으로 분해해 분석.",
+   "basis": "Realization은 recurrent admissible terminal class의 존재와 수, occupancy는 $P_\\gamma$ 또는 $K_{\\rm eff}$, separation은 class geometry와 $\\mathcal I_{\\rm between}$를 의미. Exact class convergence에서 $\\mathcal I$는 occupancy-weighted separation을 압축하므로, 동일한 $\\mathcal I$가 많은 가까운 class 또는 드문 먼 class에서 모두 발생 가능. 따라서 $\\mathcal I$ 단독으로 class count나 생성 mechanism을 식별하지 못함.",
+   "refs": []
+  },
+  {
+   "id": "C35",
+   "status": "open",
+   "text": "Signed prestress의 spatial organization과 soft subspace overlap이 mismatch 총량보다 terminal branch formation을 더 잘 설명하는가.",
+   "basis": "$H_\\perp$의 rigidity/Gauss–Newton 항은 unsigned geometric sensitivity를 담고 prestress 항은 residual의 sign, direction과 pair location을 보존. 유망한 mechanism hypothesis이나 현재 evidence는 없음. Certified minima에서 $H_{\\rm pre}$ localization/overlap을 측정하고, $\\mathcal D_p$, stress와 degree를 matched한 null 및 degree-preserving disorder interpolation으로 검정하는 2차 일단락 대상.",
+   "refs": [
+    "connelly1982",
+    "connelly1996",
+    "wales2003"
    ]
   }
  ]

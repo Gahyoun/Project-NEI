@@ -9,25 +9,25 @@
   "objective": {
     "label": "objective separation: strain ≠ stress",
     "connects": ["cMDS spectral truncation", "raw stress", "SMACOF majorization", "lack of fit"],
-    "why": "Strain과 raw stress는 서로 다른 objective. cMDS의 positive spectral truncation은 strain 문제를 닫지만 raw-stress landscape의 global minimum이나 terminal multiplicity를 결정하지 않음. 따라서 deterministic cMDS 반복에서 얻는 zero spread를 SMACOF landscape의 nondegeneracy 증거로 해석하지 않음.",
-    "refs": ["torgerson1952","kruskal1964","borg2005"]
+    "why": "Strain과 raw stress는 서로 다른 objective. cMDS의 positive spectral truncation은 strain 문제를 닫지만 raw-stress landscape의 global minimum이나 terminal multiplicity를 결정하지 않음. 따라서 deterministic cMDS 반복에서 얻는 zero spread를 SMACOF landscape의 nondegeneracy 증거로 해석하지 않음. Multiple-start MDS에서 유사한 low-Stress와 상이한 configurations가 공존한다는 결과는 initialization sensitivity의 근거이며 population multiplicity의 자동 인증은 아님.",
+    "refs": ["torgerson1952","kruskal1964","borg2005","borgmair2017"]
   },
   "quotient": {
     "label": "quotient and symmetry policy",
     "connects": ["E(p) gauge", "distance representation", "Aut(Δ)", "labeled vs unlabeled geometry"],
-    "why": "Euclidean rigid motions는 pair distances를 바꾸지 않는 gauge이므로 반드시 몫함. Graph automorphism까지 몫할지는 node labels의 과학적 의미가 정하는 estimand choice. 이 정책을 고정하지 않으면 symmetry-related copies와 accidental geometric multiplicity가 같은 count에 혼재.",
+    "why": "Euclidean rigid motions는 pair distances를 바꾸지 않는 gauge이므로 반드시 몫함. Graph permutation이 objective symmetry가 되려면 Δ와 W를 함께 보존해야 하고 terminal-law symmetry에는 sampling protocol의 permutation equivariance도 필요. 이 group까지 몫할지는 node labels의 과학적 의미가 정하는 estimand choice. 정책 미고정 시 symmetry-related copies와 accidental geometric multiplicity의 혼재.",
     "refs": ["kendall1984","connelly1982"]
   },
   "pushforward": {
-    "label": "pushforward terminal measure  $\\mu_\\Pi=(q\\circ T_\\Pi)_\\#(\\rho_0\\otimes\\rho_{\\rm alg})$",
-    "connects": ["initialization law", "algorithmic randomness", "terminal distances", "occupancy"],
-    "why": "Terminal law는 equilibrium distribution이 아니라 initialization과 algorithmic randomness의 joint law를 optimizer map으로 pushforward한 protocol-conditioned measure. 따라서 occupancy는 basin volume 자체가 아니라 declared sampling law와 algorithm이 함께 만든 확률. T=0 quench는 analogy일 뿐 annealed/Boltzmann ensemble이 아님. M은 sample size, Monte Carlo precision과 rare-class detection power를 제한하며, geometric resolution은 ε_D가 결정.",
-    "refs": ["stillinger1982","stillinger1995"]
+    "label": "graph-to-terminal-law kernel  $K_\\Pi(\\Delta,B)$ · fixed-graph law $\\mu_{G,\\Pi}$",
+    "connects": ["graph dissimilarity Δ(G)", "initialization/algorithmic law", "quotient terminal geometry", "admissibility/acceptance α"],
+    "why": "K_Π(Δ,B)=Pr{q(T_Π(Δ,Z,Ξ))∈B}는 graph dissimilarity를 terminal-geometry probability law로 보내는 protocol-indexed Markov kernel이고, μ_{G,Π}=K_Π(Δ(G),·)는 fixed-graph slice. Admissible law는 A_num에 대한 conditional law이며 α_{G,Π}=Pr(A_num|G,Π)의 동시 보고가 필수. Isolated terminal classes에 대한 deterministic exact descent에서 atom mass는 declared initialization law 아래 basin mass와 대응하지만 stochastic optimizer 또는 finite stopping에서는 geometric basin volume과 동일하지 않음. Pushforward, inherent-structure quench와 basin probability는 선행 개념이며 application-level framing의 novelty는 미확정. Equilibrium/Boltzmann ensemble과의 동일시 불가.",
+    "refs": ["stillinger1982","stillinger1995","menck2013","borgmair2017"]
   },
   "hessian": {
     "label": "quotient Hessian, inertia, and higher order",
     "connects": ["rigidity matrix", "prestress", "soft modes", "Morse–Bott/continuation"],
-    "why": "실제 E(p)-orbit tangent의 orthogonal complement에서 Hessian inertia를 계산해야 gauge zero modes와 physical/numerical softness가 분리됨. rank-deficient configuration에서는 quotient가 singular할 수 있으므로 smooth fixed-rank stratum 또는 local slice를 명시. 추가 zero mode는 infinitesimal statement일 뿐 continuous minimizer family의 충분조건이 아님. finite continuation은 numerical candidate evidence이며, analytic manifold에는 positive-dimensional Morse–Bott critical manifold와 normal positivity가 필요. Fisher-information 해석은 explicit likelihood를 둔 경우에만 허용.",
+    "why": "실제 E(p)-orbit tangent의 orthogonal complement에서 Hessian inertia를 계산해야 gauge zero modes와 physical/numerical softness가 분리됨. rank-deficient configuration에서는 quotient가 singular할 수 있으므로 smooth fixed-rank stratum 또는 local slice를 명시. 추가 zero mode는 infinitesimal statement일 뿐 continuous minimizer family의 충분조건이 아님. Exact continuous family에는 positive-dimensional connected critical/minimizer set의 존재 증명이 필요. Morse–Bott의 kernel–tangent equality와 normal nondegeneracy는 강한 regularity condition이지 manifold 존재의 필요조건이 아님. finite continuation은 numerical candidate evidence. Fisher-information 해석은 explicit likelihood를 둔 경우에만 허용.",
     "refs": ["connelly1996","transtrum2011"]
   },
   "covariance": {
@@ -39,8 +39,8 @@
   "degeneracy_ledger": {
     "label": "degeneracy ledger: geometry · occupancy · stress · continuation",
     "connects": ["I", "K_eff", "stress equivalence", "symmetry", "continuation"],
-    "why": "I는 pair-mean-standardized expected squared spread, K_eff는 observed class occupancy의 concentration, normalized-stress equivalence interval은 objective-value equivalence, continuation은 finite low-cost direction의 존재 여부를 다룸. I와 predeclared ρ_D-diameter는 point-mass zero set을 공유하지만 positive threshold에서는 calibration 없이 등치되지 않음. 네 질문은 논리적으로 독립. F는 thermodynamic energy가 아니라 embedding stress objective. State count, gauge/symmetry orbit, objective-value equivalence와 continuous family를 한 단어 degeneracy로 압축하지 않음.",
-    "refs": ["stillinger1995"]
+    "why": "I는 pair-mean-standardized expected squared spread, K_eff는 observed class occupancy의 concentration, normalized-stress equivalence interval은 objective-value equivalence, continuation은 finite low-cost direction의 존재 여부를 다룸. Finite positive-weight pair space에서 I의 induced norm과 ρ_D는 같은 topology와 point-mass zero set을 갖지만 numerical threshold의 자동 등치는 불가. F는 thermodynamic energy가 아니라 embedding stress objective. Conic optimization의 degeneracy는 failure of Slater/strict feasibility와 minimal face/facial reduction의 문제이며 terminal-law spread의 동의어가 아님. State count, conic degeneracy, gauge/symmetry orbit, objective-value equivalence, Hessian singularity와 continuous family의 분리.",
+    "refs": ["stillinger1995","drusvyatskiy2017"]
   },
   "robustness": {
     "label": "finite-sample and protocol robustness",

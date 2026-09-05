@@ -6,7 +6,7 @@
 <title>NEI 연구 아키텍처 — representability와 protocol-conditioned terminal geometry</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="stylesheet" href="vendor/katex/katex.min.css">
-<link rel="stylesheet" href="krds.css?v=13">
+<link rel="stylesheet" href="krds.css?v=14">
 </head>
 <body>
 
@@ -26,6 +26,15 @@
 <section class="hero" id="question">
   <p class="eyebrow">define the ensemble before reading the observable</p>
   <h1>Graph metric의 geometric representability와<br>embedding protocol의 terminal multiplicity</h1>
+  <p class="review-stamp">Research discussion note · 2026-09-05 · definition → evidence → decision</p>
+  <div class="callout warn" id="review-status">
+    <b>Current evidence status</b>
+    <ul class="note-tree">
+      <li><a href="#floorFig">Tolerance sweep:</a> 기존 값 보존. 기존 floor/calibration gradient의 factor-of-two 오류 확인; corrected rerun 전까지 implementation-conditioned observation으로 제한.</li>
+      <li><a href="#sample">48-network table:</a> 현재 선택 규칙 아래의 분석 subset. weighted-graph duplicate 검증과 scale-invariant exclusion 재검토 필요.</li>
+      <li><a href="#agenda">Meeting decision:</a> primary estimand, 필요한 certificate, 1차·2차 일단락의 claim 범위 확정.</li>
+    </ul>
+  </div>
   <h2>0. Research question and measurement object</h2>
   <ol class="note-tree lede">
     <li><b>Research question</b>
@@ -62,6 +71,7 @@
       <li><a href="#evidence-certificates">Evidence and certificates</a></li>
       <li><a href="#allowed-conclusions">Allowed conclusions</a></li>
       <li><a href="#limitations">Limitations and non-implications</a></li>
+      <li><a href="#agenda">Research questions and meeting decisions</a></li>
     </ol>
   </nav>
 </section>
@@ -74,12 +84,19 @@
       <li><b>Declared object</b>
         <ul>
           <li><b>Admissible terminal law:</b>
-            $\mu_\Pi^{\rm adm}=\mathcal L(q(T_\Pi)\mid A_{\rm num})$.</li>
+            $\mu_{G,\Pi}^{\rm adm}=\mathcal L(q(T_\Pi(\Delta(G),Z,\Xi))\mid A_{\rm num})$.
+            $G$는 fixed graph, $(Z,\Xi)$는 선언된 initialization·algorithmic randomness.</li>
           <li><b>Numerical acceptance probability:</b>
             $\alpha_\Pi=\Pr(A_{\rm num})>0$; $\alpha_\Pi$를 NEI와 함께 보고.</li>
           <li><b>Resolution structure:</b> prespecified dimensionless pair-distance metric
             $\rho_D$, resolution $\varepsilon_D$, positive-weight pair set $\mathcal P$, 그리고
             $S_{\Delta,W}>0$.</li>
+          <li><b>Primary pair policy:</b> $\mathcal P=\{(i,j):i&lt;j\}$와 모든 $w_{ij}>0$.
+            $q(X)=D(X)$는 labeled full pair-distance vector. 이하 $\mu_\Pi^{\rm adm}$는
+            fixed $G$에서의 약식 표기.</li>
+          <li><b>Partial-pair extension:</b> 일부 pair만 관측 시 zero-set theorem의 대상은
+            projected law $(\pi_{\mathcal P})_\#\mu_{G,\Pi}^{\rm adm}$.
+            full geometry collapse에는 관측 사상의 injectivity 추가 필요.</li>
         </ul>
       </li>
       <li><b>Population-level definition</b>
@@ -141,12 +158,29 @@
   </ul>
   <h3 id="limitations">1.3 Immediate limitations</h3>
   <ul class="note-tree fine">
-    <li>$\rho_\mu$와 $\rho_D$는 positive threshold에서 일반적으로 동치가 아님.
-      따라서 $\mathcal I>0$만으로 $\rho_D$-diameter가 $\varepsilon_D$를 넘는다는 결론은 불가.</li>
+    <li>Finite pair space에서 positive weights와 positive pair means를 갖는
+      $\rho_\mu$와 $\rho_D$는 norm-equivalent. 동일한 numerical threshold의 호환은 보장되지 않음.
+      $\mathcal I>0$만으로 $\rho_D$-diameter가 $\varepsilon_D$를 넘는다는 결론은 불가.</li>
     <li>NEI의 크기: admissible terminal distribution의 geometry-weighted second moment를 측정.</li>
     <li>NEI 하나로 식별 불가: state count, equal-energy degeneracy, barrier, continuous
       minimizer manifold.</li>
   </ul>
+  <details class="proof-note" id="metric-calibration">
+    <summary>Proof note · zero set와 finite-resolution calibration</summary>
+    <ol class="note-tree">
+      <li>$m_a=\mathbb E[D_a]>0$와
+        $\rho_D^2=\sum_a w_a(d_a-d'_a)^2/S_{\Delta,W}$로 설정.</li>
+      <li>$c_-^2=\frac{S_{\Delta,W}}{N_+}\min_a\frac1{w_am_a^2}$,
+        $c_+^2=\frac{S_{\Delta,W}}{N_+}\max_a\frac1{w_am_a^2}$이면
+        $c_-^2\rho_D^2\le\rho_\mu^2\le c_+^2\rho_D^2$.</li>
+      <li>$\mathbb E[(D_a-D'_a)^2]=2\operatorname{Var}(D_a)$로부터 NEI identity 유도.
+        유한한 모든 coordinate의 variance가 0인 것과 full distance law의 point mass가 동치.</li>
+      <li>$2\mathcal I\le c_+^2(\operatorname{diam}_{\rho_D}\operatorname{supp}\mu)^2$.
+        따라서 $2\mathcal I>c_+^2\varepsilon_D^2$는 resolved diameter의 sufficient condition.</li>
+      <li>역방향 lower bound에는 separated region의 probability mass 조건 추가 필요.
+        Population mean을 사용하는 위 bound와 finite-$M$ 추정량의 uncertainty 구분.</li>
+    </ol>
+  </details>
   <h3 id="evidence-certificates">1.4 Evidence and certificates</h3>
   <h4>1.4.1 Numerical gate and certificate status</h4>
   <div class="grid2">
@@ -183,7 +217,7 @@
       </ul>
     </li>
   </ul>
-  <h3 id="allowed-conclusions">1.5 Allowed conclusions — cumulative evidence ladder</h3>
+  <h3 id="allowed-conclusions">1.5 Allowed conclusions — evidence dependencies</h3>
   <div class="tablewrap"><table>
     <thead><tr><th>Evidence</th><th>Allowed conclusion</th><th>Not yet implied</th></tr></thead>
     <tbody>
@@ -198,10 +232,15 @@
   </table></div>
   <h4>1.5.1 Reading rule</h4>
   <ul class="note-tree fine">
-    <li>각 row: 독립적인 shortcut이 아니라 누적 evidence ladder.</li>
+    <li>공통 출발점: declared protocol, numerical admissibility와 geometry comparison.</li>
+    <li>Strict-minimum, stress-equivalence, metastability, continuous-family는 서로 다른 evidence branch.
+      positive-definite quotient Hessian을 continuous-family branch의 전제조건으로 사용하지 않음.</li>
     <li>Class-wise certificate: 먼저 분리된 class와 admissible terminal을 전제.</li>
     <li>Numerical continuation: analytic existence theorem이 아니라 declared resolution에서의
-      candidate certificate로 해석.</li>
+      candidate certificate로 해석. Morse–Bott 조건은 smooth family와 transverse quadratic stability의
+      sufficient certificate. 모든 continuous minimizer set의 necessary condition은 아님.</li>
+    <li>반례: $f(x,y)=y^4$의 minimizer set은 $\{y=0\}$이나 normal Hessian은 0.
+      반면 $f(x)=x^4$는 zero Hessian을 갖는 isolated minimum.</li>
   </ul>
 </section>
 
@@ -225,12 +264,14 @@
   <ul class="note-tree fine">
     <li>Node 선택 시 본문·SI·Note의 정확한 대응 위치와 아직 직접 서술되지 않은 gap을 함께 표시.</li>
     <li>Source text color로 문서별 coverage를 구분.</li>
+    <li>본문·SI·Note coverage는 기존 업로드 문서의 snapshot. 페이지 보강만으로 원고 서술을
+      완료 처리하지 않음. Node의 “Discussion note”에서 최신 검토 항목으로 이동.</li>
   </ul>
   <div class="source-legend" aria-label="source text colors">
     <span class="src-main"><i></i>본문</span>
     <span class="src-si"><i></i>SI</span>
     <span class="src-note"><i></i>Note</span>
-    <span class="gap-key">직접 서술 · 부분 서술 · 직접 대응 없음</span>
+    <span class="gap-key">직접 서술 · 부분 서술 · 직접 대응 없음 · source audit pending</span>
   </div>
   <div class="coverage-summary" id="coverageSummary" aria-label="source coverage summary"></div>
   <div class="tagbar" id="domFilter"></div>
@@ -416,10 +457,16 @@
   <h2>6. One scalar — trace, spectrum, and occupancy decomposition</h2>
   <h3>6.1 Finite-sample identity</h3>
   <ol class="note-tree lede">
+    <li><b>Accepted sample:</b> 이 절의 $M$은 $M_{\rm adm}$의 약식 표기.
+      attempted run count와 acceptance rate는 별도 보고.</li>
     <li><b>Standardized coordinate:</b>
       $z_{ma}=d_a^{(m)}/(\bar d_a\sqrt{N_+})$.</li>
     <li><b>Exact plug-in identity:</b>
       $\widehat{\mathcal I}_M=\operatorname{tr}B_z/M$.</li>
+    <li><b>Centered run Gram:</b> $Z=(z_{ma})$,
+      $C_M=I_M-M^{-1}\mathbf1\mathbf1^{\mathsf T}$,
+      $B_z=C_MZZ^{\mathsf T}C_M$.
+      $\operatorname{tr}B_z=\sum_m\|z_m-\bar z\|^2$로부터 population-denominator variance identity 유도.</li>
     <li><b>Scope:</b> pair-standardized vector $z$에 대한 finite-sample identity.</li>
     <li><b>Non-implication:</b> population NEI의 unbiasedness statement는 아님.</li>
   </ol>
@@ -428,7 +475,8 @@
     <li><b>Covariance effective rank:</b>
       $d_{\rm eff}=(\sum_r\lambda_r)^2/(\sum_r\lambda_r^2)$.
       같은 standardized covariance operator의 spectrum에서 terminal cloud가 퍼지는
-      independent direction의 유효 수를 요약. $\sum_r\lambda_r>0$에서 정의하며,
+      uncorrelated principal direction의 effective number를 요약. statistical independence 또는 manifold dimension과 구분.
+      $\sum_r\lambda_r>0$에서 정의하며,
       zero covariance에서는 direction count를 보고하지 않음.</li>
     <li><b>Occupancy effective multiplicity:</b>
       $K_{\rm eff}^{(2)}=(\sum_\gamma P_\gamma^2)^{-1}$ 또는
@@ -452,8 +500,9 @@
       occupancy-weighted variance.</li>
     <li><b>Exact-convergence limit:</b> 각 class가 isolated minimizer orbit 하나로 exact하게
       수렴하면 $\mathcal I_{\rm within}=0$이고, $\mathcal I$는 $P_\gamma$와 class geometry로 결정.</li>
-    <li><b>Separation of axes:</b> 이 극한식에 quotient-Hessian spectrum은 직접 나타나지 않음.
-      따라서 NEI와 softness는 공동결정량이 아니라 서로 다른 diagnostic axis.</li>
+    <li><b>Separation of observables:</b> class geometry와 occupancy를 고정하면 이 극한식에
+      quotient-Hessian spectrum은 explicit하게 나타나지 않음. Curvature·basin geometry가
+      $P_\gamma$를 바꾸는 indirect dependence는 exact convergence에서도 가능.</li>
   </ol>
   <h4>6.3.1 Interpretive boundary</h4>
   <ul class="note-tree fine">
@@ -600,7 +649,8 @@
     <ul class="landscape-guardrails">
       <li><b>Single-terminal:</b> declared protocol에서의 reproducibility. global uniqueness의 proof는 아님.</li>
       <li><b>Separated-terminal:</b> recurrent terminal multiplicity. equal-energy degeneracy 또는 metastability의 proof는 아님.</li>
-      <li><b>Near-zero curvature:</b> soft direction의 diagnostic. finite continuation은 numerical candidate evidence이며, exact local manifold에는 analytic Morse–Bott structure 필요.</li>
+      <li><b>Near-zero curvature:</b> soft direction의 diagnostic. finite continuation은 numerical candidate evidence.
+        Exact family에는 별도 analytic existence proof 필요. Morse–Bott는 transverse quadratic stability를 갖는 sufficient route.</li>
     </ul>
   </figure>
 </section>
@@ -621,13 +671,13 @@
 </section>
 
 <section id="sample">
-  <h2>8. Sample definition</h2>
+  <h2>8. Sample frame — selection audit</h2>
   <p class="lede" id="smpHead"></p>
   <div class="grid2">
     <figure class="panel"><figcaption><span class="t">후보에서 분석 표본까지</span></figcaption><div id="ch-smp"></div></figure>
-    <div class="panel"><h3>중복 판정 규칙</h3><div class="tablewrap"><table id="smpMethod"></table></div></div>
+    <div class="panel"><h3>Duplicate screening and audit</h3><div class="tablewrap"><table id="smpMethod"></table></div></div>
   </div>
-  <div class="panel wide"><h3>접히거나 빠진 것</h3>
+  <div class="panel wide"><h3>Legacy grouping / exclusion log</h3>
     <div class="tablewrap"><table id="smpDrop"></table></div>
     <p class="fine" id="smpNear"></p></div>
 </section>
@@ -635,7 +685,7 @@
 <section id="vision">
   <h2>9. Vision — what closes the argument</h2>
   <p class="lede" id="visionThesis"></p>
-  <div class="panel wide"><h3>세 갈래를 가르는 장치</h3><div class="tablewrap"><table id="visDisc"></table></div></div>
+  <div class="panel wide"><h3>Claim-conditioned evidence</h3><div class="tablewrap"><table id="visDisc"></table></div></div>
   <div class="panel wide"><h3>Phases</h3><div id="visPhases"></div></div>
   <div class="callout warn"><b id="visDecK"></b> <span id="visDecBody"></span>
     <div class="tablewrap" style="margin-top:12px"><table id="visOpt"></table></div></div>
@@ -643,23 +693,23 @@
 
 <section id="claims">
   <h2>10. Claim ledger</h2>
-  <h3>7.1 Classification rule</h3>
+  <h3>10.1 Classification rule</h3>
   <ul class="note-tree lede">
     <li><b>Status classes:</b> definition, theorem, diagnostic, exploratory measurement,
       open certificate, withdrawn claim.</li>
     <li><b>Promotion rule:</b> 숫자의 존재만으로 diagnostic을 conclusion으로 승격하지 않음.</li>
     <li><b>Basis field:</b> 해당 claim을 허용하는 assumption, calculation, baseline을 명시.</li>
   </ul>
-  <h3>7.2 Status overview</h3>
+  <h3>10.2 Status overview</h3>
   <figure class="panel wide"><figcaption id="cap-status"></figcaption><div id="ch-status"></div></figure>
-  <h3>7.3 Claim-by-claim audit</h3>
+  <h3>10.3 Claim-by-claim audit</h3>
   <div class="tagbar" id="claimFilter"></div>
   <div class="tablewrap"><table id="claimsTable"></table></div>
 </section>
 
 
 <section id="agenda">
-  <h2>11. 연구 의제 — 무엇을 정의하고 무엇을 물을 것인가</h2>
+  <h2>11. Research discussion — definitions, evidence, decisions</h2>
   <div class="panel wide" id="origPanel" style="margin-bottom:16px">
     <h3 id="origTitle"></h3>
     <div id="origBody"></div>
@@ -672,14 +722,14 @@
 
 <section id="refs">
   <h2>12. References</h2>
-  <h3>8.1 Citation rule</h3>
+  <h3>12.1 Citation rule</h3>
   <ul class="note-tree lede">
     <li><b><i>Why</i> field:</b> 해당 reference가 architecture에서 지지하는 정확한 proposition
       또는 method를 명시.</li>
     <li><b>Relevance boundary:</b> 인접 주제라는 이유만으로 direct evidence처럼 인용하지 않음.</li>
     <li><b>Verification status:</b> bibliographic information을 직접 확인하지 못한 항목은 별도 표시.</li>
   </ul>
-  <h3>8.2 Reference ledger</h3>
+  <h3>12.2 Reference ledger</h3>
   <div class="tagbar" id="refFilter"></div>
   <div class="tablewrap"><table id="refsTable"></table></div>
 </section>
@@ -688,9 +738,9 @@
 
 <script src="vendor/katex/katex.min.js"></script>
 <script src="vendor/katex/contrib/auto-render.min.js"></script>
-<script src="math-render.js?v=13"></script>
-<script src="data/offline-data.js?v=13"></script>
-<script src="graph.js?v=13"></script>
-<script src="app.js?v=13"></script>
+<script src="math-render.js?v=14"></script>
+<script src="data/offline-data.js?v=14"></script>
+<script src="graph.js?v=14"></script>
+<script src="app.js?v=14"></script>
 </body>
 </html>

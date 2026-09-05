@@ -95,6 +95,18 @@
   "why": "SMACOF, Guttman transform, local minimum 문제의 표준 참고서.",
   "area": "MDS"
  },
+ "borgmair2017": {
+  "authors": "I. Borg, P. Mair",
+  "year": 2017,
+  "title": "The Choice of Initial Configurations in Multidimensional Scaling: Local Minima, Fit, and Interpretability",
+  "venue": "Austrian Journal of Statistics",
+  "volume": "46",
+  "pages": "19–32",
+  "doi": "10.17713/ajs.v46i2.561",
+  "verified": true,
+  "area": "MDS",
+  "why": "Starting configuration에 따라 유사한 low-Stress 값과 서로 다른 MDS configurations가 관측될 수 있음을 보이는 multiple-start 근거. Population terminal law 또는 physical degeneracy를 직접 정의한 문헌은 아님."
+ },
  "groenen1995": {
   "authors": "P. J. F. Groenen, R. Mathar, W. J. Heiser",
   "year": 1995,
@@ -636,9 +648,10 @@
   "venue": "Foundations and Trends in Optimization",
   "volume": "3",
   "pages": "77–170",
+  "doi": "10.1561/2400000011",
   "verified": true,
   "area": "nonconvex optimization",
-  "why": "conic formulation 에서 strict feasibility 상실과 facial structure 를 다룬다. multiple minima 나 Hessian zero mode 와는 다른 개념이므로, 이 문헌은 **terminology 를 경계하는 근거**로만 쓰고 landscape multiplicity 의 정당화로 쓰지 않는다 — 그렇게 쓰면 category error 이다."
+  "why": "Conic formulation의 failure of Slater/strict feasibility, minimal face와 facial reduction을 다루는 근거. Multiple minima, Hessian zero mode 또는 terminal-law spread의 근거가 아님."
  },
  "busing2005": {
   "authors": "F. M. T. A. Busing, P. J. F. Groenen, W. J. Heiser",
@@ -658,8 +671,9 @@
   "venue": "Nature Physics",
   "volume": "9",
   "pages": "89–92",
+  "doi": "10.1038/nphys2516",
   "verified": true,
   "area": "disordered systems",
-  "why": "basin stability — 주어진 perturbation law 가 각 attractor basin 에 들어갈 확률. pushforward 를 관측량으로 삼는 선례이다. NEI 의 차별점은 이를 quotient terminal geometry 전체에 대한 primary estimand 로 삼은 구성이다."
+  "why": "Declared perturbation law 아래 한 attractor basin의 probability mass를 측정하는 basin-stability 원전. Full terminal-geometry law의 one-event analogue이며, stochastic finite-stop output law와의 일반적 동일성 또는 NEI framing의 novelty를 뜻하지 않음."
  }
 }

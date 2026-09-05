@@ -1,5 +1,5 @@
 {
-  "_note": "Architecture node와 세 LaTeX source의 active text 대응표. direct, partial, none 구분. comment와 외부 input은 근거에서 제외.",
+  "_note": "Architecture node와 세 LaTeX source의 active text 대응표. direct, partial, none, unreviewed 구분. unreviewed는 source audit 미완료 상태이며 미서술 판정이 아니다. comment와 외부 input은 근거에서 제외.",
   "sources": {
     "main": {"label": "본문", "file": "Project_NEI (2).tex", "class": "src-main", "color": "#c62828"},
     "si": {"label": "SI", "file": "Supplement_NEI_EN_overleaf_paragraph (1).tex", "class": "src-si", "color": "#207037"},
@@ -145,6 +145,26 @@
       "main": {"kind":"partial","location":"sec:decomposition; sec:var_decomp","summary":"NEI alone의 non-identifiability는 명시하나 named unresolved/mixed verdict는 부재."},
       "si": {"kind":"partial","location":"sec:perturbation; sec:bridge; tab:ledger","summary":"근거 부재 시 강한 결론을 보류하는 원칙은 있으나 failed-gate verdict는 부재."},
       "note": {"kind":"partial","location":"eq:mixed_regime; fig:diagnostic_plane; convergence gate","summary":"Mixed/failed-gate cases를 다루나 evidence 부족을 기본 unresolved verdict로 선언하지는 않음."}
+    },
+    "calib": {
+      "main": {"kind":"unreviewed","location":"source audit pending","summary":"현재 snapshot에서 대응 위치 미검토. 미서술 판정 아님."},
+      "si": {"kind":"unreviewed","location":"source audit pending","summary":"현재 snapshot에서 대응 위치 미검토. 미서술 판정 아님."},
+      "note": {"kind":"unreviewed","location":"source audit pending","summary":"현재 snapshot에서 대응 위치 미검토. 미서술 판정 아님."}
+    },
+    "cmnull": {
+      "main": {"kind":"unreviewed","location":"source audit pending","summary":"현재 snapshot에서 대응 위치 미검토. 미서술 판정 아님."},
+      "si": {"kind":"unreviewed","location":"source audit pending","summary":"현재 snapshot에서 대응 위치 미검토. 미서술 판정 아님."},
+      "note": {"kind":"unreviewed","location":"source audit pending","summary":"현재 snapshot에서 대응 위치 미검토. 미서술 판정 아님."}
+    },
+    "recur": {
+      "main": {"kind":"unreviewed","location":"source audit pending","summary":"현재 snapshot에서 대응 위치 미검토. 미서술 판정 아님."},
+      "si": {"kind":"unreviewed","location":"source audit pending","summary":"현재 snapshot에서 대응 위치 미검토. 미서술 판정 아님."},
+      "note": {"kind":"unreviewed","location":"source audit pending","summary":"현재 snapshot에서 대응 위치 미검토. 미서술 판정 아님."}
+    },
+    "resid": {
+      "main": {"kind":"unreviewed","location":"source audit pending","summary":"현재 snapshot에서 대응 위치 미검토. 미서술 판정 아님."},
+      "si": {"kind":"unreviewed","location":"source audit pending","summary":"현재 snapshot에서 대응 위치 미검토. 미서술 판정 아님."},
+      "note": {"kind":"unreviewed","location":"source audit pending","summary":"현재 snapshot에서 대응 위치 미검토. 미서술 판정 아님."}
     }
   }
 }

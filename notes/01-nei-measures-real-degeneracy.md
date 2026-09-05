@@ -8,8 +8,10 @@
 > fully declared embedding protocol.**
 
 여기서 realized terminal degeneracy는 $\alpha_\Pi>0$인 numerical admissibility에
-조건부인 terminal law가 rigid-motion quotient의 distance space에서, 선언한 metric과
-resolution 아래 하나의 geometry로 붕괴하지 않는다는 **operational definition**이다.
+조건부인 terminal law가 rigid-motion quotient의 **declared pair-coordinate space**에서,
+선언한 metric과 resolution 아래 하나의 geometry로 붕괴하지 않는다는 **operational
+definition**이다. partial pair set을 쓰면 이 표현은 full geometry가 아니라
+$\mathcal P$-resolved geometry에 대한 판정이다.
 서로 다른 terminal의 stress가 같다는 energetic
 degeneracy, global-minimum nonuniqueness, optimizer-independent landscape invariant와는
 다르다. 정의와 인증 조건은 [06](06-real-degeneracy-definition.md)에 정리했다.
@@ -30,8 +32,10 @@ degeneracy에는 적어도 다음이 섞일 수 있다.
 6. **spectral degeneracy/softness** — Hessian에 추가 영모드가 있다. 5의 필요조건일 수
    있지만 충분조건은 아니다.
 
-NEI는 3–6을 한 번에 판정하지 않는다. NEI가 직접 재는 것은 protocol이 실제로
-sampling한 terminal pair-distance geometry의 상대분산이다.
+NEI는 3–6을 한 번에 판정하지 않는다. NEI가 직접 재는 것은 protocol이 유도한 terminal
+pair-distance law의 상대분산이다. $\mathcal D_p$와 $\mathcal I$가 서로 다른 질문에
+대응한다는 사실은 **statistical independence의 정리**가 아니다. graph ensemble에서의
+association 또는 conditional independence는 별도 empirical hypothesis다.
 
 ## 정확한 estimand
 
@@ -42,8 +46,8 @@ $$
 \tau_g,\tau_H,\tau_c,T_{\max})
 $$
 
-라 하고, 초기조건에서 terminal로 가는 algorithmic map을 $T_\Pi$, pair-distance
-representation을 $q(X)=D(X)$라 하면
+라 하고, 초기조건과 algorithmic random variable $\Xi$에서 terminal로 가는 measurable
+map을 $T_\Pi(X^{(0)},\Xi)$, full pair-distance representation을 $q(X)=D(X)$라 하면
 
 $$
 \mu_\Pi=(q\circ T_\Pi)_\#(\rho_0\otimes\rho_{\rm alg})
@@ -60,32 +64,43 @@ $$
 \alpha_\Pi=\Pr_\Pi(A_{\rm num})
 $$
 
-를 함께 보고한다. 따라서 “realized”는 **early stopping 근처의 수치산포를 numerical
-gate로 분리한 protocol-conditioned spread**라는 뜻이다. intrinsic 또는
-thermodynamic이라는 뜻이 아니다.
+를 함께 보고한다. 따라서 “realized”는 **protocol-induced admissible terminal law**를
+가리킨다. finite-$M$ observation이 population property를 이미 인증한다는 뜻은 아니다.
+intrinsic 또는 thermodynamic이라는 뜻도 아니다.
 
 ## NEI와 degeneracy의 정확한 관계
 
-prespecified pair set $\mathcal P$와 $N_+=|\mathcal P|$를 고정하고, 모든
+full pair vector의 $\mathcal P$ 좌표 restriction을 $\pi_{\mathcal P}$라 하고
+
+$$
+D_{\mathcal P}=\pi_{\mathcal P}(D),\qquad
+\mu_{\Pi,\mathcal P}^{\rm adm}
+=(\pi_{\mathcal P})_\#\mu_\Pi^{\rm adm}
+$$
+
+로 둔다. prespecified pair set $\mathcal P$와 $N_+=|\mathcal P|$를 고정하고, 모든
 $a\in\mathcal P$에서 $0<\mathbb E[d_a]<\infty$와 $\mathbb E[d_a^2]<\infty$를
 가정한다. 그러면
 
 $$
-\mathcal I(\mu_\Pi^{\rm adm})=\frac1{N_+}\sum_{a\in\mathcal P}
-\frac{\operatorname{Var}_{\mu_\Pi^{\rm adm}}(d_a)}
-{\mathbb E_{\mu_\Pi^{\rm adm}}[d_a]^2}.
+\mathcal I(\mu_{\Pi,\mathcal P}^{\rm adm})=\frac1{N_+}\sum_{a\in\mathcal P}
+\frac{\operatorname{Var}_{\mu_{\Pi,\mathcal P}^{\rm adm}}(d_a)}
+{\mathbb E_{\mu_{\Pi,\mathcal P}^{\rm adm}}[d_a]^2}.
 $$
 
-population-dependent metric을
+projected pair space의 population-dependent metric을
 
 $$
 \rho_\mu^2(d,d')=\frac1{N_+}\sum_{a\in\mathcal P}
 \left(\frac{d_a-d'_a}{\mathbb E[d_a]}\right)^2
 $$
 
-로 두면 iid $D,D'\sim\mu_\Pi^{\rm adm}$에 대해
-$\mathcal I=\tfrac12\mathbb E[\rho_\mu^2(D,D')]$이다. 따라서 $\mathcal I=0$ iff
-$\mu_\Pi^{\rm adm}$ is a point mass. finite-resolution 판정에는 별도로 predeclared metric
+로 두면 iid $D_{\mathcal P},D'_{\mathcal P}\sim\mu_{\Pi,\mathcal P}^{\rm adm}$에 대해
+$\mathcal I=\tfrac12\mathbb E[\rho_\mu^2(D_{\mathcal P},D'_{\mathcal P})]$이다. 따라서
+$\mathcal I=0$ iff $\mu_{\Pi,\mathcal P}^{\rm adm}$ is a point mass. 이것이 full law
+$\mu_\Pi^{\rm adm}$의 point-mass collapse와 동치인 경우는 $\mathcal P$가 모든 unordered
+pair를 포함하거나 $\pi_{\mathcal P}$가 admissible support에서 injective인 경우다.
+finite-resolution 판정에는 별도로 predeclared metric
 
 $$
 \rho_D(d,d')=
@@ -94,10 +109,11 @@ $$
 S_{\Delta,W}=\sum_{a\in\mathcal P}w_a\Delta_a^2
 $$
 
-를 사용하며 $S_{\Delta,W}>0$과 $w_a>0$을 가정한다. $\rho_\mu$와 $\rho_D$는
-point-mass zero set을 공유하지만 positive threshold에서 일반적으로 동치가 아니다.
+를 사용하며 $S_{\Delta,W}>0$과 $w_a>0$을 가정한다. finite $\mathcal P$에서는
+$\rho_\mu$와 $\rho_D$가 norm-equivalent이지만 같은 numerical threshold를 공유하지
+않는다. 즉 explicit norm-equivalence constants 없이 두 threshold event를 교환할 수 없다.
 따라서 resolution $\varepsilon_D$를 먼저 선언하고
-$\operatorname{diam}_{\rho_D}\operatorname{supp}(\mu_\Pi^{\rm adm})>
+$\operatorname{diam}_{\rho_D}\operatorname{supp}(\mu_{\Pi,\mathcal P}^{\rm adm})>
 \varepsilon_D$인지를 별도로 묻는다. finite $M$은 recurrent
 $\varepsilon_D$-separated classes를 관측할 수 있을 뿐 arbitrarily rare population
 support를 배제하지 못한다. complete-support detection claim에는 minimum class mass 또는
@@ -185,10 +201,14 @@ $\tau_E$-near-degenerate minima라고 부른다. 단순한 non-rejection은 충�
 
 $\ker H_\perp\ne0$만으로는 부족하다. soft subspace를 따라 finite displacement를
 continuation하며 low stress, low gradient, no collision을 동시에 보이면 declared
-resolution에서 numerical candidate를 얻는다. exact local manifold에는 smooth fixed-rank
-quotient stratum에서 $\dim\mathcal M\ge1$, $\mathcal M\subset\operatorname{Crit}(\mathcal F)$,
-$\ker H_X=T_X\mathcal M$과 positive-definite normal Hessian을 갖는 analytic Morse–Bott
-structure가 필요하다.
+resolution에서 **finite numerical evidence**를 얻는다. exact family는 quotient space에서
+nonconstant path $X(t)$가 exact local minimizers로 이루어짐을 직접 보이는 방식으로 인증할
+수 있다. global-minimum degeneracy를 주장할 때는 추가로
+$X(t)\in\operatorname*{argmin}\mathcal F$가 필요하다. smooth fixed-rank quotient stratum에서
+$\dim\mathcal M\ge1$, $\mathcal M\subset\operatorname{Crit}(\mathcal F)$,
+$\ker H_X=T_X\mathcal M$과 positive-definite normal Hessian을 갖는 Morse–Bott structure는
+smooth local minimizer manifold와 transverse quadratic stability의 **sufficient analytic
+certificate**다. 모든 continuous minimizer set의 필요조건은 아니다.
 
 ## $K=M$의 해석
 
@@ -210,7 +230,7 @@ independent-batch recurrence가 별도로 필요하다. 어떤 finite $M$도 arb
 | stress-difference interval이 margin 안에 포함 | $\tau_E$-near-equivalent stress minima |
 | barrier까지 확인 | metastable basins |
 | finite continuation으로 connected family 해상 | continuous-degeneracy candidate |
-| analytic Morse–Bott 조건 확인 | local continuous minimizer manifold |
+| Morse–Bott sufficient certificate 확인 | smooth local minimizer manifold with transverse quadratic stability |
 
 따라서 headline은 operational definition과 함께 사용할 수 있지만, 첫 등장 직후 반드시
 다음 제한문을 붙인다.

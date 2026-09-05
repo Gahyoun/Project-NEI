@@ -83,6 +83,10 @@ whitening은 covariance eigenvalue ratios를 바꾼다. 따라서 기존 77-netw
 $d_{\rm eff}$는 raw-cloud effective rank로만 보존하고, NEI와 같은 operator의 spectrum은
 재실행 후 새 이름으로 보고한다.
 
+두 operator 또는 두 estimand가 다르다는 사실은 statistical independence나
+nonredundancy를 뜻하지 않는다. 그 결론에는 같은 sampling frame에서의 joint analysis와
+covariate-conditioned null comparison이 별도로 필요하다.
+
 ## $d_{\rm eff}$의 정확한 해석
 
 $C_z$의 고유값을 $\nu_a\ge0$라 하면
@@ -121,6 +125,16 @@ $$
 within-NEI conditional spread와 bootstrap uncertainty를 다시 보고해야 한다.
 
 ## finite-$M$ 해상도
+
+$d_a^{(m)}\ge0$, $\bar d_a>0$이고 divisor $M$ empirical variance를 쓰면 pair별
+coefficient of variation squared가 $M-1$ 이하이므로
+
+$$
+0\le\widehat{\mathcal I}_M\le M-1.
+$$
+
+이는 algebraic finite-sample bound이며 confidence interval, state count 또는 population
+upper bound가 아니다.
 
 $d_{\rm eff}\le M-1$은 정확하다. 그러나 $d_{\rm eff}>0.5(M-1)$를 모두 censored라고
 분류하는 것은 heuristic이다. Marchenko–Pastur law도 iid isotropic random matrix

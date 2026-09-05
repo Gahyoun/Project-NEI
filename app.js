@@ -31,10 +31,29 @@ function tex(s){
       const m=part.slice(1,-1);
       try{ return window.katex.renderToString(m,{throwOnError:false}); }catch{ return esc(part); }
     }
-    return esc(part);
+    // Escape first; then admit only the narrow Markdown emphasis form **text**.
+    // This keeps JSON prose inert while allowing compact technical labels.
+    return esc(part).replace(/\*\*([^*\n]+)\*\*/g,"<strong>$1</strong>");
   }).join("");
 }
 function texB(s){ try{ return window.katex.renderToString(s,{throwOnError:false}); }catch{ return esc(`$${s}$`); } }
+
+const NODE_NOTE_JUMPS = [
+  {id:"kernelPanel", label:"Graph-to-Terminal-Law Kernel",
+   nodes:["protocol","terminal","gate","NEI"]},
+  {id:"metric-calibration", label:"Metric Calibration Proof Note",
+   nodes:["schoenberg","negtype","strain","Dp","fit","NEI","calib"]},
+  {id:"floorFig", label:"Legacy Tolerance Ladder",
+   nodes:["gate","NEI","robust","calib"]},
+  {id:"sample", label:"Sample and Exclusion Audit",
+   nodes:["G","cmnull","robust","resid"]},
+  {id:"discussion-A1", label:"A1 · Terminology and Equivalence Policy",
+   nodes:["schoenberg","negtype","Dp","shape","aut","hessian","morse","multiplicity","energydeg"]},
+  {id:"discussion-A2", label:"A2 · Terminal-Kernel Robustness",
+   nodes:["protocol","terminal","gate","Keff","recur","robust"]},
+  {id:"discussion-A3", label:"A3 · Incompatibility Organization",
+   nodes:["G","Dp","hessian","rigidity","floppy","cmnull","resid"]}
+];
 
 /* ── 막대그림 ─────────────────────────────────────────── */
 function cap(id,t,s){ const e=document.getElementById(id); if(e)
@@ -145,15 +164,18 @@ function renderMapLegend(){
 function renderCoverageSummary(){
   const host=document.getElementById("coverageSummary"); if(!host) return;
   const ids=DB.nodes.nodes.map(n=>n.id);
-  const labels={direct:"직접",partial:"부분",none:"없음"};
+  const labels={direct:"직접",partial:"부분",none:"없음",unreviewed:"미검토"};
   const chips=Object.entries(DB.sources.sources).map(([key,meta])=>{
-    const count={direct:0,partial:0,none:0};
-    ids.forEach(id=>{ const k=DB.sources.nodes[id]?.[key]?.kind||"none"; count[k]++; });
+    const count={direct:0,partial:0,none:0,unreviewed:0};
+    ids.forEach(id=>{
+      const k=DB.sources.nodes[id]?.[key]?.kind||"unreviewed";
+      count[k]=(count[k]||0)+1;
+    });
     return `<span class="coverage-chip ${esc(meta.class)}">${esc(meta.label)}
       ${Object.entries(count).map(([k,v])=>`${labels[k]} ${v}`).join(" · ")}</span>`;
   });
   const common=ids.filter(id=>Object.keys(DB.sources.sources).every(
-    key=>(DB.sources.nodes[id]?.[key]?.kind||"none")==="none"));
+    key=>DB.sources.nodes[id]?.[key]?.kind==="none"));
   chips.push(`<span class="coverage-chip gaps">세 문서 공통 미서술 ${common.length}
     · ${common.map(id=>esc(DB.nodes.nodes.find(n=>n.id===id)?.label||id)).join(" · ")}</span>`);
   host.innerHTML=chips.join("");
@@ -167,9 +189,11 @@ function renderPanel(){
   const inc=DB.edges.edges.filter(e=>e.to===n.id), out=DB.edges.edges.filter(e=>e.from===n.id);
   const vias=[...new Set([...inc,...out].map(e=>e.via))];
   const sm=DB.sources.nodes[n.id]||{};
-  const kindLabel={direct:"직접 서술",partial:"부분 서술",none:"직접 대응 없음"};
+  const kindLabel={direct:"직접 서술",partial:"부분 서술",none:"직접 대응 없음",
+                   unreviewed:"Source audit pending"};
   const sourceCards=Object.entries(DB.sources.sources).map(([key,meta])=>{
-    const x=sm[key]||{kind:"none",location:"직접 대응 없음",summary:"Source mapping 미작성."};
+    const x=sm[key]||{kind:"unreviewed",location:"source audit pending",
+                     summary:"현재 snapshot에서 대응 위치 미검토. 미서술 판정 아님."};
     return `<li class="source-slot"><article class="source-card ${esc(meta.class)} is-${esc(x.kind)}">
       <div class="source-head"><h5 class="source-name">${esc(meta.label)}</h5>
         <span class="source-kind">${esc(kindLabel[x.kind]||x.kind)}</span></div>
@@ -177,9 +201,11 @@ function renderPanel(){
         <div><dt>File</dt><dd class="source-file">${esc(meta.file)}</dd></div>
         <div><dt>Location</dt><dd class="source-location">${esc(x.location)}</dd></div>
       </dl>
-      <p>${tex(x.summary)}</p>
+      <p>${tex(x.summary)}</p>${x.kind==="unreviewed"?
+        '<p class="fine"><b>Source audit pending.</b> Frozen coverage 판정에 포함하지 않음.</p>':""}
     </article></li>`;
   }).join("");
+  const noteJumps=NODE_NOTE_JUMPS.filter(x=>x.nodes.includes(n.id));
   const relationGroups=[
     vias.length?`<li><section><h5>Connectors</h5><ul>${
       vias.map(v=>`<li>${tex(DB.connectors[v].label)}</li>`).join("")}</ul></section></li>`:"",
@@ -198,8 +224,13 @@ function renderPanel(){
         ${n.formula?`<li><section><h4>Formula</h4><div class="fml">${texB(n.formula)}</div></section></li>`:""}
         <li><section><h4>Definition and interpretation</h4><p>${tex(n.def)}</p></section></li>
         <li><section><h4>Evidence traceability</h4>
+          <p class="fine">Frozen manuscript coverage snapshot. 현재 research-note 보강은 아래 coverage status를 자동 변경하지 않음.</p>
           <ol class="source-grid note-tree note-depth-5">${sourceCards}</ol>
         </section></li>
+        ${noteJumps.length?`<li><section><h4>Current Research Note</h4>
+          <p class="fine">Manuscript coverage와 분리된 working discussion. 해당 anchor로 이동.</p>
+          <ul>${noteJumps.map(x=>`<li><a href="#${esc(x.id)}">${esc(x.label)}</a></li>`).join("")}</ul>
+        </section></li>`:""}
         ${relationGroups?`<li><section><h4>Relations</h4><ol class="note-tree note-depth-5">${relationGroups}</ol></section></li>`:""}
         ${n.refs.length?`<li><section><h4>References</h4><ul>${
           n.refs.map(k=>{const r=DB.refs[k];
@@ -277,17 +308,17 @@ function renderRefs(){
 /* ── 1차 일단락 ──────────────────────────────────────── */
 function renderCalib(){
   const c=DB.meas.calibration; if(!c||!document.getElementById("ch-calib")) return;
-  document.getElementById("cap-calib-t").innerHTML=tex(esc(c.title));
-  document.getElementById("cap-calib-s").innerHTML=tex(esc(c.sub));
+  document.getElementById("cap-calib-t").innerHTML=tex(c.title);
+  document.getElementById("cap-calib-s").innerHTML=tex(c.sub);
   // I 는 자릿수가 22 자리에 걸치므로 log10 로 그린다
   const lg=v=>Math.max(0,(Math.log10(v)+24)/24);
   bars(document.getElementById("ch-calib"),
     c.rows.map(r=>({k:r.k, v:[r.D2, lg(r.I_pol)],
       vlabel:`${r.D2.toFixed(3)} / ${r.I_pol.toExponential(1).replace("e-","e−")}`})),
     {max:1, cls:i=>i?"s2":"s1",
-     legend:`<span><i style="background:var(--primary)"></i>$\\mathcal D_2$</span>`+
-            `<span><i style="background:#7aa2e3"></i>$\\log_{10}\\widehat{\\mathcal I}_M$ (polish, 눈금 $10^{-24}$–$10^{0}$)</span>`});
-  document.getElementById("calib-verdict").innerHTML=tex(esc(c.verdict));
+     legend:`<span><i style="background:var(--primary)"></i>${tex("$\\mathcal D_2$")}</span>`+
+            `<span><i style="background:#7aa2e3"></i>${tex("$\\log_{10}\\widehat{\\mathcal I}_M$ (polish, 눈금 $10^{-24}$–$10^{0}$)")}</span>`});
+  document.getElementById("calib-verdict").innerHTML=tex(c.verdict);
 }
 
 function renderByType(){
@@ -299,92 +330,124 @@ function renderByType(){
       <span class="track"><span class="fill" style="left:${x.lo/hi*100}%;width:${
         Math.max((x.hi-x.lo)/hi*100,1.2)}%"></span></span>
       <span class="v">${x.med.toFixed(3)}</span></div>`).join("")}</div>`;
-  document.getElementById("bytype-caveat").innerHTML=tex(esc(r.caveat||""));
+  document.getElementById("bytype-caveat").innerHTML=tex(r.caveat||"");
 }
 
 function renderFloor(){
   const f=DB.meas.floor_ladder; if(!f||!document.getElementById("tb-floor")) return;
-  document.getElementById("cap-floor-t").innerHTML=tex(esc(f.title));
-  document.getElementById("cap-floor-s").innerHTML=tex(esc(f.sub));
+  document.getElementById("cap-floor-t").innerHTML=tex(f.title);
+  document.getElementById("cap-floor-s").innerHTML=tex(f.sub);
   const sci=v=>v.toExponential(4).replace("e-","e−").replace("e+","e");
   const sci2=v=>v.toExponential(2).replace("e-","e−").replace("e+","e");
+  const floorVerdictBadge=value=>{
+    const raw=String(value||"unresolved");
+    const legacy=/\blegacy\b/i.test(raw);
+    const core=raw.replace(/\s*\(legacy\)\s*/i,"").trim()||raw;
+    const cls=/persistent|signal/i.test(core)?"b-measured":"b-open";
+    return `<span class="badge ${cls}">${esc(core)}</span>${legacy?
+      ' <span class="badge b-caution">legacy</span>':""}`;
+  };
   document.getElementById("tb-floor").innerHTML=
-    `<thead><tr><th rowspan="2">graph</th>${f.rungs.map(r=>`<th colspan="2">gtol ${tex(r)}</th>`).join("")}<th rowspan="2">판정</th></tr>
-      <tr>${f.rungs.map(()=>`<th style="font-weight:400">$\\widehat{\\mathcal I}_M$</th><th style="font-weight:400">$\\eta_g$</th>`).join("")}</tr></thead>
+    `<thead><tr><th rowspan="2">Graph</th>${f.rungs.map((r,i)=>`<th colspan="2">
+        gtol ${tex(r)}<br><span class="fine">ftol ${tex(f.ftol?.[i]||"—")}</span></th>`).join("")}
+        <th rowspan="2">Verdict</th></tr>
+      <tr>${f.rungs.map(()=>`<th style="font-weight:400">${tex("$\\widehat{\\mathcal I}_M$")}</th>
+        <th style="font-weight:400">${tex(f.gradient_label||"legacy residual")}</th>`).join("")}</tr></thead>
      <tbody>${f.rows.map(r=>{
         const e=(f.eta||{})[r.k]||[];
-        return `<tr><td>${tex(esc(r.k))}</td>${
+        return `<tr><td>${tex(r.k)}</td>${
           r.v.map((v,i)=>`<td style="font-variant-numeric:tabular-nums">${sci(v)}</td>
             <td class="muted" style="font-variant-numeric:tabular-nums;font-size:13px">${e[i]!=null?sci2(e[i]):"—"}</td>`).join("")}
-          <td><span class="badge ${r.verdict==="signal"?"b-measured":"b-open"}">${esc(r.verdict)}</span></td></tr>`;
+          <td>${floorVerdictBadge(r.verdict)}</td></tr>`;
       }).join("")}</tbody>`;
   document.getElementById("floor-verdict").innerHTML=
-    (f.caveat?`<span class="badge b-open">주의</span> ${tex(esc(f.caveat))}<br><br>`:"")
-    + tex(esc(f.verdict))
-    + (f.verdict_en?`<br><br><i>${tex(esc(f.verdict_en))}</i>`:"");
+    (f.caveat?`<span class="badge b-open">Caution</span> ${tex(f.caveat)}<br><br>`:"")
+    + tex(f.verdict)
+    + (f.verdict_en?`<br><br><i>${tex(f.verdict_en)}</i>`:"");
 }
 
 function renderAgenda(){
   const a=DB.agenda, q=i=>document.getElementById(i);
+  const capLabel=value=>String(value).replace(/^[a-z]/,c=>c.toUpperCase());
+  const displayEq=e=>{
+    try{return window.katex.renderToString(e,{displayMode:true,throwOnError:false});}
+    catch{return `<code>${esc(e)}</code>`;}
+  };
+  const decisionItem=x=>typeof x==="string"?`<li>${tex(x)}</li>`:
+    `<li><b>${tex(capLabel(x.k))}</b> — ${tex(x.v)}</li>`;
   const o=a.originality;
   if(o && q("origTitle")){
-    q("origTitle").innerHTML=tex(esc(o.title));
-    q("origBody").innerHTML=
-      o.existing.map(x=>`<p style="font-size:15px"><b>${tex(esc(x.k))}</b> — ${tex(esc(x.v))}</p>`).join("")
-      +`<div class="callout warn" style="margin:12px 0">${tex(esc(o.gap))}</div>`
-      +`<p style="font-size:15px"><b>왜 지금인가</b> — ${tex(esc(o.why_now))}</p>`
-      +`<div class="sect">새로운 것 (정확히)</div>`
-      +o.new.map((x,i)=>`<div class="claimline"><span class="n">${i+1}</span>
-          <span><span class="t"><b>${tex(esc(x.k))}</b></span>
-          <span class="s">${tex(esc(x.v))}</span></span></div>`).join("")
-      +`<div class="sect">주장하지 않는 것</div><ul style="font-size:14px;margin:6px 0 10px;padding-left:20px">${
-          o.not_claiming.map(x=>`<li>${tex(esc(x))}</li>`).join("")}</ul>`
-      +`<div class="callout ok">${tex(esc(o.minimum))}</div>`;
+    q("origTitle").innerHTML=tex(o.title);
+    q("origBody").innerHTML=`<ol class="note-tree note-depth-4">
+      <li><section><h4>Established Precedents</h4><ul>${
+        (o.existing||[]).map(x=>`<li><b>${tex(capLabel(x.k))}</b> — ${tex(x.v)}</li>`).join("")
+      }</ul></section></li>
+      <li><section><h4>Gap</h4><p>${tex(o.gap)}</p>
+        <ul><li><b>Why Now</b> — ${tex(o.why_now)}</li></ul></section></li>
+      <li><section><h4>Contribution Candidates</h4><ol>${
+        (o.new||[]).map(x=>`<li><b>${tex(capLabel(x.k))}</b> — ${tex(x.v)}</li>`).join("")
+      }</ol></section></li>
+      <li><section><h4>Claim Boundary</h4><ul>${
+        (o.not_claiming||[]).map(x=>`<li>${tex(x)}</li>`).join("")
+      }</ul></section></li>
+      <li><section><h4>Minimum Contribution</h4><p>${tex(o.minimum)}</p></section></li>
+    </ol>`;
   }
-  q("agFraming").innerHTML=tex(esc(a.framing));
+  q("agFraming").innerHTML=`<b>Framing.</b> ${tex(a.framing)}`;
   if(a.kernel && q("kernelPanel")){
     const K=a.kernel;
-    q("kernelPanel").innerHTML=`<h3>${tex(esc(K.title))}</h3>`
-      + K.eq.map(e=>`<div class="fml" style="text-align:center">${
-          (()=>{try{return katex.renderToString(e,{displayMode:true,throwOnError:false});}
-                catch{return esc(e);}})()}</div>`).join("")
-      + `<p style="font-size:15px">${tex(esc(K.body))}</p>`
-      + `<div class="callout">${tex(esc(K.precedent))}</div>`;
+    q("kernelPanel").innerHTML=`<h3>${tex(K.title)}</h3>
+      <ol class="note-tree note-depth-4">
+        <li><section><h4>Definition</h4>${
+          (K.eq||[]).map(e=>`<div class="fml" style="text-align:center">${displayEq(e)}</div>`).join("")
+        }</section></li>
+        <li><section><h4>Interpretation</h4><p>${tex(K.body)}</p></section></li>
+        <li><section><h4>Precedents</h4><p>${tex(K.precedent)}</p></section></li>
+        <li><section><h4>Novelty Boundary</h4>
+          <p>Stochastic kernel 구성 자체는 standard construction. Graph-level estimand와 validation design의 결합에 대한 novelty는 literature audit 이후 판정.</p>
+        </section></li>
+      </ol>`;
   }
-  q("agItems").innerHTML=a.items.map(it=>`
-    <div class="panel wide" style="margin-bottom:14px">
-      <h3>${esc(it.id)}. ${tex(esc(it.k))}</h3>
-      <p style="font-size:15px">${tex(esc(it.why))}</p>
-      ${it.senses?`<div class="tablewrap" style="margin:10px 0"><table><tbody>${
-        it.senses.map(s=>`<tr><td class="k">${esc(s.k)}</td><td>${tex(esc(s.v))}</td></tr>`).join("")
-        }</tbody></table></div><p style="font-size:15px"><b>우리가 재는 것</b> — ${tex(esc(it.ours))}</p>`:""}
-      ${it.analogy?`<div class="callout" style="margin:10px 0">${tex(esc(it.analogy))}</div>`:""}
-      ${it.caution?`<div class="callout warn" style="margin:10px 0"><b>주의</b> — ${tex(esc(it.caution))}</div>`:""}
-      <div class="sect">할 일</div>
-      <ul style="font-size:14px;margin:6px 0 10px;padding-left:20px">${
-        it.todo.map(x=>typeof x==="string"?`<li>${tex(esc(x))}</li>`
-          :`<li><b>${tex(esc(x.k))}</b> — ${tex(esc(x.v))}</li>`).join("")}</ul>
-      <p class="fine">상태 · ${tex(esc(it.state))}</p>
-    </div>`).join("");
-  q("agClosing").innerHTML=tex(esc(a.closing));
+  q("agItems").innerHTML=`<ol class="note-tree note-depth-3 research-discussion-list">${
+    (a.items||[]).map(it=>{
+      const objectParts=[];
+      if(it.senses) objectParts.push(`<ul>${it.senses.map(s=>
+        `<li><b>${tex(capLabel(s.k))}</b> — ${tex(s.v)}</li>`).join("")}</ul>`);
+      if(it.ours) objectParts.push(`<p><b>Target Estimand.</b> ${tex(it.ours)}</p>`);
+      if(it.analogy) objectParts.push(`<p><b>Working Hypothesis.</b> ${tex(it.analogy)}</p>`);
+      if(!objectParts.length) objectParts.push(`<p>${tex(it.k)}</p>`);
+      return `<li><article class="panel wide research-discussion" id="discussion-${esc(it.id)}"
+          aria-labelledby="discussion-title-${esc(it.id)}">
+        <header><h3 id="discussion-title-${esc(it.id)}">${esc(it.id)} · ${tex(it.k)}</h3></header>
+        <ol class="note-tree note-depth-4">
+          <li><section><h4>Why</h4><p>${tex(it.why)}</p></section></li>
+          <li><section><h4>Object</h4>${objectParts.join("")}</section></li>
+          <li><section><h4>Required Decisions</h4><ul>${
+            (it.todo||[]).map(decisionItem).join("")}</ul></section></li>
+          ${it.caution?`<li><section><h4>Claim Boundary</h4><p>${tex(it.caution)}</p></section></li>`:""}
+          <li><section><h4>Status</h4><p>${tex(it.state)}</p></section></li>
+        </ol>
+      </article></li>`;
+    }).join("")}</ol>`;
+  q("agClosing").innerHTML=`<b>Stage Boundary.</b> ${tex(a.closing)}`;
 }
 
 function renderSweep(){
   const s=DB.sweep, q=id=>document.getElementById(id);
-  q("sweepHead").innerHTML=`<b>${esc(s.status)}</b> · ${esc(s.asof)}<br>${tex(esc(s.headline))}`;
+  q("sweepHead").innerHTML=`<b>${esc(s.status)}</b> · ${esc(s.asof)}<br>${tex(s.headline)}`;
   q("sweepProto").innerHTML=tex(`$M=${s.protocol.M}$ · $p=${s.protocol.p}$ · max_iter ${s.protocol.max_iter} · eps ${s.protocol.eps} · ${s.protocol.optimizer} · polish ${s.protocol.polish}`);
   bars(q("ch-sweep"), s.counts.map(c=>({k:c.k, v:c.v, vlabel:`${c.v} / ${c.of}`})), {max:97});
   const a=s.artifacts;
   q("sweepArt").innerHTML=`
     <p style="font-size:15px;margin:0 0 10px">npz <b>${a.npz}</b> — ${a.nodes.map(esc).join(" · ")}</p>
     <div class="sect">저장됨</div><ul style="font-size:14px;margin:4px 0 10px;padding-left:20px">${
-      a.stored.map(x=>`<li>${tex(esc(x))}</li>`).join("")}</ul>
+      a.stored.map(x=>`<li>${tex(x)}</li>`).join("")}</ul>
     <div class="sect">없음</div><ul style="font-size:14px;margin:4px 0 10px;padding-left:20px">${
-      a.missing.map(x=>`<li>${tex(esc(x))}</li>`).join("")}</ul>
-    <p class="fine">${tex(esc(a.consequence))}</p>`;
+      a.missing.map(x=>`<li>${tex(x)}</li>`).join("")}</ul>
+    <p class="fine">${tex(a.consequence)}</p>`;
   q("sweepRange").innerHTML=`<tbody>${s.ranges.map(r=>
-    `<tr><td class="k">${tex(esc(r.k))}</td><td>${tex(esc(r.v))}</td>
-     <td class="muted" style="font-size:13px">${tex(esc(r.note))}</td></tr>`).join("")}</tbody>`;
+    `<tr><td class="k">${tex(r.k)}</td><td>${tex(r.v)}</td>
+     <td class="muted" style="font-size:13px">${tex(r.note)}</td></tr>`).join("")}</tbody>`;
   q("sweepEnv").innerHTML=`<tbody>${s.env.map(r=>
     `<tr><td class="k">${esc(r.k)}</td><td><code>${esc(r.v)}</code></td>
      <td class="muted" style="font-size:13px">${esc(r.note)}</td></tr>`).join("")}
@@ -393,36 +456,45 @@ function renderSweep(){
 
 function renderSample(){
   const s=DB.sample, q=i=>document.getElementById(i); if(!s||!q("smpHead")) return;
-  q("smpHead").innerHTML=tex(esc(s.headline));
-  bars(q("ch-smp"), s.counts.map(c=>({k:c.k,v:c.v,vlabel:String(c.v)})), {max:83});
+  q("smpHead").innerHTML=tex(s.headline);
+  bars(q("ch-smp"), s.counts.map(c=>({k:c.k,v:c.v,vlabel:String(c.v)})),
+    {max:Math.max(...s.counts.map(c=>c.v),1)});
   q("smpMethod").innerHTML=`<tbody>${s.method.map(m=>
-    `<tr><td class="k">${esc(m.k)}</td><td>${tex(esc(m.v))}</td></tr>`).join("")}
-    <tr><td class="k">수치 제외</td><td>${tex(esc(s.numerical_exclusion.rule))} — ${tex(esc(s.numerical_exclusion.why))}</td></tr>
-    <tr><td class="k">근사 중복</td><td>${tex(esc(s.near_duplicate_rule))}</td></tr></tbody>`;
+    `<tr><td class="k">${esc(m.k)}</td><td>${tex(m.v)}</td></tr>`).join("")}
+    <tr><td class="k">Numerical Exclusion</td><td>${tex(s.numerical_exclusion.rule)} — ${tex(s.numerical_exclusion.why)}</td></tr>
+    <tr><td class="k">Near-Duplicate Rule</td><td>${tex(s.near_duplicate_rule)}</td></tr></tbody>`;
+  let audit=q("smpAudit");
+  if(!audit){
+    audit=document.createElement("div");
+    audit.id="smpAudit";
+    audit.className="callout warn";
+    (q("smpMethod").closest(".panel")||q("sample")).append(audit);
+  }
+  audit.innerHTML=`<b>Sample Audit Pending.</b> ${tex(s.open||"Legacy exclusions의 provenance 검토 필요.")}`;
   q("smpDrop").innerHTML=`<thead><tr><th>파일</th><th>처리</th></tr></thead><tbody>${
-    s.duplicates.map(d=>`<tr><td>${esc(d.k)}</td><td class="muted" style="font-size:13px">중복 → ${esc(d.of)}</td></tr>`).join("")
-    + s.excluded.map(e=>`<tr><td>${esc(e.k)}</td><td class="muted" style="font-size:13px">${esc(e.why)}</td></tr>`).join("")}</tbody>`;
-  q("smpNear").innerHTML="근사 중복으로 추가 제외 — "
-    + (s.near_duplicates||[]).map(x=>esc(x.dropped)).join(", ");
+    s.duplicates.map(d=>`<tr><td>${esc(d.k)}</td><td class="muted" style="font-size:13px">Legacy duplicate candidate → ${esc(d.of)}</td></tr>`).join("")
+    + s.excluded.map(e=>`<tr><td>${esc(e.k)}</td><td class="muted" style="font-size:13px">Legacy exclusion record — ${tex(e.why)}</td></tr>`).join("")}</tbody>`;
+  const candidates=(s.near_duplicates||[]).map(x=>esc(x.dropped)).join(", ")||"none recorded";
+  q("smpNear").innerHTML=`<b>Legacy Exclusions Audit Pending.</b> Near-duplicate candidates provisionally excluded: ${candidates}.`;
 }
 
 function renderVision(){
   const v=DB.vision, q=id=>document.getElementById(id);
-  q("visionThesis").innerHTML=`<b>${esc(v.target)}</b><br>${tex(esc(v.thesis))}`;
-  q("visDisc").innerHTML=`<thead><tr><th>갈래</th><th>가르는 장치</th><th>상태</th><th>왜</th></tr></thead><tbody>${
-    v.discriminators.map(d=>`<tr><td>${tex(esc(d.k))}</td><td>${tex(esc(d.test))}</td>
-      <td>${esc(d.state)}</td><td class="muted" style="font-size:13px">${tex(esc(d.why))}</td></tr>`).join("")}</tbody>`;
+  q("visionThesis").innerHTML=`<b>${esc(v.target)}</b><br>${tex(v.thesis)}`;
+  q("visDisc").innerHTML=`<thead><tr><th>Question</th><th>Test</th><th>Status</th><th>Why</th></tr></thead><tbody>${
+    v.discriminators.map(d=>`<tr><td>${tex(d.k)}</td><td>${tex(d.test)}</td>
+      <td>${esc(d.state)}</td><td class="muted" style="font-size:13px">${tex(d.why)}</td></tr>`).join("")}</tbody>`;
   q("visPhases").innerHTML=v.phases.map(p=>`
     <div class="claimline"><span class="n">${esc(p.id)}</span>
-      <span><span class="t"><b>${tex(esc(p.k))}</b> <span class="badge need-${esc(p.when.replace(/\s/g,""))}">${esc(p.when)}</span></span>
+      <span><span class="t"><b>${tex(p.k)}</b> <span class="badge need-${esc(p.when.replace(/\s/g,""))}">${esc(p.when)}</span></span>
         <ul style="font-size:14px;margin:6px 0 4px;padding-left:20px">${
-          p.items.map(x=>`<li>${tex(esc(x))}</li>`).join("")}</ul>
-        <span class="s">${tex(esc(p.note))}</span></span></div>`).join("");
+          p.items.map(x=>`<li>${tex(x)}</li>`).join("")}</ul>
+        <span class="s">${tex(p.note)}</span></span></div>`).join("");
   q("visDecK").textContent=v.decision.k+".";
-  q("visDecBody").innerHTML=tex(esc(v.decision.body));
+  q("visDecBody").innerHTML=tex(v.decision.body);
   q("visOpt").innerHTML=`<thead><tr><th>선택지</th><th>필요 조건</th><th>위험</th></tr></thead><tbody>${
-    v.decision.options.map(o=>`<tr><td>${esc(o.k)}</td><td>${tex(esc(o.need))}</td>
-      <td class="muted" style="font-size:13px">${tex(esc(o.risk))}</td></tr>`).join("")}</tbody>`;
+    v.decision.options.map(o=>`<tr><td>${esc(o.k)}</td><td>${tex(o.need)}</td>
+      <td class="muted" style="font-size:13px">${tex(o.risk)}</td></tr>`).join("")}</tbody>`;
 }
 
 function renderScope(){

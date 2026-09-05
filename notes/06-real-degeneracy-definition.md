@@ -18,8 +18,9 @@
 \]
 
 는 dissimilarity 규칙, 차원, 가중치, 초기분포, 최적화기와 수치 문턱값까지 포함하는
-완전한 protocol이다. 결정론적 terminal map을 \(T_\Pi:X^{(0)}\mapsto X^\star\)라 하고
-\(q(X)=D(X)\)를 모든 쌍의 Euclidean distance vector라 하면, 실제 분석 대상은
+완전한 protocol이다. 초기조건과 algorithmic random variable \(\Xi\)에 대한 measurable
+terminal map을 \(T_\Pi(X^{(0)},\Xi)\)라 하고 \(q(X)=D(X)\)를 모든 쌍의 Euclidean
+distance vector라 하면, population 분석 대상은
 
 \[
 \mu_\Pi=(q\circ T_\Pi)_\#(\rho_0\otimes\rho_{\rm alg})
@@ -39,14 +40,24 @@ A_{\rm num}=\{\mathrm{success},\eta_g\le\tau_g,
 \alpha_\Pi=\Pr_\Pi(A_{\rm num})
 \]
 
-이다. conditional law를 정의하려면 \(\alpha_\Pi>0\)이어야 한다. 즉 NEI가 보는 것은
-좌표 자체가 아니라 \(\mathrm E(p)\)를 이미 몫한 terminal distance geometry의 conditional
-distribution이다. \(M\)은 이 population law의 인자가 아니라 empirical measure
+이다. conditional law를 정의하려면 \(\alpha_\Pi>0\)이어야 한다. \(\mu_\Pi^{\rm adm}\)은
+\(\mathrm E(p)\)를 이미 몫한 full terminal distance geometry의 conditional distribution이고,
+NEI는 아래에서 선언하는 \(\mathcal P\)-coordinate projection을 사용한다. \(M\)은 이
+population law의 인자가 아니라 empirical measure
 \(\widehat\mu_{\Pi,M}\)의 sample size다. 따라서 \(M\)은 Monte Carlo precision과
 rare-class detection power를 제한하고, geometric resolution은 \(\varepsilon_D\)가 정한다.
 
-prespecified pair set \(\mathcal P\)에서 \(w_a>0\)이고 \(S_{\Delta,W}>0\)이라 하자. 일반
-weight에서는
+full pair vector의 coordinate restriction을 \(\pi_{\mathcal P}\)라 하고
+
+\[
+D_{\mathcal P}=\pi_{\mathcal P}(D),\qquad
+q_{\mathcal P}=\pi_{\mathcal P}\circ q,\qquad
+\mu_{\Pi,\mathcal P}^{\rm adm}
+=(\pi_{\mathcal P})_\#\mu_\Pi^{\rm adm}
+\]
+
+로 둔다. prespecified pair set \(\mathcal P\)에서 \(w_a>0\)이고
+\(S_{\Delta,W}>0\)이라 하자. 일반 weight에서는
 
 \[
 S_{\Delta,W}=\sum_{a\in\mathcal P}w_a\Delta_a^2,
@@ -56,14 +67,19 @@ S_{\Delta,W}=\sum_{a\in\mathcal P}w_a\Delta_a^2,
 \right]^{1/2}
 \]
 
-를 사용한다. 그러면 population definition은
-\(\operatorname{diam}_{\rho_D}\operatorname{supp}(\mu_\Pi^{\rm adm})>
+를 사용한다. 이 \(\rho_D\)는 projected pair space의 metric이며 full pair space에서는
+partial \(\mathcal P\)에 대해 pseudometric이다. population definition은
+\(\operatorname{diam}_{\rho_D}\operatorname{supp}(\mu_{\Pi,\mathcal P}^{\rm adm})>
 \varepsilon_D\)이다. finite sample은 recurrent \(\varepsilon_D\)-separated classes를
 관측할 뿐 arbitrarily rare population support를 배제하지 못한다. complete-support
 detection claim에는 minimum class mass 또는 missing-mass assumption이 필요하다.
+이 판정이 full terminal geometry의 noncollapse와 동치인 경우는 \(\mathcal P\)가 모든
+unordered pair를 포함하거나 \(\pi_{\mathcal P}\)가 admissible support에서 injective인
+경우다. 그 외에는 \(\mathcal P\)-resolved degeneracy로 표기한다.
 
-이 정의에서 **realized**는 “수치적으로 실제 관측되었다”는 뜻이고, 다음 세 뜻은
-포함하지 않는다.
+이 정의에서 **realized**는 population protocol이 terminal geometry를 유도하고 점유한다는
+뜻이다. finite-\(M\) observation 자체가 population property를 인증한다는 뜻은 아니다.
+또한 다음 세 뜻을 포함하지 않는다.
 
 - 서로 다른 terminal이 정확히 같은 stress를 갖는다는 뜻이 아니다.
 - optimizer 또는 초기분포와 무관한 landscape invariant라는 뜻이 아니다.
@@ -118,9 +134,14 @@ n_-(H_\perp),\qquad n_0(H_\perp),\qquad n_+(H_\perp).
 - \(n_-=0\), 추가 영모드 존재: infinitesimal soft-mode 후보이다.
 
 마지막 경우가 곧 연속 degeneracy는 아니다. \(f(x)=x^4\)는 고립된 strict minimum을
-가지지만 \(f''(0)=0\)이다. analytic minimizer manifold \(\mathcal M\)을 주장하려면 smooth
-fixed-rank quotient stratum에서 \(\dim\mathcal M\ge1\),
-\(\mathcal M\subset\operatorname{Crit}(\mathcal F)\)를 먼저 보이고 모든
+가지지만 \(f''(0)=0\)이다. 반대로 \(f(x,y)=y^4\)의 minimizer set \(\{y=0\}\)은 exact
+continuous manifold이지만 normal Hessian이 0이므로 Morse–Bott가 아니다. exact family는
+quotient space의 nonconstant path \(X(t)\)가 exact local minimizers로 이루어짐을 직접
+보이는 방식으로 인증할 수 있다. global-minimum degeneracy를 주장할 때는 추가로
+\(X(t)\in\operatorname*{argmin}\mathcal F\)가 필요하다.
+
+더 강한 regularity를 위해 smooth fixed-rank quotient stratum에서
+\(\dim\mathcal M\ge1\), \(\mathcal M\subset\operatorname{Crit}(\mathcal F)\)와 모든
 \(X\in\mathcal M\)에서
 
 \[
@@ -128,7 +149,9 @@ fixed-rank quotient stratum에서 \(\dim\mathcal M\ge1\),
 H_X\big|_{(T_X\mathcal M)^\perp}\succ0
 \]
 
-인 Morse–Bott 구조가 필요하다. finite continuation은 declared resolution에서의 numerical
+인 Morse–Bott 구조를 보이면 smooth local minimizer manifold와 transverse quadratic
+stability의 sufficient analytic certificate가 된다. 모든 continuous minimizer set의
+필요조건은 아니다. finite continuation은 declared resolution에서의 numerical
 continuous-degeneracy candidate를 지지하지만 exact manifold의 증명은 아니다.
 
 프로젝트 내부의 더 강한 반례는 path control이다. $P_n$을 $p=2$에서
@@ -150,7 +173,9 @@ d_{ij}(t)=|a_i-a_j|
 
 quotient Hessian에는 transverse zero modes가 있지만 full distance matrix의 exact
 realization은 $\mathrm E(2)$까지 유일하다. 즉 extra kernel과 isolated minimum이
-공존하며, 이 예를 Hessian classifier의 필수 unit test로 사용한다.
+공존하며, 이 예를 Hessian classifier의 필수 unit test로 사용한다. 여기서 유일성은
+zero-stress global realization orbit에 대한 statement다. 같은 nonconvex raw-stress
+objective에 다른 positive-stress local minima가 없다는 결론은 따르지 않는다.
 
 ### 2.3 Normalized-stress near-equivalence
 
@@ -221,6 +246,11 @@ genuine non-Euclidean 성분이다. 둘의 합은
 $B=0$에는 $\mathcal D_p=0$ convention을 쓴다. 큰 $\mathcal D_p$를 곧바로 physical
 frustration으로 읽지 않고 두 성분을 먼저 보고한다.
 
+$\mathcal D_p$와 $\mathcal I$는 서로 다른 mathematical object다. 이 구분은 두 양의
+statistical independence를 뜻하지 않는다. graph ensemble에서 두 양은 같은 $\Delta$와
+graph covariates를 공유할 수 있으므로 association 또는 conditional independence는 별도
+empirical hypothesis로 검사한다.
+
 cMDS cutoff에서 $\mu_p=\mu_{p+1}>0$이면 optimal subspace가 비유일하고, eigengap이
 작으면 Davis--Kahan 관점에서 eigenvectors가 perturbation에 민감하다. 반복고유값 안의
 개별 eigenvector 대신 spectral projector를 보고하는 것이 basis-invariant하다.
@@ -235,17 +265,37 @@ prespecified pair set \(\mathcal P\), \(N_+=|\mathcal P|\)에서
 \left(\frac{d_a-d'_a}{\mathbb E[d_a]}\right)^2
 \]
 
-로 두자. iid \(D,D'\sim\mu_\Pi^{\rm adm}\)에 대해
+로 두자. iid \(D_{\mathcal P},D'_{\mathcal P}\sim
+\mu_{\Pi,\mathcal P}^{\rm adm}\)에 대해
 
 \[
-\mathcal I(\mu_\Pi^{\rm adm})
-=\frac12\mathbb E[\rho_\mu^2(D,D')].
+\mathcal I(\mu_{\Pi,\mathcal P}^{\rm adm})
+=\frac12\mathbb E[\rho_\mu^2(D_{\mathcal P},D'_{\mathcal P})].
 \]
 
-따라서 \(\mathcal I=0\) iff \(\mu_\Pi^{\rm adm}\) is a point mass. 다만
-population-dependent \(\rho_\mu\)와 predeclared \(\rho_D\)는 positive threshold에서
-동일한 양이 아니므로, NEI alone은
-\(\operatorname{diam}_{\rho_D}\operatorname{supp}\mu>\varepsilon_D\)의 estimator가 아니다.
+따라서 \(\mathcal I=0\) iff \(\mu_{\Pi,\mathcal P}^{\rm adm}\) is a point mass. full law
+\(\mu_\Pi^{\rm adm}\)의 point-mass collapse와 동치이려면 \(\mathcal P\)가 모든 unordered
+pair를 포함하거나 \(\pi_{\mathcal P}\)가 admissible support에서 injective여야 한다.
+
+\(m_a=\mathbb E[d_a]\)라 하고
+
+\[
+c_-^2=\frac{S_{\Delta,W}}{N_+}
+\min_{a\in\mathcal P}\frac1{w_am_a^2},\qquad
+c_+^2=\frac{S_{\Delta,W}}{N_+}
+\max_{a\in\mathcal P}\frac1{w_am_a^2}
+\]
+
+로 두면 finite \(\mathcal P\)에서
+
+\[
+c_-\rho_D(d,d')\le\rho_\mu(d,d')\le c_+\rho_D(d,d')
+\]
+
+이다. 즉 두 metric은 norm-equivalent이지만 같은 numerical threshold를 공유하지 않는다.
+따라서 explicit calibration 없이 NEI alone을
+\(\operatorname{diam}_{\rho_D}\operatorname{supp}
+(\mu_{\Pi,\mathcal P}^{\rm adm})>\varepsilon_D\)의 estimator로 읽을 수 없다.
 
 쌍 \(a=(i,j)\), \(a=1,\dots,N_+\)에 대해
 
@@ -320,8 +370,11 @@ terminal class \(\gamma\) 안의 평균과 분산을 \(\mu_a^\gamma,v_a^\gamma\)
 
 각 run이 고립된 minimizer orbit에 정확히 수렴하면 \(v_a^\gamma=0\)이므로
 \(\mathcal I_{\rm within}=0\)이다. 이 극한에서 NEI는 occupancy와 terminal geometry의
-조합으로만 정해지며 Hessian spectrum은 식에 나타나지 않는다. 곡률은 수렴오차를
-제어하거나 continuous flat family를 진단할 때 간접적으로만 들어온다.
+조합으로 정해지며, occupancy와 class geometry를 고정한 conditional identity에는 Hessian
+spectrum이 직접 나타나지 않는다. 그러나 이것은 dynamical independence가 아니다. local
+curvature, barrier와 basin-boundary geometry는 protocol-induced occupancy $P_\gamma$를
+바꾸어 exact convergence에서도 $\mathcal I$에 간접적으로 영향을 줄 수 있다. 따라서
+NEI와 softness는 distinct observables이며 generally independent mechanisms가 아니다.
 
 또한 큰 \(\mathcal I\)가 많은 minima를 뜻하지 않는다. 드물게 점유되지만 매우 멀리
 떨어진 class 하나만 있어도 \(K=2\)에서 큰 값이 가능하다. 그러므로 \(\mathcal I\),
@@ -373,7 +426,9 @@ Gram이 유일하지 않을 수 있다. zero-eigenvalue tie는 이 비유일성�
    통과한다. 이는 thermodynamic energy degeneracy가 아니다.
 7. **Continuation과 analytic structure** — finite continuation에서 유한한 기하변위,
    작은 gradient, bounded stress rise와 no collision을 함께 보이면 numerical candidate다.
-   exact local manifold에는 positive-dimensional Morse–Bott critical manifold가 필요하다.
+   exact family에는 nonconstant minimizer path 또는 manifold의 직접 인증이 필요하다.
+   Morse–Bott structure는 smoothness와 transverse quadratic stability의 stronger sufficient
+   certificate다.
 8. **Finite-\(M\) uncertainty** — \(K_{\rm eff}\), \(\mathcal I\), spectrum을 독립 batch
    또는 bootstrap으로 보고하고 \(M\)에 대한 stability를 검사한다. complete-support
    detection probability에는 minimum class mass 또는 missing-mass assumption이 필요하다.

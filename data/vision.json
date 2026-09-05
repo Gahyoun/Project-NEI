@@ -1,57 +1,126 @@
 {
- "_note": "1차 일단락(2026-09-17)까지의 계획과 그 이후. phase 는 순서가 아니라 의존관계로 읽는다.",
- "target": "2026-09-17 · 1차 일단락 범위 확정",
- "thesis": "SMACOF 로 드러나는 realized geometric degeneracy 가 network 의 별도 관측량임을 보인다. 그러려면 (a) 알고리즘 인공물, (b) 알려진 graph descriptor 의 재기술, (c) 새로운 관측량 셋을 가르는 장치가 각각 있어야 한다.",
+ "_note": "2026-09-05 research discussion revision. 일정은 기존 meeting target을 유지하되 계산시간과 결과를 예단하지 않음.",
+ "target": "2026-09-17 · 1차 일단락 범위 논의",
+ "thesis": "Protocol-conditioned terminal-geometry observable의 정의, numerical admissibility, graph-level interpretation을 분리. 물리적 mechanism은 corrected evidence와 controlled comparison이 필요한 다음 질문.",
  "discriminators": [
-  {"k": "(a) 알고리즘 인공물이 아님",
-   "test": "calibration null 대비 초과 + 서로 다른 하강 사상에서 얻은 $\\varepsilon_D$-분리 class 집합의 양방향 일치",
-   "state": "calibration null 측정 완료 · class 재현성 미착수",
-   "why": "스칼라 $\\mathcal I$ 의 일치는 약한 증거이다. 서로 다른 두 집합이 비슷한 spread 를 가질 수 있다. $\\mathcal F$ 의 minimizer 는 하강 사상의 성질이 아니므로 집합 일치가 결정적이다."},
-  {"k": "(b) 기존 descriptor 의 재기술이 아님",
-   "test": "configuration model $z_{\\mathcal I}$ + descriptor battery 에 대한 조건부 비중복성 + matched pair 제시",
-   "state": "미착수 — 현재 설계에 graph null 이 없다",
-   "why": "null 없이는 '무엇에 비해서' 가 없다. 이것이 심사에서 가장 먼저 죽는 지점이다."},
-  {"k": "(c) 관측량으로서의 자격",
-   "test": "모형족을 따라 $\\mathcal I(N)$ 의 유한크기 거동 · protocol 변형에 대한 순위 안정성",
-   "state": "미착수",
-   "why": "$N$ 거동이 없는 양은 관측량이 아니라 통계량이다."}
+  {
+   "k": "Numerical robustness",
+   "test": "Correct gradient + achieved stationarity·collision·quotient-curvature diagnostics. Independent batches와 optimizer별 terminal-class correspondence.",
+   "state": "Gradient 수정·derivative check 완료 / corrected full rerun pending",
+   "why": "Scalar NEI 일치만으로 같은 terminal support를 보장하지 않음. 서로 다른 optimizer의 recurrent classes 일치는 artifact 설명을 약화하는 evidence이지 모든 local minima의 completeness proof가 아님."
+  },
+  {
+   "k": "Graph-level information",
+   "test": "Degree-preserving null, size/degree-matched comparison, descriptor-conditioned predictive or explanatory gain.",
+   "state": "설계·claim 범위 논의",
+   "why": "NEI의 정의 자체와 다른 descriptors를 넘어선 empirical information은 별도 질문. Observational association을 mechanism으로 해석하지 않음."
+  },
+  {
+   "k": "Sampling and scaling",
+   "test": "M에 따른 estimator uncertainty·unseen-class sensitivity, graph ensemble에 따른 N dependence.",
+   "state": "Finite-sample 검증 필요 / thermodynamic claim 시 size scaling 필요",
+   "why": "Finite-size scaling이 없어도 observable은 정의 가능. 다만 phase transition, universality, thermodynamic persistence를 주장하려면 size-dependent evidence 필요."
+  }
  ],
  "phases": [
-  {"id": "P0", "k": "corrected rerun", "when": "1차 필수",
-   "items": ["polish 를 전 표본에 적용", "$X^{(m)}$ 과 쌍별 표준화 $z$ 저장",
-             "$S_\\Delta$·$s_\\Delta$·run 별 $\\min d_{ij}$ 저장",
-             "quotient Hessian 을 corrected code 로 재계산", "독립 batch 2개"],
-   "note": "기존 artifact 로는 쌍별 표준화 $\\widehat{\\mathcal I}_M$ 도 gate 도 계산할 수 없다. 다른 모든 항목이 여기에 의존한다."},
-  {"id": "P1", "k": "protocol-free 축 마무리", "when": "1차 필수",
-   "items": ["$\\mathcal D_p$ 전 표본 계산", "$\\mathcal D_p^{\\rm dim}$·$\\mathcal D^{\\rm neg}$ 분해 보고",
-             "경로 그래프 calibration null 을 protocol unit test 로 수록"],
-   "note": "계산이 싸고 정리로 뒷받침된다. 지금 착수해도 좋다."},
-  {"id": "P2", "k": "null 과 비중복성", "when": "1차 필수",
-   "items": ["configuration model 앙상블 $z_{\\mathcal I}$", "descriptor battery 조건부 회귀",
-             "matched pair 제시"],
-   "note": "(b) 를 가르는 유일한 장치."},
-  {"id": "P3", "k": "class 재현성", "when": "1차 필수",
-   "items": ["독립 batch 간 class 일치", "SMACOF+polish 대 L-BFGS 간 class 일치",
-             "$\\varepsilon_D$ 를 calibration null 로 사전 선언"],
-   "note": "(a) 를 가르는 결정적 실험."},
-  {"id": "P4", "k": "유한크기 거동", "when": "1차 권장",
-   "items": ["모형족을 따라 $\\mathcal I(N)$", "$M$ scaling 으로 $K_{\\rm obs}$ 포화 확인"],
-   "note": "$K_{\\rm obs}=M$ 은 '적어도 $M$ 개' 라는 뜻이라 $M$ 을 늘려야 한다."},
-  {"id": "P5", "k": "residual disorder", "when": "2차",
-   "items": ["인증된 minimizer 에서 $r_a=\\delta_a-d_a(X^\\star)$ 측정",
-             "$r$ 의 공간적 상관구조와 multiplicity 의 관계"],
-   "note": "격자는 $\\mathcal D_2\\approx0.40$ 인데 $\\mathcal I$ 가 바닥이다. 크기가 아니라 무질서도가 지배한다는 가설을 검정한다. 2차 일단락의 알맹이 후보."},
-  {"id": "P6", "k": "mechanism 과 장벽", "when": "2차 이후",
-   "items": ["soft mode 국소화와 재현 실패 위치의 정렬", "class 사이 경로 위 stress profile"],
-   "note": "'basin' 이라는 말을 쓰려면 여기까지 필요하다."}
+  {
+   "id": "P0",
+   "k": "Numerical audit and corrected evidence",
+   "when": "1차 필수",
+   "items": [
+    "floor/calibration의 stress–gradient 정합성 및 finite-difference test.",
+    "선언된 primary pair set, gradient norm, collision policy, stopping reason 저장.",
+    "Raw X, SΔ, run-wise diagnostics 및 rejected-run 비율 저장.",
+    "독립 initialization batches와 recurrent class 검증."
+   ],
+   "note": "Legacy 수치는 historical evidence로 보존. Corrected sweep 완료와 결과 유효성은 별도 판정."
+  },
+  {
+   "id": "P1",
+   "k": "Spectral diagnostic and sample audit",
+   "when": "1차 필수",
+   "items": [
+    "현재 48-network subset의 Dp 결과 보존.",
+    "Weighted duplicate audit와 output-conditioned exclusions의 sensitivity comparison.",
+    "Path graph의 exact representability identity와 empirical calibration을 구분."
+   ],
+   "note": "Dp는 fixed metric와 p의 spectral functional. Finite sampling이나 SMACOF initialization에 의존하지 않지만 metric construction에는 의존."
+  },
+  {
+   "id": "P2",
+   "k": "Null comparison and nonredundancy",
+   "when": "주장 조건부",
+   "items": [
+    "Beyond-degree claim이면 degree-preserving null 필요.",
+    "Extra-information claim이면 descriptors를 통제한 comparison 필요.",
+    "N·degree·connectedness·weight policy와 graph-level replication 선언."
+   ],
+   "note": "모든 definition에 null이 필요한 것은 아님. 비교주장에 필요한 null을 1차 범위에 포함하거나 그 주장을 제한."
+  },
+  {
+   "id": "P3",
+   "k": "Resolution and recurrence",
+   "when": "1차 필수",
+   "items": [
+    "ρD, εD, clustering rule을 사전 선언.",
+    "Independent batch의 εD-separated terminal groups와 occupancies 보고.",
+    "Gate acceptance απ와 observed sample size Madm 병기."
+   ],
+   "note": "Kobs는 finite resolution의 observed class count. Observed diameter와 rare-class detection을 따로 평가."
+  },
+  {
+   "id": "P4",
+   "k": "Size and sampling sensitivity",
+   "when": "주장 조건부",
+   "items": [
+    "M 증가에 따른 NEI interval과 recurrent-class stability.",
+    "고정된 graph ensemble에서 N dependence.",
+    "Kobs=M인 경우 singleton-dominated sampling으로 표시."
+   ],
+   "note": "Kobs=M만으로 true class count, absence of evidence 또는 physical continuum 확정 불가."
+  },
+  {
+   "id": "P5",
+   "k": "Signed residual and prestress",
+   "when": "2차 대상",
+   "items": [
+    "Stationary candidates에서 signed residual pattern과 spatial correlations 측정.",
+    "H=2RᵀWR+Hpre의 quotient-projected contributions 비교.",
+    "Connected random-regular control과 degree-heterogeneous ER 비교."
+   ],
+   "note": "Residual organization이 multiplicity를 설명한다는 mechanism hypothesis. 크기 대비만으로 확정하지 않음."
+  },
+  {
+   "id": "P6",
+   "k": "Path and barrier evidence",
+   "when": "2차 대상",
+   "items": [
+    "Fixed landscape 내 constrained low-stress path 탐색.",
+    "Path collision margin·stress rise·geometric displacement 보고.",
+    "Parameter continuation과 path continuation 구분."
+   ],
+   "note": "Algorithmic basin은 optimizer의 attraction set으로 정의 가능. Energy barrier, metastability, continuous minima는 각각 별도 evidence 필요."
+  }
  ],
  "decision": {
-  "k": "9/17 에 결정할 것",
-  "body": "P0 가 9/17 까지 끝나지 않으면 1차 일단락은 methods + representability 논문이 되고 degeneracy 결과는 2차로 넘어간다. 이 분기를 회의에서 명시적으로 정한다.",
+  "k": "Meeting decision",
+  "body": "1차 일단락의 claim은 확보된 evidence에 맞춰 선택. 2차 일단락 대상은 mechanism, landscape paths, size-dependent theory. 연구 범위 선택과 결과의 사전 확정은 구분.",
   "options": [
-   {"k": "A · 전체 주장", "need": "P0–P3 완료", "risk": "일정이 빠듯하다"},
-   {"k": "B · 축소 주장", "need": "P1 + calibration null 만", "risk": "degeneracy 가 빠져 기여가 얇아진다"},
-   {"k": "C · 분할", "need": "P0–P2 를 1차, P3 를 2차", "risk": "(a) 를 가르는 장치가 1차에 없다"}
+   {
+    "k": "A · Certified finite-protocol result",
+    "need": "Corrected terminal diagnostics, sample audit, resolution·recurrence evidence. Beyond-degree claim에는 null 추가.",
+    "risk": "일부 evidence 미충족 시 해당 empirical claim 유보."
+   },
+   {
+    "k": "B · Definitions + exploratory evidence",
+    "need": "Identity와 estimator 정의 명료화, legacy provenance·uncertainty 공개.",
+    "risk": "Exploratory spread를 real degeneracy 확정으로 표현하지 않음."
+   },
+   {
+    "k": "C · Mechanism extension",
+    "need": "A의 기반 위 controlled graph ensembles, signed-prestress analysis, 필요 시 paths.",
+    "risk": "2차 일단락 대상. Correlation과 causation을 구분."
+   }
   ]
  }
 }

@@ -1,5 +1,5 @@
 {
- "_note": "1차 일단락을 위한 최소 claim set 후보. 정의와 theorem은 닫되, numerical result가 아직 지지하지 않는 해석은 open으로 유지.",
+ "_note": "1차 일단락을 위한 최소 claim set 후보. 정의와 theorem은 닫되, derivative-consistent corrected rerun이 아직 지지하지 않는 numerical interpretation은 diagnostic 또는 open으로 유지.",
  "first_closure": {
   "thesis": "고정된 graph realization과 predeclared graph-to-dissimilarity/embedding/optimization protocol 아래에서 두 대상을 분리 측정. $\\mathcal D_p$는 target dissimilarity의 spectral representability를, $\\mathcal I$는 numerical gate를 통과한 terminal law의 geometry-weighted spread를 측정. Reproducibility는 independent-batch recurrence와 finite-$M$ stability로 별도 평가. ‘Realized geometric degeneracy’는 $\\alpha_\\Pi>0$인 admissible terminal law가 declared metric과 resolution에서 point mass로 붕괴하지 않는다는 protocol-conditioned operational definition으로만 사용.",
   "why_this_line": [
@@ -7,7 +7,8 @@
    "$\\mathcal D_p$는 고정된 $(\\Delta,p)$의 optimizer-independent spectral diagnostic이고, $\\mathcal I$는 fully specified $\\Pi$에 조건부인 terminal-law observable. 둘의 association은 별도 empirical question이며 theorem이 아님.",
    "Numerical admissibility(stationarity, collision, quotient-Hessian inertia)와 representational fidelity($\\phi$와 residual profile)를 분리. 전자는 terminal을 second-order candidate로 분류하고, 후자는 embedded geometry에 대한 substantive interpretation의 범위를 제한. 어느 하나도 다른 하나를 보증하지 않음.",
    "Geometric spread $\\mathcal I$, occupancy concentration $K_{\\rm eff}$, normalized-stress equivalence와 finite continuation은 각각 ‘얼마나 다른가’, ‘어떻게 점유되는가’, ‘stress objective가 같은가’, ‘연속 candidate인가’를 묻는 항목. 네 답을 degeneracy라는 한 단어로 통합하지 않음.",
-   "Finite-$M$ stability와 protocol robustness도 분리. independent batches와 M 확대는 sampling question, $\\rho_0$/optimizer perturbation은 protocol question, graph null ensemble은 structural-baseline question. finite M은 arbitrarily rare support를 배제하지 못함."
+   "Finite-$M$ stability와 protocol robustness도 분리. independent batches와 M 확대는 sampling question, $\\rho_0$/optimizer perturbation은 protocol question, graph null ensemble은 structural-baseline question. finite M은 arbitrarily rare support를 배제하지 못함.",
+   "현재 tolerance-ladder 표는 legacy implementation의 diagnostic summary. objective와 supplied gradient의 계수 불일치가 확인되었고 gtol과 ftol도 함께 변했으므로, derivative check를 통과한 corrected rerun 전에는 numerical artifact 배제나 physical mechanism의 evidence로 사용하지 않음."
   ],
   "four_claims": [
    {
@@ -17,7 +18,7 @@
    },
    {
     "n": "2",
-    "t": "NEI의 population estimand는 $\\mu_\\Pi=(q\\circ T_\\Pi)_\\#(\\rho_0\\otimes\\rho_{\\rm alg})$이 유도하는 admissible terminal law의 functional. prespecified pair set에서 finite positive moments를 가정하면 $\\mathcal I=\\tfrac12\\mathbb E\\rho_\\mu^2(D,D')$이고 $\\mathcal I=0$ iff 이 law가 point mass. $M$은 sample size이고 $\\varepsilon_D$가 geometric resolution을 결정.",
+    "t": "NEI의 population estimand는 $\\mu_\\Pi=(q\\circ T_\\Pi)_\\#(\\rho_0\\otimes\\rho_{\\rm alg})$이 유도하는 admissible terminal law의 functional. Primary estimand는 모든 off-diagonal pair를 positive weight로 포함. finite positive moments 아래 $\\mathcal I=\\tfrac12\\mathbb E\\rho_\\mu^2(D,D')$이고 $\\mathcal I=0$ iff full pair-distance law가 point mass. proper pair subset을 쓰면 zero-set 명제는 그 projection에만 성립. $M$은 sample size이고 $\\varepsilon_D$가 geometric resolution을 결정.",
     "state": "definition complete · protocol sensitivity required"
    },
    {
@@ -27,14 +28,14 @@
    },
    {
     "n": "4",
-    "t": "corrected numerical gate를 통과하고 independent batches에서 재현되는 $\\varepsilon_D$-separated terminal classes가 있으면 declared $(M,\\varepsilon_D)$에서 observed protocol-realized geometric multiplicity로 판정. finite $M$은 complete population support를 인증하지 않음. distinct strict-minimum candidates, normalized-stress near-equivalence와 analytic continuous minimizer manifold는 각각 class-wise test, equivalence interval과 Morse–Bott structure를 추가로 요구.",
+    "t": "corrected numerical gate를 통과하고 independent batches에서 재현되는 $\\varepsilon_D$-separated terminal classes가 있으면 declared $(M,\\varepsilon_D)$에서 observed protocol-realized geometric multiplicity로 판정. finite $M$은 complete population support를 인증하지 않음. distinct strict-minimum candidates에는 class-wise second-order test, normalized-stress near-equivalence에는 equivalence interval이 각각 필요. Analytic continuous minimizer family에는 직접적인 existence/local-minimality argument가 필요하며, Morse–Bott structure는 이를 주는 하나의 sufficient regularity certificate이지 필요조건이 아님.",
     "state": "core empirical claim candidate · corrected full rerun required"
    }
   ],
   "todo": [
    {
     "k": "full rerun with corrected polishing and quotient Hessian",
-    "w": "objective-gradient coefficient와 quotient projection을 수정. 모든 terminal의 optimizer success, $\\eta_g$, collision, quotient-Hessian inertia, normalized stress, raw $S_{\\Delta,W}$와 run-wise $\\min_{i<j}d_{ij}^{(m)}$를 다시 저장. Network-level gate acceptance와 failure reason도 함께 보고.",
+    "w": "objective, gradient와 Hessian의 coefficient를 통일하고 finite-difference derivative check를 unit test로 고정. quotient projection도 수정. 그 뒤 모든 terminal의 optimizer success, $\\eta_g$, collision, quotient-Hessian inertia, normalized stress, raw $S_{\\Delta,W}$와 run-wise $\\min_{i<j}d_{ij}^{(m)}$를 다시 저장. Network-level gate acceptance와 failure reason도 함께 보고. 기존 $M=16$ tolerance 표는 이 corrected rerun으로 대체하기 전까지 legacy diagnostic으로만 유지.",
     "need": "required"
    },
    {
@@ -48,9 +49,9 @@
     "need": "required"
    },
    {
-    "k": "class-wise stress-equivalence ledger",
-    "w": "predeclared representative $X_\\gamma^\\star$에 대해 $e_\\gamma=\\mathcal F(X_\\gamma^\\star)/S_{\\Delta,W}$와 pairwise difference interval을 저장. interval 전체가 declared margin 안에 포함되어야 $\\tau_E$-near-equivalence 판정 가능. $\\mathcal F$는 thermodynamic energy가 아니라 embedding stress objective.",
-    "need": "required"
+    "k": "conditional class-wise stress-equivalence ledger",
+    "w": "terminal spread 또는 recurrent multiplicity의 판정에는 필수 항목이 아님. equal-stress 또는 $\\tau_E$-near-equivalence를 주장할 때만 predeclared representative $X_\\gamma^\\star$에 대해 $e_\\gamma=\\mathcal F(X_\\gamma^\\star)/S_{\\Delta,W}$와 pairwise difference interval을 저장. interval 전체가 declared margin 안에 포함되어야 near-equivalence 판정 가능. $\\mathcal F$는 thermodynamic energy가 아니라 embedding stress objective.",
+    "need": "claim-conditional"
    },
    {
     "k": "representational fidelity",
@@ -69,7 +70,7 @@
    },
    {
     "k": "graph null ensembles",
-    "w": "degree-preserving connected rewiring과 matched ER가 각각 무엇을 보존하고 무엇을 깨뜨리는지 먼저 선언. connectedness conditioning, rewiring mixing과 null sample size를 점검하고 graph-to-graph variance와 within-graph restart variance를 hierarchical하게 분리.",
+    "w": "ordered $k$-regular lattice/ring과 connected random-regular ensemble의 비교는 $(N,E,k)$를 고정하고 edge organization을 변경. random-regular와 matched ER의 비교는 degree heterogeneity를 추가로 변경. 일반 network에는 connected degree-preserving double-edge-swap ensemble을 사용. 각 null이 보존·파괴하는 양, connectedness conditioning, rewiring mixing과 null sample size를 선언하고 graph-to-graph variance와 within-graph restart variance를 hierarchical하게 분리.",
     "need": "recommended"
    },
    {
@@ -81,7 +82,7 @@
   "excluded": [
    {
     "k": "continuous-degeneracy certificate",
-    "w": "finite continuation은 declared resolution에서 numerical candidate evidence. analytic conclusion에는 smooth fixed-rank quotient stratum에서 positive-dimensional critical manifold, kernel–tangent equality와 positive-definite normal Hessian을 갖는 Morse–Bott structure가 필요. finite-size scaling은 $N$-persistence를 실제로 주장할 때만 추가.",
+    "w": "finite continuation은 declared resolution에서 numerical candidate evidence. Smooth nontrivial critical curve가 존재하면 그 tangent는 quotient Hessian kernel에 포함되지만, converse는 성립하지 않음. Analytic continuous family는 family의 직접 구성과 local minimality로 보일 수 있으며 Morse–Bott의 kernel–tangent equality와 positive-definite normal Hessian은 하나의 strong sufficient certificate이지 필요조건이 아님. finite-size scaling은 $N$-persistence를 실제로 주장할 때만 추가.",
     "to": "2차 일단락 대상"
    },
    {
@@ -95,8 +96,8 @@
     "to": "2차 일단락 대상"
    },
    {
-    "k": "mechanism-level frustration interpretation",
-    "w": "representation mismatch와 terminal spread의 association만으로 landscape roughness의 mechanism을 설명할 수 없음. competing covariates를 통제한 null comparison, explicit disorder control parameter와 scaling evidence가 필요.",
+    "k": "mechanism decomposition · signed-prestress hypothesis",
+    "w": "2차 mechanism 분석은 (i) recurrent admissible terminal classes의 realization, (ii) class occupancy $P_\\gamma$ 또는 $K_{\\rm eff}$, (iii) class geometry의 separation 또는 $\\mathcal I_{\\rm between}$을 분리. $\\mathcal I$ 하나는 occupancy와 separation을 함께 압축하므로 어느 항이 변했는지 식별하지 못함. 유망한 가설은 mismatch 총량이 아니라 signed prestress $H_{\\rm pre}$의 spatial organization과 soft subspace overlap이 branch formation을 제어한다는 것. 검정에는 certified minima, $\\mathcal D_p$/degree-matched null, explicit disorder interpolation과 scaling evidence가 필요.",
     "to": "2차 일단락 대상"
    }
   ],
@@ -118,9 +119,7 @@
    "hessian",
    "NEI",
    "calib",
-   "Egap",
    "robust",
-   "cmnull",
    "recur",
    "multiplicity",
    "rigid",
@@ -129,6 +128,10 @@
   ],
   "member_note": "hyperedge 안이 1차 일단락 범위이다. 안쪽은 정의·정리로 닫히거나 1차에 반드시 측정할 항목이고, 바깥은 2차로 넘긴다.",
   "excluded_nodes": [
+   {
+    "k": "cmnull",
+    "w": "graph null ensemble은 protocol-level spread의 정의나 검출에는 필요하지 않지만, degree sequence를 넘어선 structural attribution에는 필수. 1차 최소 claim에서 제외하면 ordered-versus-random 대비는 diagnostic narrative로만 유지. 중심 결과로 사용할 경우 connected random-regular 및 degree-preserving null을 먼저 완료."
+   },
    {
     "k": "deff",
     "w": "현재 값은 raw-distance covariance 의 effective rank 로, NEI 연산자의 것이 아니다. 쌍별 표준화 $z$ 로 재계산하기 전에는 1차에 넣지 않는다."
@@ -146,8 +149,12 @@
     "w": "같은 이유. Morse–Bott / continuation 은 2차."
    },
    {
+    "k": "Egap",
+    "w": "normalized-stress equivalence test는 equal-/near-stress degeneracy를 주장할 때만 필요한 claim-conditional diagnostic. 1차 최소 claim이 terminal-law spread와 recurrence에 한정되면 2차로 이동."
+   },
+   {
     "k": "energydeg",
-    "w": "class 간 normalized-stress near-equivalence 의 해석. 검정($E_{\\rm gap}$)은 1차에 넣되 해석은 2차."
+    "w": "class 간 normalized-stress near-equivalence의 해석. terminal spread, class count 또는 recurrent multiplicity와 동일한 개념이 아니며, 해당 해석을 주장할 때만 $E_{\\rm gap}$가 필요."
    },
    {
     "k": "aut",

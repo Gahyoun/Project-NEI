@@ -63,9 +63,10 @@
    "domain": "input",
    "label": "algorithmic sampling protocol Π_alg",
    "formula": "\\Pi_{\\rm alg}=(\\rho_0,\\rho_{\\rm alg},\\mathcal A,\\tau,T_{\\max})",
-   "def": "initialization law ρ₀, algorithmic randomness ρ_alg, optimizer A, tolerance τ, iteration budget T_max와 polish rule을 고정. Full protocol Π는 여기에 (G,Φ,p,W)를 포함. Population terminal law는 Π에 조건부이며, M은 empirical sample size로서 Monte Carlo precision과 rare-class detection power를 제한. geometric resolution은 ε_D가 결정.",
+   "def": "initialization law ρ₀, algorithmic randomness ρ_alg, optimizer A, tolerance τ, iteration budget T_max와 polish rule의 사전 고정. Graph G는 protocol이 아니라 입력이며, full analysis specification Π는 (Φ,p,W,Π_alg,numerical gate,ε_D)를 포함. 따라서 population target의 표기는 graph dependence를 드러내는 μ_{G,Π}. M은 empirical sample size로서 Monte Carlo precision과 rare-class detection power를 제한하고, geometric resolution은 ε_D가 결정.",
    "refs": [
-    "borg2005"
+    "borg2005",
+    "borgmair2017"
    ],
    "status": "definition"
   },
@@ -124,11 +125,12 @@
    "domain": "stats",
    "label": "raw stress objective",
    "formula": "\\mathcal F(X)=\\sum_{i<j}w_{ij}(\\Delta_{ij}-\\|x_i-x_j\\|)^2",
-   "def": "일반적으로 nonconvex인 좌표 목적함수. strain과 다른 문제이며 SMACOF은 이 목적함수의 majorization algorithm.",
+   "def": "일반적으로 nonconvex인 좌표 목적함수. strain과 다른 문제이며 SMACOF은 이 목적함수의 majorization algorithm. 서로 다른 initialization이 유사한 low-Stress 값과 상이한 configurations에 도달할 수 있다는 multiple-start 결과는 protocol 명시의 근거이며, population multiplicity 또는 physical degeneracy의 인증은 아님.",
    "refs": [
     "kruskal1964",
     "deleeuw1977",
-    "borg2005"
+    "borg2005",
+    "borgmair2017"
    ],
    "status": "definition"
   },
@@ -157,9 +159,9 @@
   {
    "id": "aut",
    "domain": "discrete",
-   "label": "metric automorphism policy",
-   "formula": "P_\\sigma\\Delta P_\\sigma^{\\mathsf T}=\\Delta",
-   "def": "labeled geometry를 셀지 Aut(Δ)까지 몫할지 먼저 결정. 대칭 관련 minima는 같은 stress를 가질 수 있지만, 이를 NEI에 포함할지는 node identity의 과학적 의미에 좌우됨.",
+   "label": "weighted metric automorphism policy",
+   "formula": "\\operatorname{Aut}(\\Delta,W)=\\{\\sigma:P_\\sigma\\Delta P_\\sigma^{\\mathsf T}=\\Delta,\\ P_\\sigma W P_\\sigma^{\\mathsf T}=W\\}",
+   "def": "Metric automorphism이 raw-stress objective의 symmetry가 되려면 Δ뿐 아니라 W도 보존할 조건. Terminal law의 symmetry에는 initialization law, optimizer와 stopping rule의 permutation equivariance도 추가로 필요. labeled geometry를 셀지 이 group까지 몫할지는 node identity의 과학적 의미가 정하는 estimand choice.",
    "refs": [
     "dezalaurent1997"
    ],
@@ -168,12 +170,14 @@
   {
    "id": "terminal",
    "domain": "physics",
-   "label": "protocol-induced terminal measure",
-   "formula": "\\mu_\\Pi=(q\\circ T_\\Pi)_\\#(\\rho_0\\otimes\\rho_{\\rm alg}),\\quad q(X)=D(X)",
-   "def": "initialization과 algorithmic randomness의 joint law를 terminal pair-distance space로 보내는 pushforward measure. 이는 equilibrium density of states가 아니라 optimizer가 실제로 도달한 terminal geometry의 protocol-conditioned distribution. T=0 quench 또는 inherent-structure는 유용한 analogy이지만 Boltzmann/annealed ensemble과 동일하지 않음.",
+   "label": "protocol-induced terminal-geometry kernel",
+   "formula": "K_\\Pi(\\Delta,B)=\\Pr\\{q(T_\\Pi(\\Delta,Z,\\Xi))\\in B\\},\\quad \\mu_{G,\\Pi}=K_\\Pi(\\Delta(G),\\cdot),\\quad q(X)=D(X)",
+   "def": "K_Π는 declared graph dissimilarity를 quotient terminal-geometry law로 보내는 protocol-indexed Markov kernel이고, μ_{G,Π}는 fixed G에서의 output law. Isolated terminal classes에 대한 deterministic exact descent에서는 initialization measure가 basin partition을 거쳐 만드는 pushforward이며, stochastic optimizer에서는 ρ_alg까지 적분한 법칙. Pushforward measure, inherent-structure quench와 basin probability는 선행 개념. Graph-to-terminal-law kernel을 primary estimand로 삼는 framing의 novelty는 systematic literature screening 전까지 미확정. Equilibrium density of states 또는 Boltzmann/annealed ensemble과의 동일시 불가.",
    "refs": [
     "stillinger1982",
-    "stillinger1995"
+    "stillinger1995",
+    "menck2013",
+    "borgmair2017"
    ],
    "status": "definition"
   },
@@ -204,9 +208,9 @@
   {
    "id": "gate",
    "domain": "measure",
-   "label": "numerical admissibility",
-   "formula": "A_{\\rm num}=\\{\\mathrm{success},\\eta_g\\le\\tau_g,\\chi_{\\rm coll}\\ge\\tau_c,n_-(H_\\perp)=0\\}",
-   "def": "η_g=||Q_⊥^T∇F||/√S_{Δ,W}, χ_coll=min d_ij/s_{Δ,W}, s_{Δ,W}=√(S_{Δ,W}/Σw_ij)를 사용하고 Hessian signs는 τ_H=τ_H^rel κ_+에서 판정. 이 gate는 representational fidelity와 별개이며 acceptance α_Π=Pr(A_num)를 반드시 함께 보고. 통과점은 numerical second-order candidate일 뿐 strict minimum의 analytic certificate는 아님.",
+   "label": "numerical admissibility · acceptance",
+   "formula": "A_{\\rm num}=\\{\\mathrm{success},\\eta_g\\le\\tau_g,\\chi_{\\rm coll}\\ge\\tau_c,n_-(H_\\perp)=0\\},\\quad \\alpha_{G,\\Pi}=\\Pr(A_{\\rm num}\\mid G,\\Pi)",
+   "def": "η_g=||Q_⊥^T∇F||/√S_{Δ,W}, χ_coll=min d_ij/s_{Δ,W}, s_{Δ,W}=√(S_{Δ,W}/Σw_ij)를 사용하고 Hessian signs는 τ_H=τ_H^rel κ_+에서 판정. α_{G,Π}>0일 때 μ_{G,Π}^{adm}(B)=Pr(q(T_Π)∈B,A_num|G,Π)/α_{G,Π}로 정의. representational fidelity와 별개의 gate이며 conditional law와 acceptance의 동시 보고가 원칙. Gate 통과는 numerical second-order candidate 판정이며 strict minimum의 analytic certificate가 아님.",
    "refs": [
     "borg2005"
    ],
@@ -215,9 +219,9 @@
   {
    "id": "morse",
    "domain": "physics",
-   "label": "Morse–Bott / continuation test",
-   "formula": "\\dim\\mathcal M\\ge1,\\quad \\mathcal M\\subset\\operatorname{Crit}(\\mathcal F),\\quad \\ker H_X=T_X\\mathcal M",
-   "def": "추가 Hessian zero mode는 infinitesimal softness에 그침. Analytic conclusion에는 smooth fixed-rank quotient stratum에서 positive-dimensional critical manifold M, ker H_X=T_XM 및 positive-definite normal Hessian이 필요. finite displacement에서 small projected gradient, bounded stress rise와 no collision을 유지하는 continuation은 declared resolution에서 continuous-degeneracy candidate를 지지하지만 exact manifold의 증명은 아님.",
+   "label": "continuous family · Morse–Bott / continuation",
+   "formula": "\\dim\\mathcal M\\ge1,\\quad \\mathcal M\\subset\\operatorname{Crit}(\\mathcal F);\\qquad \\ker H_X=T_X\\mathcal M\\ \\text{under Morse--Bott}",
+   "def": "추가 Hessian zero mode는 infinitesimal softness에 그치며 continuous critical family의 충분조건이 아님. Exact continuous family의 결론에는 positive-dimensional local-minimizer family의 존재와 local minimality 증명이 필요. M⊂Crit(F)만으로는 saddle families를 배제하지 못함. Global argmin family는 더 강한 별도 명제. Morse–Bott의 kernel–tangent equality와 nondegenerate normal Hessian은 regular local structure를 주는 강한 충분조건이지 manifold 존재의 필요조건이 아님. F(x,y)=y^4의 minimum line은 이 필요조건 주장의 반례. finite displacement에서 small projected gradient, bounded stress rise와 no collision을 유지하는 continuation은 declared resolution의 candidate evidence이며 exact manifold의 증명은 아님.",
    "refs": [],
    "status": "open"
   },
@@ -225,8 +229,8 @@
    "id": "NEI",
    "domain": "measure",
    "label": "𝓘 · geometry-weighted spread",
-   "formula": "\\mathcal I(\\mu)=\\tfrac1{N_+}\\sum_{a\\in\\mathcal P}\\operatorname{Var}(d_a)/\\mathbb E[d_a]^2=\\tfrac12\\mathbb E\\rho_\\mu^2(D,D')",
-   "def": "prespecified pair set P에서 finite second moments와 positive means를 가정하면 NEI는 admissible terminal law의 pair-mean-standardized expected squared distance. 따라서 I=0 iff terminal pair-distance law가 point mass. Population estimand와 finite-M plug-in estimator를 구분하며, I>0만으로 predeclared ρ_D-diameter가 ε_D를 넘는지, state count, stress equivalence 또는 continuous degeneracy를 판정하지 않음.",
+   "formula": "\\mathcal I(G;\\Pi)=\\mathcal I(\\mu_{G,\\Pi}^{\\rm adm})=\\tfrac1{N_+}\\sum_{a\\in\\mathcal P}\\operatorname{Var}(d_a)/\\mathbb E[d_a]^2=\\tfrac12\\mathbb E\\rho_\\mu^2(D,D')",
+   "def": "Primary P는 모든 off-diagonal positive-weight pairs. Finite second moments와 positive means 아래 admissible full distance law의 pair-mean-standardized expected squared distance. Partial P에서는 선택 coordinate의 projected law만 측정. 따라서 I(G;Π)=0 iff μ_{G,Π}^{adm}가 terminal pair-distance space의 point mass. Graph 단독 불변량이 아니라 declared protocol에 조건부인 population estimand이며 finite-M plug-in estimator와 구분. I>0만으로 predeclared ρ_D-diameter가 ε_D를 넘는지, state count, normalized-stress equivalence, conic degeneracy 또는 continuous degeneracy를 판정하지 않음.",
    "refs": [],
    "status": "diagnostic"
   },
@@ -263,10 +267,11 @@
    "id": "multiplicity",
    "domain": "physics",
    "label": "realized geometric degeneracy",
-   "formula": "\\rho_D(d,d')=\\sqrt{\\frac{\\sum_{a\\in\\mathcal P}w_a(d_a-d'_a)^2}{S_{\\Delta,W}}},\\quad \\operatorname{diam}_{\\rho_D}\\operatorname{supp}(\\mu_\\Pi^{\\rm adm})>\\varepsilon_D",
-   "def": "α_Π>0, S_{Δ,W}>0과 prespecified positive-weight pair set P를 갖는 fully specified protocol에서 admissible conditional law가 declared metric ρ_D와 resolution ε_D에서 하나의 geometry로 붕괴하지 않는다는 operational definition. finite M은 observed separated classes와 recurrence를 제공할 뿐 arbitrarily rare support를 배제하지 못함. population detection claim에는 explicit minimum-mass assumption 또는 missing-mass bound가 필요. NEI와 ρ_D-diameter는 point-mass zero set을 공유하지만 positive threshold에서는 calibration 없이 등치되지 않음.",
+   "formula": "\\rho_D(d,d')=\\sqrt{\\frac{\\sum_{a\\in\\mathcal P}w_a(d_a-d'_a)^2}{S_{\\Delta,W}}},\\quad \\operatorname{diam}_{\\rho_D}\\operatorname{supp}(\\mu_{G,\\Pi}^{\\rm adm})>\\varepsilon_D",
+   "def": "α_{G,Π}>0, S_{Δ,W}>0과 prespecified positive-weight pair set P를 갖는 fully specified analysis에서 admissible conditional law가 declared metric ρ_D와 resolution ε_D에서 하나의 geometry로 붕괴하지 않는다는 operational definition. finite positive-weight pair space에서 ρ_D와 pair-mean-standardized norm은 같은 topology와 point-mass zero set을 갖지만, norm-equivalence constants의 명시 없이 numerical threshold를 서로 이전할 수 없음. finite M은 observed separated classes와 recurrence를 제공할 뿐 arbitrarily rare support를 배제하지 못함. population detection claim에는 explicit minimum-mass assumption 또는 missing-mass bound가 필요. Conic degeneracy, objective-value equivalence 및 Hessian singularity와는 서로 다른 명제.",
    "refs": [
-    "stillinger1995"
+    "stillinger1995",
+    "drusvyatskiy2017"
    ],
    "status": "definition"
   },
@@ -283,17 +288,20 @@
    "id": "robust",
    "domain": "measure",
    "label": "finite-M · protocol robustness",
-   "formula": "\\widehat\\mu_{\\Pi,M},\\ \\widehat\\alpha_{\\Pi,M},\\mathrm{CI}_M,\\operatorname{rankcorr}_{\\Pi,\\Pi'}",
-   "def": "M은 empirical sample size, Monte Carlo precision과 rare-class detection power를 정하고 ε_D가 geometric resolution을 결정. independent batches와 finite-M stability는 sampling, ρ₀/optimizer perturbation은 protocol sensitivity, graph null ensemble은 structural baseline에 관한 질문. finite M으로 complete population support를 인증하려면 minimum class mass 또는 missing-mass assumption이 추가로 필요.",
-   "refs": [],
+   "formula": "\\widehat\\mu_{G,\\Pi,M}^{\\rm adm},\\ \\widehat\\alpha_{G,\\Pi,M},\\mathrm{CI}_M,\\operatorname{rankcorr}_{\\Pi,\\Pi'}",
+   "def": "M은 empirical sample size, Monte Carlo precision과 rare-class detection power를 정하고 ε_D가 geometric resolution을 결정. independent batches와 finite-M stability는 sampling, ρ₀/optimizer perturbation은 protocol sensitivity, graph null ensemble은 structural baseline에 관한 질문. μ_{G,Π}가 (G,Π)의 joint object이므로 network property 해석에는 between-network contrast와 within-network protocol variation의 분리가 필요. finite M으로 complete population support를 인증하려면 minimum class mass 또는 missing-mass assumption이 추가로 필요.",
+   "refs": [
+    "menck2013",
+    "borgmair2017"
+   ],
    "status": "open"
   },
   {
    "id": "rigid",
    "domain": "verdict",
-   "label": "no multiplicity resolved",
-   "formula": "\\widehat{\\mathcal I}_M\\le\\tau_{\\rm num}\\ \\text{at declared }(M,\\varepsilon_D)",
-   "def": "선언한 protocol, numerical equivalence bound와 finite resolution에서 terminal multiplicity를 해상하지 못했다는 판정. 이는 population point mass, global uniqueness 또는 material rigidity의 증명이 아님. ‘rigid’는 이 단계의 허용 결론이 아님.",
+   "label": "no terminal spread resolved",
+   "formula": "\\widehat{\\mathcal I}_M\\le\\tau_{\\rm num},\\quad \\widehat{\\operatorname{diam}}_{\\rho_D}\\le\\varepsilon_D\\quad\\text{at declared }M",
+   "def": "선언한 protocol, numerical spread bound와 geometric resolution에서 terminal spread를 해상하지 못했다는 판정. NEI의 smallness만으로 ε_D-scale nonseparation을 대체하지 않으며 두 기준을 함께 확인. 이는 population point mass, global uniqueness 또는 material rigidity의 증명이 아님. ‘rigid’는 이 단계의 허용 결론이 아님.",
    "refs": [],
    "status": "verdict"
   },
