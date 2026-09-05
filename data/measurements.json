@@ -112,7 +112,7 @@
    },
    {
     "k": "ηg  polish",
-    "v": 2e-8,
+    "v": 2e-08,
     "log": true
    },
    {
@@ -237,7 +237,7 @@
     "k": "경로 $P_{60}$",
     "N": 60,
     "D2": 0,
-    "I_raw": 9.974e-9,
+    "I_raw": 9.974e-09,
     "I_pol": 2.919e-16,
     "note": "$\\mathcal D_2=0$ · zero-stress global minimizer orbit만 $\\mathrm E(p)$ quotient에서 unique; positive-stress local minima는 미판정"
    },
@@ -245,7 +245,7 @@
     "k": "경로 $P_{120}$",
     "N": 120,
     "D2": 0,
-    "I_raw": 1.081e-8,
+    "I_raw": 1.081e-08,
     "I_pol": 8.874e-17,
     "note": ""
    },
@@ -512,28 +512,28 @@
   "verdict": "Report-level observation: ordered controls의 값 감소·saturation, ER/BA의 tolerance-stable spread. 현재 표만으로 physical origin, optimizer independence, exact minimizer multiplicity 또는 equal-energy degeneracy 확정 불가. Corrected evidence rerun에서 achieved gradient, optimizer termination reason, collision gate와 recurrent distance-space classes를 함께 확인. $\\mathrm{gtol}$과 $\\mathrm{ftol}$을 분리한 one-factor paired comparison, admissible run만의 $\\widehat{\\mathcal I}^{\\rm adm}$ 및 acceptance-set sensitivity까지 확인하기 전에는 tolerance-stable 판정 유보.",
   "eta": {
    "격자 $8\\times8$": [
-    2.009e-7,
-    1.764e-7,
+    2.009e-07,
+    1.764e-07,
     1.27e-10,
     1.27e-10
    ],
    "링 $C_{60}$": [
-    3.696e-8,
-    3.696e-8,
+    3.696e-08,
+    3.696e-08,
     6.217e-12,
     6.217e-12
    ],
    "ER $n{=}100$": [
     0.0001227,
-    0.000001409,
-    1.175e-8,
-    1.175e-8
+    1.409e-06,
+    1.175e-08,
+    1.175e-08
    ],
    "BA $n{=}100$": [
     0.000114,
-    0.000001004,
-    9.703e-9,
-    9.703e-9
+    1.004e-06,
+    9.703e-09,
+    9.703e-09
    ]
   },
   "caveat": "F=Σ_{i<j}(dᵢⱼ−δᵢⱼ)²에 필요한 gradient factor 2를 수정. 표의 residual 역시 legacy coefficient 기준이므로 corrected η_g로 사용 금지. 단순히 표를 두 배로 고치는 것으로 trajectory·termination 재검증을 대체할 수 없음. 마지막 두 rung의 residual plateau는 saturation evidence. gtol=10⁻¹⁸ 자체가 double precision의 표현 범위 밖인 것은 아님.",
@@ -545,5 +545,78 @@
    "$10^{-20}$"
   ],
   "gradient_label": "legacy residual"
+ },
+ "nullmodel": {
+  "title": "Legacy null model — 두 비교는 강하고 3단 사슬은 성립하지 않는다",
+  "sub": "legacy 실행(nei-verification results/final_stats_87.csv, $n=85$)의 ER null 과 degree-preserving null 에 대한 일방 부호검정. 원고 표본은 중복 한 쌍을 뺀 84. 이 값들은 corrected rerun 이전 실행이며 그 지위로 읽는다.",
+  "rows": [
+   {
+    "k": "$\\mathcal I_{\\rm real}<\\mathcal I_{\\rm deg}$",
+    "k_ok": 80,
+    "n": 85,
+    "p": "9.0\\times10^{-19}",
+    "verdict": "강함"
+   },
+   {
+    "k": "$\\mathcal I_{\\rm real}<\\mathcal I_{\\rm ER}$",
+    "k_ok": 80,
+    "n": 85,
+    "p": "9.0\\times10^{-19}",
+    "verdict": "강함"
+   },
+   {
+    "k": "$\\mathcal I_{\\rm deg}<\\mathcal I_{\\rm ER}$",
+    "k_ok": 64,
+    "n": 85,
+    "p": "1.6\\times10^{-6}",
+    "verdict": "약함"
+   }
+  ],
+  "exceptions_deg": [
+   {
+    "k": "Dhaka_networkx_unit_edge.txt",
+    "cat": "Road"
+   },
+   {
+    "k": "US_airport_networks_(2010)_edge_list.txt.cleaned.tsv",
+    "cat": "Transportation"
+   },
+   {
+    "k": "bn-mouse-kasthuri-graph-v4.edges",
+    "cat": "Brain"
+   },
+   {
+    "k": "bn-mouse-visual-cortex-2.edges",
+    "cat": "Brain"
+   },
+   {
+    "k": "web-edu.mtx",
+    "cat": "Web"
+   }
+  ],
+  "exceptions_er": [
+   {
+    "k": "Delhi_networkx_unit_edge.txt",
+    "cat": "Road"
+   },
+   {
+    "k": "bn-mouse-visual-cortex-2.edges",
+    "cat": "Brain"
+   },
+   {
+    "k": "web-edu.mtx",
+    "cat": "Web"
+   },
+   {
+    "k": "rt-lolgop.edges",
+    "cat": "Retweet"
+   },
+   {
+    "k": "rt-occupywallstnyc.edges",
+    "cat": "Retweet"
+   }
+  ],
+  "concentration": "$\\mathcal I_{\\rm deg}<\\mathcal I_{\\rm ER}$ 의 실패 21건 중 12건이 road 이다 (road 21개의 57%). road 를 빼면 실패율이 25%에서 14%로 떨어진다.",
+  "verdict": "바깥 두 비교는 강하지만 중간 고리는 25%가 깨지고 실패가 최대 범주에 집중된다. 따라서 $\\mathcal I_{\\rm real}<\\mathcal I_{\\rm deg}<\\mathcal I_{\\rm ER}$ 을 사슬로 쓸 수 없고, 두 null 을 nested 가 아니라 독립 baseline 으로 배치해야 한다."
  }
 }
