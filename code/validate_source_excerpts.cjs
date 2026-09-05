@@ -7,6 +7,9 @@ const katex=require(path.join(root,"vendor/katex/katex.min.js"));
 const map=JSON.parse(fs.readFileSync(path.join(root,"data/source-map.json"),"utf8"));
 const arg=process.argv.indexOf("--originals");
 const originals=arg>=0?process.argv[arg+1]:null;
+const mainArg=process.argv.indexOf("--main-original");
+const mainOriginal=mainArg>=0?process.argv[mainArg+1]:null;
+assert(mainArg<0||mainOriginal,"--main-original requires a file path");
 let passages=0,cards=0;
 const errors=[];
 for(const source of ["main","si","note"]){
@@ -14,8 +17,10 @@ for(const source of ["main","si","note"]){
   assert.equal(data.source,source);
   assert.match(data.sha256,/^[a-f0-9]{64}$/);
   let raw,lines;
-  if(originals){
-    const bytes=fs.readFileSync(path.join(originals,map.sources[source].file));
+  const originalFile=source==="main"&&mainOriginal?mainOriginal:
+    originals?path.join(originals,map.sources[source].file):null;
+  if(originalFile){
+    const bytes=fs.readFileSync(originalFile);
     assert.equal(createHash("sha256").update(bytes).digest("hex"),data.sha256,source+" source version");
     raw=bytes.toString("utf8");lines=raw.split(/\r?\n/);
   }
@@ -31,10 +36,14 @@ for(const source of ["main","si","note"]){
       assert(Number.isInteger(e.start_line)&&e.start_line>0&&e.end_line>=e.start_line);
       assert(typeof e.tex==="string"&&e.tex.trim());
       assert(!/\\note(?:GG|SHL|SHLeng)\b/.test(e.tex),source+"/"+id+" includes a memo");
-      if(originals){
+      if(originalFile){
         const expected=e.start_offset!==undefined?raw.slice(e.start_offset,e.end_offset):
           lines.slice(e.start_line-1,e.end_line).join("\n");
         assert.equal(e.tex,expected,source+"/"+id+" is not verbatim");
+        if(e.start_offset!==undefined){
+          assert.equal(raw.slice(0,e.start_offset).split("\n").length,e.start_line,source+"/"+id+" start line");
+          assert.equal(raw.slice(0,e.end_offset-1).split("\n").length,e.end_line,source+"/"+id+" end line");
+        }
       }
       const out=quote.render(e.tex,source,katex);
       if(out.errors.length||out.unknown.length)errors.push({source,id,line:e.start_line,...out});
@@ -50,4 +59,5 @@ assert(!percent.html.includes("comment"));
 if(errors.length){
   console.error(JSON.stringify(errors.map(({html,...e})=>e),null,2));process.exitCode=1;
 }else console.log("OK: "+cards+" source cards, "+passages+" verbatim passages; renderer passed"+
-  (originals?"; all source hashes and exact ranges matched":"; original-file comparison not requested"));
+  (originals?"; all source hashes and exact ranges matched":mainOriginal?
+    "; Main source hash, exact ranges and line numbers matched":"; original-file comparison not requested"));

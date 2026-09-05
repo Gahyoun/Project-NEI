@@ -222,6 +222,7 @@ function renderPanel(){
       <div class="source-head"><h5 class="source-name">${esc(meta.label)}</h5>
         <span class="source-kind">${esc(kindLabel[x.kind]||x.kind)}</span></div>
       <dl class="source-meta">
+        ${meta.revision?`<div><dt>Version</dt><dd>${esc(meta.revision)} 개정본</dd></div>`:""}
         <div><dt>Location</dt><dd class="source-location">${esc(x.location)}</dd></div>
       </dl>
       ${quoteBody||`<p class="source-empty">${x.kind==="none"?"직접 대응하는 원문 발췌 없음.":"원문 발췌 미확인. 미서술 판정과 구분."}</p>`}
