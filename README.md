@@ -39,6 +39,8 @@
   - Weighted equivalence, loader provenance, exclusion sensitivity 확인 전까지 “확정 표본” 표현 유보.
 - Source traceability.
   - Main red / SI green / Note blue 유지.
+  - Inspector에는 raw manuscript filename 미표시. Provenance metadata는 보존.
+  - 핵심 node에 assumptions / interpretation boundary / discriminating check 추가.
   - 기존 manuscript snapshot과 현재 page additions를 구분.
   - Source audit pending ≠ manuscript에 미서술.
 
@@ -58,6 +60,8 @@
   - Measurability와 conditional normalization은 definition의 요건.
   - Input perturbation에 대한 continuity, robustness는 별도 성질.
   - Kernel/pushforward 자체의 최초 제안 주장 없음.
+  - Failure atom을 포함한 augmented kernel과 accepted conditional law 구분.
+  - Acceptance가 0이면 conditional NEI는 undefined이며 zero spread로 처리하지 않음.
 - Zero-set identity.
   - Fixed finite pair set, $0<\mathbb E D_a<\infty$, finite second moments 가정.
   - $\mathcal I=N_+^{-1}\sum_a\operatorname{Var}(D_a)/(\mathbb E D_a)^2$.
@@ -69,6 +73,10 @@
   - Positive finite pair weights 아래 $\rho_D$와 $\rho_\mu$는 norm-equivalent.
   - 동일한 numerical threshold의 자동 교환은 불가.
   - Page의 “NEI identity and resolution”에서 equivalence constants와 sufficient threshold 유도.
+  - 별도 mass-resolution proposition에서 $\beta$-mass separated regions의 detection power와
+    NEI lower bound 유도. Population mass assumption과 finite-sample occupancy inference 구분.
+  - Target-fit calibration에서는 $A_{\rm ctrl}=A_{\rm num}\cap\{\phi\le\tau_\phi\}$와
+    $\alpha_{\rm ctrl}$를 함께 보고. Non-target-fit terminal을 numerical floor로 집계하지 않음.
 
 ## 4. Degeneracy: object별 구분
 

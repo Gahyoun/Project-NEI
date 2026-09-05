@@ -6,7 +6,7 @@
 <title>NEI 연구 아키텍처 — representability와 protocol-conditioned terminal geometry</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="stylesheet" href="vendor/katex/katex.min.css">
-<link rel="stylesheet" href="krds.css?v=15">
+<link rel="stylesheet" href="krds.css?v=16">
 </head>
 <body>
 
@@ -25,7 +25,7 @@
 
 <section class="hero" id="question">
   <p class="eyebrow">define the ensemble before reading the observable</p>
-  <h1>Graph metric의 geometric representability와<br>embedding protocol의 terminal multiplicity</h1>
+  <h1>Graph metric의 representability와<br>protocol-conditioned terminal-geometry spread</h1>
   <p class="review-stamp">Research discussion note · 2026-09-05 · definition → evidence → decision</p>
   <div class="callout warn" id="review-status">
     <b>Current evidence status</b>
@@ -36,6 +36,10 @@
     </ul>
   </div>
   <h2>0. Research question and measurement object</h2>
+  <p class="lede"><b>Central claim under examination.</b> Fixed graph metric의 geometric
+    representability와 randomized embedding의 terminal spread는 서로 다른 측정 대상.
+    NEI는 후자의 standardized observable. 연구의 실증적 질문은 이 spread가 numerical
+    residual을 넘어 재현되며, declared graph controls에 비해 어떤 추가 정보를 제공하는가.</p>
   <ol class="note-tree lede">
     <li><b>Research question</b>
       <ul>
@@ -87,7 +91,9 @@
             $\mu_{G,\Pi}^{\rm adm}=\mathcal L(q(T_\Pi(\Delta(G),Z,\Xi))\mid A_{\rm num})$.
             $G$는 fixed graph, $(Z,\Xi)$는 선언된 initialization·algorithmic randomness.</li>
           <li><b>Numerical acceptance probability:</b>
-            $\alpha_\Pi=\Pr(A_{\rm num})>0$; $\alpha_\Pi$를 NEI와 함께 보고.</li>
+            $\alpha_{G,\Pi}=\Pr(A_{\rm num}\mid G,\Pi)>0$;
+            $(\alpha_{G,\Pi},\mu_{G,\Pi}^{\rm adm})$를 함께 보고.
+            $\alpha_{G,\Pi}=0$에서는 conditional NEI가 0이 아니라 undefined.</li>
           <li><b>Resolution structure:</b> prespecified dimensionless pair-distance metric
             $\rho_D$, resolution $\varepsilon_D$, positive-weight pair set $\mathcal P$, 그리고
             $S_{\Delta,W}>0$.</li>
@@ -179,6 +185,30 @@
         따라서 $2\mathcal I>c_+^2\varepsilon_D^2$는 resolved diameter의 sufficient condition.</li>
       <li>역방향 lower bound에는 separated region의 probability mass 조건 추가 필요.
         Population mean을 사용하는 위 bound와 finite-$M$ 추정량의 uncertainty 구분.</li>
+    </ol>
+  </details>
+  <details class="proof-note" id="mass-resolution">
+    <summary>Operational proposition · mass resolution과 finite-sample detection</summary>
+    <ol class="note-tree">
+      <li><b>Object.</b> $\mu=\mu_{G,\Pi}^{\rm adm}$, $0<\beta\le1/2$, $\varepsilon_D>0$ 고정.
+        Support-diameter definition은 유지하되, detectable multiplicity에는 probability mass도 명시.</li>
+      <li><b>Separation condition.</b> Measurable regions $\mathcal A,\mathcal B$에 대해
+        $\mu(\mathcal A),\mu(\mathcal B)\ge\beta$ 및
+        $\inf_{a\in\mathcal A,b\in\mathcal B}\rho_D(a,b)>\varepsilon_D$.
+        이는 $(\varepsilon_D,\beta)$-resolved separation의 sufficient witness.</li>
+      <li><b>Detection bound.</b> iid accepted draws $M_{\rm adm}$에서
+        $\Pr(\text{both regions observed})\ge1-2(1-\beta)^{M_{\rm adm}}$.
+        두 miss events에 대한 union bound로 직접 유도. 실패확률 목표 $0<\zeta<1$에서
+        $M_{\rm adm}\ge\lceil\log(\zeta/2)/\log(1-\beta)\rceil$이면 충분.</li>
+      <li><b>Observable bound.</b> Independent pair가 두 region에 속하는 두 ordered events를
+        $\tfrac12\mathbb E[\rho_\mu^2]$에 제한하면
+        $\mathcal I\ge c_-^2\beta^2\varepsilon_D^2$.
+        $c_-$는 위 norm-equivalence constant. Positive spread의 크기와 mass·separation의 연결.</li>
+      <li><b>Inference boundary.</b> 이 bound는 region masses를 안다는 조건부 명제.
+        관측 count만으로 population lower bound $\beta$를 자동 인증하지 않음.
+        Data-derived regions는 discovery batch에서 고정하고 independent validation batch에서
+        occupancy uncertainty 평가. $M_{\rm adm}$와 attempted count의 혼용 금지.
+        Discrete·continuous support 모두에 적용 가능한 bound이며 state count나 minimizer count의 판정은 아님.</li>
     </ol>
   </details>
   <h3 id="evidence-certificates">1.4 Evidence and certificates</h3>
@@ -422,6 +452,25 @@
     <li>Stopping rule은 relative stress decrease만이 아니라 scale-normalized stationarity와
       collision test를 함께 사용. 여러 initialization의 terminal law는 이 protocol 전체에 조건부.</li>
   </ul>
+  <details class="proof-note" id="majorization-proof">
+    <summary>Proof note · Cauchy–Schwarz에서 monotone descent까지</summary>
+    <ol class="note-tree">
+      <li>$d_{ij}(Z)>0$에서
+        $\|x_i-x_j\|\ge (x_i-x_j)^{\mathsf T}(z_i-z_j)/d_{ij}(Z)$.
+        $w_{ij}\Delta_{ij}\ge0$이므로 stress의 negative cross term에 upper bound 제공.</li>
+      <li>따라서 $\mathcal F(X)\le Q(X\mid Z)$ 및 $\mathcal F(Z)=Q(Z\mid Z)$.
+        위 majorizer의 constant는 $S_{\Delta,W}=\sum_{i<j}w_{ij}\Delta_{ij}^2$.</li>
+      <li>Centered subspace에서 $\nabla_XQ=2VX-2B_\Delta(Z)Z$.
+        Connected positive-weight graph의 $\ker V=\operatorname{span}\{\mathbf1\}$를 사용하면
+        unique centered minimizer $X^+=V^+B_\Delta(Z)Z$.</li>
+      <li>$\mathcal F(X^+)\le Q(X^+\mid Z)\le Q(Z\mid Z)=\mathcal F(Z)$.
+        Objective descent는 증명되지만 iterate convergence·stationarity·global optimality는
+        이 inequality만으로 결론낼 수 없음.</li>
+    </ol>
+    <p class="fine">Method reference:
+      <a href="https://doi.org/10.18637/jss.v031.i03">de Leeuw and Mair (2009)</a>.
+      이 proof note는 noncollision update에 한정.</p>
+  </details>
   <h4>5.5.3 Interpretive boundary</h4>
   <ul class="note-tree lede">
     <li>Strain과 raw stress는 서로 다른 objective.</li>
@@ -451,6 +500,24 @@
     <figcaption><span class="t" id="cap-calib-t"></span><span class="s" id="cap-calib-s"></span></figcaption>
     <div id="ch-calib"></div>
     <p class="fine" id="calib-verdict"></p>
+    <details class="proof-note" id="control-fit">
+      <summary>Calibration contract · numerical admissibility와 target fit의 분리</summary>
+      <ol class="note-tree">
+        <li><b>Reference target.</b> Complete Euclidean target의 $\mathcal D_p=0$과
+          global zero-stress realization orbit 유일성. Nonglobal terminal의 부재는 별도 문제.</li>
+        <li><b>Control event.</b>
+          $A_{\rm ctrl}=A_{\rm num}\cap\{\phi\le\tau_\phi\}$,
+          $\phi=\mathcal F/S_{\Delta,W}=\rho_D^2(D(X),\Delta)$.
+          Prespecified dimensionless $\tau_\phi$와 $\alpha_{\rm ctrl}=\Pr(A_{\rm ctrl})$ 보고.</li>
+        <li><b>Baseline.</b> $\alpha_{\rm ctrl}>0$에서 target-fit accepted control law의 NEI 산출.
+          $\alpha_{\rm ctrl}=0$이면 calibration 불성립.
+          $A_{\rm num}\setminus A_{\rm ctrl}$는 별도의 target-fit failure로 보고하며
+          numerical floor 표본으로 합치지 않음.</li>
+        <li><b>Transfer boundary.</b> $p>1$의 path control은 rank-deficient geometry.
+          Full-rank control 및 size·conditioning별 결과와 비교.
+          한 control의 residual spread를 모든 graph의 universal floor로 사용하지 않음.</li>
+      </ol>
+    </details>
   </figure>
 
 <section id="scalar">
@@ -710,6 +777,29 @@
 
 <section id="agenda">
   <h2>11. Research discussion — definitions, evidence, decisions</h2>
+  <article class="panel wide" id="decisive-experiment">
+    <h3>Primary empirical test — what would distinguish the explanations?</h3>
+    <ol class="note-tree">
+      <li><b>Contrast 1 · edge organization.</b> Fixed $(N,k,p,W)$에서 ordered $k$-regular
+        control과 connected degree-preserving rewiring ensemble 비교.
+        Rewiring sampler·mixing diagnostic·graph-generation seed 명시.</li>
+      <li><b>Contrast 2 · degree heterogeneity.</b> Random-regular와 size·density-matched ER
+        ensemble의 별도 비교. Regular rewiring의 endpoint를 ER로 동일시하지 않음.</li>
+      <li><b>Experimental unit.</b> Graph realization이 outer unit; restarts는
+        within-graph Monte Carlo sample. Same-start optimizer comparison과 independent batches 사용.
+        Shared parent graph에서 나온 rewired graphs의 dependence는 block 또는 chain 단위로 반영.</li>
+      <li><b>Readout.</b> Acceptance, corrected $\widehat{\mathcal I}$,
+        $(\varepsilon_D,\beta)$-resolved recurrence, occupancy와 geometry separation의 동시 보고.
+        Graph-to-graph uncertainty와 within-graph Monte Carlo uncertainty 분리.</li>
+      <li><b>Decision rule.</b> Corrected convergence에서 contrast 소실 시 numerical explanation
+        유지. Controls에 비해 재현되는 contrast는 해당 graph ensemble에 상대적인 association.
+        $\mathcal D_p$-conditioned comparison은 secondary analysis이며 conditioning 이후의
+        estimand 변경 명시. 그것만으로 prestress mechanism 또는 causality 인증 불가.</li>
+    </ol>
+    <p class="fine">Research standard: technical validity, contribution의 명확성, reproducibility와
+      evidence에 맞는 presentation.
+      <a href="https://journals.aps.org/structuring-report">APS review criteria</a>와 대조.</p>
+  </article>
   <div class="panel wide" id="origPanel" style="margin-bottom:16px">
     <h3 id="origTitle"></h3>
     <div id="origBody"></div>
@@ -738,9 +828,9 @@
 
 <script src="vendor/katex/katex.min.js"></script>
 <script src="vendor/katex/contrib/auto-render.min.js"></script>
-<script src="math-render.js?v=15"></script>
-<script src="data/offline-data.js?v=15"></script>
-<script src="graph.js?v=15"></script>
-<script src="app.js?v=15"></script>
+<script src="math-render.js?v=16"></script>
+<script src="data/offline-data.js?v=16"></script>
+<script src="graph.js?v=16"></script>
+<script src="app.js?v=16"></script>
 </body>
 </html>

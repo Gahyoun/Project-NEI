@@ -43,12 +43,20 @@ const NODE_NOTE_JUMPS = [
    nodes:["protocol","terminal","gate","NEI"]},
   {id:"metric-calibration", label:"Metric Calibration Proof Note",
    nodes:["schoenberg","negtype","strain","Dp","fit","NEI","calib"]},
+  {id:"mass-resolution", label:"Mass Resolution and Detection Power",
+   nodes:["terminal","NEI","Keff","recur","multiplicity","robust"]},
+  {id:"control-fit", label:"Target-Fit Calibration Contract",
+   nodes:["calib","gate","fit","stress"]},
+  {id:"majorization-proof", label:"SMACOF Majorization Proof",
+   nodes:["stress","strain","gate"]},
+  {id:"decisive-experiment", label:"Primary Empirical Test",
+   nodes:["G","cmnull","resid","NEI","robust"]},
   {id:"floorFig", label:"Legacy Tolerance Ladder",
    nodes:["gate","NEI","robust","calib"]},
   {id:"sample", label:"Sample and Exclusion Audit",
    nodes:["G","cmnull","robust","resid"]},
   {id:"discussion-A1", label:"A1 · Terminology and Equivalence Policy",
-   nodes:["schoenberg","negtype","Dp","shape","aut","hessian","morse","multiplicity","energydeg"]},
+   nodes:["schoenberg","negtype","Dp","shape","aut","hessian","morse","multiplicity","Egap"]},
   {id:"discussion-A2", label:"A2 · Terminal-Kernel Robustness",
    nodes:["protocol","terminal","gate","Keff","recur","robust"]},
   {id:"discussion-A3", label:"A3 · Incompatibility Organization",
@@ -196,13 +204,15 @@ function renderPanel(){
       <div class="source-head"><h5 class="source-name">${esc(meta.label)}</h5>
         <span class="source-kind">${esc(kindLabel[x.kind]||x.kind)}</span></div>
       <dl class="source-meta">
-        <div><dt>File</dt><dd class="source-file">${esc(meta.file)}</dd></div>
         <div><dt>Location</dt><dd class="source-location">${esc(x.location)}</dd></div>
       </dl>
       <p>${tex(x.summary)}</p>${x.kind==="unreviewed"?
         '<p class="fine"><b>Source audit pending.</b> Frozen coverage 판정에 포함하지 않음.</p>':""}
     </article></li>`;
   }).join("");
+  const discussion=(n.discussion||[]).map(group=>`<li><section>
+    <h5>${esc(group.label)}</h5><ul>${group.items.map(item=>`<li>${tex(item)}</li>`).join("")}</ul>
+    </section></li>`).join("");
   const noteJumps=NODE_NOTE_JUMPS.filter(x=>x.nodes.includes(n.id));
   const relationGroups=[
     vias.length?`<li><section><h5>Connectors</h5><ul>${
@@ -220,7 +230,9 @@ function renderPanel(){
       </header>
       <ol class="note-tree note-depth-4">
         ${n.formula?`<li><section><h4>Formula</h4><div class="fml">${texB(n.formula)}</div></section></li>`:""}
-        <li><section><h4>Definition and interpretation</h4><p>${tex(n.def)}</p></section></li>
+        <li><section><h4>Definition and interpretation</h4><p>${tex(n.def)}</p>
+          ${discussion?`<ol class="note-tree node-discussion">${discussion}</ol>`:""}
+        </section></li>
         <li><section><h4>Evidence traceability</h4>
           <p class="fine">Frozen manuscript coverage snapshot. 현재 research-note 보강은 아래 coverage status를 자동 변경하지 않음.</p>
           <ol class="source-grid note-tree note-depth-5">${sourceCards}</ol>

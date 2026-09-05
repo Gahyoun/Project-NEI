@@ -675,5 +675,17 @@
   "verified": true,
   "area": "disordered systems",
   "why": "Declared perturbation law 아래 한 attractor basin의 probability mass를 측정하는 basin-stability 원전. Full terminal-geometry law의 one-event analogue이며, stochastic finite-stop output law와의 일반적 동일성 또는 NEI framing의 novelty를 뜻하지 않음."
+ },
+ "deleeuwmair2009": {
+  "authors": "J. de Leeuw, P. Mair",
+  "year": 2009,
+  "title": "Multidimensional Scaling Using Majorization: SMACOF in R",
+  "venue": "Journal of Statistical Software",
+  "volume": "31(3)",
+  "pages": "1–30",
+  "doi": "10.18637/jss.v031.i03",
+  "verified": true,
+  "why": "Raw stress의 majorization, weighted Laplacian과 Guttman update의 method reference. Monotone stress descent를 global optimality 또는 모든 initialization의 동일 terminal로 확장하지 않음.",
+  "area": "MDS"
  }
 }

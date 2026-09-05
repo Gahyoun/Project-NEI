@@ -80,7 +80,7 @@
         },
         {
           "k": "Magnitude control",
-          "v": "$N,E$, degree heterogeneity, distance scale 및 $\\mathcal D_p$를 matched/conditioned한 비교. $\\mathcal D_p$만 일치해도 stress residual은 동일하지 않을 수 있음."
+          "v": "Primary comparison에서 $N,E$, declared graph-generation constraints와 distance normalization 고정. $\\mathcal D_p$·residual norm을 condition한 secondary comparison은 다른 estimand. $\\mathcal D_p$는 rewiring에 따라 변할 수 있으므로 conditioning 이후의 association을 total rewiring effect로 해석하지 않음. $\\mathcal D_p$ 일치만으로 stress residual 일치도 보장되지 않음."
         },
         {
           "k": "Mechanism observables",
@@ -133,16 +133,17 @@
       "NEI만으로 state count, thermodynamic degeneracy, global nonuniqueness 판정 불가.",
       "두 observable의 independence 또는 mechanism은 분석 결과로 별도 제시."
     ],
-    "minimum": "수학적 기여 후보: graph-to-terminal-law formulation과 standardized-spread identity. 실증 기여 후보: corrected implementation 아래의 tolerance-stable spread, declared null 대비 추가 정보. 현재 evidence로 충족된 항목과 재측정 항목을 구분."
+    "minimum": "수학적 기여 후보: representability와 protocol-conditioned terminal law의 분리, exact zero-set·finite-sample trace identity 및 mass–resolution detection bound. 실증 기여 후보: corrected implementation 아래의 reproducible spread와 declared graph controls 대비 추가 정보. Terminal multiplicity는 independent validation을 거친 empirical branch이며 정의 자체의 자동 결론은 아님."
   },
   "kernel": {
     "title": "Graph-to-terminal-law kernel",
     "eq": [
-      "K_\\Pi^{\\rm adm}(\\Delta,\\mathcal B)=\\frac{\\Pr[q(T_\\Pi(\\Delta,Z,\\Xi))\\in\\mathcal B,\\ A_{\\rm num}]}{\\alpha_\\Pi(\\Delta)}",
-      "\\alpha_\\Pi(\\Delta)=\\Pr(A_{\\rm num})>0,\\qquad \\mu_{G,\\Pi}^{\\rm adm}=K_\\Pi^{\\rm adm}(\\Delta(G),\\cdot)",
-      "G\\longmapsto\\Delta(G)\\longmapsto\\mu_{G,\\Pi}^{\\rm adm}\\longmapsto\\mathcal I[\\mu_{G,\\Pi}^{\\rm adm}]"
+      "Y_\\Pi(\\Delta)=\\begin{cases}q(T_\\Pi(\\Delta,Z,\\Xi)),& A_{\\rm num},\\\\ \\dagger,& A_{\\rm num}^{c},\\end{cases}\\qquad \\bar K_\\Pi(\\Delta,\\cdot)=\\mathcal L(Y_\\Pi(\\Delta))",
+      "\\alpha_{G,\\Pi}=1-\\bar K_\\Pi(\\Delta(G),\\{\\dagger\\})",
+      "K_\\Pi^{\\rm adm}(\\Delta(G),\\mathcal B)=\\frac{\\bar K_\\Pi(\\Delta(G),\\mathcal B)}{\\alpha_{G,\\Pi}},\\quad \\mathcal B\\subseteq\\Omega_D,\\quad \\alpha_{G,\\Pi}>0",
+      "\\mu_{G,\\Pi}^{\\rm adm}=K_\\Pi^{\\rm adm}(\\Delta(G),\\cdot),\\qquad \\text{report }(\\alpha_{G,\\Pi},\\mathcal I[\\mu_{G,\\Pi}^{\\rm adm}])"
     ],
-    "body": "$\\mathcal B$는 Borel set이며 centered Gram $B$와 구분. $Z$와 $\\Xi$는 선언된 joint randomization law에서 추출. $\\mathcal I$는 geometry-law functional, $K_{\\rm eff}$는 clustering rule을 추가한 occupancy functional. $\\lambda_{\\rm soft}$에는 objective $(\\Delta,W)$와 quotient convention이 추가로 필요하므로 bare terminal law만의 universal functional로 사용 불가.",
+    "body": "$\\Omega_D=q(\\mathbb R^{N\\times p})$는 labeled full pair-distance space, $\\dagger\\notin\\Omega_D$는 failure atom. $\\bar K_\\Pi$는 $\\Omega_D\\cup\\{\\dagger\\}$ 위의 probability kernel. Measurable acceptance event와 accepted outputs를 전제하며 failure에는 terminal geometry를 강제로 부여하지 않음. $\\mathcal B$는 Borel set이며 centered Gram $B$와 구분. $\\alpha_{G,\\Pi}=0$이면 conditional law와 NEI는 undefined. Gate가 달라지면 conditional estimand도 변경되므로 acceptance와 spread의 동시 비교 필요. $Z,\\Xi$는 선언된 joint randomization law에서 추출. $K_{\\rm eff}$에는 clustering rule이, $\\lambda_{\\rm soft}$에는 objective와 quotient convention이 추가로 필요.",
     "precedent": "Stillinger–Weber(1982)의 quench classification, Menck et al.(2013)의 basin probability, Borg–Mair(2017)의 multi-solution MDS 비교를 직접 선례로 인용. 현재 구성의 novelty는 graph-level estimand와 검증 설계의 결합에 대한 후보."
   }
 }

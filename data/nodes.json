@@ -114,6 +114,29 @@
    "label": "𝒟ₚ · spectral representability deficiency",
    "formula": "\\mathcal D_p=\\frac{\\sum_{a>p}\\mu_a^++\\sum_a\\mu_a^-}{\\sum_a|\\mu_a|}",
    "def": "finite, symmetric, hollow, nonnegative Δ와 p를 고정하면 optimizer, initialization 및 stopping rule과 무관한 scale-invariant spectral diagnostic. ||B||_*>0에서 ratio를 사용하고 B=0에는 D_p=0 convention을 둠. D_p=0은 exact realizability와 동치지만, D_p>0의 크기는 선택한 normalization 아래의 deficiency이며 stress error나 landscape roughness가 아님.",
+   "discussion": [
+    {
+     "label": "Assumptions",
+     "items": [
+      "Finite symmetric hollow nonnegative $\\Delta$, fixed target dimension $p$, and $\\lVert B\\rVert_*>0$.",
+      "Double-centering convention $B=-\\tfrac12 C\\Delta^{\\circ2}C$의 고정."
+     ]
+    },
+    {
+     "label": "Interpretation boundary",
+     "items": [
+      "$\\mathcal D_p=0$의 exact Euclidean realizability identity; $\\mathcal D_p>0$ 크기의 physical frustration 또는 raw-stress roughness 해석 불가.",
+      "$\\mathcal D_p^{\\rm dim}$과 $\\mathcal D^{\\rm neg}$의 분리 없는 mechanism attribution 불가."
+     ]
+    },
+    {
+     "label": "Discriminating check",
+     "items": [
+      "Full reported spectrum에서 $\\mathcal D_p=\\mathcal D_p^{\\rm dim}+\\mathcal D^{\\rm neg}$, $p$-monotonicity, $[0,1]$ range의 algebraic audit.",
+      "Size- and type-matched graph ensemble에서 $\\mathcal D_p$–$\\mathcal I$ association의 별도 검정."
+     ]
+    }
+   ],
    "refs": [
     "schoenberg1935",
     "gower1985"
@@ -126,11 +149,35 @@
    "label": "raw stress objective",
    "formula": "\\mathcal F(X)=\\sum_{i<j}w_{ij}(\\Delta_{ij}-\\|x_i-x_j\\|)^2",
    "def": "일반적으로 nonconvex인 좌표 목적함수. strain과 다른 문제이며 SMACOF은 이 목적함수의 majorization algorithm. 서로 다른 initialization이 유사한 low-Stress 값과 상이한 configurations에 도달할 수 있다는 multiple-start 결과는 protocol 명시의 근거이며, population multiplicity 또는 physical degeneracy의 인증은 아님.",
+   "discussion": [
+    {
+     "label": "Assumptions",
+     "items": [
+      "Fixed $W$, target $\\Delta$, dimension $p$, and identical objective–gradient–Hessian convention.",
+      "Derivative diagnostics에는 collision-free differentiable stratum 적용. Stopping/polish rule 별도 선언."
+     ]
+    },
+    {
+     "label": "Interpretation boundary",
+     "items": [
+      "Low $\\mathcal F$의 stationarity, local minimality 또는 equal-depth degeneracy 비함의.",
+      "Raw stress의 thermodynamic free energy 또는 strain objective 동일시 불가."
+     ]
+    },
+    {
+     "label": "Discriminating check",
+     "items": [
+      "Analytic gradient–Hessian의 finite-difference regression과 scale-normalized stationarity $\\eta_g$ audit.",
+      "Shared initialization에 대한 SMACOF/L-BFGS terminal geometry 및 normalized-stress comparison."
+     ]
+    }
+   ],
    "refs": [
     "kruskal1964",
     "deleeuw1977",
     "borg2005",
-    "borgmair2017"
+    "borgmair2017",
+    "deleeuwmair2009"
    ],
    "status": "definition"
   },
@@ -171,8 +218,31 @@
    "id": "terminal",
    "domain": "physics",
    "label": "protocol-induced terminal-geometry kernel",
-   "formula": "K_\\Pi(\\Delta,B)=\\Pr\\{q(T_\\Pi(\\Delta,Z,\\Xi))\\in B\\},\\quad \\mu_{G,\\Pi}=K_\\Pi(\\Delta(G),\\cdot),\\quad q(X)=D(X)",
-   "def": "K_Π는 declared graph dissimilarity를 quotient terminal-geometry law로 보내는 protocol-indexed Markov kernel이고, μ_{G,Π}는 fixed G에서의 output law. Isolated terminal classes에 대한 deterministic exact descent에서는 initialization measure가 basin partition을 거쳐 만드는 pushforward이며, stochastic optimizer에서는 ρ_alg까지 적분한 법칙. Pushforward measure, inherent-structure quench와 basin probability는 선행 개념. Graph-to-terminal-law kernel을 primary estimand로 삼는 framing의 novelty는 systematic literature screening 전까지 미확정. Equilibrium density of states 또는 Boltzmann/annealed ensemble과의 동일시 불가.",
+   "formula": "\\bar K_\\Pi(\\Delta,\\cdot)=\\mathcal L(Y_\\Pi(\\Delta)),\\quad Y_\\Pi=q(T_\\Pi)\\text{ on }A_{\\rm num};\\ \\dagger\\text{ otherwise}",
+   "def": "Acceptance-aware kernel은 admitted labeled pair-distance outputs와 failure atom †의 joint law. Fixed G에서 α_{G,Π}=1−K̄_Π(Δ(G),{†})이며 α>0에서 admitted branch를 정규화한 μ_{G,Π}^{adm} 사용. Gate 실패를 숨기거나 α=0에 NEI=0을 부여하지 않음. Deterministic exact descent의 basin pushforward와 stochastic optimizer의 algorithmic randomness를 포괄. Quench와 basin probability는 선행 개념이며 equilibrium/Boltzmann law와는 별개. Novelty는 kernel 구성 자체가 아니라 graph-level estimand와 검증 설계의 결합에 대한 검토 대상.",
+   "discussion": [
+    {
+     "label": "Assumptions",
+     "items": [
+      "Fixed $(G\\mapsto\\Delta,p,W)$와 fully declared $(\\rho_0,\\rho_{\\rm alg},\\mathcal A,\\tau,T_{\\max})$.",
+      "Measurable terminal map과 $\\alpha_{G,\\Pi}=\\Pr(A_{\\rm num}\\mid G,\\Pi)>0$인 admissible conditioning."
+     ]
+    },
+    {
+     "label": "Interpretation boundary",
+     "items": [
+      "Kernel output의 protocol-conditioned law; graph invariant 또는 equilibrium measure 비함의.",
+      "Finite-$M$ empirical support의 population support 동일시 불가."
+     ]
+    },
+    {
+     "label": "Discriminating check",
+     "items": [
+      "Independent batches와 $M$-rarefaction에 대한 terminal-class recurrence 및 missing-mass sensitivity.",
+      "$\\rho_0$/optimizer perturbation 아래 law functional과 network ranking의 stability audit."
+     ]
+    }
+   ],
    "refs": [
     "stillinger1982",
     "stillinger1995",
@@ -187,6 +257,29 @@
    "label": "quotient Hessian inertia",
    "formula": "H_\\perp=Q_\\perp^{\\mathsf T}(\\nabla^2\\mathcal F)Q_\\perp",
    "def": "실제 E(p)-orbit tangent의 orthogonal complement에서 negative, zero, positive eigenvalue counts를 산정. observed Fisher information과의 동일시는 explicit Gaussian residual model 아래에서만 가능한 해석.",
+   "discussion": [
+    {
+     "label": "Assumptions",
+     "items": [
+      "Stationary collision-free terminal과 actual $\\mathrm E(p)$ orbit-tangent basis의 rank-aware construction.",
+      "Objective–gradient–Hessian coefficient consistency와 scale-aware eigenvalue threshold."
+     ]
+    },
+    {
+     "label": "Interpretation boundary",
+     "items": [
+      "Extra zero mode의 infinitesimal softness 진단; continuous minimizer family의 충분조건 비해당.",
+      "Positive quotient curvature의 numerical second-order candidate 지위; global minimality 또는 material rigidity 비함의."
+     ]
+    },
+    {
+     "label": "Discriminating check",
+     "items": [
+      "Rigid-motion nullity와 finite-difference Hessian–vector product의 unit test.",
+      "Soft eigenvector continuation에서 projected gradient, stress rise, collision 및 rank-stratum monitoring."
+     ]
+    }
+   ],
    "refs": [
     "connelly1996",
     "transtrum2011"
@@ -231,6 +324,29 @@
    "label": "𝓘 · geometry-weighted spread",
    "formula": "\\mathcal I(G;\\Pi)=\\mathcal I(\\mu_{G,\\Pi}^{\\rm adm})=\\tfrac1{N_+}\\sum_{a\\in\\mathcal P}\\operatorname{Var}(d_a)/\\mathbb E[d_a]^2=\\tfrac12\\mathbb E\\rho_\\mu^2(D,D')",
    "def": "Primary P는 모든 off-diagonal positive-weight pairs. Finite second moments와 positive means 아래 admissible full distance law의 pair-mean-standardized expected squared distance. Partial P에서는 선택 coordinate의 projected law만 측정. 따라서 I(G;Π)=0 iff μ_{G,Π}^{adm}가 terminal pair-distance space의 point mass. Graph 단독 불변량이 아니라 declared protocol에 조건부인 population estimand이며 finite-M plug-in estimator와 구분. I>0만으로 predeclared ρ_D-diameter가 ε_D를 넘는지, state count, normalized-stress equivalence, conic degeneracy 또는 continuous degeneracy를 판정하지 않음.",
+   "discussion": [
+    {
+     "label": "Assumptions",
+     "items": [
+      "Primary full pair set $\\mathcal P$와 모든 $a\\in\\mathcal P$에서 $0<\\mathbb E[d_a]<\\infty$, $\\mathbb E[d_a^2]<\\infty$.",
+      "Numerical gate 통과 terminal의 conditional law와 acceptance $\\alpha_{G,\\Pi}$의 joint reporting."
+     ]
+    },
+    {
+     "label": "Interpretation boundary",
+     "items": [
+      "$\\mathcal I=0$의 point-mass identity는 full $\\mathcal P$에서만 full terminal geometry에 대한 명제; partial $\\mathcal P$에서는 projected-law 명제.",
+      "$\\mathcal I$ 크기의 state count, energy equivalence, barrier 또는 continuous manifold 비식별."
+     ]
+    },
+    {
+     "label": "Discriminating check",
+     "items": [
+      "Independent-batch resampling과 $M$-rarefaction으로 Monte Carlo uncertainty와 rare-class sensitivity 평가. Numerical baseline은 corrected tolerance/control test로 별도 평가.",
+      "Predeclared $\\varepsilon_D$에 대해 $\\Pr\\{\\rho_D(D,D')>\\varepsilon_D\\}$와 $\\mathcal I$의 동시 산정."
+     ]
+    }
+   ],
    "refs": [],
    "status": "diagnostic"
   },
@@ -337,7 +453,7 @@
    "domain": "measure",
    "label": "calibration null",
    "formula": "\\widehat{\\mathcal I}_{M,\\rm ctrl}\\quad\\text{with verified zero-stress realization}",
-   "def": "complete pair set의 exact Euclidean target에서 $\\mathcal D_p=0$은 global zero-stress realization의 $\\mathrm E(p)$-orbit 유일성을 보장. nonglobal local minima의 부재나 arbitrary initialization의 global convergence는 보장하지 않음. control의 terminal distances가 target을 재현하는지 별도 확인 후 residual spread를 protocol·size·conditioning별 numerical baseline으로 사용. path control은 rank-deficient geometry이므로 full-rank control과 함께 비교. 기존 calibration 수치는 gradient factor-2 수정 전 결과이며 corrected rerun 대상. 하나의 control 값을 모든 network의 universal floor로 사용하지 않음.",
+   "def": "complete pair set의 exact Euclidean target에서 $\\mathcal D_p=0$은 global zero-stress realization의 $\\mathrm E(p)$-orbit 유일성을 보장. nonglobal local minima의 부재나 arbitrary initialization의 global convergence는 보장하지 않음. control의 terminal distances가 target을 재현하는지 별도 확인 후 residual spread를 protocol·size·conditioning별 numerical baseline으로 사용. path control은 p>1에서 rank-deficient geometry이므로 full-rank control과 함께 비교. 기존 calibration 수치는 gradient factor-2 수정 전 결과이며 corrected rerun 대상. 하나의 control 값을 모든 network의 universal floor로 사용하지 않음.",
    "refs": [
     "schoenberg1935",
     "higham2002"
@@ -350,6 +466,29 @@
    "label": "graph null ensemble",
    "formula": "z_{\\mathcal I}=\\frac{\\widehat{\\mathcal I}(G)-\\langle\\widehat{\\mathcal I}\\rangle_{\\rm null}}{s_{\\rm null}}\\quad(s_{\\rm null}>0)",
    "def": "prespecified graph null ensemble과 동일 embedding protocol 아래 NEI의 상대적 위치 비교. degree-preserving randomization에서 재현되더라도 NEI가 degree sequence만의 함수라는 증명은 아님. nonzero z-score 자체도 significance 또는 mechanism의 증거가 아님. sampler의 제약·mixing, connectivity 및 weight 처리, null sample size와 uncertainty 보고. degree sequence를 넘는 association을 주장할 때 필요한 비교이며 observable 정의 자체의 필수 조건은 아님.",
+   "discussion": [
+    {
+     "label": "Assumptions",
+     "items": [
+      "Prespecified null constraints, ergodic/mixed sampler, 동일 graph preprocessing과 embedding protocol.",
+      "Connectivity, weight semantics, network size 처리와 null replicate 수의 고정."
+     ]
+    },
+    {
+     "label": "Interpretation boundary",
+     "items": [
+      "Nonzero $z_{\\mathcal I}$의 mechanism 또는 causal effect 비함의.",
+      "Degree-preserving null 통과의 degree-sequence sufficiency 비증명."
+     ]
+    },
+    {
+     "label": "Discriminating check",
+     "items": [
+      "Multiple chain의 constraint preservation, mixing, effective sample size 및 Monte Carlo uncertainty audit.",
+      "Degree-preserving, weight-preserving 및 size-matched null 간 $z_{\\mathcal I}$ robustness comparison."
+     ]
+    }
+   ],
    "refs": [],
    "status": "open"
   },

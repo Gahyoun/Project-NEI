@@ -61,6 +61,20 @@ def main() -> int:
     if len(node_ids) != len(set(node_ids)):
         raise ValueError("duplicate node id")
     ids = set(node_ids)
+    for node in nodes["nodes"]:
+        for group in node.get("discussion", []):
+            if not isinstance(group.get("label"), str) or not group["label"].strip():
+                raise ValueError(f"empty discussion label: {node['id']}")
+            items = group.get("items")
+            if not isinstance(items, list) or not items or not all(
+                isinstance(item, str) and item.strip() for item in items
+            ):
+                raise ValueError(f"empty discussion items: {node['id']}")
+
+    # Raw filenames remain in provenance metadata, not in the node inspector.
+    app_source = (ROOT / "app.js").read_text(encoding="utf-8")
+    if "meta.file" in app_source or 'class="source-file"' in app_source:
+        raise ValueError("raw manuscript filenames exposed in the inspector")
 
     claim_ids = [x["id"] for x in claims["claims"]]
     if len(claim_ids) != len(set(claim_ids)):

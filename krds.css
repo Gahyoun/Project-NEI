@@ -155,11 +155,12 @@ figcaption .s{font-size:13px;color:var(--muted);display:block;margin-top:3px}
 .source-head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:4px}
 .source-name{font-weight:800;font-size:16px;color:inherit}.source-kind{font-size:12px;font-weight:700;
   border:1px solid currentColor;border-radius:999px;padding:1px 7px;white-space:nowrap}
-.source-file{font-size:12px;color:currentColor;opacity:.72;overflow-wrap:anywhere}
 .source-location{font-size:12px;font-weight:700;color:currentColor;margin:6px 0}
 .detail .source-card p{font-size:14px;color:currentColor;margin:0;line-height:1.55}
 .node-note>.node-inspector-head{margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid #e6e8ea}
 .node-note>.note-tree{margin-bottom:0}
+.node-discussion{margin-top:16px;font-size:14px}
+.node-discussion h5{margin:8px 0 4px}
 .note-kicker{margin:2px 0 0!important;font-size:13px!important}
 .source-grid.note-tree{max-width:none;padding:0;border-left:0}
 .source-grid.note-tree>.source-slot{margin:0;padding:0;border-left:0;list-style:none}
