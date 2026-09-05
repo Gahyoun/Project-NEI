@@ -6,7 +6,7 @@
 <title>NEI 연구 아키텍처 — representability와 protocol-conditioned terminal geometry</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="stylesheet" href="vendor/katex/katex.min.css">
-<link rel="stylesheet" href="krds.css?v=19">
+<link rel="stylesheet" href="krds.css?v=20">
 </head>
 <body>
 
@@ -15,7 +15,7 @@
     <span class="mark">NEI</span>
     <nav>
       <a href="#result">definition</a><a href="#map">map</a><a href="#scope">1차 일단락</a><a href="#conn">connectors</a>
-      <a href="#repr">representability</a><a href="#scalar">decomposition</a>
+      <a href="#corrected-study">corrected evidence</a><a href="#repr">representability</a><a href="#scalar">decomposition</a>
       <a href="#sweep">sweep</a><a href="#sample">sample</a><a href="#vision">vision</a><a href="#claims">claim ledger</a><a href="#agenda">agenda</a><a href="#refs">references</a>
     </nav>
   </div>
@@ -30,7 +30,9 @@
   <div class="callout warn" id="review-status">
     <b>Current evidence status</b>
     <ul class="note-tree">
-      <li><a href="#floorFig">Tolerance sweep:</a> 기존 값 보존. 기존 floor/calibration gradient의 factor-of-two 오류 확인; corrected rerun 전까지 implementation-conditioned observation으로 제한.</li>
+      <li><a href="#corrected-study">Corrected evidence:</a> 330 graph/metric instances, 33,000 attempted runs, 40,000 terminal diagnostics의 bounded 실행·독립 검산 완료. Full-corpus validation은 미완료.</li>
+      <li><a href="#corrected-findings">Interpretation update:</a> 8×8 lattice의 rare high-stress terminal 확인. Lattice의 universal zero-spread 주장 불가. Graph-null 결과는 acceptance와 sampling-kernel sensitivity에 조건부.</li>
+      <li><a href="#floorFig">Legacy tolerance sweep:</a> 기존 값 보존. Gradient coefficient가 불일치한 implementation의 결과이며, 새 corrected data와 pooling 또는 직접 치환 금지.</li>
       <li><a href="#sample">48-network table:</a> 현재 선택 규칙 아래의 분석 subset. weighted-graph duplicate 검증과 scale-invariant exclusion 재검토 필요.</li>
       <li><a href="#agenda">Meeting decision:</a> primary estimand, 필요한 certificate, 1차·2차 일단락의 claim 범위 확정.</li>
     </ul>
@@ -461,6 +463,36 @@
     <li><b>Integration status:</b> 제안된 배치이며 원고 반영 완료를 의미하지 않음.
       Evidence traceability의 원문 발췌와 coverage는 기존 snapshot 그대로 유지.</li>
   </ol>
+</section>
+
+<section id="corrected-study">
+  <h2>3A. Corrected rerun and graph-null validation</h2>
+  <div class="callout warn" id="corrected-findings">
+    <h3>Finding → interpretation → remaining check</h3>
+    <ol class="note-tree">
+      <li><b>Calibration:</b> path controls의 target-fit acceptance 100/100, full-rank Euclidean target 80/100.
+        <ul><li>Full-rank target의 numerical acceptance는 88/100. Target-fit 미통과 8개를 numerical floor 표본에 포함하지 않음.</li></ul>
+      </li>
+      <li><b>Rare terminal:</b> 8×8 lattice에서 accepted 84개 중 1개의 높은 stress와 별도 geometry 관측.
+        <ul><li>$\widehat{\mathcal I}_{\rm adm}=0.00421$. 해당 terminal의 $\eta_g=1.73\times10^{-13}$,
+          normalized quotient curvature $0.182$. 작은 gradient만으로 dominant terminal과의 동일성 보장 불가.</li>
+          <li>Discovery의 rare class는 validation에서 미재현. Local-minimum candidate이지 population occupancy 또는 recurrent multiplicity의 인증 아님.</li></ul>
+      </li>
+      <li><b>Graph-null contrast:</b> ca-sandi-auths에서 anchor − degree-null mean $=-0.0178$,
+        nested 95% resampling interval $[-0.0368,-0.00315]$.
+        <ul><li>ENZYMES primary degree contrast의 interval은 zero 포함. 500E sensitivity에서 결론 변화.</li>
+          <li>eco-foodweb-baywet의 세 비교는 undefined-NEI null을 포함하므로 withheld.
+            ENZYMES의 connected $G(n,m)$는 10,000회 cap에서 생성 실패.</li>
+          <li>Exploratory conditional association. Full-corpus real &lt; null의 일반화, uniform-mixing 인증 또는 mechanism attribution 불가.</li></ul>
+      </li>
+      <li><b>Tolerance:</b> ER100·BA100의 tighter gtol에서 NEI 값 유지. 그러나 primary의 100개 run 모두 function-reduction criterion으로 종료.
+        <ul><li>두 graph 모두 $M_{\rm adm}=16$, $\widehat\alpha=0.16$. Nominal tolerance plateau만으로 achieved stationarity 개선 또는 artifact 배제 판정 불가.</li>
+          <li>Prespecified $\varepsilon_D=10^{-5}$에서 두 graph의 recurrent discovery class는 0개. Spread와 recurrence의 별도 판정.</li></ul>
+      </li>
+    </ol>
+    <p><a href="notes/10-corrected-evidence.md">Research decision note와 reproduction procedure</a></p>
+  </div>
+  <div id="corrected-study-content"></div>
 </section>
 
 <section id="conn">
@@ -1017,10 +1049,11 @@
 
 <script src="vendor/katex/katex.min.js"></script>
 <script src="vendor/katex/contrib/auto-render.min.js"></script>
-<script src="math-render.js?v=19"></script>
-<script src="data/offline-data.js?v=19"></script>
-<script src="graph.js?v=19"></script>
-<script src="source-quote.js?v=19"></script>
-<script src="app.js?v=19"></script>
+<script src="math-render.js?v=20"></script>
+<script src="data/offline-data.js?v=20"></script>
+<script src="graph.js?v=20"></script>
+<script src="source-quote.js?v=20"></script>
+<script src="corrected-view.js?v=20"></script>
+<script src="app.js?v=20"></script>
 </body>
 </html>

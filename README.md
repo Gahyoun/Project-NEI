@@ -25,6 +25,10 @@
     - Floor relative error: $2.017\times10^{-10}$.
     - Calibration relative error: $1.449\times10^{-10}$.
   - Existing result table은 legacy snapshot으로 보존. Corrected full rerun 미실행.
+    - 별도 bounded corrected study 실행 완료: 330 graph/metric instances, 33,000 attempted runs, 40,000 terminal records.
+    - [Corrected result와 해석](notes/10-corrected-evidence.md), [machine-readable evidence](data/corrected-study.json), [input audit](notes/09-input-audit.md).
+    - 3개 unweighted real graphs와 synthetic/exact-target controls의 결과. 전체 weighted corpus의 검증 완료 아님.
+    - Independent artifact reconstruction 전수 통과. Low acceptance, 8×8 lattice의 rare high-stress terminal, unresolved/withheld null contrasts 보존.
     - Legacy residual의 단순 배율 수정으로 optimizer trajectory·termination 재검증을 대체할 수 없음.
     - Nominal gtol과 achieved gradient 구분. gtol과 ftol을 함께 바꾼 coupled tolerance test.
     - gtol이 machine epsilon보다 작다는 사실만으로 “double precision 범위 밖”이라는 해석 불가.
@@ -53,7 +57,7 @@
   - Finite-$M$ range, covariance rank ceiling, consistency와 influence-function uncertainty 유도.
   - Observable의 scale invariance와 protocol equivariance의 구분. Pairwise mean normalization은 whitening 아님.
   - Claim type / evidence state 두 축으로 analytic statement와 미확정 측정을 구분.
-  - Evidence production contract는 실행 전 분석 계획. Corrected full rerun과 graph-null 결과의 대체물 아님.
+  - Evidence production contract와 bounded execution 결과를 분리. Full-corpus, recurrent class coverage와 uniform-null 검증은 미완료.
 
 ## 3. Primary mathematical object
 

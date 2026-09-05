@@ -284,7 +284,7 @@
    "claim_type": "hypothesis",
    "evidence_state": "open",
    "text": "$\\mathcal I$가 degree sequence와 edge organization 중 어느 구조에 반응하는가. ordered $k$-regular graph에는 connected random-regular null, 일반 graph에는 connected degree-preserving rewiring, degree heterogeneity 분리에는 matched ER comparison이 필요.",
-   "basis": "현재 설계에 validated graph null ensemble이 없음. Ring/lattice 대 random regular는 $(N,E,k)$를 고정하고 edge organization을 바꾸며, random regular 대 ER는 degree heterogeneity까지 바꿈. Null 없는 값도 protocol-level spread로 보고할 수 있지만, degree sequence를 넘어선 structural novelty 또는 mechanism attribution에는 이 비교가 필요.",
+   "basis": "Bounded corrected study에서 7개 anchor의 degree-preserving finite-time kernels와 connected G(n,m) comparisons 실행. ca-sandi-auths의 conditional contrast는 음수이나 ENZYMES는 kernel-length sensitivity, eco-baywet은 낮은 acceptance로 primary contrasts withheld. Uniform mixing과 full-corpus structural association은 미인증. Ring/lattice의 degree-preserving finite-time null을 uniform random-regular sample로 자동 해석하지 않음. Degree sequence를 넘어선 structural novelty 또는 mechanism attribution은 계속 open.",
    "refs": [
     "wiseman1995"
    ]
@@ -422,6 +422,15 @@
    "evidence_state": "exact",
    "text": "$a>0$인 output scaling $S_a(d)=ad$에 대해 $\\mathcal I[(S_a)_\\#\\mu]=\\mathcal I[\\mu]$. Input scaling $\\Delta\\mapsto a\\Delta$ 아래 augmented terminal kernel의 scale equivariance는 implemented NEI invariance의 충분조건이며 필요조건은 아님.",
    "basis": "$S_a^\\dagger(\\dagger)=\\dagger$로 확장하고 $\\bar K_{\\Pi,N}(a\\Delta,\\cdot)=(S_a^\\dagger)_\\#\\bar K_{\\Pi,N}(\\Delta,\\cdot)$가 성립하면 acceptance는 보존되고 admissible law는 $S_a$-pushforward가 되어 NEI가 불변. 역은 일반적으로 성립하지 않음. 서로 다른 terminal laws가 우연히 같은 scalar NEI를 가질 수 있으므로 NEI equality만으로 kernel equivariance를 추론할 수 없음. Absolute initialization scale, stopping tolerance, collision threshold 또는 guard가 kernel equivariance를 깨뜨릴 수 있음. Observable의 algebraic scale invariance와 implemented protocol의 input-scale equivariance는 별도 명제.",
+   "refs": []
+  },
+  {
+   "id": "C40",
+   "status": "measured",
+   "claim_type": "empirical_result",
+   "evidence_state": "provisional",
+   "text": "Corrected bounded protocol에서 330 graph/metric instances와 33,000 attempted starts, 40,000 terminal diagnostics의 실행·검산 완료. Acceptance-conditioned spread는 측정되었으나 full-corpus structural claim은 미확정.",
+   "basis": "2026-09-05-unweighted-v1, protocol SHA-256 d64740163f3f6d1391263b82f001bcff40379117f1d79052ac73fab833eb39be. Exact-target calibration과 numerical acceptance 분리. 8×8 lattice에서 고-stress accepted terminal 1개 관측, validation recurrence 미확인. ca-sandi-auths의 finite-time null contrast는 음수, ENZYMES는 primary interval이 zero를 포함하고 eco-baywet의 contrasts는 withheld. ER100·BA100은 nonzero spread이나 acceptance 16/100, recurrent class 0. Full result·sampling uncertainty·해석 한계는 corrected evidence section과 notes/10-corrected-evidence.md에서 보고.",
    "refs": []
   }
  ]

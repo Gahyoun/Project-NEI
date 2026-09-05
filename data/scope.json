@@ -24,7 +24,7 @@
    {
     "n": "3",
     "t": "pair-standardized run vector $z_{ma}=d_a^{(m)}/(\\bar d_a\\sqrt{N_+})$에 대해 finite-sample plug-in identity $\\widehat{\\mathcal I}_M=\\operatorname{tr}B_z/M$이 성립. 이는 population unbiasedness나 support recovery를 뜻하지 않으며, $d_{\\rm eff}$도 같은 standardized covariance operator에서 계산해야 함.",
-    "state": "theorem complete · unavailable from the existing raw-Δ artifact"
+    "state": "theorem complete · corrected bounded study에서 covariance identity 재계산; legacy raw-Δ artifact와 분리"
    },
    {
     "n": "4",
@@ -175,7 +175,7 @@
   ]
  },
  "validation": {
-  "status": "planned · corrected rerun pending",
+  "status": "bounded corrected study complete · full-corpus validation pending",
   "title": "Evidence production contract",
   "steps": [
    {

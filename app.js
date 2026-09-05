@@ -39,6 +39,8 @@ function tex(s){
 function texB(s){ try{ return window.katex.renderToString(s,{throwOnError:false}); }catch{ return esc(`$${s}$`); } }
 
 const NODE_NOTE_JUMPS = [
+  {id:"corrected-study", label:"Corrected Rerun and Graph-Null Evidence",
+   nodes:["G","protocol","gate","NEI","calib","cmnull","robust","deff","recur"]},
   {id:"local-spread-bound", label:"Local Residual-to-Spread Bound",
    nodes:["hessian","rigidity","gate","NEI","floppy","calib"]},
   {id:"finite-m-inference", label:"Finite-M Inference and Rank Bounds",
@@ -528,7 +530,7 @@ function renderScope(){
   const s=DB.scope.first_closure;
   const validation=DB.scope.validation;
   document.getElementById("validation-status").innerHTML=tex(validation.status)+
-    " · 아래는 실행 결과가 아니라 사전 선언할 분석·판정 규칙.";
+    ' · 아래는 분석·판정 contract. 이번 bounded 실행의 결과와 미충족 조건은 <a href="#corrected-study">corrected evidence</a>에서 별도 보고.';
   document.getElementById("validation-steps").innerHTML=validation.steps.map((step,i)=>
     '<li><section><h4>'+esc((i+1)+". "+step.title)+'</h4><ul>'+
     step.items.map(item=>'<li>'+tex(item)+'</li>').join("")+'</ul></section></li>').join("");
@@ -559,7 +561,7 @@ function renderScope(){
 /* ── 부팅 ─────────────────────────────────────────────── */
 (async function(){
   const files={nodes:"nodes",edges:"edges",connectors:"connectors",sweep:"sweep",vision:"vision",agenda:"agenda",sample:"sample",
-               claims:"claims",refs:"refs",meas:"measurements",scope:"scope",
+               claims:"claims",refs:"refs",meas:"measurements",scope:"scope",corrected:"corrected-study",corrected_gates:"corrected-gate-sensitivity",
                sources:"source-map",excerpts_main:"source-excerpts-main",
                excerpts_si:"source-excerpts-si",excerpts_note:"source-excerpts-note"};
   try{
@@ -583,6 +585,7 @@ function renderScope(){
     return;
   }
   renderCharts(); renderFilters(); renderMapLegend(); renderCoverageSummary(); renderScope();
+  renderCorrectedStudy(DB.corrected,DB.corrected_gates);
   renderCalib(); renderByType(); renderFloor(); renderSweep(); renderSample(); renderVision(); renderAgenda();
   renderConnectors(); renderClaims(); renderRefs();
   drawMap();

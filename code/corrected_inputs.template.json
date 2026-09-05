@@ -1,0 +1,32 @@
+{
+  "_note": "Replace each path with your local copy. The study loader requires these exact raw SHA-256 digests; no auto-download or header inference.",
+  "graphs": [
+    {
+      "id": "ca-sandi-auths",
+      "label": "ca-sandi_auths",
+      "path": "INPUT_DIRECTORY/ca-sandi_auths.edges",
+      "weighted": false,
+      "expected_n": 81,
+      "expected_e": 119,
+      "source_sha256": "b205caf6ef3ca94ee832f4dc8ca1f3c888ab8ef45c40d06fa64de0b2e160c517"
+    },
+    {
+      "id": "enzymes-g295",
+      "label": "ENZYMES-g295",
+      "path": "INPUT_DIRECTORY/ENZYMES-g295.edges",
+      "weighted": false,
+      "expected_n": 123,
+      "expected_e": 139,
+      "source_sha256": "ec4d18400d8d83a78eb5e96f72170c349c7d3eb44a5c7cbe2b483ac0fa5499b4"
+    },
+    {
+      "id": "eco-foodweb-baywet",
+      "label": "eco-foodweb-baywet",
+      "path": "INPUT_DIRECTORY/eco-foodweb-baywet.edges",
+      "weighted": false,
+      "expected_n": 128,
+      "expected_e": 2075,
+      "source_sha256": "f80e74718832f7e613684609ae4ec5c77f403aa879bb4a36f4416d2c38553319"
+    }
+  ]
+}
