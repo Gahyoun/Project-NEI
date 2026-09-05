@@ -1,0 +1,231 @@
+{
+  "source": "note",
+  "sha256": "9b20b9067b6a4bdb1a95271f6175aac4ee34795516ce3c4a9ba3ff8d65778a6c",
+  "excerpts": {
+    "G": [
+      {
+        "start_line": 109,
+        "end_line": 123,
+        "tex": "\\section{분석 대상과 주장 수준}\n\n연결된 무방향 그래프를 $G=(V,E)$라 하고 $N=|V|\\ge2$라 하자. 본 방법은 topology로부터 shortest-path dissimilarity를 만들고, 이를 $p$차원 Euclidean space에 metric MDS로 반복 임베딩한다. 한 번의 embedding 결과는 좌표행렬 $X\\in\\R^{N\\times p}$이지만, 분석 observable은 좌표 자체가 아니라 모든 node pair의 Euclidean distance이다. 따라서 translation, rotation, reflection으로만 다른 두 embedding은 같은 geometry로 취급된다.\n\nRaw network가 directed이면 asymmetric shortest path를 metric MDS에 묵시적으로 넣지 않는다.\n분석 전에 (a) reciprocal edge 처리 규칙을 명시한 underlying undirected graph로 변환하거나,\n(b) 유한하고 symmetric한 dissimilarity construction을 명시적으로 정의한다. 둘 중 하나를\n사전 선택할 수 없으면 해당 network를 이 protocol에서 제외한다. 이 directed-data policy는\nempirical graph와 모든 null graph에 똑같이 적용한 뒤 GCC를 추출한다.\n\n통계물리학적으로 $G$와 그로부터 정한 dissimilarity matrix는 quenched constraint에 해당한다. 초기 좌표 $X^{(0)}$만 ensemble에서 바뀌며, optimizer는 고정된 stress landscape 위의 deterministic descent map을 정의한다~\\cite{stillingerweber1982,stillinger1995}. 이때 NEI가 직접 측정하는 것은 다음과 같다.\n\n\\begin{quote}\n\\emph{고정된 protocol 아래 독립적으로 초기화한 최적화들이 산출한 terminal pairwise-distance matrices의 상대적 분산.}\n\\end{quote}"
+      }
+    ],
+    "delta": [
+      {
+        "start_line": 254,
+        "end_line": 264,
+        "tex": "\\subsection{분석 그래프와 shortest-path dissimilarity}\n\n분석은 giant connected component(GCC)에 제한한다. 모든 pair의 dissimilarity가 유한해야 metric stress와 NEI를 동일한 pair population 위에서 정의할 수 있기 때문이다. 각 edge $(u,v)$에는 엄밀히 양인 길이 $\\ell_{uv}>0$를 부여하고,\n\\begin{equation}\n  \\delta_{ij}=d_G(i,j)\n  =\\min_{\\pi:i\\leadsto j}\\sum_{(u,v)\\in\\pi}\\ell_{uv}\n  \\label{eq:shortest_path}\n\\end{equation}\n로 둔다~\\cite{dijkstra1959}. Unweighted network에서는 $\\ell_{uv}=1$을, interaction strength $\\omega_{uv}>0$가 주어진 weighted network에서는 명시적 modeling choice로 $\\ell_{uv}=1/\\omega_{uv}$를 사용할 수 있다. 이 역변환은 강한 연결을 짧은 유효거리로 해석한다. Proposition~\\ref{prop:guttman_scale}의 scale-matched 조건에서는 전역적인 선형 rescaling이 terminal distances만 같은 비율로 바꾸므로 NEI가 불변이지만, finite stopping과 guard는 이를 깨뜨릴 수 있다. 또한 $\\omega\\mapsto\\ell$의 비선형 선택에는 불변이 아니다. 따라서 weight column의 의미가 timestamp, count, flux, cost 중 무엇인지 data provenance 단계에서 판정해야 한다.\n\nNetwork와 그 null model을 비교할 때는 같은 metric rule을 적용한다. Weighted case에서 topology만 바꾸고자 한다면 edge-length multiset도 보존하거나, 적어도 null ensemble에 길이를 배정하는 규칙을 명시해야 한다. 그렇지 않으면 topology effect와 metric-remapping effect가 섞인다."
+      }
+    ],
+    "design": [
+      {
+        "start_line": 127,
+        "end_line": 139,
+        "tex": "각 run의 dimensionless lack-of-fit을\n\\begin{equation}\n  \\phi^{(m)}:=\\frac{\\stress_{\\Delta,w}(X^{(m)})}{S_\\Delta},\n  \\qquad\n  S_\\Delta=\\sum_{i<j}w_{ij}\\delta_{ij}^{2}>0\n  \\label{eq:normalized_lack_of_fit}\n\\end{equation}\n로 두면, $\\phi$는 \\emph{representational fidelity}를, $\\NEI$는\n\\emph{terminal reproducibility}를 묻는다. 따라서 $\\NEI\\approx0$이어도\n$\\phi$가 크면 ``일관되게 나쁜 embedding''일 수 있다. 반대로 $\\phi$가 작아도\n여러 terminal geometry가 비슷한 stress를 가질 수 있다. 이 두 양을 함께 보고해야\n``topology-to-geometry map이 정보를 충분히 보존한 상태에서 재현성이라는 추가\n성질을 측정했다''는 해석이 가능하다."
+      },
+      {
+        "start_line": 462,
+        "end_line": 470,
+        "tex": "좌표행렬 $X=(\\bm{x}_1^\\mathsf{T},\\ldots,\\bm{x}_N^\\mathsf{T})^\\mathsf{T}\\in\\R^{N\\times p}$에 대해 $d_{ij}(X)=\\|\\bm{x}_i-\\bm{x}_j\\|_2$라 하자. 최적화 목적함수는\n\\begin{equation}\n  \\stress_{\\Delta,w}(X)\n  =\\sum_{i<j} w_{ij}\\bigl(\\delta_{ij}-d_{ij}(X)\\bigr)^2,\n  \\qquad w_{ij}=w_{ji}\\ge0\n  \\label{eq:stress}\n\\end{equation}\n이다~\\cite{kruskal1964,borg2005}. 본 protocol에서는 모든 $i<j$에 $w_{ij}=1$로\n두지만, SMACOF의 선형대수를 분명히 하기 위해 이 절에서는 일반적인 symmetric"
+      }
+    ],
+    "protocol": [
+      {
+        "start_line": 268,
+        "end_line": 276,
+        "tex": "NEI는 알고리즘과 무관한 추상적 상수가 아니라, 다음 protocol tuple에 조건부인 통계량이다. 구현은 \\texttt{sklearn.manifold.MDS}의 metric SMACOF를 기준으로 한다~\\cite{pedregosa2011}.\n\\begin{equation}\n  \\Pi=\\bigl(\\Delta,p,\\rho_{0,N},\\mathcal{A},\\varepsilon,T_{\\max},M,\n  \\mathcal R_+\\bigr),\n  \\label{eq:protocol}\n\\end{equation}\n여기서 $\\Delta=(\\delta_{ij})$는 dissimilarity matrix, $p$는 embedding dimension,\n$\\rho_{0,N}$는 $\\R^{N\\times p}$ 위 초기화 분포, $\\mathcal{A}$는 optimizer,\n$\\varepsilon$은 stopping tolerance, $T_{\\max}$는 iteration cap, $M$은 독립 single-start run 수이다."
+      },
+      {
+        "start_line": 288,
+        "end_line": 302,
+        "tex": "Network 간 비교에서는 입력 $\\Delta$가 graph마다 달라지므로 Eq.~\\eqref{eq:protocol}의\n$\\Pi$ 전체가 문자 그대로 같을 수는 없다. 이를 명시하기 위해 network-specific protocol을\n\\begin{equation}\n  \\Pi_G=\\bigl(\\Delta(G),\\Pi_{\\setminus\\Delta,N_G}\\bigr),\n  \\qquad\n  \\Pi_{\\setminus\\Delta,N}=(p,\\rho_{0,N},\\mathcal A,\\varepsilon,T_{\\max},M,\n  \\mathcal R_+)\n  \\label{eq:graph_specific_protocol}\n\\end{equation}\n로 쓴다. Empirical--null comparison에서 고정하는 것은 $\\{\\Pi_{\\setminus\\Delta,N}\\}_N$라는\nalgorithmic protocol family와 선언한 $G\\mapsto\\Delta(G)$ construction rule이며, $\\Delta$ 자체만\n각 realized graph의 input으로 교체된다. 특히 (C2)처럼 $N_{\\mathrm{GCC}}$가 달라질 수 있으면\n``same initialization''은 같은 확률측도라는 뜻이 아니라, 예컨대 iid $U[0,1]$ entries처럼 사전\n선언한 동일 initialization-law family $\\{\\rho_{0,N}\\}_N$를 뜻한다. 이하에서 ``same protocol''은\n이 의미를 뜻한다."
+      }
+    ],
+    "schoenberg": [
+      {
+        "start_line": 587,
+        "end_line": 600,
+        "tex": "\\item \\textbf{Euclidean embeddability는 positive semidefiniteness와 같다.}\n  \\begin{proposition}[Schoenberg 판정과 최소 embedding dimension]\n  \\label{prop:schoenberg}\n  $\\Delta=(\\delta_{ij})$가 symmetric, nonnegative, hollow라 하자. 다음은 동치이다.\n  \\begin{enumerate}\\renewcommand{\\labelenumii}{(\\roman{enumii})}\n    \\item 어떤 $Y\\in\\R^{N\\times r}$가 존재하여\n          $\\delta_{ij}=\\lVert\\bm y_i-\\bm y_j\\rVert_2$이다.\n    \\item $\\Gram\\succeq0$이고 $\\rank\\Gram\\le r$이다.\n    \\item 모든 $\\bm z$ satisfying $\\one^{\\mathsf T}\\bm z=0$에 대해\n          $\\bm z^{\\mathsf T}\\Delta^{(2)}\\bm z\\le0$이고\n          $\\rank\\Gram\\le r$이다.\n  \\end{enumerate}\n  정확한 최소 Euclidean embedding dimension은 $\\rank\\Gram$이다.\n  \\end{proposition}"
+      }
+    ],
+    "negtype": [
+      {
+        "start_line": 590,
+        "end_line": 600,
+        "tex": "  $\\Delta=(\\delta_{ij})$가 symmetric, nonnegative, hollow라 하자. 다음은 동치이다.\n  \\begin{enumerate}\\renewcommand{\\labelenumii}{(\\roman{enumii})}\n    \\item 어떤 $Y\\in\\R^{N\\times r}$가 존재하여\n          $\\delta_{ij}=\\lVert\\bm y_i-\\bm y_j\\rVert_2$이다.\n    \\item $\\Gram\\succeq0$이고 $\\rank\\Gram\\le r$이다.\n    \\item 모든 $\\bm z$ satisfying $\\one^{\\mathsf T}\\bm z=0$에 대해\n          $\\bm z^{\\mathsf T}\\Delta^{(2)}\\bm z\\le0$이고\n          $\\rank\\Gram\\le r$이다.\n  \\end{enumerate}\n  정확한 최소 Euclidean embedding dimension은 $\\rank\\Gram$이다.\n  \\end{proposition}"
+      },
+      {
+        "start_line": 610,
+        "end_line": 617,
+        "tex": "  마지막으로 $\\one^{\\mathsf T}\\bm z=0$이면 $C\\bm z=\\bm z$이므로\n  \\[\n    \\bm z^{\\mathsf T}\\Delta^{(2)}\\bm z\n      =-2\\bm z^{\\mathsf T}\\Gram\\bm z.\n  \\]\n  따라서 (ii)와 (iii)의 conditional negative semidefiniteness가 동치이다.\n  최소 차원은 Gram factor의 rank와 같으므로 $\\rank\\Gram$이다.\n  \\end{proof}"
+      }
+    ],
+    "strain": [
+      {
+        "start_line": 639,
+        "end_line": 661,
+        "tex": "\\item \\textbf{Low-dimensional cMDS는 PSD-constrained strain problem을 푼다.}\n  \\begin{proposition}[Indefinite Gram candidate의 정확한 spectral truncation]\n  \\label{prop:strain_not_stress}\n  $\\lambda_1\\ge\\cdots\\ge\\lambda_N$, $q=\\min(p,n_+)$라 하고\n  \\begin{equation}\n    \\operatorname{strain}(X)=\\lVert\\Gram-XX^{\\mathsf T}\\rVert_F^2\n    \\label{eq:strain}\n  \\end{equation}\n  로 두자. 그러면 Eq.~\\eqref{eq:cmds}가 만드는 Gram matrix\n  \\begin{equation}\n    G_{+,p}^{\\star}=X_{\\mathrm{cMDS}}X_{\\mathrm{cMDS}}^{\\mathsf T}\n      =\\sum_{a=1}^{q}\\lambda_a\\bm u_a\\bm u_a^{\\mathsf T}\n    \\label{eq:psd_rankp_projection}\n  \\end{equation}\n  는 $G\\succeq0$, $\\rank G\\le p$ 위에서 $\\lVert\\Gram-G\\rVert_F^2$를 최소화하며\n  \\begin{equation}\n    \\min_X\\operatorname{strain}(X)\n      =\\sum_{\\substack{a>q\\\\\\lambda_a>0}}\\lambda_a^2\n       +\\sum_{\\lambda_a<0}\\lambda_a^2.\n    \\label{eq:strain_error_split}\n  \\end{equation}\n  첫 합은 dimension truncation, 둘째 합은 non-Euclidean residual이다.\n  \\end{proposition}"
+      }
+    ],
+    "stress": [
+      {
+        "start_line": 462,
+        "end_line": 470,
+        "tex": "좌표행렬 $X=(\\bm{x}_1^\\mathsf{T},\\ldots,\\bm{x}_N^\\mathsf{T})^\\mathsf{T}\\in\\R^{N\\times p}$에 대해 $d_{ij}(X)=\\|\\bm{x}_i-\\bm{x}_j\\|_2$라 하자. 최적화 목적함수는\n\\begin{equation}\n  \\stress_{\\Delta,w}(X)\n  =\\sum_{i<j} w_{ij}\\bigl(\\delta_{ij}-d_{ij}(X)\\bigr)^2,\n  \\qquad w_{ij}=w_{ji}\\ge0\n  \\label{eq:stress}\n\\end{equation}\n이다~\\cite{kruskal1964,borg2005}. 본 protocol에서는 모든 $i<j$에 $w_{ij}=1$로\n두지만, SMACOF의 선형대수를 분명히 하기 위해 이 절에서는 일반적인 symmetric"
+      },
+      {
+        "start_line": 496,
+        "end_line": 517,
+        "tex": "정의와 해석을 다음 순서로 분리한다.\n\n\\begin{itemize}\n  \\item \\textbf{Residual}: 각 항은 target distance와 embedded distance의 차이다.\n        따라서 $\\stress$의 단위는 distance squared이며, network 사이에서 raw\n        stress를 비교하려면 $S_\\Delta=\\sum_{i<j}w_{ij}\\delta_{ij}^2$ 같은 입력 scale로\n        정규화해야 한다.\n  \\item \\textbf{Gauge symmetry}: translation과 $O(p)$ action은 같은 distance\n        matrix를 만들므로 좌표의 비유일성이지 새로운 geometry가 아니다.\n  \\item \\textbf{Nonconvexity}: $X\\mapsto d_{ij}(X)$ 때문에 $\\stress$는 일반적으로\n        $X$에 대해 nonconvex이다. 따라서 하나의 optimizer run은 global minimizer의\n        인증서가 아니며, random multistart가 필요한 이유가 된다.\n  \\item \\textbf{Nonsmooth set}: $\\delta_{ij}>0$인데 $d_{ij}(X)=0$인 collision에서는\n        Euclidean norm의 gradient가 유일하지 않다. Smooth Hessian 해석은 이 set을\n        제외한 뒤에만 가능하다~\\cite{deleeuw1984}.\n\\end{itemize}\n\n\\begin{proposition}[Centered subspace에서 stress minimizer의 존재]\n\\label{prop:stress_existence}\n$G_w$가 connected이고 $S_\\Delta<\\infty$라 하자. Gauge $\\one^{\\mathsf T}X=0$를\n고정하면 $\\stress_{\\Delta,w}$는 coercive이며 따라서 global minimizer를 적어도\n하나 갖는다. 이는 minimizer의 유일성이나 SMACOF의 global convergence를 뜻하지 않는다."
+      }
+    ],
+    "fit": [
+      {
+        "start_line": 127,
+        "end_line": 139,
+        "tex": "각 run의 dimensionless lack-of-fit을\n\\begin{equation}\n  \\phi^{(m)}:=\\frac{\\stress_{\\Delta,w}(X^{(m)})}{S_\\Delta},\n  \\qquad\n  S_\\Delta=\\sum_{i<j}w_{ij}\\delta_{ij}^{2}>0\n  \\label{eq:normalized_lack_of_fit}\n\\end{equation}\n로 두면, $\\phi$는 \\emph{representational fidelity}를, $\\NEI$는\n\\emph{terminal reproducibility}를 묻는다. 따라서 $\\NEI\\approx0$이어도\n$\\phi$가 크면 ``일관되게 나쁜 embedding''일 수 있다. 반대로 $\\phi$가 작아도\n여러 terminal geometry가 비슷한 stress를 가질 수 있다. 이 두 양을 함께 보고해야\n``topology-to-geometry map이 정보를 충분히 보존한 상태에서 재현성이라는 추가\n성질을 측정했다''는 해석이 가능하다."
+      }
+    ],
+    "shape": [
+      {
+        "start_line": 1243,
+        "end_line": 1263,
+        "tex": "\\subsection{왜 좌표공간의 Hessian을 그대로 읽으면 안 되는가}\n\nEq.~\\eqref{eq:invariance_stress} 때문에 물리적으로 같은 embedding이 $\\R^{N\\times p}$ 안에서 하나의 orbit을 이룬다. Configuration space는 개념적으로\n\\begin{equation}\n  \\mathcal{Q}=\\R^{N\\times p}/\\Euc(p)\n  \\label{eq:quotient}\n\\end{equation}\n인 quotient space이다. Reflection은 discrete symmetry라 infinitesimal zero mode를\n만들지 않는다. Translation tangent는 모든 smooth configuration에서 exact Hessian\nnull direction인 반면, rotation tangent가 Hessian zero mode가 되는 것은\nstationary point에서이다. 미수렴점에서는 뒤의\nEq.~\\eqref{eq:rotation_gradient_equivariance}에 나타나는 gradient coupling을 함께\n고려해야 한다.\n\n엄밀히 말하면 $\\mathcal Q$는 모든 점에서 같은 차원의 smooth manifold가 아니다.\nAffine rank가 떨어지는 configuration에서는 stabilizer가 커지고 orbit dimension이\n바뀌므로, $\\mathcal Q$는 rank에 따라 층화된 \\emph{stratified orbit space}이다.\n따라서 이후의 quotient Hessian, implicit-function, continuation 해석은 resolved\nrank가 일정한 fixed-rank regular stratum의 local slice에서만 수행한다. Rank가\nthreshold perturbation에 따라 바뀌면 해당 curvature classification을 undefined로\n두는 이유가 여기에 있다~\\cite{absil2008}."
+      },
+      {
+        "start_line": 1345,
+        "end_line": 1352,
+        "tex": "$Q_R$의 직교여공간 basis를 $Q_X$라 하자.\n\\begin{equation}\n  Q_X^{\\mathsf T}Q_X=\\Id_{Np-q_X},\n  \\qquad Q_X^{\\mathsf T}Q_R=0,\n  \\qquad Q_XQ_X^{\\mathsf T}=\\Id_{Np}-Q_RQ_R^{\\mathsf T}.\n  \\label{eq:quotient_basis}\n\\end{equation}\n여기서 admissible pair 수 $N_+$와 quotient basis $Q_X$를 다른 기호로 두어 notation collision을 피한다."
+      }
+    ],
+    "terminal": [
+      {
+        "start_line": 155,
+        "end_line": 170,
+        "tex": "여기서 세 층위를 분리해야 한다. 첫째, quotient space 위 목적함수의 local\nminima orbit 집합은 $(\\Delta,p,w)$만 고정되면 정해지는 \\emph{목적함수의 수학적 성질}이며,\noptimizer와 무관하게 잘 정의된다. 둘째, 수렴한 stationary orbit $[X_\\alpha^\\star]$에\n대한 basin은 optimizer $\\mathcal A$의 orbit-preimage,\n\\begin{equation}\n \\mathcal B_\\alpha\n =\\{X^{(0)}:[\\mathcal A(X^{(0)})]=[X_\\alpha^\\star]\\}\n =\\mathcal A^{-1}\\!\\bigl(\\Euc(p)\\cdot X_\\alpha^\\star\\bigr),\n \\label{eq:orbit_basin}\n\\end{equation}\n이므로 $\\mathcal A$에 의존한다. Reflection까지 포함한 $\\Euc(p)$ orbit을 써야 하며,\n$\\SE(p)$ orbit으로 제한해서는 안 된다. 그래야\nrigidly transformed coordinate representative를 다른 state로 세지 않는다. 셋째,\n초기화 법칙 $\\rho_0$는 basin 자체가 아니라 그 population occupancy\n$\\pi_\\alpha^{\\mathrm{basin}}=\\rho_0(\\mathcal B_\\alpha)$를 정한다. 여기서\n$\\alpha$는 stationary orbit을, 뒤의 $\\gamma$는 observed terminal group을 index하며"
+      },
+      {
+        "start_line": 1112,
+        "end_line": 1117,
+        "tex": "$M$개의 independent single-start optimization으로 terminal coordinates $X^{(m)}$를 얻고,\n\\begin{equation}\n  d_{ij}^{(m)}=\\|\\bm{x}_i^{(m)}-\\bm{x}_j^{(m)}\\|_2\n  \\label{eq:terminal_distance}\n\\end{equation}\n를 계산한다. 좌표가 아니라 $d_{ij}^{(m)}$를 사용하므로 translation, rotation 및 reflection에 대한 Procrustes alignment가 필요 없다. 표본 moment는 관측된 $M$개 run 각각에 질량 $1/M$을 두는 empirical-distribution convention으로 고정한다. 이는 $\\rho_0$가 유도하는 population quantity와 구분한다."
+      }
+    ],
+    "hessian": [
+      {
+        "start_line": 1356,
+        "end_line": 1366,
+        "tex": "Terminal candidate $X^\\star$에는 먼저 좌표 distance만으로\nEq.~\\eqref{eq:collision_gate}의 collision gate를 적용한다. 이를 통과하여 모든\n$d_{ij}(X^\\star)>0$인 smooth candidate에서만\n\\begin{equation}\n  g_\\perp=Q_X^{\\mathsf T}\\vecrow\\!\\left(\\grad_X\\stress(X^\\star)\\right),\n  \\qquad\n  H_\\perp=Q_X^{\\mathsf T}\\Hess(X^\\star)Q_X\n  \\label{eq:projected_objects}\n\\end{equation}\n를 계산한다. $d_{ij}=0$에서는 analytic Hessian뿐 아니라 Euclidean norm을 포함한\ngradient도 일반적으로 정의되지 않으므로 이 순서를 뒤집지 않는다. Stress scale에 대한"
+      },
+      {
+        "start_line": 1405,
+        "end_line": 1417,
+        "tex": "$z_{ij}=\\bm{x}_i-\\bm{x}_j$, $d_{ij}=\\|z_{ij}\\|_2>0$, $u_{ij}=z_{ij}/d_{ij}$라 하자. Pair stress $f_{ij}=w_{ij}(\\delta_{ij}-d_{ij})^2$의 $z_{ij}$에 대한 gradient와 Hessian은~\\cite{groenendeleeuwmathar1996,deleeuw1984}\n\\begin{align}\n  \\grad_{z_{ij}}f_{ij}\n  &=2w_{ij}(d_{ij}-\\delta_{ij})u_{ij},\n  \\label{eq:pair_gradient}\\\\\n  A_{ij}:=\\grad_{z_{ij}}^2f_{ij}\n  &=2w_{ij}\\left[\n      u_{ij}u_{ij}^{\\mathsf T}\n      +\\left(1-\\frac{\\delta_{ij}}{d_{ij}}\\right)\n      \\left(\\Id_p-u_{ij}u_{ij}^{\\mathsf T}\\right)\n    \\right].\n  \\label{eq:pair_hessian}\n\\end{align}"
+      }
+    ],
+    "rigidity": [
+      {
+        "start_line": 1443,
+        "end_line": 1458,
+        "tex": "Node-major convention에서 length-constraint rigidity matrix $R$의 $(i,j)$ row를\n\\begin{equation}\n  R_{ij,:}=(e_i-e_j)^{\\mathsf T}\\otimes u_{ij}^{\\mathsf T},\n  \\qquad W=\\operatorname{diag}(w_{ij})\n  \\label{eq:unit_direction_rigidity}\n\\end{equation}\n로 정의한다. 즉 $R$은 squared-distance convention의 $z_{ij}$ row가 아니라\nunit-direction $u_{ij}$ row를 쓰는 rigidity matrix이다. 모든 pair residual이 0, 즉\n$d_{ij}=\\delta_{ij}$이면 transverse term이 사라지고\n\\begin{equation}\n  \\Hess=2R^{\\mathsf T}WR\n  \\label{eq:rigidity_limit}\n\\end{equation}\n형태가 된다. 이 경우 $\\Hess\\succeq0$이며 nontrivial kernel은 infinitesimal flex와\n연결된다~\\cite{asimowroth1978}. 그러나 shortest-path MDS에서는 일반적으로 target\nmetric이 낮은 $p$에서 정확히 Euclidean-realizable하지 않으므로 residual이 0이 아니다."
+      },
+      {
+        "start_line": 1459,
+        "end_line": 1484,
+        "tex": "그때~\\cite{connelly1996}\n\\begin{equation}\n  \\Hess=2R^{\\mathsf T}WR+H_{\\mathrm{pre}}\n  \\label{eq:prestress_decomposition}\n\\end{equation}\n로 보아야 한다. $a_{ij}=e_i-e_j$와\n$P_{ij}^{\\perp}=I_p-u_{ij}u_{ij}^{\\mathsf T}$를 쓰면 prestress block-Laplacian은\n명시적으로\n\\begin{equation}\n H_{\\mathrm{pre}}\n =\\sum_{i<j}2w_{ij}\\left(1-\\frac{\\delta_{ij}}{d_{ij}}\\right)\n   (a_{ij}a_{ij}^{\\mathsf T})\\otimes P_{ij}^{\\perp}\n \\label{eq:explicit_prestress}\n\\end{equation}\n이고, perturbation $h=\\vecrow(H)$에 대한 quadratic form은\n\\begin{equation}\n h^{\\mathsf T}H_{\\mathrm{pre}}h\n =\\sum_{i<j}2w_{ij}\\left(1-\\frac{\\delta_{ij}}{d_{ij}}\\right)\n \\left\\|P_{ij}^{\\perp}(\\bm h_i-\\bm h_j)\\right\\|_2^2.\n \\label{eq:prestress_quadratic_form}\n\\end{equation}\n따라서 $d_{ij}>\\delta_{ij}$인 stretched pair는 transverse positive curvature에,\n$d_{ij}<\\delta_{ij}$인 compressed pair는 transverse negative curvature에 기여할\n수 있다. 합 전체는 positive semidefinite일 필요가 없다. 작은 또는 음의 eigenvalue는\ngeometric degeneracy, prestress cancellation, saddle, numerical nonstationarity 중\n하나에서 생길 수 있으므로 residual이 있는 상태에서 rigidity rank만으로 해석하지 않는다."
+      }
+    ],
+    "gate": [
+      {
+        "start_line": 1365,
+        "end_line": 1375,
+        "tex": "를 계산한다. $d_{ij}=0$에서는 analytic Hessian뿐 아니라 Euclidean norm을 포함한\ngradient도 일반적으로 정의되지 않으므로 이 순서를 뒤집지 않는다. Stress scale에 대한\nprojected-gradient diagnostic을\n\\begin{equation}\n  \\eta_g(X^\\star):=\\frac{\\|g_\\perp\\|_2}{\\sqrt{S_\\Delta}}\n  \\le \\tau_g\n  \\label{eq:projected_gradient_gate}\n\\end{equation}\n로 정의하며, $\\tau_g$는 network comparison 전에 사전 고정한다. 이 gate와 iteration-cap\nnonbinding, Eq.~\\eqref{eq:collision_gate}를 함께 통과한 run에 대해서만 Hessian의\nlocal-minimum 해석을 시도한다."
+      },
+      {
+        "start_line": 1418,
+        "end_line": 1424,
+        "tex": "첫 항은 pair 방향의 longitudinal stiffness이고, 둘째 항은 residual stress가 만드는 transverse 또는 prestress contribution이다. $d_{ij}=0$에서는 Euclidean norm의 방향미분이 특이하므로 Eq.~\\eqref{eq:pair_hessian}을 그대로 적용할 수 없다. 또한 $\\bar d_{ij}>0$라는 NEI pair-set condition은 개별 terminal run에서 $d_{ij}^{(m)}>0$임을 뜻하지 않는다. Hessian classification에는 별도의 collision gate가 필요하다. 예를 들어\n\\begin{equation}\n  \\chi_{\\mathrm{coll}}^{(m)}=\n  \\frac{\\min_{i<j}d_{ij}^{(m)}}{s_\\Delta}\n  \\label{eq:collision_gate}\n\\end{equation}\n를 두고, 사전 고정한 $\\tau_{\\mathrm{coll}}>0$에 대해 $\\chi_{\\mathrm{coll}}^{(m)}>\\tau_{\\mathrm{coll}}$인 run에만 analytic Hessian을 적용한다. 이 gate를 통과하지 못한 run은 terminal ensemble에는 남기되 Hessian spectrum과 $\\lambda_{\\mathrm{soft}}$ summary에서는 제외하고 별도로 보고한다."
+      }
+    ],
+    "morse": [
+      {
+        "start_line": 1542,
+        "end_line": 1546,
+        "tex": "\\begin{remark}\n$\\widetilde\\lambda_{\\mathrm{soft}}\\approx0$은 local quadratic softness이다. Unconstrained\ndescent를 다시 실행하면 원래 minimum으로 돌아갈 수 있으므로, 그것만으로 finite-amplitude\nfloppy path를 보였다고 할 수 없다.\n\\end{remark}"
+      },
+      {
+        "start_line": 1698,
+        "end_line": 1717,
+        "tex": "Finite low-stress path에 대한 numerical evidence를 보고하려면 preset step grid의\ncollision margin,\nmaximum stress excess, 그리고 attained distance-matrix excursion을\n\\begin{equation}\n  \\begin{aligned}\n  \\min_{s\\in\\mathcal S_{\\mathrm{cont}}}\\chi_{\\mathrm{coll}}(X(s))\n    &>\\tau_{\\mathrm{coll}},\\\\[2pt]\n  \\max_{s\\in\\mathcal S_{\\mathrm{cont}}}\n  \\frac{\\stress(X(s))-\\stress(X^\\star)}{S_\\Delta}\n    &\\le\\tau_{\\mathrm{cont}},\\\\[2pt]\n  \\max_{s\\in\\mathcal S_{\\mathrm{cont}}}\n  \\frac{\\|\\Dmat(X(s))-\\Dmat(X^\\star)\\|_F}\n       {\\|\\Dmat(X^\\star)\\|_F}\n    &\\ge\\delta_{\\mathrm{cont}}\n  \\end{aligned}\n  \\label{eq:continuation_certificate}\n\\end{equation}\n로 확인한다. 여기서 $\\delta_{\\mathrm{cont}}>0$는 사전 고정한다. 마지막 부등식은 $s=0$에서가 아니라\npath 어딘가에서 적어도 $\\delta_{\\mathrm{cont}}$만큼의 non-rigid geometry change가 실제로\n도달했음을 뜻한다. 다만 이 Frobenius ratio는 global 또는 collective"
+      }
+    ],
+    "NEI": [
+      {
+        "start_line": 1112,
+        "end_line": 1124,
+        "tex": "$M$개의 independent single-start optimization으로 terminal coordinates $X^{(m)}$를 얻고,\n\\begin{equation}\n  d_{ij}^{(m)}=\\|\\bm{x}_i^{(m)}-\\bm{x}_j^{(m)}\\|_2\n  \\label{eq:terminal_distance}\n\\end{equation}\n를 계산한다. 좌표가 아니라 $d_{ij}^{(m)}$를 사용하므로 translation, rotation 및 reflection에 대한 Procrustes alignment가 필요 없다. 표본 moment는 관측된 $M$개 run 각각에 질량 $1/M$을 두는 empirical-distribution convention으로 고정한다. 이는 $\\rho_0$가 유도하는 population quantity와 구분한다.\n\\begin{equation}\n  \\bar d_{ij}=\\frac1M\\sum_{m=1}^{M}d_{ij}^{(m)},\n  \\qquad\n  \\sigma_{ij}^2=\\frac1M\\sum_{m=1}^{M}\n  \\bigl(d_{ij}^{(m)}-\\bar d_{ij}\\bigr)^2.\n  \\label{eq:pair_stats}\n\\end{equation}"
+      },
+      {
+        "start_line": 1178,
+        "end_line": 1196,
+        "tex": "각 admissible pair의 상대분산을\n\\begin{equation}\n  r_{ij}=\\left(\\frac{\\sigma_{ij}}{\\bar d_{ij}}\\right)^2\n  =\\frac{\\sigma_{ij}^2}{\\bar d_{ij}^2}\n  \\label{eq:relative_pair_variability}\n\\end{equation}\n로 정의한다. Average NEI는 pair population에서의 first moment,\n\\begin{equation}\n  \\boxed{\\displaystyle\n  \\NEI=\\frac1{N_+}\\sum_{(i,j)\\in\\Pplus}r_{ij}}\n  \\label{eq:nei}\n\\end{equation}\n이고, pair-to-pair heterogeneity는 second central moment\n\\begin{equation}\n  \\disp=\\frac1{N_+}\\sum_{(i,j)\\in\\Pplus}\n  \\bigl(r_{ij}-\\NEI\\bigr)^2\n  \\label{eq:second_moment}\n\\end{equation}\n로 측정한다. $r_{ij}$가 dimensionless이므로 $\\NEI$와 $\\disp$ 모두 dimensionless이다. $\\sqrt{\\disp}/\\NEI$는 $\\NEI>0$일 때에만 pairwise variability의 coefficient of variation으로 해석할 수 있다."
+      }
+    ],
+    "multiplicity": [
+      {
+        "start_line": 1772,
+        "end_line": 1784,
+        "tex": "Run $m$의 terminal pairwise-distance matrix를 $\\Dmat^{(m)}$라 하자. 두 terminal geometry 사이의 scale-normalized separation을\n\\begin{equation}\n  \\Delta_{mn}=\n  \\frac{\\|\\Dmat^{(m)}-\\Dmat^{(n)}\\|_F}\n  {\\tfrac12\\bigl(\\|\\Dmat^{(m)}\\|_F+\\|\\Dmat^{(n)}\\|_F\\bigr)}\n  \\label{eq:terminal_separation}\n\\end{equation}\n로 정의한다. 이 비교는 rigid-body alignment를 요구하지 않는다. 단,\n$0\\le\\Delta_{mn}\\le2$는 triangle inequality\n$\\lVert A-B\\rVert_F\\le\\lVert A\\rVert_F+\\lVert B\\rVert_F$에서 따르지만,\ndenominator가 pair $(m,n)$마다 달라지므로 $\\Delta_{mn}$은 일반적으로 metric이 아니다.\n따라서 아래 connected-component grouping은 metric clustering theorem에 기대지 않는\n명시적 threshold-graph rule이다. 또한"
+      },
+      {
+        "start_line": 1807,
+        "end_line": 1811,
+        "tex": "여기서 관측되는 cluster는 우선 ``terminal group''이라고 부르는 것이 안전하다. Basin은\n초기조건 공간에서 optimizer map의 orbit-preimage이고, terminal group은 결과 distance\nmatrices의 cluster이다. 하나의 orbit-preimage basin이 초기조건 공간에서 여러 disconnected\ncomponents를 가질 수 있고, finite threshold는 서로 다른 가까운 terminal geometries를 한\ngroup으로 합치거나 거의 평평한 연속 set을 여러 group으로 쪼갤 수 있다."
+      }
+    ],
+    "robust": [
+      {
+        "start_line": 1813,
+        "end_line": 1825,
+        "tex": "Grouping rule도 protocol의 일부로 고정한다. 사전 등록한 calibration functional\n$\\mathcal S_{\\mathrm{grp}}$가 perturb-and-refit intra-state separations과 candidate\nthreshold plateau를 입력으로 받아 $\\tau_{\\mathrm{grp}}=\\mathcal S_{\\mathrm{grp}}(\\cdot)$를\n선택한다고 하자. 이 functional과 candidate interval은 data inspection 전에 고정하고,\n모든 null replicate에서 동일하게 다시 실행한다. Independent-batch holdout check에서는\n$\\mathcal S_{\\mathrm{grp}}$를 training batch $A$에서 fit한 뒤 $B$에 변경 없이 적용한다.\n선택된\n$\\tau_{\\mathrm{grp}}$에 대해 vertices가 noncollapsed runs이고 edge가\n$\\Delta_{mn}\\le\\tau_{\\mathrm{grp}}$인 graph의 connected components를 terminal groups로 둔다.\n이는 single-linkage rule이므로 ties는 edge로 포함한다. 각 noncollapsed component의 medoid는\n$m_\\gamma=\\arg\\min_{m\\in\\gamma}\\sum_{n\\in\\gamma}\\Delta_{mn}$로 정하고, tied medoid는 가장\n작은 run index를 택한다. Chaining sensitivity를 숨기지 않기 위해 selection functional의\nplateau와 그 interval을 함께 보고한다."
+      },
+      {
+        "start_line": 2398,
+        "end_line": 2405,
+        "tex": "GCC extraction은 null comparison의 일부로 사전 고정해야 한다. 허용되는 policy는 예를 들어\n다음 두 가지 중 하나다: (C1) connected null ensemble에 조건부로 생성하여 분석 전\n$N,E$를 유지하되 이 conditioning을 명시하거나, (C2) 생성된 모든 graph의 GCC를 그대로\n분석하여 realization별 $(N_{\\mathrm{GCC}},E_{\\mathrm{GCC}})$를 보고하고 비교를\ncomponent-rule-conditional effect로 해석한다. (C2)에서는 pre-GCC $N,E$ matching을\nanalyzed-object matching이라고 부르지 않는다. GCC size가 달라진 null을 사후에 조용히\n제거해서는 안 되며, empirical graph와 모든 null에 같은 directed-data policy와 component\npolicy를 적용한다."
+      }
+    ],
+    "rigid": [
+      {
+        "start_line": 2274,
+        "end_line": 2294,
+        "tex": "\\subsection{강체형: 하나의 재현 가능한 terminal geometry}\n\n독립 초기화들이 rigid motion을 제외하고 같은 collision-free terminal distance\nmatrix $\\Dmat^\\star$에 도달한다고 하자. 고정된 유한 $M$에서\n\\begin{equation}\n  \\Dmat^{(m)}=\\Dmat^\\star+E^{(m)},\n  \\qquad\n  d_{\\min}^\\star:=\\min_{i<j}d_{ij}^\\star>0,\n  \\qquad\n  \\max_m\\frac{\\|E^{(m)}\\|_F}{d_{\\min}^\\star}\\to0\n  \\label{eq:rigid_regime}\n\\end{equation}\n이면 모든 pair의 relative error가 함께 사라지므로 $\\NEI\\to0$이다.\nCollision-free condition 없이 $\\|E^{(m)}\\|_F\\to0$만 두면 limit distance가 $0$인\npair의 coefficient of variation은 남을 수 있으므로 이 결론이 따르지 않는다.\n동시에 $H_\\perp$가 positive definite이며\n$\\widetilde\\lambda_{\\mathrm{soft}}^{(1)}$가 충분히 크면 quotient space의 local\nstress well은 quadratic order에서 strongly curved하다. 그러나 finite $M$의\n$\\NEI\\approx0$만으로 landscape 전체의 global uniqueness를 증명할 수는 없다.\n더 정확한 문장은 관측된 initialization ensemble에서 하나의 well-resolved\nterminal geometry가 재현되었다는 것이다."
+      }
+    ],
+    "split": [
+      {
+        "start_line": 2296,
+        "end_line": 2305,
+        "tex": "\\subsection{다중안정형: 분리된 terminal groups}\n\n각 group 내부 변동은 작지만 group means가 다르면\n\\begin{equation}\n  \\NEI_{\\mathrm{W}}\\ll\\NEI_{\\mathrm{B}},\n  \\qquad \\beta_{\\mathrm{exc}}\\to1,\n  \\qquad 1<K<M.\n  \\label{eq:multistable_regime}\n\\end{equation}\n각 group의 certified-run curvature summary는 충분히 stiff할 수 있으므로 전체 ensemble의 $\\NEI$는 크더라도 groupwise curvature는 클 수 있다. 즉 Hessian은 한 terminal state의 local shape를, NEI와 grouping은 여러 run에 걸친 output multiplicity를 측정한다. \\emph{분리된 terminal geometries가 ensemble variance에 기여한다}는 결론은 $1<K<M$, threshold plateau, independent-batch recurrence, 그리고 full-pipeline null 대비가 함께 확인될 때 정당화된다."
+      }
+    ],
+    "floppy": [
+      {
+        "start_line": 2307,
+        "end_line": 2325,
+        "tex": "\\subsection{Floppy 후보: single-group 내 저곡률과 deformation evidence}\n\n한 terminal group 안에서 추가 near-zero mode가 존재하고 그 방향으로 finite low-stress continuation이 가능하면\n\\begin{equation}\n  \\NEI>\\tau_{\\mathcal I},\n  \\qquad\n  \\widetilde\\lambda_{\\mathrm{soft}}^{(1)}\\approx0,\n  \\qquad K=1,\n  \\qquad \\beta_{\\mathrm{exc}}=0,\n  \\qquad \\NEI_{\\mathrm{W}}=\\NEI\n  \\label{eq:floppy_regime}\n\\end{equation}\n인 canonical floppy candidate가 된다. 여기서 $K=1$과 $\\NEI>0$이면\n$\\NEI_{\\mathrm B}=0$이므로 $\\NEI_{\\mathrm W}=\\NEI$와\n$\\beta_{\\mathrm{exc}}=0$은 algebraically automatic이며 independent evidence가 아니다.\n$\\NEI=0$이면 $\\beta$와 $\\beta_{\\mathrm{exc}}$는 undefined이다. Floppy 해석에는\n충분한 $\\NEI$, certified near-zero mode, 그리고 mesh-refined low-stress\ncontinuation evidence가 함께 필요하다. Terminal group은 output-space object이므로\n이를 실제 하나의 basin 또는 minimum manifold와 동일시하지 않는다."
+      }
+    ],
+    "unresolved": [
+      {
+        "start_line": 2327,
+        "end_line": 2342,
+        "tex": "\\subsection{세 패널만으로는 빠지는 혼합상태}\n\n현실적인 landscape에서는 $1<K<M$이면서 적어도 한 group 안에도 near-zero mode가\n있을 수 있다. 여기에 positive separation evidence와 continuation evidence까지 요구하는\noperational candidate를 다음처럼 정의한다:\n\\begin{equation}\n  \\begin{aligned}\n    0<\\beta_{\\mathrm{exc}}\\le1,\\qquad 1<K<M,\\\\\n    \\widetilde\\lambda_{\\mathrm{soft}}^{(\\gamma)}\\approx0\n    \\quad\\text{for at least one certified group with mesh-refined continuation evidence}\n  \\end{aligned}\n  \\label{eq:mixed_regime}\n\\end{equation}\n인 soft multistability candidate가 존재한다. 따라서 분류는 한 축으로 할 수 없다.\n$\\NEI$, $K$, $\\beta_{\\mathrm{exc}}$, 그리고 groupwise curvature를 별도로 보고한 뒤\n공동으로 해석해야 한다."
+      },
+      {
+        "start_line": 2351,
+        "end_line": 2354,
+        "tex": "$\\NEI\\le\\tau_{\\mathcal I}$이면 $\\beta$와 $\\beta_{\\mathrm{exc}}$를 해석하지 않고 별도로\n보고한다. $1<K<M$에서 $\\beta_{\\mathrm{exc}}\\le0$은 clipping하지 않되 separation-based\nlandscape regime을 부여하지 않는다. $K=1$에서의 $\\beta_{\\mathrm{exc}}=0$은 별도의\nalgebraic identity이므로 curvature와 continuation 없이는 floppy evidence가 아니다."
+      }
+    ]
+  },
+  "unresolved": {}
+}

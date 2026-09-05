@@ -145,7 +145,7 @@ figcaption .s{font-size:13px;color:var(--muted);display:block;margin-top:3px}
   font-size:13px;line-height:1.35;font-weight:700}
 .coverage-chip.src-main{color:#c62828}.coverage-chip.src-si{color:#207037}
 .coverage-chip.src-note{color:#1f57b8}.coverage-chip.gaps{color:#495057;border-style:dashed}
-.source-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:7px 0 18px}
+.source-grid{display:grid;grid-template-columns:1fr;gap:16px;margin:7px 0 18px}
 @media(max-width:980px){.source-grid{grid-template-columns:1fr}}
 .source-card{position:relative;border:1px solid var(--hairline);border-top:4px solid currentColor;
   border-radius:8px;padding:14px;background:#fff;min-width:0}
@@ -157,6 +157,18 @@ figcaption .s{font-size:13px;color:var(--muted);display:block;margin-top:3px}
   border:1px solid currentColor;border-radius:999px;padding:1px 7px;white-space:nowrap}
 .source-location{font-size:12px;font-weight:700;color:currentColor;margin:6px 0}
 .detail .source-card p{font-size:14px;color:currentColor;margin:0;line-height:1.55}
+.source-passage{margin:16px 0}
+.detail .source-card .source-excerpt-label{font-size:12px;opacity:.8;margin-bottom:7px}
+.source-quote{margin:0;padding:0 0 0 14px;border-left:2px solid currentColor;
+  font-size:16px;line-height:1.75;overflow-wrap:anywhere;max-width:100ch}
+.source-quote .katex-display{overflow-x:auto;overflow-y:hidden;padding:5px 0}
+.source-crossref{font-size:.88em;overflow-wrap:anywhere}
+.source-raw,.source-audit{margin:12px 0 0;font-size:12px}
+.source-raw summary,.source-audit summary{cursor:pointer;font-weight:650}
+.source-raw pre{white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;
+  padding:12px;background:var(--surface);border-radius:6px;color:inherit;line-height:1.6}
+.source-audit[open] summary{margin-bottom:7px}
+.source-math-fallback{white-space:pre-wrap}
 .node-note>.node-inspector-head{margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid #e6e8ea}
 .node-note>.note-tree{margin-bottom:0}
 .node-discussion{margin-top:16px;font-size:14px}

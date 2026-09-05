@@ -1,0 +1,270 @@
+{
+  "source": "main",
+  "sha256": "41e0096125e2fba11fd445ac5aecdee70b030ee0e855a331b0c936b674f49b57",
+  "excerpts": {
+    "G": [
+      {
+        "start_line": 109,
+        "end_line": 118,
+        "tex": "For the connected undirected analysis graph, let \\(\\delta_{ij}=d_G(i,j)\\) denote the finite shortest-path distance between nodes \\(i\\) and \\(j\\), computed from strictly positive edge lengths \\(\\ell_{uv}\\). We use the metric-stress objective\n\\begin{equation}\nF_{\\Delta,w}(X)\n=\n\\sum_{i<j}w_{ij}\n\\left(\\delta_{ij}-\\|\\mathbf x_i-\\mathbf x_j\\|\\right)^2,\n\\qquad w_{ij}=1.\n\\label{eq:stress_function}\n\\end{equation}\nThus, the dissimilarities in the stress function and in the Guttman transform are the same quantities \\(\\delta_{ij}\\)."
+      }
+    ],
+    "delta": [
+      {
+        "start_line": 109,
+        "end_line": 118,
+        "tex": "For the connected undirected analysis graph, let \\(\\delta_{ij}=d_G(i,j)\\) denote the finite shortest-path distance between nodes \\(i\\) and \\(j\\), computed from strictly positive edge lengths \\(\\ell_{uv}\\). We use the metric-stress objective\n\\begin{equation}\nF_{\\Delta,w}(X)\n=\n\\sum_{i<j}w_{ij}\n\\left(\\delta_{ij}-\\|\\mathbf x_i-\\mathbf x_j\\|\\right)^2,\n\\qquad w_{ij}=1.\n\\label{eq:stress_function}\n\\end{equation}\nThus, the dissimilarities in the stress function and in the Guttman transform are the same quantities \\(\\delta_{ij}\\)."
+      },
+      {
+        "start_line": 120,
+        "end_line": 124,
+        "tex": "The Euclidean distances in the embedded space are computed as\n\\begin{equation}\n d^{\\text{geo}}_{ij} = \\| \\mathbf{x}_i - \\mathbf{x}_j \\| \\,.\n\\end{equation}\nHere, $d^{\\text{geo}}_{ij}$ represents the geometric distance in the embedded space, whereas $d^{\\text{top}}_{ij}$ is the topological distance computed from the original network."
+      }
+    ],
+    "design": [
+      {
+        "start_line": 109,
+        "end_line": 117,
+        "tex": "For the connected undirected analysis graph, let \\(\\delta_{ij}=d_G(i,j)\\) denote the finite shortest-path distance between nodes \\(i\\) and \\(j\\), computed from strictly positive edge lengths \\(\\ell_{uv}\\). We use the metric-stress objective\n\\begin{equation}\nF_{\\Delta,w}(X)\n=\n\\sum_{i<j}w_{ij}\n\\left(\\delta_{ij}-\\|\\mathbf x_i-\\mathbf x_j\\|\\right)^2,\n\\qquad w_{ij}=1.\n\\label{eq:stress_function}\n\\end{equation}"
+      },
+      {
+        "start_line": 128,
+        "end_line": 136,
+        "tex": "Classical (Torgerson--Gower) MDS can be expressed via spectral decomposition~\\cite{borg2005modern}. Let the squared dissimilarity matrix be\n\\begin{equation}\n \\mathbf{G} = -\\frac{1}{2} H \\mathcal{D}^{(2)} H \\,,\n\\end{equation}\nwhere $H = I - \\frac{1}{n}\\mathbf{1}\\mathbf{1}^{\\mathsf T}$ is the centering matrix. Performing the eigendecomposition $\\mathbf{G} = U \\Lambda U^{\\mathsf T}$ and retaining the top $p$ components yields\n\\begin{equation}\n X = U_p \\Lambda_p^{1/2}.\n \\label{eq:top_p_eigenvalue}\n\\end{equation}"
+      }
+    ],
+    "protocol": [
+      {
+        "start_line": 149,
+        "end_line": 157,
+        "tex": "When $d_{ij}(X^{(t)})=0$, we replace it with a small divergence guard $\\varepsilon_{0}$ (we use $\\varepsilon_{0}=10^{-5}$) to avoid numerical instabilities in the construction of $B(X^{(t)})$; this is distinct from the SMACOF convergence tolerance \\texttt{eps}$=10^{-6}$ used as the stopping criterion. We then apply a SMACOF majorization step with uniform weights $w_{ij}=1$ and re-center the configuration after each iteration so that $\\sum_{i=1}^n x_i^{(t)}=0$. Under this convention, the update can be written as\n\\begin{equation}\n X^{(t+1)}=\\frac{1}{n}\\,B\\!\\left(X^{(t)}\\right)X^{(t)}.\n \\label{notation: convention not}\n\\end{equation}\nFor uniform weights $w_{ij}=1$, this update coincides with the Guttman transform $X^{(t+1)}=V^{+}B(X^{(t)})X^{(t)}$, where $V^{+}=\\tfrac{1}{n}H$ is the Moore--Penrose inverse of the weight Laplacian $V=nH$; since $B(X^{(t)})X^{(t)}$ is already centered, the projection $H$ acts as the identity and the update reduces to Eq.~\\eqref{notation: convention not}.\nThe stress $F(X)$ is recomputed after each update. The SMACOF majorization ensures a non-increasing stress sequence, i.e., $F(X^{(t+1)})\\le F(X^{(t)})$, until convergence, maximum of 300 iterations.\n\nWhile classical MDS yields an embedding through eigendecomposition, SMACOF provides an iterative stress-reduction procedure that can converge to different local minima, depending on the initialization. This property is essential for our definition of NEI, which quantifies embedding variability across an ensemble of initializations."
+      },
+      {
+        "start_line": 609,
+        "end_line": 615,
+        "tex": "Initial coordinates are drawn uniformly from the bounded support $\\Omega_0=[0,1]^{N\\times p}$ used by the implementation. The probability that a run terminates in $\\mathcal{B}_\\gamma$ is then the fraction of $\\Omega_0$ that basin occupies,\n\\begin{equation}\n P_\\gamma=\\frac{\\mathrm{Vol}\\!\\left(\\mathcal{B}_\\gamma\\cap\\Omega_0\\right)}{\\mathrm{Vol}(\\Omega_0)},\n \\qquad\\sum_\\gamma P_\\gamma=1,\n \\label{eq:basin_occupancy}\n\\end{equation}\nwith $\\mathrm{Vol}(\\cdot)$ the Lebesgue measure on $\\mathbb{R}^{N\\times p}$. The restriction to $\\Omega_0$ is not a technicality: the basins are unbounded along the translation directions, so $\\mathrm{Vol}(\\mathcal{B}_\\gamma)$ is not normalizable on $\\mathbb{R}^{N\\times p}$ and the occupancy $\\{P_\\gamma\\}$ is defined only relative to a specified initialization measure. NEI is accordingly a property of the pair (topology, sampling protocol) — which is precisely the operational claim we make, and the reason all networks and null models are sampled under an identical protocol."
+      }
+    ],
+    "schoenberg": [
+      {
+        "start_line": 128,
+        "end_line": 137,
+        "tex": "Classical (Torgerson--Gower) MDS can be expressed via spectral decomposition~\\cite{borg2005modern}. Let the squared dissimilarity matrix be\n\\begin{equation}\n \\mathbf{G} = -\\frac{1}{2} H \\mathcal{D}^{(2)} H \\,,\n\\end{equation}\nwhere $H = I - \\frac{1}{n}\\mathbf{1}\\mathbf{1}^{\\mathsf T}$ is the centering matrix. Performing the eigendecomposition $\\mathbf{G} = U \\Lambda U^{\\mathsf T}$ and retaining the top $p$ components yields\n\\begin{equation}\n X = U_p \\Lambda_p^{1/2}.\n \\label{eq:top_p_eigenvalue}\n\\end{equation}\nThis formulation clarifies that MDS coordinates are not arbitrary visualization outputs but approximate Euclidean realizations of topology-derived dissimilarities. In this sense, the embedding is directly tied to the network’s relational structure, which makes repeated realizations of the same optimization problem physically interpretable."
+      }
+    ],
+    "strain": [
+      {
+        "start_line": 128,
+        "end_line": 137,
+        "tex": "Classical (Torgerson--Gower) MDS can be expressed via spectral decomposition~\\cite{borg2005modern}. Let the squared dissimilarity matrix be\n\\begin{equation}\n \\mathbf{G} = -\\frac{1}{2} H \\mathcal{D}^{(2)} H \\,,\n\\end{equation}\nwhere $H = I - \\frac{1}{n}\\mathbf{1}\\mathbf{1}^{\\mathsf T}$ is the centering matrix. Performing the eigendecomposition $\\mathbf{G} = U \\Lambda U^{\\mathsf T}$ and retaining the top $p$ components yields\n\\begin{equation}\n X = U_p \\Lambda_p^{1/2}.\n \\label{eq:top_p_eigenvalue}\n\\end{equation}\nThis formulation clarifies that MDS coordinates are not arbitrary visualization outputs but approximate Euclidean realizations of topology-derived dissimilarities. In this sense, the embedding is directly tied to the network’s relational structure, which makes repeated realizations of the same optimization problem physically interpretable."
+      }
+    ],
+    "stress": [
+      {
+        "start_line": 109,
+        "end_line": 118,
+        "tex": "For the connected undirected analysis graph, let \\(\\delta_{ij}=d_G(i,j)\\) denote the finite shortest-path distance between nodes \\(i\\) and \\(j\\), computed from strictly positive edge lengths \\(\\ell_{uv}\\). We use the metric-stress objective\n\\begin{equation}\nF_{\\Delta,w}(X)\n=\n\\sum_{i<j}w_{ij}\n\\left(\\delta_{ij}-\\|\\mathbf x_i-\\mathbf x_j\\|\\right)^2,\n\\qquad w_{ij}=1.\n\\label{eq:stress_function}\n\\end{equation}\nThus, the dissimilarities in the stress function and in the Guttman transform are the same quantities \\(\\delta_{ij}\\)."
+      },
+      {
+        "start_line": 141,
+        "end_line": 155,
+        "tex": "The \\texttt{scikit-learn} implementation uses the \\textit{Scaling by MAjorizing a COmplicated Function} (SMACOF) algorithm~\\cite{deleeuw1977applications, deleeuw1980multidimensional, borg2005modern}, which iteratively updates coordinates to monotonically decrease the stress $F$ in Eq.~\\eqref{eq:stress_function}~\\cite{kruskal1964multidimensional, pisarchik2014control}. At each iteration $t$, the algorithm computes pairwise Euclidean distances $d_{ij}(X^{(t)})$ from the current configuration and constructs a weighted Guttman transform matrix:\n\\begin{equation}\n B(X^{(t)})_{ij} =\n \\begin{cases}\n -\\,w_{ij}\\,\\dfrac{d^{\\text{hop}}_{ij}}{d_{ij}(X^{(t)})}, & i \\neq j, \\\\[6pt]\n \\displaystyle \\sum_{k \\neq i} w_{ik}\\,\\dfrac{d^{\\text{hop}}_{ik}}{d_{ik}(X^{(t)})}, & i = j.\n \\end{cases}\n\\end{equation}\nWhen $d_{ij}(X^{(t)})=0$, we replace it with a small divergence guard $\\varepsilon_{0}$ (we use $\\varepsilon_{0}=10^{-5}$) to avoid numerical instabilities in the construction of $B(X^{(t)})$; this is distinct from the SMACOF convergence tolerance \\texttt{eps}$=10^{-6}$ used as the stopping criterion. We then apply a SMACOF majorization step with uniform weights $w_{ij}=1$ and re-center the configuration after each iteration so that $\\sum_{i=1}^n x_i^{(t)}=0$. Under this convention, the update can be written as\n\\begin{equation}\n X^{(t+1)}=\\frac{1}{n}\\,B\\!\\left(X^{(t)}\\right)X^{(t)}.\n \\label{notation: convention not}\n\\end{equation}\nFor uniform weights $w_{ij}=1$, this update coincides with the Guttman transform $X^{(t+1)}=V^{+}B(X^{(t)})X^{(t)}$, where $V^{+}=\\tfrac{1}{n}H$ is the Moore--Penrose inverse of the weight Laplacian $V=nH$; since $B(X^{(t)})X^{(t)}$ is already centered, the projection $H$ acts as the identity and the update reduces to Eq.~\\eqref{notation: convention not}.\nThe stress $F(X)$ is recomputed after each update. The SMACOF majorization ensures a non-increasing stress sequence, i.e., $F(X^{(t+1)})\\le F(X^{(t)})$, until convergence, maximum of 300 iterations."
+      }
+    ],
+    "fit": [
+      {
+        "start_line": 109,
+        "end_line": 118,
+        "tex": "For the connected undirected analysis graph, let \\(\\delta_{ij}=d_G(i,j)\\) denote the finite shortest-path distance between nodes \\(i\\) and \\(j\\), computed from strictly positive edge lengths \\(\\ell_{uv}\\). We use the metric-stress objective\n\\begin{equation}\nF_{\\Delta,w}(X)\n=\n\\sum_{i<j}w_{ij}\n\\left(\\delta_{ij}-\\|\\mathbf x_i-\\mathbf x_j\\|\\right)^2,\n\\qquad w_{ij}=1.\n\\label{eq:stress_function}\n\\end{equation}\nThus, the dissimilarities in the stress function and in the Guttman transform are the same quantities \\(\\delta_{ij}\\)."
+      },
+      {
+        "start_line": 468,
+        "end_line": 470,
+        "tex": "Measuring $\\mathcal{I}(p)$ for $p=1,\\dots,20$ on the model networks (Fig.~\\ref{fig:model_dim}) shows that the first effect dominates almost everywhere: $\\mathcal{I}$ falls monotonically with $p$ for every model except the two regular lattices, and it does not saturate. At $p=20$ the\nErd\\text{\\H{o}}s--R\\text{\\'{e}}nyi graph reaches $\\mathcal{I}=3\\times10^{-7}$, the range occupied by the lattices at $p=2$. There is accordingly no characteristic dimension beyond which the measure\nlevels off, and we do not interpret $\\mathcal{I}(p)$ as an estimator of an intrinsic embedding dimension. Two observations make that reading untenable. First, the shortest-path metric is not Euclidean-realizable at any small $p$: the hop distance on a square grid is the $\\ell_1$ metric, which admits no isometric Euclidean embedding in any dimension, and the residual stress correspondingly plateaus at a nonzero value ($2607$ for the $10\\times10$ grid) rather than vanishing. Second, the one model whose generative dimension is known---a random geometric graph drawn in the plane---shows no feature at $p=2$ whatsoever; its stress falls by more than half between $p=2$ and $p=3$ and $\\mathcal{I}$ decreases monotonically throughout."
+      }
+    ],
+    "shape": [
+      {
+        "start_line": 68,
+        "end_line": 78,
+        "tex": "In the full coordinate space, \\(\\nabla^2 F\\succ0\\) is impossible because translation and rotation generate zero modes. If a local-minimum definition is genuinely needed later, use this only after computing the projected Hessian:\n\\begin{equation}\n\\mathcal L_{G,\\vartheta}\n=\n\\left\\{[X]\\in\\mathbb R^{N\\times p}/\\mathrm E(p):\nX\\ \\text{is a strict local minimizer of }F_{G,\\vartheta}\\right\\},\n\\end{equation}\n\\begin{equation}\n\\mathrm E(p)=\\mathbb R^p\\rtimes O(p).\n\\label{eq:euclidean_group}\n\\end{equation}"
+      },
+      {
+        "start_line": 370,
+        "end_line": 387,
+        "tex": "Because the pairwise-distance matrix $D^{(m)}$ of a run is invariant under\n$\\mathrm{E}(p)$, terminal configurations can be compared without alignment. We\nuse the scale-free distance\n%\n\\begin{equation}\n  \\Delta_{mn}\n  \\;=\\;\\frac{\\big\\lVert D^{(m)}-D^{(n)}\\big\\rVert_{F}}\n            {\\tfrac{1}{2}\\big(\\lVert D^{(m)}\\rVert_{F}+\\lVert D^{(n)}\\rVert_{F}\\big)} ,\n  \\label{eq:run_distance}\n\\end{equation}\n%\nwhich is defined without reference to the curvature of\nSec.~\\ref{sec:curvature}. Keeping the two independent matters: a merge threshold\nderived from $\\lambda_{\\min}$ would make the grouping a function of the very\nquantity it is meant to be compared against, and the stopping tolerance of the\noptimizer does not supply such a threshold either, being a tolerance on the\nrelative improvement of the stress rather than a bound on the distance to a\nminimizer."
+      }
+    ],
+    "terminal": [
+      {
+        "start_line": 609,
+        "end_line": 615,
+        "tex": "Initial coordinates are drawn uniformly from the bounded support $\\Omega_0=[0,1]^{N\\times p}$ used by the implementation. The probability that a run terminates in $\\mathcal{B}_\\gamma$ is then the fraction of $\\Omega_0$ that basin occupies,\n\\begin{equation}\n P_\\gamma=\\frac{\\mathrm{Vol}\\!\\left(\\mathcal{B}_\\gamma\\cap\\Omega_0\\right)}{\\mathrm{Vol}(\\Omega_0)},\n \\qquad\\sum_\\gamma P_\\gamma=1,\n \\label{eq:basin_occupancy}\n\\end{equation}\nwith $\\mathrm{Vol}(\\cdot)$ the Lebesgue measure on $\\mathbb{R}^{N\\times p}$. The restriction to $\\Omega_0$ is not a technicality: the basins are unbounded along the translation directions, so $\\mathrm{Vol}(\\mathcal{B}_\\gamma)$ is not normalizable on $\\mathbb{R}^{N\\times p}$ and the occupancy $\\{P_\\gamma\\}$ is defined only relative to a specified initialization measure. NEI is accordingly a property of the pair (topology, sampling protocol) — which is precisely the operational claim we make, and the reason all networks and null models are sampled under an identical protocol."
+      },
+      {
+        "start_line": 617,
+        "end_line": 628,
+        "tex": "If each run terminates in the basin containing its initialization, the $M$ runs are i.i.d.\\ draws from the occupancy measure $\\{P_\\gamma\\}$ of Eq.~\\eqref{eq:basin_occupancy}, and by the strong law of large numbers, the empirical statistics of Eq.~\\eqref{eq:pairwise_statistics} converge almost surely,\n\\begin{equation}\n \\overline{d}_{ij}\\;\\xrightarrow[M\\to\\infty]{\\mathrm{a.s.}}\\;\n \\mu_{ij}\\equiv\\sum_{\\gamma}P_\\gamma\\,d_{ij}(X_\\gamma^\\star),\n \\label{eq:basin_mean}\n\\end{equation}\n\\begin{equation}\n \\sigma_{ij}^{2}\\;\\xrightarrow[M\\to\\infty]{\\mathrm{a.s.}}\\;\n s_{ij}^{2}\\equiv\\sum_{\\gamma}P_\\gamma\\left[d_{ij}(X_\\gamma^\\star)-\\mu_{ij}\\right]^{2},\n \\label{eq:inter_basin_variance}\n\\end{equation}\n At finite $M$, the estimator in Eq.~\\eqref{eq:pairwise_statistics} is the biased (maximum-likelihood) variance, $\\langle\\sigma_{ij}^{2}\\rangle=(1-1/M)\\,s_{ij}^{2}$; at $M=100$ this is a uniform $1\\%$ downward bias that cancels in every comparison, since all networks and null models are evaluated at the same $M$. Convergence in $M$ is verified in Fig.~\\ref{fig:saturation}."
+      }
+    ],
+    "hessian": [
+      {
+        "start_line": 310,
+        "end_line": 330,
+        "tex": "At a terminal configuration $X^{\\star}$ the second variation of the stress\n[Eq.~\\eqref{eq:stress_function}] is block structured. Writing\n$u_{ij}=(x_i-x_j)/d_{ij}$ for the unit vector along a pair and $\\mathbb{1}_p$\nfor the $p\\times p$ identity,\n%\n\\begin{equation}\n  B_{ij} \\;=\\; 2\\,w_{ij}\\Big[\\,\n     u_{ij}u_{ij}^{\\mathsf{T}}\n     \\;+\\;\\Big(1-\\frac{\\delta_{ij}}{d_{ij}}\\Big)\n        \\big(\\mathbb{1}_p-u_{ij}u_{ij}^{\\mathsf{T}}\\big)\\Big],\n  \\label{eq:hess_block}\n\\end{equation}\n\\begin{equation}\n  H_{ii}=\\sum_{j\\neq i}B_{ij},\n  \\qquad\n  H_{ij}=-B_{ij}\\quad (i\\neq j),\n  \\label{eq:hessian}\n\\end{equation}\n%\nso $H$ is a graph Laplacian whose edge weights are the $p\\times p$ blocks\n$B_{ij}$."
+      },
+      {
+        "start_line": 332,
+        "end_line": 352,
+        "tex": "Two properties govern how $H$ may be read. First, the $p$ translations are exact\nnull directions at any configuration, because the stress depends only on\ncoordinate differences. The $p(p-1)/2$ rotations are null directions of $H$ only\nat a stationary point: the stress is constant along the rotation orbit, so\n$v^{\\mathsf{T}}Hv=-\\nabla F_G\\!\\cdot\\!X''(0)$, which vanishes only when\n$\\nabla F_G=0$. We therefore project the rigid-motion tangent space out of $H$\nrather than assuming $p(p+1)/2$ null eigenvalues, and we report the norm of the\nprojected gradient at every terminal configuration as a stationarity diagnostic\nalongside the number of iterations used and whether the iteration budget was\nbinding. We write $\\lambda_{\\min}$ for the smallest eigenvalue of the projected\nHessian and, because $\\lambda_{\\min}$ carries the scale of $H$ and hence depends\non $N$, we report the dimensionless ratio\n%\n\\begin{equation}\n  \\widetilde{\\lambda}_{\\min}\n  \\;=\\;\\frac{\\lambda_{\\min}}{\\operatorname{tr}(H_{+})/(Np-q)},\n  \\qquad q=\\tfrac{1}{2}p(p+1),\n  \\label{eq:lam_rel}\n\\end{equation}\n%\nwhere $H_{+}$ denotes the positive part of the projected spectrum."
+      }
+    ],
+    "rigidity": [
+      {
+        "start_line": 310,
+        "end_line": 330,
+        "tex": "At a terminal configuration $X^{\\star}$ the second variation of the stress\n[Eq.~\\eqref{eq:stress_function}] is block structured. Writing\n$u_{ij}=(x_i-x_j)/d_{ij}$ for the unit vector along a pair and $\\mathbb{1}_p$\nfor the $p\\times p$ identity,\n%\n\\begin{equation}\n  B_{ij} \\;=\\; 2\\,w_{ij}\\Big[\\,\n     u_{ij}u_{ij}^{\\mathsf{T}}\n     \\;+\\;\\Big(1-\\frac{\\delta_{ij}}{d_{ij}}\\Big)\n        \\big(\\mathbb{1}_p-u_{ij}u_{ij}^{\\mathsf{T}}\\big)\\Big],\n  \\label{eq:hess_block}\n\\end{equation}\n\\begin{equation}\n  H_{ii}=\\sum_{j\\neq i}B_{ij},\n  \\qquad\n  H_{ij}=-B_{ij}\\quad (i\\neq j),\n  \\label{eq:hessian}\n\\end{equation}\n%\nso $H$ is a graph Laplacian whose edge weights are the $p\\times p$ blocks\n$B_{ij}$."
+      },
+      {
+        "start_line": 354,
+        "end_line": 359,
+        "start_offset": 30166,
+        "end_offset": 30596,
+        "tex": "Second, in the zero-residual limit $\\delta_{ij}=d_{ij}$ the second term of\nEq.~\\eqref{eq:hess_block} vanishes and $H=2R^{\\mathsf{T}}WR$ with $R$ a rigidity\nmatrix. The framework in question is the \\emph{complete} one: the stress imposes\na dissimilarity on every node pair, not on the edges of $G$. Sparsity of $G$\ntherefore does not make the framework underconstrained, since a complete\nframework is generically rigid for $N>p+1$."
+      }
+    ],
+    "gate": [
+      {
+        "start_line": 332,
+        "end_line": 352,
+        "tex": "Two properties govern how $H$ may be read. First, the $p$ translations are exact\nnull directions at any configuration, because the stress depends only on\ncoordinate differences. The $p(p-1)/2$ rotations are null directions of $H$ only\nat a stationary point: the stress is constant along the rotation orbit, so\n$v^{\\mathsf{T}}Hv=-\\nabla F_G\\!\\cdot\\!X''(0)$, which vanishes only when\n$\\nabla F_G=0$. We therefore project the rigid-motion tangent space out of $H$\nrather than assuming $p(p+1)/2$ null eigenvalues, and we report the norm of the\nprojected gradient at every terminal configuration as a stationarity diagnostic\nalongside the number of iterations used and whether the iteration budget was\nbinding. We write $\\lambda_{\\min}$ for the smallest eigenvalue of the projected\nHessian and, because $\\lambda_{\\min}$ carries the scale of $H$ and hence depends\non $N$, we report the dimensionless ratio\n%\n\\begin{equation}\n  \\widetilde{\\lambda}_{\\min}\n  \\;=\\;\\frac{\\lambda_{\\min}}{\\operatorname{tr}(H_{+})/(Np-q)},\n  \\qquad q=\\tfrac{1}{2}p(p+1),\n  \\label{eq:lam_rel}\n\\end{equation}\n%\nwhere $H_{+}$ denotes the positive part of the projected spectrum."
+      },
+      {
+        "start_line": 389,
+        "end_line": 397,
+        "tex": "The intra-state scale is therefore measured rather than derived. Each terminal\nconfiguration is re-optimized under a tighter setting and then perturbed and\nre-optimized several times; the distribution of $\\Delta$ among returns to the\nsame configuration sets the scale below which two runs are not distinguishable.\nWe do not report a grouping at a single threshold. Instead we scan the threshold\nover a range and report the interval on which the number of groups is stable,\nand we retain only groups that recur when the procedure is repeated on an\nindependent batch of seeds, with the medoids of the first batch used to assign\nthe second."
+      }
+    ],
+    "morse": [
+      {
+        "start_line": 362,
+        "end_line": 365,
+        "start_offset": 30838,
+        "end_offset": 31088,
+        "tex": "Accordingly we report a small\n$\\lambda_{\\min}$ as a near-zero projected curvature mode and make no claim of a\ncontinuous floppy manifold; establishing one requires continuation along the\ncorresponding eigenvector to exhibit an actual low-stress path."
+      }
+    ],
+    "NEI": [
+      {
+        "start_line": 180,
+        "end_line": 201,
+        "tex": "For each embedding run \\(m\\in\\{1,\\dots,M\\}\\), we obtain node\ncoordinates \\(\\{\\mathbf{r}^{(m)}_i\\}_{i=1}^{N}\\) and pairwise\nEuclidean distances\n\\[\nd^{(m)}_{ij}\n=\n\\left\\|\n\\mathbf{r}^{(m)}_i-\\mathbf{r}^{(m)}_j\n\\right\\|.\n\\]\nWe define the ensemble mean and variance by\n\\begin{equation}\n\\bar d_{ij}\n\\equiv\n\\frac{1}{M}\\sum_{m=1}^{M}d^{(m)}_{ij},\n\\qquad\n\\sigma_{ij}^{2}\n\\equiv\n\\frac{1}{M}\\sum_{m=1}^{M}\n\\left(d^{(m)}_{ij}-\\bar d_{ij}\\right)^{2}.\n\\label{eq:pairwise_statistics}\n\\end{equation}"
+      },
+      {
+        "start_line": 203,
+        "end_line": 240,
+        "tex": "Because the coefficient-of-variation form is undefined when\n\\(\\bar d_{ij}=0\\), we restrict the relative pairwise variability\nto node pairs with a strictly positive ensemble-mean distance.\nLet\n\\begin{equation}\n\\mathcal{P}_{+}\n\\equiv\n\\left\\{\n(i,j):1\\le i<j\\le N,\\ \\bar d_{ij}>0\n\\right\\},\n\\qquad\nQ\\equiv |\\mathcal{P}_{+}|.\n\\label{eq:admissible_pairs}\n\\end{equation}\nFor each \\((i,j)\\in\\mathcal{P}_{+}\\), we define\n\\begin{equation}\nr_{ij}\n\\equiv\n\\left(\n\\frac{\\sigma_{ij}}{\\bar d_{ij}}\n\\right)^{2}.\n\\label{eq:rel_pair}\n\\end{equation}\nThe average network embedding inconsistency is then\n\\begin{equation}\n\\mathcal{I}\n\\equiv\n\\frac{1}{Q}\n\\sum_{(i,j)\\in\\mathcal{P}_{+}}r_{ij}.\n\\label{eq:NEI}\n\\end{equation}\n\nPairs with \\(\\bar d_{ij}=0\\) are excluded because their relative\nvariability is undefined; no arbitrary regularization constant is\nintroduced. We report the number of excluded pairs for each network.\nIf \\(Q=0\\), \\(\\mathcal{I}\\) is undefined. For \\(Q>0\\), the definition\nis invariant under a global rescaling\n\\(d^{(m)}_{ij}\\mapsto a\\,d^{(m)}_{ij}\\) with \\(a>0\\)."
+      }
+    ],
+    "Keff": [
+      {
+        "start_line": 389,
+        "end_line": 397,
+        "tex": "The intra-state scale is therefore measured rather than derived. Each terminal\nconfiguration is re-optimized under a tighter setting and then perturbed and\nre-optimized several times; the distribution of $\\Delta$ among returns to the\nsame configuration sets the scale below which two runs are not distinguishable.\nWe do not report a grouping at a single threshold. Instead we scan the threshold\nover a range and report the interval on which the number of groups is stable,\nand we retain only groups that recur when the procedure is repeated on an\nindependent batch of seeds, with the medoids of the first batch used to assign\nthe second."
+      },
+      {
+        "start_line": 421,
+        "end_line": 429,
+        "tex": "$\\beta$ is informative only away from its two degenerate limits. If every run\nforms its own group the within term is zero by construction and $\\beta=1$\nidentically; if all runs form one group $\\beta=0$ identically. Both hold for any\ndata whatsoever, so a value at either extreme reports the grouping and not the\nlandscape. We therefore quote $\\beta$ only together with the group-size\ndistribution and the stability interval of Sec.~\\ref{sec:clustering}, and we\ntreat a partition into singletons as the statement that no two sampled terminal\nconfigurations were merged at the thresholds examined, which is weaker than a\ncount of distinct minima."
+      }
+    ],
+    "multiplicity": [
+      {
+        "start_line": 63,
+        "end_line": 66,
+        "tex": "We treat embedding variability as a diagnostic observable of a specified graph-to-embedding procedure. Random initialization is the sampling device; even when it is the only stochastic input (initial position), the dispersion of terminal outputs can depend on the graph via the deterministic stress-minimization map. Accordingly, we test for differences between observed graphs and matched null ensembles under a common protocol, rather than posing algorithmic and structural variation as mutually exclusive alternatives.\n\nWe use the term embedding multistability operationally to denote initialization-sensitive terminal geometries under this protocol. A multibasin interpretation requires additional evidence from terminal-state lustering, final stresses, and local curvature; NEI alone is not a count of\nminima and does not prove uniqueness when it is small."
+      },
+      {
+        "start_line": 389,
+        "end_line": 397,
+        "tex": "The intra-state scale is therefore measured rather than derived. Each terminal\nconfiguration is re-optimized under a tighter setting and then perturbed and\nre-optimized several times; the distribution of $\\Delta$ among returns to the\nsame configuration sets the scale below which two runs are not distinguishable.\nWe do not report a grouping at a single threshold. Instead we scan the threshold\nover a range and report the interval on which the number of groups is stable,\nand we retain only groups that recur when the procedure is repeated on an\nindependent batch of seeds, with the medoids of the first batch used to assign\nthe second."
+      }
+    ],
+    "robust": [
+      {
+        "start_line": 393,
+        "end_line": 397,
+        "tex": "We do not report a grouping at a single threshold. Instead we scan the threshold\nover a range and report the interval on which the number of groups is stable,\nand we retain only groups that recur when the procedure is repeated on an\nindependent batch of seeds, with the medoids of the first batch used to assign\nthe second."
+      },
+      {
+        "start_line": 773,
+        "end_line": 775,
+        "tex": "\\caption{Convergence of the average NEI with ensemble size, for the $80$ of the $84$ empirical networks whose sweep is complete under the unified protocol. (a) Each grey curve is one network, divided by its own\n$\\mathcal{I}(100)$; the blue curve and band are the median and interquartile range. Curves are running estimates taken from prefixes of a single ensemble of $100$ embeddings, so the endpoint is $\\mathcal{I}(100)$ by construction. (b) The fraction of networks whose estimate lies within $5\\%$ (vermillion squares, lower curve) and $10\\%$ (orange triangles, upper curve) of that endpoint. The median converges quickly but the spread across networks does not: the median curve is within $2\\%$ of its endpoint by $M=40$ and within $1\\%$ by $M=70$, yet $40\\%$ of networks remain outside the $5\\%$ band at $M=50$ and $5\\%$ at $M=90$. The networks that converge slowest are those with the smallest $\\mathcal{I}$, whose $r_{ij}$ distribution is dominated by a thin tail that an ensemble of $100$ samples sparsely; for these, $\\mathcal{I}$ is\nquoted with its bootstrap interval.}"
+      }
+    ],
+    "rigid": [
+      {
+        "start_line": 519,
+        "end_line": 519,
+        "tex": "For the regular-lattice benchmarks examined here, all sampled initializations converged to terminal configurations whose pairwise-distance matrices were indistinguishable within numerical tolerance, yielding \\(\\mathcal{I}\\) values near the numerical floor. Second, from our real network analysis, most results show that the three-tier ordering $\\mathcal{I}_{\\mathrm{real}} < \\mathcal{I}_{\\mathrm{deg}} < \\mathcal{I}_{\\mathrm{ER}}$ holds across network categories: if NEI were dominated by optimizer noise, this systematic dependence on higher-order structural correlations would not be expected. The near-zero NEI obtained from Kamada--Kawai layouts (Appendix~\\ref{appendix:layout_comparison}) should be read as a protocol dependence, not as a failure of the measure: under our implementation and convergence settings, repeated KK runs yield essentially identical configurations, so the associated stress landscape reveals no accessible multi-basin structure. NEI is by construction a property of a specified stress function and sampling protocol; we therefore restrict the physical interpretation to SMACOF-MDS, for which the objective and initialization ensemble are explicitly defined."
+      },
+      {
+        "start_line": 722,
+        "end_line": 722,
+        "tex": " \\caption{Protocol dependence of the average NEI for the model networks. The first four columns vary two \\texttt{scikit-learn} settings independently. \\texttt{n\\_init} is the number of independent SMACOF starts kept per ensemble member: the library default of four returns only the lowest-stress draw, which samples a different measure from the single-start basin occupancy of Eq.~\\eqref{eq:basin_occupancy}. $\\varepsilon$ is the stress tolerance. The last column applies a fixed-budget first-order optimizer instead. The two settings fail in different regimes: on rugged landscapes (ER, BA, HK, SBM) neither changes $\\mathcal{I}$ by more than about 20\\%, whereas keeping the best of four starts narrows the ensemble by a factor of 40 for the random geometric graph, and a loose tolerance inflates the two regular lattices by three orders of magnitude. The lattices are therefore the diagnostic: their unique minimizer forces $\\mathcal{I}\\to0$ only at convergence, so a large value in those rows signals an unconverged optimization rather than a property of the topology.}"
+      }
+    ],
+    "split": [
+      {
+        "start_line": 370,
+        "end_line": 387,
+        "tex": "Because the pairwise-distance matrix $D^{(m)}$ of a run is invariant under\n$\\mathrm{E}(p)$, terminal configurations can be compared without alignment. We\nuse the scale-free distance\n%\n\\begin{equation}\n  \\Delta_{mn}\n  \\;=\\;\\frac{\\big\\lVert D^{(m)}-D^{(n)}\\big\\rVert_{F}}\n            {\\tfrac{1}{2}\\big(\\lVert D^{(m)}\\rVert_{F}+\\lVert D^{(n)}\\rVert_{F}\\big)} ,\n  \\label{eq:run_distance}\n\\end{equation}\n%\nwhich is defined without reference to the curvature of\nSec.~\\ref{sec:curvature}. Keeping the two independent matters: a merge threshold\nderived from $\\lambda_{\\min}$ would make the grouping a function of the very\nquantity it is meant to be compared against, and the stopping tolerance of the\noptimizer does not supply such a threshold either, being a tolerance on the\nrelative improvement of the stress rather than a bound on the distance to a\nminimizer."
+      },
+      {
+        "start_line": 402,
+        "end_line": 419,
+        "tex": "Given a grouping $\\{\\gamma\\}$ with occupancies $P_{\\gamma}$ and group means\n$\\mu^{\\gamma}_{ij}$, the ensemble variance of a pair separates as\n%\n\\begin{equation}\n  \\sigma^{2}_{ij}\n  \\;=\\;\n  \\underbrace{\\sum_{\\gamma}P_{\\gamma}\\big(\\mu^{\\gamma}_{ij}-\\bar d_{ij}\\big)^{2}}\n    _{\\text{between}}\n  \\;+\\;\n  \\underbrace{\\sum_{\\gamma}P_{\\gamma}\\,\n     \\mathrm{Var}_{\\gamma}\\!\\big[d_{ij}\\big]}_{\\text{within}} ,\n  \\label{eq:var_decomp}\n\\end{equation}\n%\nthe between term being the empirical counterpart of the two-configuration\nexpression Eq.~\\eqref{eq:two_basin} without the restriction to two groups. We\nwrite $\\beta$ for the ratio of the summed between term to the summed total over\nthe admissible pairs $\\mathcal{P}_{+}$."
+      }
+    ],
+    "floppy": [
+      {
+        "start_line": 362,
+        "end_line": 365,
+        "start_offset": 30838,
+        "end_offset": 31088,
+        "tex": "Accordingly we report a small\n$\\lambda_{\\min}$ as a near-zero projected curvature mode and make no claim of a\ncontinuous floppy manifold; establishing one requires continuation along the\ncorresponding eigenvector to exhibit an actual low-stress path."
+      }
+    ],
+    "unresolved": [
+      {
+        "start_line": 299,
+        "end_line": 305,
+        "tex": "The average NEI is a mean, over node pairs, of a run-to-run variance, and a\nvariance can be large for structurally distinct reasons. Two topologies with the\nsame $\\mathcal{I}$ may differ in whether the ensemble settled in several\nseparated configurations, or in a single configuration that is free to deform at\nalmost no cost in stress. The scalar does not distinguish these. This section\nintroduces two diagnostics that address them separately. Neither replaces\n$\\mathcal{I}$; they identify what produced a given value."
+      },
+      {
+        "start_line": 421,
+        "end_line": 429,
+        "tex": "$\\beta$ is informative only away from its two degenerate limits. If every run\nforms its own group the within term is zero by construction and $\\beta=1$\nidentically; if all runs form one group $\\beta=0$ identically. Both hold for any\ndata whatsoever, so a value at either extreme reports the grouping and not the\nlandscape. We therefore quote $\\beta$ only together with the group-size\ndistribution and the stability interval of Sec.~\\ref{sec:clustering}, and we\ntreat a partition into singletons as the statement that no two sampled terminal\nconfigurations were merged at the thresholds examined, which is weaker than a\ncount of distinct minima."
+      }
+    ]
+  },
+  "unresolved": {
+    "schoenberg": "source-map main=partial: Double centering과 positive spectral truncation은 포함하나 PSD-and-rank iff criterion은 미명시.",
+    "strain": "source-map main=partial: Classical MDS spectral truncation은 있으나 constrained Gram approximation problem의 직접 표기는 부재.",
+    "fit": "source-map main=partial: Residual stress는 비교하나 normalized fidelity phi는 미정의.",
+    "gate": "source-map main=partial: Projected gradient, curvature, reoptimization과 recurrence는 있으나 단일 A_num 및 acceptance rate는 부재.",
+    "morse": "source-map main=partial: Near-zero mode만으로 floppy manifold를 주장하지 않으며 continuation을 요구하나 Morse–Bott condition은 부재.",
+    "Keff": "source-map main=partial: Class occupancy는 있으나 Hill-number effective multiplicity 공식은 부재.",
+    "unresolved": "source-map main=partial: NEI alone의 non-identifiability는 명시하나 named unresolved/mixed verdict는 부재.",
+    "negtype": "source-map main=none: L1 hop metric의 realizability 언급은 있으나 conditional negative definiteness 정의는 부재.",
+    "Dp": "source-map main=none: Spectral representability deficiency와 dim/negative decomposition 부재.",
+    "aut": "source-map main=none: Aut(Delta) quotient와 labeled/unlabeled geometry policy 부재.",
+    "deff": "source-map main=none: Second Moment S는 pair heterogeneity로서 covariance participation-ratio d_eff와 상이.",
+    "Egap": "source-map main=none: Final stress 필요성만 언급하나 class normalized-stress equivalence test는 부재.",
+    "energydeg": "source-map main=none: Normalized-stress equivalence criterion과 tau_E 부재.",
+    "calib": "source-map main=unreviewed: 현재 snapshot에서 대응 위치 미검토. 미서술 판정 아님.",
+    "cmnull": "source-map main=unreviewed: 현재 snapshot에서 대응 위치 미검토. 미서술 판정 아님.",
+    "recur": "source-map main=unreviewed: 현재 snapshot에서 대응 위치 미검토. 미서술 판정 아님.",
+    "resid": "source-map main=unreviewed: 현재 snapshot에서 대응 위치 미검토. 미서술 판정 아님."
+  }
+}

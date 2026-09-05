@@ -1,0 +1,243 @@
+{
+  "source": "si",
+  "sha256": "c1dc51fbd807a34cc71bea2aaf121f77a8194b4e6daa66796fe16d55201d2db4",
+  "excerpts": {
+    "G": [
+      {
+        "start_line": 13,
+        "end_line": 13,
+        "tex": " Let $G=(V,E)$ be a connected, undirected graph with $N=|V|$, and let $D_{ij}=d_G(i,j)$ be its shortest-path distance.  Write \\begin{equation}   \\Hc=\\bm I-\\frac{1}{N}\\one\\one^{\\top},   \\qquad   \\B=-\\frac12\\Hc\\D^{(2)}\\Hc,   \\qquad   D^{(2)}_{ij}=D_{ij}^{2}.   \\label{eq:gram} \\end{equation} The matrix $\\B$ is the centered Gram matrix associated with the graph dissimilarities.  It is the central object in \\emph{classical} MDS \\cite{Torgerson1952,Gower1966}."
+      }
+    ],
+    "delta": [
+      {
+        "start_line": 13,
+        "end_line": 13,
+        "tex": " Let $G=(V,E)$ be a connected, undirected graph with $N=|V|$, and let $D_{ij}=d_G(i,j)$ be its shortest-path distance.  Write \\begin{equation}   \\Hc=\\bm I-\\frac{1}{N}\\one\\one^{\\top},   \\qquad   \\B=-\\frac12\\Hc\\D^{(2)}\\Hc,   \\qquad   D^{(2)}_{ij}=D_{ij}^{2}.   \\label{eq:gram} \\end{equation} The matrix $\\B$ is the centered Gram matrix associated with the graph dissimilarities.  It is the central object in \\emph{classical} MDS \\cite{Torgerson1952,Gower1966}."
+      }
+    ],
+    "design": [
+      {
+        "start_line": 14,
+        "end_line": 14,
+        "tex": " The embeddings used to compute NEI are instead obtained by minimizing raw metric stress, \\begin{equation}   \\sigma_G(\\X)   =\\sum_{i<j}w_{ij}\\bigl(\\|\\bm x_i-\\bm x_j\\|-D_{ij}\\bigr)^2,   \\qquad \\X\\in\\R^{N\\times p},   \\label{eq:stress} \\end{equation} by SMACOF stress majorization \\cite{deLeeuw1977,Borg2005}.  Classical MDS minimizes a Gram-matrix mismatch (often called strain), whereas Eq.~\\eqref{eq:stress} minimizes a mismatch of distances.  These objectives coincide only in special cases.  This distinction is essential: spectral statements about $\\B$ are exact for classical MDS, but their relevance to the SMACOF landscape must be tested rather than assumed."
+      },
+      {
+        "start_line": 15,
+        "end_line": 15,
+        "tex": " Fix the complete numerical protocol \\begin{equation}   \\Pi=(p,\\{w_{ij}\\},\\nu_{0},\\text{implementation},   \\text{stopping rule},\\text{tolerance}),   \\label{eq:protocol} \\end{equation} where $\\nu_0$ is the initialization distribution.  For $M$ independent starts, let $\\X^{(m)}$ denote the terminal configuration and $d_{ij}^{(m)}=\\|\\bm x_i^{(m)}-\\bm x_j^{(m)}\\|$.  With \\begin{equation}  \\bar d_{ij}=\\frac1M\\sum_{m=1}^{M}d_{ij}^{(m)},  \\qquad  s_{ij}^{2}=\\frac{1}{M-1}\\sum_{m=1}^{M}        \\bigl(d_{ij}^{(m)}-\\bar d_{ij}\\bigr)^2,  \\label{eq:pairmoments} \\end{equation} the empirical NEI is \\begin{equation}   \\widehat{\\NEI}(G;\\Pi)   =\\frac{1}{\\binom{N}{2}}     \\sum_{i<j}\\frac{s_{ij}^{2}}{\\bar d_{ij}^{\\,2}},   \\label{eq:nei} \\end{equation} provided that $\\bar d_{ij}>0$ for every pair.  A pair with $\\bar d_{ij}=0$ is outside the domain of Eq.~\\eqref{eq:nei}; assigning zero to its summand would conceal a collapse singularity.  If such pairs occur, we report \\begin{equation}  q_0=1-\\frac{|\\Pplus|}{\\binom{N}{2}},  \\qquad  \\Pplus=\\{(i,j):i<j,\\ \\bar d_{ij}>0\\},  \\label{eq:collapse} \\end{equation} and, if a conditional summary is useful, average only over $\\Pplus$ while labeling that quantity explicitly as conditional NEI.  The primary statistic in Eq.~\\eqref{eq:nei} assumes $q_0=0$."
+      }
+    ],
+    "protocol": [
+      {
+        "start_line": 15,
+        "end_line": 16,
+        "tex": " Fix the complete numerical protocol \\begin{equation}   \\Pi=(p,\\{w_{ij}\\},\\nu_{0},\\text{implementation},   \\text{stopping rule},\\text{tolerance}),   \\label{eq:protocol} \\end{equation} where $\\nu_0$ is the initialization distribution.  For $M$ independent starts, let $\\X^{(m)}$ denote the terminal configuration and $d_{ij}^{(m)}=\\|\\bm x_i^{(m)}-\\bm x_j^{(m)}\\|$.  With \\begin{equation}  \\bar d_{ij}=\\frac1M\\sum_{m=1}^{M}d_{ij}^{(m)},  \\qquad  s_{ij}^{2}=\\frac{1}{M-1}\\sum_{m=1}^{M}        \\bigl(d_{ij}^{(m)}-\\bar d_{ij}\\bigr)^2,  \\label{eq:pairmoments} \\end{equation} the empirical NEI is \\begin{equation}   \\widehat{\\NEI}(G;\\Pi)   =\\frac{1}{\\binom{N}{2}}     \\sum_{i<j}\\frac{s_{ij}^{2}}{\\bar d_{ij}^{\\,2}},   \\label{eq:nei} \\end{equation} provided that $\\bar d_{ij}>0$ for every pair.  A pair with $\\bar d_{ij}=0$ is outside the domain of Eq.~\\eqref{eq:nei}; assigning zero to its summand would conceal a collapse singularity.  If such pairs occur, we report \\begin{equation}  q_0=1-\\frac{|\\Pplus|}{\\binom{N}{2}},  \\qquad  \\Pplus=\\{(i,j):i<j,\\ \\bar d_{ij}>0\\},  \\label{eq:collapse} \\end{equation} and, if a conditional summary is useful, average only over $\\Pplus$ while labeling that quantity explicitly as conditional NEI.  The primary statistic in Eq.~\\eqref{eq:nei} assumes $q_0=0$.\n Because distances are invariant under global translations, rotations, and reflections, NEI requires no Procrustes alignment.  It nevertheless depends on $\\Pi$; changing the initialization law, tolerance, or stopping rule can change the induced terminal-state distribution."
+      },
+      {
+        "start_line": 34,
+        "end_line": 34,
+        "tex": " For a fixed graph $G$, the matrix $\\B$ is fixed.  Random initializations do not perturb $\\B$; they sample the basins of the fixed stress function in Eq.~\\eqref{eq:stress}.  Formally, if $T_{G,\\Pi}$ maps an initialization to a terminal distance matrix, then \\begin{equation}  \\mu_{G,\\Pi}=(T_{G,\\Pi})_{\\#}\\nu_0  \\label{eq:pushforward} \\end{equation} is the terminal-state distribution and NEI is a moment of $\\mu_{G,\\Pi}$.  The spectrum of $\\B$ may predict properties of this distribution, but the classical truncation theorem does not determine it. In particular, a small Gram gap does not imply exponentially many stress minima, replica-symmetry breaking, or nonzero NEI.  Those conclusions require independent landscape evidence."
+      }
+    ],
+    "schoenberg": [
+      {
+        "start_line": 19,
+        "end_line": 19,
+        "tex": " For a symmetric dissimilarity matrix with $D_{ii}=0$, the following statements are equivalent \\cite{Gower1966}: \\begin{enumerate}   \\item there exist centered points $\\bm y_1,\\ldots,\\bm y_N$ in a Euclidean   space such that $D_{ij}=\\|\\bm y_i-\\bm y_j\\|$;   \\item $\\B$ in Eq.~\\eqref{eq:gram} is positive semidefinite;   \\item $\\bm z^{\\top}\\D^{(2)}\\bm z\\leq0$ for every   $\\bm z$ satisfying $\\bm z^{\\top}\\one=0$. \\end{enumerate} When these conditions hold, the smallest exact embedding dimension is $\\rank(\\B)$.  A graph shortest-path metric need not satisfy them.  Negative eigenvalues of $\\B$ therefore diagnose non-Euclideanity of the complete distance matrix; they are not numerical noise and are not, by themselves, evidence for a glassy optimization landscape."
+      }
+    ],
+    "negtype": [
+      {
+        "start_line": 19,
+        "end_line": 19,
+        "tex": " For a symmetric dissimilarity matrix with $D_{ii}=0$, the following statements are equivalent \\cite{Gower1966}: \\begin{enumerate}   \\item there exist centered points $\\bm y_1,\\ldots,\\bm y_N$ in a Euclidean   space such that $D_{ij}=\\|\\bm y_i-\\bm y_j\\|$;   \\item $\\B$ in Eq.~\\eqref{eq:gram} is positive semidefinite;   \\item $\\bm z^{\\top}\\D^{(2)}\\bm z\\leq0$ for every   $\\bm z$ satisfying $\\bm z^{\\top}\\one=0$. \\end{enumerate} When these conditions hold, the smallest exact embedding dimension is $\\rank(\\B)$.  A graph shortest-path metric need not satisfy them.  Negative eigenvalues of $\\B$ therefore diagnose non-Euclideanity of the complete distance matrix; they are not numerical noise and are not, by themselves, evidence for a glassy optimization landscape."
+      }
+    ],
+    "strain": [
+      {
+        "start_line": 23,
+        "end_line": 25,
+        "tex": " \\begin{proposition}[Classical-MDS truncation] Assume that $\\B$ has at least $p$ positive eigenvalues.  Then \\begin{equation}  \\min_{\\X\\in\\R^{N\\times p}}\\|\\B-\\X\\X^{\\top}\\|_{F}^{2}  =\\sum_{a>p:\\,\\lambda_a>0}\\lambda_a^2   +\\sum_{a:\\,\\lambda_a<0}\\lambda_a^2,  \\label{eq:psdapprox} \\end{equation} and a minimizer is \\begin{equation}  \\X_p=\\begin{bmatrix}\\bm v_1&\\cdots&\\bm v_p\\end{bmatrix}        \\diag(\\sqrt{\\lambda_1},\\ldots,\\sqrt{\\lambda_p}).  \\label{eq:cmds} \\end{equation} If $\\lambda_p>\\max(\\lambda_{p+1},0)$, the minimizing Gram matrix is unique; its coordinate factor is unique up to right multiplication by an element of $O(p)$.  A degeneracy at the retained/omitted boundary makes the retained subspace nonunique. \\end{proposition}\n \\begin{proof} Every $\\X\\X^{\\top}$ is positive semidefinite with rank at most $p$. Orthogonal invariance of the Frobenius norm reduces the problem to choosing at most $p$ nonnegative eigenvalues in the eigenbasis of $\\B$.  Each retained positive eigenvalue is optimally copied, each negative eigenvalue is optimally replaced by zero, and the largest positive eigenvalues give the largest reduction in squared residual.  This is the positive-semidefinite form of low-rank spectral truncation \\cite{EckartYoung1936,Mirsky1960}. Strict separation at the cutoff fixes the spectral projector; degeneracy does not. \\end{proof}\n This proposition corrects a common but consequential shorthand.  For an indefinite $\\B$, the solution is not obtained by retaining eigenvalues of largest magnitude, nor by taking negative square roots.  It retains the largest \\emph{positive} eigenvalues."
+      },
+      {
+        "start_line": 27,
+        "end_line": 27,
+        "tex": " Three dimensionless diagnostics summarize distinct spectral obstructions: \\begin{align}  \\widetilde\\delta_p  &=\\frac{\\lambda_p-\\max(\\lambda_{p+1},0)}{\\max(\\lambda_1,\\eps)},  \\label{eq:relgap}\\\\  \\eta_-  &=\\frac{\\sum_{a:\\lambda_a<0}\\lambda_a^2}          {\\sum_a\\lambda_a^2},  \\label{eq:negmass}\\\\  \\eta_{+,p}  &=\\frac{\\sum_{a>p:\\lambda_a>0}\\lambda_a^2}          {\\sum_a\\lambda_a^2}.  \\label{eq:residual} \\end{align} Here $\\eps$ is a fixed numerical safeguard that must be reported.  The gap $\\widetilde\\delta_p$ measures uniqueness and spectral separation of the classical rank-$p$ subspace; $\\eta_-$ measures non-Euclideanity; and $\\eta_{+,p}$ measures the positive spectral tail omitted by dimensional truncation.  The total relative residual in Eq.~\\eqref{eq:psdapprox} is $\\eta_-+\\eta_{+,p}$.  These quantities should not be collapsed into a single ``rigidity'' parameter without empirical evidence."
+      }
+    ],
+    "Dp": [
+      {
+        "start_line": 27,
+        "end_line": 27,
+        "tex": " Three dimensionless diagnostics summarize distinct spectral obstructions: \\begin{align}  \\widetilde\\delta_p  &=\\frac{\\lambda_p-\\max(\\lambda_{p+1},0)}{\\max(\\lambda_1,\\eps)},  \\label{eq:relgap}\\\\  \\eta_-  &=\\frac{\\sum_{a:\\lambda_a<0}\\lambda_a^2}          {\\sum_a\\lambda_a^2},  \\label{eq:negmass}\\\\  \\eta_{+,p}  &=\\frac{\\sum_{a>p:\\lambda_a>0}\\lambda_a^2}          {\\sum_a\\lambda_a^2}.  \\label{eq:residual} \\end{align} Here $\\eps$ is a fixed numerical safeguard that must be reported.  The gap $\\widetilde\\delta_p$ measures uniqueness and spectral separation of the classical rank-$p$ subspace; $\\eta_-$ measures non-Euclideanity; and $\\eta_{+,p}$ measures the positive spectral tail omitted by dimensional truncation.  The total relative residual in Eq.~\\eqref{eq:psdapprox} is $\\eta_-+\\eta_{+,p}$.  These quantities should not be collapsed into a single ``rigidity'' parameter without empirical evidence."
+      }
+    ],
+    "stress": [
+      {
+        "start_line": 14,
+        "end_line": 14,
+        "tex": " The embeddings used to compute NEI are instead obtained by minimizing raw metric stress, \\begin{equation}   \\sigma_G(\\X)   =\\sum_{i<j}w_{ij}\\bigl(\\|\\bm x_i-\\bm x_j\\|-D_{ij}\\bigr)^2,   \\qquad \\X\\in\\R^{N\\times p},   \\label{eq:stress} \\end{equation} by SMACOF stress majorization \\cite{deLeeuw1977,Borg2005}.  Classical MDS minimizes a Gram-matrix mismatch (often called strain), whereas Eq.~\\eqref{eq:stress} minimizes a mismatch of distances.  These objectives coincide only in special cases.  This distinction is essential: spectral statements about $\\B$ are exact for classical MDS, but their relevance to the SMACOF landscape must be tested rather than assumed."
+      },
+      {
+        "start_line": 34,
+        "end_line": 34,
+        "tex": " For a fixed graph $G$, the matrix $\\B$ is fixed.  Random initializations do not perturb $\\B$; they sample the basins of the fixed stress function in Eq.~\\eqref{eq:stress}.  Formally, if $T_{G,\\Pi}$ maps an initialization to a terminal distance matrix, then \\begin{equation}  \\mu_{G,\\Pi}=(T_{G,\\Pi})_{\\#}\\nu_0  \\label{eq:pushforward} \\end{equation} is the terminal-state distribution and NEI is a moment of $\\mu_{G,\\Pi}$.  The spectrum of $\\B$ may predict properties of this distribution, but the classical truncation theorem does not determine it. In particular, a small Gram gap does not imply exponentially many stress minima, replica-symmetry breaking, or nonzero NEI.  Those conclusions require independent landscape evidence."
+      }
+    ],
+    "fit": [
+      {
+        "start_line": 63,
+        "end_line": 64,
+        "tex": " \\paragraph{Protocol control.} Use the same $p$, weights, initialization distribution, convergence tolerance, and maximum iteration count for every graph and null realization. Record the final stress and convergence flag for every start.  A best-of-$M$ run is not interchangeable with the distribution over $M$ runs.\n \\paragraph{Terminal-state geometry.} Represent each terminal embedding by its vector of pairwise distances and cluster these vectors using a prespecified normalized distance and threshold. Report the number of occupied clusters, their entropy, the distribution of terminal stresses, and within- versus between-cluster contributions to NEI. This tests the multibasin explanation directly."
+      }
+    ],
+    "shape": [
+      {
+        "start_line": 16,
+        "end_line": 16,
+        "tex": " Because distances are invariant under global translations, rotations, and reflections, NEI requires no Procrustes alignment.  It nevertheless depends on $\\Pi$; changing the initialization law, tolerance, or stopping rule can change the induced terminal-state distribution."
+      },
+      {
+        "start_line": 34,
+        "end_line": 34,
+        "tex": " For a fixed graph $G$, the matrix $\\B$ is fixed.  Random initializations do not perturb $\\B$; they sample the basins of the fixed stress function in Eq.~\\eqref{eq:stress}.  Formally, if $T_{G,\\Pi}$ maps an initialization to a terminal distance matrix, then \\begin{equation}  \\mu_{G,\\Pi}=(T_{G,\\Pi})_{\\#}\\nu_0  \\label{eq:pushforward} \\end{equation} is the terminal-state distribution and NEI is a moment of $\\mu_{G,\\Pi}$.  The spectrum of $\\B$ may predict properties of this distribution, but the classical truncation theorem does not determine it. In particular, a small Gram gap does not imply exponentially many stress minima, replica-symmetry breaking, or nonzero NEI.  Those conclusions require independent landscape evidence."
+      }
+    ],
+    "terminal": [
+      {
+        "start_line": 15,
+        "end_line": 15,
+        "tex": " Fix the complete numerical protocol \\begin{equation}   \\Pi=(p,\\{w_{ij}\\},\\nu_{0},\\text{implementation},   \\text{stopping rule},\\text{tolerance}),   \\label{eq:protocol} \\end{equation} where $\\nu_0$ is the initialization distribution.  For $M$ independent starts, let $\\X^{(m)}$ denote the terminal configuration and $d_{ij}^{(m)}=\\|\\bm x_i^{(m)}-\\bm x_j^{(m)}\\|$.  With \\begin{equation}  \\bar d_{ij}=\\frac1M\\sum_{m=1}^{M}d_{ij}^{(m)},  \\qquad  s_{ij}^{2}=\\frac{1}{M-1}\\sum_{m=1}^{M}        \\bigl(d_{ij}^{(m)}-\\bar d_{ij}\\bigr)^2,  \\label{eq:pairmoments} \\end{equation} the empirical NEI is \\begin{equation}   \\widehat{\\NEI}(G;\\Pi)   =\\frac{1}{\\binom{N}{2}}     \\sum_{i<j}\\frac{s_{ij}^{2}}{\\bar d_{ij}^{\\,2}},   \\label{eq:nei} \\end{equation} provided that $\\bar d_{ij}>0$ for every pair.  A pair with $\\bar d_{ij}=0$ is outside the domain of Eq.~\\eqref{eq:nei}; assigning zero to its summand would conceal a collapse singularity.  If such pairs occur, we report \\begin{equation}  q_0=1-\\frac{|\\Pplus|}{\\binom{N}{2}},  \\qquad  \\Pplus=\\{(i,j):i<j,\\ \\bar d_{ij}>0\\},  \\label{eq:collapse} \\end{equation} and, if a conditional summary is useful, average only over $\\Pplus$ while labeling that quantity explicitly as conditional NEI.  The primary statistic in Eq.~\\eqref{eq:nei} assumes $q_0=0$."
+      },
+      {
+        "start_line": 34,
+        "end_line": 34,
+        "tex": " For a fixed graph $G$, the matrix $\\B$ is fixed.  Random initializations do not perturb $\\B$; they sample the basins of the fixed stress function in Eq.~\\eqref{eq:stress}.  Formally, if $T_{G,\\Pi}$ maps an initialization to a terminal distance matrix, then \\begin{equation}  \\mu_{G,\\Pi}=(T_{G,\\Pi})_{\\#}\\nu_0  \\label{eq:pushforward} \\end{equation} is the terminal-state distribution and NEI is a moment of $\\mu_{G,\\Pi}$.  The spectrum of $\\B$ may predict properties of this distribution, but the classical truncation theorem does not determine it. In particular, a small Gram gap does not imply exponentially many stress minima, replica-symmetry breaking, or nonzero NEI.  Those conclusions require independent landscape evidence."
+      }
+    ],
+    "hessian": [
+      {
+        "start_line": 36,
+        "end_line": 37,
+        "tex": " For a noncollapsed pair, let $\\bm z_{ij}=\\bm x_i-\\bm x_j$, $r_{ij}=\\|\\bm z_{ij}\\|$, and $\\bm u_{ij}=\\bm z_{ij}/r_{ij}$.  The pair contribution to the Hessian with respect to $\\bm z_{ij}$ is exactly \\begin{equation}  \\bm A_{ij}=2w_{ij}\\left[    \\left(1-\\frac{D_{ij}}{r_{ij}}\\right)\\bm I_p    +\\frac{D_{ij}}{r_{ij}}\\bm u_{ij}\\bm u_{ij}^{\\top}  \\right].  \\label{eq:pairhessian} \\end{equation} The full Hessian $\\bm K=\\nabla^2\\sigma_G$ is assembled as a block Laplacian: $K_{ii}$ and $K_{jj}$ receive $+\\bm A_{ij}$, whereas $K_{ij}$ and $K_{ji}$ receive $-\\bm A_{ij}$.  At a full-dimensional stationary configuration its kernel contains the Euclidean rigid motions, provided the configuration is nondegenerate.  The smallest eigenvalue after removing these symmetry modes measures local curvature of that particular terminal state.\n The Hessian in Eq.~\\eqref{eq:pairhessian} and the Gram matrix in Eq.~\\eqref{eq:gram} are different operators.  A Maxwell--Calladine count for a bar-and-joint framework does not automatically transfer to all-pairs MDS with inconsistent target distances.  A relation between their gaps would be an additional result, not a consequence of classical MDS."
+      },
+      {
+        "start_line": 65,
+        "end_line": 65,
+        "tex": " \\paragraph{Local curvature.} For each converged terminal state, diagonalize the Hessian after projecting out rigid translations and rotations.  Report negative eigenvalues, near-zero nontrivial eigenvalues under a stated tolerance, and the smallest positive nontrivial eigenvalue.  A claim of local minima or flat directions should be based on these quantities."
+      }
+    ],
+    "rigidity": [
+      {
+        "start_line": 36,
+        "end_line": 37,
+        "tex": " For a noncollapsed pair, let $\\bm z_{ij}=\\bm x_i-\\bm x_j$, $r_{ij}=\\|\\bm z_{ij}\\|$, and $\\bm u_{ij}=\\bm z_{ij}/r_{ij}$.  The pair contribution to the Hessian with respect to $\\bm z_{ij}$ is exactly \\begin{equation}  \\bm A_{ij}=2w_{ij}\\left[    \\left(1-\\frac{D_{ij}}{r_{ij}}\\right)\\bm I_p    +\\frac{D_{ij}}{r_{ij}}\\bm u_{ij}\\bm u_{ij}^{\\top}  \\right].  \\label{eq:pairhessian} \\end{equation} The full Hessian $\\bm K=\\nabla^2\\sigma_G$ is assembled as a block Laplacian: $K_{ii}$ and $K_{jj}$ receive $+\\bm A_{ij}$, whereas $K_{ij}$ and $K_{ji}$ receive $-\\bm A_{ij}$.  At a full-dimensional stationary configuration its kernel contains the Euclidean rigid motions, provided the configuration is nondegenerate.  The smallest eigenvalue after removing these symmetry modes measures local curvature of that particular terminal state.\n The Hessian in Eq.~\\eqref{eq:pairhessian} and the Gram matrix in Eq.~\\eqref{eq:gram} are different operators.  A Maxwell--Calladine count for a bar-and-joint framework does not automatically transfer to all-pairs MDS with inconsistent target distances.  A relation between their gaps would be an additional result, not a consequence of classical MDS."
+      }
+    ],
+    "gate": [
+      {
+        "start_line": 15,
+        "end_line": 16,
+        "tex": " Fix the complete numerical protocol \\begin{equation}   \\Pi=(p,\\{w_{ij}\\},\\nu_{0},\\text{implementation},   \\text{stopping rule},\\text{tolerance}),   \\label{eq:protocol} \\end{equation} where $\\nu_0$ is the initialization distribution.  For $M$ independent starts, let $\\X^{(m)}$ denote the terminal configuration and $d_{ij}^{(m)}=\\|\\bm x_i^{(m)}-\\bm x_j^{(m)}\\|$.  With \\begin{equation}  \\bar d_{ij}=\\frac1M\\sum_{m=1}^{M}d_{ij}^{(m)},  \\qquad  s_{ij}^{2}=\\frac{1}{M-1}\\sum_{m=1}^{M}        \\bigl(d_{ij}^{(m)}-\\bar d_{ij}\\bigr)^2,  \\label{eq:pairmoments} \\end{equation} the empirical NEI is \\begin{equation}   \\widehat{\\NEI}(G;\\Pi)   =\\frac{1}{\\binom{N}{2}}     \\sum_{i<j}\\frac{s_{ij}^{2}}{\\bar d_{ij}^{\\,2}},   \\label{eq:nei} \\end{equation} provided that $\\bar d_{ij}>0$ for every pair.  A pair with $\\bar d_{ij}=0$ is outside the domain of Eq.~\\eqref{eq:nei}; assigning zero to its summand would conceal a collapse singularity.  If such pairs occur, we report \\begin{equation}  q_0=1-\\frac{|\\Pplus|}{\\binom{N}{2}},  \\qquad  \\Pplus=\\{(i,j):i<j,\\ \\bar d_{ij}>0\\},  \\label{eq:collapse} \\end{equation} and, if a conditional summary is useful, average only over $\\Pplus$ while labeling that quantity explicitly as conditional NEI.  The primary statistic in Eq.~\\eqref{eq:nei} assumes $q_0=0$.\n Because distances are invariant under global translations, rotations, and reflections, NEI requires no Procrustes alignment.  It nevertheless depends on $\\Pi$; changing the initialization law, tolerance, or stopping rule can change the induced terminal-state distribution."
+      },
+      {
+        "start_line": 63,
+        "end_line": 65,
+        "tex": " \\paragraph{Protocol control.} Use the same $p$, weights, initialization distribution, convergence tolerance, and maximum iteration count for every graph and null realization. Record the final stress and convergence flag for every start.  A best-of-$M$ run is not interchangeable with the distribution over $M$ runs.\n \\paragraph{Terminal-state geometry.} Represent each terminal embedding by its vector of pairwise distances and cluster these vectors using a prespecified normalized distance and threshold. Report the number of occupied clusters, their entropy, the distribution of terminal stresses, and within- versus between-cluster contributions to NEI. This tests the multibasin explanation directly.\n \\paragraph{Local curvature.} For each converged terminal state, diagonalize the Hessian after projecting out rigid translations and rotations.  Report negative eigenvalues, near-zero nontrivial eigenvalues under a stated tolerance, and the smallest positive nontrivial eigenvalue.  A claim of local minima or flat directions should be based on these quantities."
+      }
+    ],
+    "NEI": [
+      {
+        "start_line": 15,
+        "end_line": 16,
+        "tex": " Fix the complete numerical protocol \\begin{equation}   \\Pi=(p,\\{w_{ij}\\},\\nu_{0},\\text{implementation},   \\text{stopping rule},\\text{tolerance}),   \\label{eq:protocol} \\end{equation} where $\\nu_0$ is the initialization distribution.  For $M$ independent starts, let $\\X^{(m)}$ denote the terminal configuration and $d_{ij}^{(m)}=\\|\\bm x_i^{(m)}-\\bm x_j^{(m)}\\|$.  With \\begin{equation}  \\bar d_{ij}=\\frac1M\\sum_{m=1}^{M}d_{ij}^{(m)},  \\qquad  s_{ij}^{2}=\\frac{1}{M-1}\\sum_{m=1}^{M}        \\bigl(d_{ij}^{(m)}-\\bar d_{ij}\\bigr)^2,  \\label{eq:pairmoments} \\end{equation} the empirical NEI is \\begin{equation}   \\widehat{\\NEI}(G;\\Pi)   =\\frac{1}{\\binom{N}{2}}     \\sum_{i<j}\\frac{s_{ij}^{2}}{\\bar d_{ij}^{\\,2}},   \\label{eq:nei} \\end{equation} provided that $\\bar d_{ij}>0$ for every pair.  A pair with $\\bar d_{ij}=0$ is outside the domain of Eq.~\\eqref{eq:nei}; assigning zero to its summand would conceal a collapse singularity.  If such pairs occur, we report \\begin{equation}  q_0=1-\\frac{|\\Pplus|}{\\binom{N}{2}},  \\qquad  \\Pplus=\\{(i,j):i<j,\\ \\bar d_{ij}>0\\},  \\label{eq:collapse} \\end{equation} and, if a conditional summary is useful, average only over $\\Pplus$ while labeling that quantity explicitly as conditional NEI.  The primary statistic in Eq.~\\eqref{eq:nei} assumes $q_0=0$.\n Because distances are invariant under global translations, rotations, and reflections, NEI requires no Procrustes alignment.  It nevertheless depends on $\\Pi$; changing the initialization law, tolerance, or stopping rule can change the induced terminal-state distribution."
+      }
+    ],
+    "Keff": [
+      {
+        "start_line": 64,
+        "end_line": 64,
+        "tex": " \\paragraph{Terminal-state geometry.} Represent each terminal embedding by its vector of pairwise distances and cluster these vectors using a prespecified normalized distance and threshold. Report the number of occupied clusters, their entropy, the distribution of terminal stresses, and within- versus between-cluster contributions to NEI. This tests the multibasin explanation directly."
+      }
+    ],
+    "Egap": [
+      {
+        "start_line": 63,
+        "end_line": 64,
+        "tex": " \\paragraph{Protocol control.} Use the same $p$, weights, initialization distribution, convergence tolerance, and maximum iteration count for every graph and null realization. Record the final stress and convergence flag for every start.  A best-of-$M$ run is not interchangeable with the distribution over $M$ runs.\n \\paragraph{Terminal-state geometry.} Represent each terminal embedding by its vector of pairwise distances and cluster these vectors using a prespecified normalized distance and threshold. Report the number of occupied clusters, their entropy, the distribution of terminal stresses, and within- versus between-cluster contributions to NEI. This tests the multibasin explanation directly."
+      }
+    ],
+    "multiplicity": [
+      {
+        "start_line": 34,
+        "end_line": 34,
+        "tex": " For a fixed graph $G$, the matrix $\\B$ is fixed.  Random initializations do not perturb $\\B$; they sample the basins of the fixed stress function in Eq.~\\eqref{eq:stress}.  Formally, if $T_{G,\\Pi}$ maps an initialization to a terminal distance matrix, then \\begin{equation}  \\mu_{G,\\Pi}=(T_{G,\\Pi})_{\\#}\\nu_0  \\label{eq:pushforward} \\end{equation} is the terminal-state distribution and NEI is a moment of $\\mu_{G,\\Pi}$.  The spectrum of $\\B$ may predict properties of this distribution, but the classical truncation theorem does not determine it. In particular, a small Gram gap does not imply exponentially many stress minima, replica-symmetry breaking, or nonzero NEI.  Those conclusions require independent landscape evidence."
+      },
+      {
+        "start_line": 64,
+        "end_line": 65,
+        "tex": " \\paragraph{Terminal-state geometry.} Represent each terminal embedding by its vector of pairwise distances and cluster these vectors using a prespecified normalized distance and threshold. Report the number of occupied clusters, their entropy, the distribution of terminal stresses, and within- versus between-cluster contributions to NEI. This tests the multibasin explanation directly.\n \\paragraph{Local curvature.} For each converged terminal state, diagonalize the Hessian after projecting out rigid translations and rotations.  Report negative eigenvalues, near-zero nontrivial eigenvalues under a stated tolerance, and the smallest positive nontrivial eigenvalue.  A claim of local minima or flat directions should be based on these quantities."
+      }
+    ],
+    "robust": [
+      {
+        "start_line": 58,
+        "end_line": 58,
+        "tex": " For a graph-level statistic $T$ and $B$ null realizations, report the null effect and a one-sided Monte Carlo probability, for example \\begin{equation}  z_T=\\frac{T_{\\mathrm{real}}-\\overline T_{\\mathrm{null}}}            {s_{\\mathrm{null}}},  \\qquad  p_{-}=\\frac{1+\\sum_{b=1}^{B}   \\bm 1\\{T_b\\leq T_{\\mathrm{real}}\\}}{B+1}.  \\label{eq:nulltest} \\end{equation} Because the real, degree-preserving, and ER values are naturally paired by source graph, aggregate inference should preserve that pairing."
+      },
+      {
+        "start_line": 67,
+        "end_line": 67,
+        "tex": " \\paragraph{Uncertainty and finite ensemble size.} The ratio $s_{ij}^2/\\bar d_{ij}^{\\,2}$ does not inherit the simple unbiasedness of the sample variance because its denominator is random.  Hence a universal multiplicative correction $1-1/M$ is not exact.  Resample entire embedding runs, recompute all pairwise terms, and use the bootstrap distribution of NEI; this preserves dependence among pairs within a run.  When graph-null variability is also present, use an outer resampling level for graph realizations and an inner level for initialization runs.  Finite-$N$ forms such as $1/\\log N$ should be compared with plausible alternatives rather than declared from distance concentration alone."
+      }
+    ],
+    "split": [
+      {
+        "start_line": 39,
+        "end_line": 39,
+        "tex": " The defensible topology--geometry claim is therefore predictive rather than deductive: \\begin{description}  \\item[H1] At fixed protocol and after controlling for $N$, density, and  embedding dimension, smaller $\\widetilde\\delta_p$ is associated with larger  NEI.  \\item[H2] Larger non-Euclidean mass $\\eta_-$ and larger truncation residual  $\\eta_{+,p}$ are associated with larger NEI.  \\item[H3] If the association is genuinely landscape-mediated, the same  predictors are associated with a broader terminal-stress distribution,  more occupied terminal-state clusters, or smaller nontrivial Hessian  curvature. \\end{description} H1--H3 may fail independently.  In particular, H1 without H3 would support a spectral predictor but not a multibasin mechanism."
+      },
+      {
+        "start_line": 64,
+        "end_line": 64,
+        "tex": " \\paragraph{Terminal-state geometry.} Represent each terminal embedding by its vector of pairwise distances and cluster these vectors using a prespecified normalized distance and threshold. Report the number of occupied clusters, their entropy, the distribution of terminal stresses, and within- versus between-cluster contributions to NEI. This tests the multibasin explanation directly."
+      }
+    ],
+    "floppy": [
+      {
+        "start_line": 36,
+        "end_line": 37,
+        "tex": " For a noncollapsed pair, let $\\bm z_{ij}=\\bm x_i-\\bm x_j$, $r_{ij}=\\|\\bm z_{ij}\\|$, and $\\bm u_{ij}=\\bm z_{ij}/r_{ij}$.  The pair contribution to the Hessian with respect to $\\bm z_{ij}$ is exactly \\begin{equation}  \\bm A_{ij}=2w_{ij}\\left[    \\left(1-\\frac{D_{ij}}{r_{ij}}\\right)\\bm I_p    +\\frac{D_{ij}}{r_{ij}}\\bm u_{ij}\\bm u_{ij}^{\\top}  \\right].  \\label{eq:pairhessian} \\end{equation} The full Hessian $\\bm K=\\nabla^2\\sigma_G$ is assembled as a block Laplacian: $K_{ii}$ and $K_{jj}$ receive $+\\bm A_{ij}$, whereas $K_{ij}$ and $K_{ji}$ receive $-\\bm A_{ij}$.  At a full-dimensional stationary configuration its kernel contains the Euclidean rigid motions, provided the configuration is nondegenerate.  The smallest eigenvalue after removing these symmetry modes measures local curvature of that particular terminal state.\n The Hessian in Eq.~\\eqref{eq:pairhessian} and the Gram matrix in Eq.~\\eqref{eq:gram} are different operators.  A Maxwell--Calladine count for a bar-and-joint framework does not automatically transfer to all-pairs MDS with inconsistent target distances.  A relation between their gaps would be an additional result, not a consequence of classical MDS."
+      },
+      {
+        "start_line": 65,
+        "end_line": 65,
+        "tex": " \\paragraph{Local curvature.} For each converged terminal state, diagonalize the Hessian after projecting out rigid translations and rotations.  Report negative eigenvalues, near-zero nontrivial eigenvalues under a stated tolerance, and the smallest positive nontrivial eigenvalue.  A claim of local minima or flat directions should be based on these quantities."
+      }
+    ],
+    "unresolved": [
+      {
+        "start_line": 30,
+        "end_line": 30,
+        "tex": " Equation~\\eqref{eq:dk} is a \\emph{stability guarantee}: a perturbation small relative to the gap cannot rotate the subspace much.  Its converse is not a theorem.  If the right-hand side is large or vacuous, one cannot conclude that a large rotation occurs; only that this inequality no longer guarantees stability.  Large rotations must be measured or established by a separate lower-bound argument."
+      },
+      {
+        "start_line": 34,
+        "end_line": 34,
+        "tex": " For a fixed graph $G$, the matrix $\\B$ is fixed.  Random initializations do not perturb $\\B$; they sample the basins of the fixed stress function in Eq.~\\eqref{eq:stress}.  Formally, if $T_{G,\\Pi}$ maps an initialization to a terminal distance matrix, then \\begin{equation}  \\mu_{G,\\Pi}=(T_{G,\\Pi})_{\\#}\\nu_0  \\label{eq:pushforward} \\end{equation} is the terminal-state distribution and NEI is a moment of $\\mu_{G,\\Pi}$.  The spectrum of $\\B$ may predict properties of this distribution, but the classical truncation theorem does not determine it. In particular, a small Gram gap does not imply exponentially many stress minima, replica-symmetry breaking, or nonzero NEI.  Those conclusions require independent landscape evidence."
+      }
+    ]
+  },
+  "unresolved": {
+    "aut": "source-map kind is none: no active-text passage directly defines metric automorphism or a vertex-relabeling policy.",
+    "morse": "source-map kind is none: no active-text passage states an analytic Morse--Bott condition or a finite-continuation certificate.",
+    "deff": "source-map kind is none: no active-text passage defines terminal-covariance effective rank.",
+    "energydeg": "source-map kind is none: no active-text passage defines objective-value equivalence for separated terminal candidates.",
+    "rigid": "source-map kind is none: the lattice section gives a low-NEI benchmark limitation but no formal single-terminal verdict.",
+    "calib": "source-map status is unreviewed; no quotation assigned without a completed source audit.",
+    "cmnull": "source-map status is unreviewed; no quotation assigned without a completed source audit.",
+    "recur": "source-map status is unreviewed; no quotation assigned without a completed source audit.",
+    "resid": "source-map status is unreviewed; no quotation assigned without a completed source audit."
+  }
+}

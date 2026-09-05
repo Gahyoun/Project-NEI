@@ -14,6 +14,7 @@ function inline(text, source) {
   for (const match of text.matchAll(/\$([^$]+)\$/g)) formula(match[1], source);
 }
 function visit(value, source, key) {
+  if(key === 'tex') return; // Exact LaTeX excerpts use source-specific macros; tested separately.
   if (typeof value === 'string') {
     if (key === 'formula' || /\.kernel\.eq\.\d+$/.test(source)) formula(value, source);
     else inline(value, source);

@@ -40,6 +40,9 @@
 - Source traceability.
   - Main red / SI green / Note blue 유지.
   - Inspector에는 raw manuscript filename 미표시. Provenance metadata는 보존.
+  - Direct/partial card에는 첨부 원문의 실제 문장·수식 발췌. 원문 자체의 교정 없음.
+  - LaTeX 원문, 원문 행 위치와 source SHA-256 보존. Citation·cross-reference는 원문 key로 표시.
+  - 기존 요약은 접힌 Coverage note로 분리. 원문 인용과 현재 해석을 구분.
   - 핵심 node에 assumptions / interpretation boundary / discriminating check 추가.
   - 기존 manuscript snapshot과 현재 page additions를 구분.
   - Source audit pending ≠ manuscript에 미서술.
@@ -153,5 +156,8 @@
 - Algebra regression: python3 code/test_linear_algebra.py.
 - Reported spectrum consistency: python3 code/audit_reported_spectrum.py.
 - Static formula rendering: node code/validate_research_math.cjs.
+- Source excerpt rendering: node code/validate_source_excerpts.cjs.
+  - 원문 파일과의 exact-match 검증: 위 명령에 --originals <원문 디렉터리> 추가.
+  - 67개 source card, 111개 excerpt. 원문 전체 SHA-256 및 line/offset slice 대조.
 - Gradient checks: python3 code/floor_test.py --gradient-check-only 및 python3 code/calibration_null.py --gradient-check-only.
 - Full sweep는 별도 실행. 구조·derivative 검산 통과를 전체 empirical result 인증으로 표현하지 않음.

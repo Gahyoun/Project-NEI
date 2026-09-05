@@ -200,14 +200,22 @@ function renderPanel(){
   const sourceCards=Object.entries(DB.sources.sources).map(([key,meta])=>{
     const x=sm[key]||{kind:"unreviewed",location:"source audit pending",
                      summary:"현재 snapshot에서 대응 위치 미검토. 미서술 판정 아님."};
+    const passages=DB["excerpts_"+key]?.excerpts[n.id]||[];
+    const quoteBody=passages.map((p,i)=>{
+      const rendered=window.NEISourceQuote.render(p.tex,key);
+      return '<div class="source-passage">'+
+        '<p class="source-excerpt-label">원문 발췌 '+(i+1)+' · lines '+p.start_line+'–'+p.end_line+'</p>'+
+        '<blockquote class="source-quote">'+rendered.html+'</blockquote>'+
+        '<details class="source-raw"><summary>LaTeX 원문</summary><pre>'+esc(p.tex)+'</pre></details></div>';
+    }).join("");
     return `<li class="source-slot"><article class="source-card ${esc(meta.class)} is-${esc(x.kind)}">
       <div class="source-head"><h5 class="source-name">${esc(meta.label)}</h5>
         <span class="source-kind">${esc(kindLabel[x.kind]||x.kind)}</span></div>
       <dl class="source-meta">
         <div><dt>Location</dt><dd class="source-location">${esc(x.location)}</dd></div>
       </dl>
-      <p>${tex(x.summary)}</p>${x.kind==="unreviewed"?
-        '<p class="fine"><b>Source audit pending.</b> Frozen coverage 판정에 포함하지 않음.</p>':""}
+      ${quoteBody||`<p class="source-empty">${x.kind==="none"?"직접 대응하는 원문 발췌 없음.":"원문 발췌 미확인. 미서술 판정과 구분."}</p>`}
+      <details class="source-audit"><summary>Coverage note · 원문 인용 아님</summary><p>${tex(x.summary)}</p></details>
     </article></li>`;
   }).join("");
   const discussion=(n.discussion||[]).map(group=>`<li><section>
@@ -234,7 +242,7 @@ function renderPanel(){
           ${discussion?`<ol class="note-tree node-discussion">${discussion}</ol>`:""}
         </section></li>
         <li><section><h4>Evidence traceability</h4>
-          <p class="fine">Frozen manuscript coverage snapshot. 현재 research-note 보강은 아래 coverage status를 자동 변경하지 않음.</p>
+          <p class="fine">첨부 문서의 실제 문장·수식 발췌. 원문 내용은 교정하지 않으며 현재 interpretation과 구분. 수식은 렌더링하고 citation·cross-reference는 원문 key로 표시. LaTeX 원문과 행 위치로 대조 가능.</p>
           <ol class="source-grid note-tree note-depth-5">${sourceCards}</ol>
         </section></li>
         ${noteJumps.length?`<li><section><h4>Current Research Note</h4>
@@ -537,7 +545,8 @@ function renderScope(){
 (async function(){
   const files={nodes:"nodes",edges:"edges",connectors:"connectors",sweep:"sweep",vision:"vision",agenda:"agenda",sample:"sample",
                claims:"claims",refs:"refs",meas:"measurements",scope:"scope",
-               sources:"source-map"};
+               sources:"source-map",excerpts_main:"source-excerpts-main",
+               excerpts_si:"source-excerpts-si",excerpts_note:"source-excerpts-note"};
   try{
     if(window.NEI_DATA){
       for(const [k,f] of Object.entries(files)){
