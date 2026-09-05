@@ -354,7 +354,6 @@ code{background:var(--surface);border-radius:3px;padding:1px 6px;font-size:13px;
 .source-card.is-unreviewed{border-style:dashed;background:var(--surface)}
 .need-주장조건부{background:#fff4e0;color:#8a5a00}
 .need-2차대상{background:var(--surface-primary);color:var(--primary-deep)}
-#review-status{font-size:15px;line-height:1.65}
 #kernelPanel{min-width:0}
 .research-discussion-list{padding:0;max-width:none;list-style:none}
 .research-discussion-list>li{padding:0;margin:0 0 20px}
