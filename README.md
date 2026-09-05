@@ -46,6 +46,14 @@
   - 핵심 node에 assumptions / interpretation boundary / discriminating check 추가.
   - 기존 manuscript snapshot과 현재 page additions를 구분.
   - Source audit pending ≠ manuscript에 미서술.
+- Research-argument update.
+  - Primary report: fixed input $G$와 procedure $\Pi$에 조건부인 acceptance와 NEI.
+  - Attempted law의 failure atom, fixed-$N$ kernel family, accepted empirical measure 명시.
+  - Local strong-convexity residual-to-spread bound와 적용 불가능한 경우의 구분.
+  - Finite-$M$ range, covariance rank ceiling, consistency와 influence-function uncertainty 유도.
+  - Observable의 scale invariance와 protocol equivariance의 구분. Pairwise mean normalization은 whitening 아님.
+  - Claim type / evidence state 두 축으로 analytic statement와 미확정 측정을 구분.
+  - Evidence production contract는 실행 전 분석 계획. Corrected full rerun과 graph-null 결과의 대체물 아님.
 
 ## 3. Primary mathematical object
 
@@ -156,6 +164,8 @@
 - Algebra regression: python3 code/test_linear_algebra.py.
 - Reported spectrum consistency: python3 code/audit_reported_spectrum.py.
 - Static formula rendering: node code/validate_research_math.cjs.
+- Local residual-bound regression: python3 code/test_local_spread_bound.py.
+- Finite-sample and influence-function regression: python3 code/test_statistical_inference.py.
 - Source excerpt rendering: node code/validate_source_excerpts.cjs.
   - 원문 파일과의 exact-match 검증: 위 명령에 --originals <원문 디렉터리> 추가.
   - 67개 source card, 111개 excerpt. 원문 전체 SHA-256 및 line/offset slice 대조.

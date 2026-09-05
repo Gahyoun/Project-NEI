@@ -1,6 +1,6 @@
 {
   "_note": "2026-09-05 research discussion note. Definition, observation, hypothesis, decision 구분. 이 페이지의 보강은 원고·SI·Note의 source coverage를 자동 변경하지 않음.",
-  "framing": "Distance geometry, nonconvex approximation, disordered statistical physics의 접점. 공통 분석 대상은 fixed graph metric과 declared optimizer가 유도하는 terminal law. 분야별 degeneracy의 동치와 statistical independence는 별도 증명 대상.",
+  "framing": "Distance geometry, nonconvex approximation, disordered statistical physics의 접점. Fixed $N$에서 graph $G$는 input, $\\Pi$는 declared analysis procedure이며 공통 분석 대상은 $(G,\\Pi)$가 유도하는 acceptance-aware terminal law. 분야별 degeneracy의 동치와 statistical independence는 별도 증명 대상.",
   "items": [
     {
       "id": "A1",
@@ -32,7 +32,7 @@
           "v": "Declared pair metric과 resolution에서 admissible terminal law의 noncollapse. NEI는 해당 law의 standardized spread를 측정; diameter와 state count의 직접 추정량은 아님."
         }
       ],
-      "ours": "Complete exact distance matrix는 centered Gram을 결정하므로 Euclidean isometry까지 unique realization. 그러나 exact target의 uniqueness가 nonconvex raw-stress objective의 nonglobal local minima 부재를 보장하지는 않음. Non-Euclidean input의 rank-constrained approximation과 exact inverse identifiability를 구분.",
+      "ours": "Complete exact distance matrix는 centered Gram을 결정하므로 Euclidean isometry까지 unique realization. 그러나 exact target의 uniqueness가 nonconvex raw-stress objective의 nonglobal local minima 부재를 보장하지는 않음. Corrected admissibility와 recurrence 이전에는 observed spread를 fixed-rank landscape structure로 귀속하지 않음. Non-Euclidean input의 rank-constrained approximation과 exact inverse identifiability의 구분.",
       "todo": [
         "Primary $\\mathcal P=\\{i<j\\}$, $q(X)=D(X)$와 labeled-node policy 명시.",
         "Partial pair extension에서는 projected law의 zero set만 주장.",
@@ -43,19 +43,19 @@
     {
       "id": "A2",
       "k": "Terminal kernel의 well-posedness와 robustness",
-      "why": "Randomized terminal map의 pushforward와 stochastic kernel은 기존 수학적 구성. Novelty 후보는 graph metric에 대한 quotient terminal law를 primary estimand로 채택하고 geometry·occupancy·numerical admissibility를 함께 평가하는 방법. 우선권 주장은 관련 multistart MDS 문헌과 대조 후 결정.",
+      "why": "Randomized terminal map의 pushforward와 stochastic kernel은 기존 수학적 구성. Core contribution candidate는 graph metric의 representability와 acceptance-aware quotient terminal law를 분리하고 $(\\alpha_{G,\\Pi},\\mathcal I[\\mu_{G,\\Pi}^{\\rm adm}])$를 공동 보고하는 measurement framework. Novelty status는 targeted multistart-MDS prior-art audit 전 유보.",
       "todo": [
         {
           "k": "Well-posedness",
-          "v": "Fixed $N,p$에서 measurable terminal map, measurable acceptance event, $\\alpha_{G,\\Pi}>0$ 확인. Limit map 사용 시 existence·measurability 추가 가정. Finite stopping map과 exact-convergence idealization 구분."
+          "v": "Fixed $N,p$에서 $\\mathfrak D_N$과 $\\Omega_{N,p}$를 고정한 measurable kernel, measurable terminal map, measurable acceptance event, $\\alpha_{G,\\Pi}>0$ 확인. Cross-size analysis는 하나의 kernel이 아니라 family $\\{\\bar K_{\\Pi,N}\\}_N$. Limit map 사용 시 existence·measurability 추가 가정. Finite stopping map과 exact-convergence idealization 구분."
         },
         {
           "k": "Continuity",
-          "v": "$Δ$와 protocol parameter의 topology 및 law 간 거리를 먼저 선언. $\\alpha_{G,\\Pi}$가 0에 접근하면 conditioning 자체가 instability를 만들 수 있으므로 acceptance 함께 추적."
+          "v": "$\\Delta$와 protocol parameter의 topology 및 law 간 거리를 먼저 선언. $\\alpha_{G,\\Pi}$가 0에 접근하면 conditioning 자체가 instability를 만들 수 있으므로 primary report는 $(\\alpha_{G,\\Pi},\\mathcal I)$. Null comparison에는 acceptance equivalence/minimum gate 또는 bivariate null region 중 하나를 사전 고정."
         },
         {
           "k": "Support coverage",
-          "v": "Fixed discrete class definition과 iid draws 아래 Good–Turing singleton fraction $f_1/M$은 missing-mass estimator. $K_{\\rm obs}=M$이면 추정값 1이지만 아무 정보도 얻지 못했다는 뜻은 아님. Data-dependent clustering·continuous support에서는 별도 calibration 필요."
+          "v": "Fixed discrete class definition과 iid draws 아래 Good–Turing singleton fraction $f_1/M$은 missing-mass estimator~(Good, 1953). $K_{\\rm obs}=M$이면 추정값 1이지만 complete support 또는 occupancy를 식별했다는 뜻은 아님. Data-dependent clustering·continuous support에서는 별도 calibration 필요."
         },
         {
           "k": "Across-protocol recurrence",
@@ -95,7 +95,7 @@
       "state": "mechanism hypothesis · 2차 일단락 대상"
     }
   ],
-  "closing": "1차 일단락: 정의·finite-sample identity·corrected numerical evidence와 그 해석 범위. 2차 일단락: controlled disorder, prestress organization, branch structure. 연구미팅에서는 claim별 필요한 evidence와 보유 artifact를 대조해 범위 결정.",
+  "closing": "1차 일단락: 정의·finite-sample identity·corrected numerical rerun을 통과한 finite-protocol evidence와 그 해석 범위. 2차 일단락: controlled disorder, prestress organization, branch structure. 연구미팅에서는 claim별 필요한 evidence와 보유 artifact를 대조해 범위 결정.",
   "originality": {
     "title": "Contribution under discussion",
     "existing": [
@@ -112,7 +112,8 @@
         "v": "Quench-induced minima distribution과 basin probability 연구 존재. Terminal ensemble의 추상적 구성 자체는 novelty 주장이 아님."
       }
     ],
-    "gap": "차별점 후보: fixed graph metric의 representability, full terminal-geometry law, numerical admissibility를 같은 분석 설계에서 정의하고 각각의 empirical information을 평가.",
+    "core_contribution": "Acceptance-aware terminal-ensemble measurement framework: fixed graph metric의 representability, declared procedure의 admissible terminal law, numerical acceptance를 분리하고 $(\\alpha_{G,\\Pi},\\mathcal I[\\mu_{G,\\Pi}^{\\rm adm}])$를 공동 estimand로 보고.",
+    "gap": "차별점 후보: fixed graph metric의 representability, full terminal-geometry law, numerical admissibility를 같은 분석 설계에서 분리하고 graph-null comparison의 허용 결론을 calibration하는 구성.",
     "why_now": "Embedding variability를 network-level response로 해석하려면 numerical convergence, geometric fidelity, finite-sample variation의 기여를 분리할 필요.",
     "new": [
       {
@@ -121,7 +122,7 @@
       },
       {
         "k": "Declared ensemble",
-        "v": "Kernel의 input, randomization, stopping·selection rule과 acceptance probability 명시. Gate를 바꿀 때 conditional estimand도 변경."
+        "v": "Fixed-$N$ kernel family의 input/codomain, joint randomization law, stopping·selection rule과 acceptance probability 명시. Gate를 바꿀 때 conditional estimand도 변경."
       },
       {
         "k": "Evidence calibration",
@@ -133,17 +134,18 @@
       "NEI만으로 state count, thermodynamic degeneracy, global nonuniqueness 판정 불가.",
       "두 observable의 independence 또는 mechanism은 분석 결과로 별도 제시."
     ],
-    "minimum": "수학적 기여 후보: representability와 protocol-conditioned terminal law의 분리, exact zero-set·finite-sample trace identity 및 mass–resolution detection bound. 실증 기여 후보: corrected implementation 아래의 reproducible spread와 declared graph controls 대비 추가 정보. Terminal multiplicity는 independent validation을 거친 empirical branch이며 정의 자체의 자동 결론은 아님."
+    "minimum": "Core methodological contribution candidate: representability와 acceptance-aware protocol-conditioned terminal law의 분리 및 joint reporting contract. Exact zero-set, finite-sample trace/range identity, consistency/CLT, mass–resolution 및 local residual bound는 framework의 validation lemmas. 실증 기여는 corrected implementation과 declared graph controls 아래에서 reproducible spread가 확인된 뒤에만 성립. Terminal multiplicity와 prestress mechanism은 각각 independent recurrence와 별도 hypothesis test가 필요한 branch."
   },
   "kernel": {
     "title": "Graph-to-terminal-law kernel",
     "eq": [
-      "Y_\\Pi(\\Delta)=\\begin{cases}q(T_\\Pi(\\Delta,Z,\\Xi)),& A_{\\rm num},\\\\ \\dagger,& A_{\\rm num}^{c},\\end{cases}\\qquad \\bar K_\\Pi(\\Delta,\\cdot)=\\mathcal L(Y_\\Pi(\\Delta))",
-      "\\alpha_{G,\\Pi}=1-\\bar K_\\Pi(\\Delta(G),\\{\\dagger\\})",
-      "K_\\Pi^{\\rm adm}(\\Delta(G),\\mathcal B)=\\frac{\\bar K_\\Pi(\\Delta(G),\\mathcal B)}{\\alpha_{G,\\Pi}},\\quad \\mathcal B\\subseteq\\Omega_D,\\quad \\alpha_{G,\\Pi}>0",
-      "\\mu_{G,\\Pi}^{\\rm adm}=K_\\Pi^{\\rm adm}(\\Delta(G),\\cdot),\\qquad \\text{report }(\\alpha_{G,\\Pi},\\mathcal I[\\mu_{G,\\Pi}^{\\rm adm}])"
+      "\\mathfrak D_N=\\{\\Delta\\in\\mathbb R_+^{N\\times N}:\\Delta=\\Delta^{\\mathsf T},\\operatorname{diag}\\Delta=0\\},\\qquad \\Omega_{N,p}=q_N(\\mathbb R^{N\\times p}),\\quad \\Omega_{N,p}^{\\dagger}=\\Omega_{N,p}\\sqcup\\{\\dagger\\}",
+      "\\bar K_{\\Pi,N}:\\mathfrak D_N\\times\\mathcal B(\\Omega_{N,p}^{\\dagger})\\to[0,1],\\qquad (Z,\\Xi)\\sim\\nu_{\\Pi,N}",
+      "Y_{\\Pi,N}(\\Delta)=\\begin{cases}q_N(T_\\Pi(\\Delta,Z,\\Xi)),& A_{\\rm num},\\\\ \\dagger,& A_{\\rm num}^{c},\\end{cases}\\qquad \\bar K_{\\Pi,N}(\\Delta,\\cdot)=\\mathcal L(Y_{\\Pi,N}(\\Delta))",
+      "\\alpha_{G,\\Pi}=1-\\bar K_{\\Pi,N}(\\Delta(G),\\{\\dagger\\}),\\qquad K_{\\Pi,N}^{\\rm adm}(\\Delta(G),\\mathcal B)=\\frac{\\bar K_{\\Pi,N}(\\Delta(G),\\mathcal B)}{\\alpha_{G,\\Pi}}",
+      "\\mu_{G,\\Pi}^{\\rm adm}=K_{\\Pi,N}^{\\rm adm}(\\Delta(G),\\cdot),\\qquad \\text{primary report }(\\alpha_{G,\\Pi},\\mathcal I[\\mu_{G,\\Pi}^{\\rm adm}])"
     ],
-    "body": "$\\Omega_D=q(\\mathbb R^{N\\times p})$는 labeled full pair-distance space, $\\dagger\\notin\\Omega_D$는 failure atom. $\\bar K_\\Pi$는 $\\Omega_D\\cup\\{\\dagger\\}$ 위의 probability kernel. Measurable acceptance event와 accepted outputs를 전제하며 failure에는 terminal geometry를 강제로 부여하지 않음. $\\mathcal B$는 Borel set이며 centered Gram $B$와 구분. $\\alpha_{G,\\Pi}=0$이면 conditional law와 NEI는 undefined. Gate가 달라지면 conditional estimand도 변경되므로 acceptance와 spread의 동시 비교 필요. $Z,\\Xi$는 선언된 joint randomization law에서 추출. $K_{\\rm eff}$에는 clustering rule이, $\\lambda_{\\rm soft}$에는 objective와 quotient convention이 추가로 필요.",
+    "body": "$\\mathfrak D_N$은 fixed-$N$ dissimilarity input space, $\\Omega_{N,p}$는 labeled full pair-distance output space, $\\dagger\\notin\\Omega_{N,p}$는 failure atom. $\\bar K_{\\Pi,N}$은 $\\Omega_{N,p}^{\\dagger}$ 위 probability kernel이며 cross-size analysis에는 family $\\{\\bar K_{\\Pi,N}\\}_N$를 사용. $\\mathcal B$는 Borel set이며 centered Gram $B$와 구분. $(Z,\\Xi)$는 joint law $\\nu_{\\Pi,N}$에서 추출하고 independence를 명시한 경우에만 product law로 분해. Measurable acceptance event와 accepted outputs를 전제하며 failure에는 terminal geometry를 강제로 부여하지 않음. $\\alpha_{G,\\Pi}=0$이면 conditional law와 NEI는 undefined. Gate가 달라지거나 acceptance가 graph 사이에서 달라지면 conditional estimand도 변경되므로 $\\alpha$와 spread의 공동 comparison rule 필요. $K_{\\rm eff}$에는 clustering rule이, $\\lambda_{\\rm soft}$에는 objective와 quotient convention이 추가로 필요.",
     "precedent": "Stillinger–Weber(1982)의 quench classification, Menck et al.(2013)의 basin probability, Borg–Mair(2017)의 multi-solution MDS 비교를 직접 선례로 인용. 현재 구성의 novelty는 graph-level estimand와 검증 설계의 결합에 대한 후보."
   }
 }

@@ -6,46 +6,72 @@
 
 이 프로젝트에서 **realized geometric degeneracy**는 다음처럼 제한하여 정의한다.
 
-> 고정된 protocol \(\Pi\) 아래 numerical admissibility에 조건부인 terminal law가,
+> fixed graph \(G\)와 고정된 protocol \(\Pi\) 아래 numerical admissibility에 조건부인
+> terminal law가,
 > 사전에 선언한 pair-distance metric \(\rho_D\)와 resolution \(\varepsilon_D\)에서
 > 하나의 geometry로 붕괴하지 않는 현상을 **realized geometric degeneracy**라 한다.
 
-여기서
+graph metric map $\Phi$에 대해 $\Delta=\Phi(G)$로 두고
 
 \[
-\Pi=(G\mapsto\Delta,\,p,\,W,\,\rho_0,\,\rho_{\rm alg},\,\mathcal A,
-\tau_g,\tau_H,\tau_D,T_{\max})
+\Pi=(\Phi,\,p,\,W,\,\nu_{\Pi,N},\,\mathcal A,
+\tau_g,\tau_H,\tau_c,T_{\max},\varepsilon_D)
 \]
 
 는 dissimilarity 규칙, 차원, 가중치, 초기분포, 최적화기와 수치 문턱값까지 포함하는
-완전한 protocol이다. 초기조건과 algorithmic random variable \(\Xi\)에 대한 measurable
-terminal map을 \(T_\Pi(X^{(0)},\Xi)\)라 하고 \(q(X)=D(X)\)를 모든 쌍의 Euclidean
-distance vector라 하면, population 분석 대상은
-
-\[
-\mu_\Pi=(q\circ T_\Pi)_\#(\rho_0\otimes\rho_{\rm alg})
-\]
-
-이다. numerical event를
+완전한 protocol이다. $G$는 관측 대상이고 $\Pi$는 그 대상을 읽는 rule이므로 두 객체를
+분리한다. fixed $N$에서 초기조건과 algorithmic randomness의 joint law를
+$(Z,\Xi)\sim\nu_{\Pi,N}$로 선언. marginals는 $\rho_0,\rho_{\rm alg}$이며 독립성을
+명시한 경우에만 $\nu_{\Pi,N}=\rho_0\otimes\rho_{\rm alg}$로 인수분해.
+이 random input에 대한 measurable terminal map을
+$T_\Pi(\Delta(G),Z,\Xi)$라 하고 $q(X)=D(X)$를 모든 쌍의 Euclidean distance vector라
+한다. numerical event를
 
 \[
 A_{\rm num}=\{\mathrm{success},\eta_g\le\tau_g,
 \chi_{\rm coll}\ge\tau_c,n_-(H_\perp)=0\}
 \]
 
-로 선언하면 실제 분석 law와 acceptance probability는
+로 선언한다. failure를 conditioning 이전에 버리지 않기 위해 확장된 state space에
+failure atom $\dagger$를 두고
 
 \[
-\mu_\Pi^{\rm adm}=\mathcal L(q(T_\Pi)\mid A_{\rm num}),\qquad
-\alpha_\Pi=\Pr_\Pi(A_{\rm num})
+Y_{G,\Pi}=
+\begin{cases}
+q\!\left(T_\Pi(\Delta(G),Z,\Xi)\right),&A_{\rm num},\\
+\dagger,&A_{\rm num}^{\mathsf c},
+\end{cases}
+\qquad
+\overline K_\Pi(\Delta(G),\cdot)=\mathcal L(Y_{G,\Pi})
 \]
 
-이다. conditional law를 정의하려면 \(\alpha_\Pi>0\)이어야 한다. \(\mu_\Pi^{\rm adm}\)은
-\(\mathrm E(p)\)를 이미 몫한 full terminal distance geometry의 conditional distribution이고,
-NEI는 아래에서 선언하는 \(\mathcal P\)-coordinate projection을 사용한다. \(M\)은 이
-population law의 인자가 아니라 empirical measure
-\(\widehat\mu_{\Pi,M}\)의 sample size다. 따라서 \(M\)은 Monte Carlo precision과
-rare-class detection power를 제한하고, geometric resolution은 \(\varepsilon_D\)가 정한다.
+로 둔다. geometry state space의 measurable set $B$에 대한 실제 분석 law와 acceptance
+probability는
+
+\[
+\alpha_{G,\Pi}=1-\overline K_\Pi(\Delta(G),\{\dagger\}),\qquad
+\mu_{G,\Pi}^{\rm adm}(B)
+=\frac{\overline K_\Pi(\Delta(G),B)}{\alpha_{G,\Pi}}
+=\Pr(Y_{G,\Pi}\in B\mid A_{\rm num})
+\]
+
+이다. conditional law를 정의하려면 $\alpha_{G,\Pi}>0$이어야 한다. $M_{\rm try}$개
+independent attempted runs에서 $A_m=\mathbf1\{A_{\rm num}^{(m)}\}$와
+
+\[
+M_{\rm adm}=\sum_{m=1}^{M_{\rm try}}A_m,\qquad
+\widehat\alpha_{G,\Pi}=\frac{M_{\rm adm}}{M_{\rm try}},\qquad
+\widehat\mu_{G,\Pi}^{\rm adm}
+=\frac1{M_{\rm adm}}\sum_{m=1}^{M_{\rm try}}A_m\delta_{Y_{G,\Pi}^{(m)}}
+\]
+
+를 함께 보고한다. empirical conditional law는 $M_{\rm adm}>0$에서만 정의된다. 이하
+fixed $G$에서는 $\mu_\Pi^{\rm adm}\equiv\mu_{G,\Pi}^{\rm adm}$로 줄여 쓴다.
+$\mu_\Pi^{\rm adm}$은 $\mathrm E(p)$를 이미 몫한 full terminal distance geometry의
+conditional distribution이고, NEI는 아래에서 선언하는 $\mathcal P$-coordinate
+projection을 사용한다. finite-sample 식의 $M$은 별도 언급이 없으면 $M_{\rm adm}$이며
+$M_{\rm try}$와 구분한다. 이 sample size는 Monte Carlo precision과 rare-class detection
+power를 제한하고, geometric resolution은 $\varepsilon_D$가 정한다.
 
 full pair vector의 coordinate restriction을 \(\pi_{\mathcal P}\)라 하고
 
@@ -328,6 +354,28 @@ sample variance convention \((1/(M-1))\)이면 마지막 분모도 \(M-1\)이다
 vector가 아니라 full Frobenius distance를 쓰면 off-diagonal pair가 두 번 들어가므로
 추가 \(2\)배 계수를 맞춰야 한다.
 
+각 pair $a$에서 $d_a^{(m)}\ge0$와 $\bar d_a>0$이면
+
+\[
+\widehat r_a
+=M\frac{\sum_m(d_a^{(m)})^2}{(\sum_m d_a^{(m)})^2}-1.
+\]
+
+$(\sum_m d_a^{(m)})^2/M\le\sum_m(d_a^{(m)})^2
+\le(\sum_m d_a^{(m)})^2$이므로
+
+\[
+0\le\widehat r_a\le M-1,
+\qquad
+\boxed{0\le\widehat{\mathcal I}_M\le M-1}.
+\]
+
+upper equality는 해당 pair가 정확히 한 run에서만 positive일 때 성립하며, NEI upper
+equality에는 모든 prespecified pair가 이 조건을 만족해야 한다. divisor $M-1$의 sample
+variance를 쓰면 $M\ge2$에서 upper bound는 $M$이다. 이 결과는 finite-sample algebraic
+bound이며 population upper bound가 아니다. divisor $M$ convention에서
+$\widehat{\mathcal I}_1=0$은 identity이므로 population collapse의 evidence가 아니다.
+
 중요하게도 현재 artifact의
 
 \[
@@ -340,17 +388,92 @@ spectrum은 **raw-distance terminal cloud**의 양이며 NEI의 covariance opera
 않다. 기존 artifact만으로 \(B_z\)를 복원할 수 없으므로 terminal pair vectors 또는
 \(\delta^{(z)}\)를 다시 저장해야 한다.
 
-표준화된 covariance의 고유값을 \(\nu_a\)라 할 때
+표준화된 covariance
 
 \[
-d_{\rm eff}=\frac{(\sum_a\nu_a)^2}{\sum_a\nu_a^2}
+\widehat\Sigma_z=\frac1MZ_c^{\mathsf T}Z_c
+\]
+
+의 positive eigenvalue를 $\nu_1,\ldots,\nu_r$라 할 때
+
+\[
+d_{\rm eff}=\frac{(\sum_{k=1}^r\nu_k)^2}{\sum_{k=1}^r\nu_k^2}
 \]
 
 는 covariance의 spectral participation ratio이다. 이는 선형 분산의 유효 rank이지
 minimizer manifold의 위상적 차원도, 독립 physical degree of freedom의 개수도 아니다.
 이산 점구름도 큰 \(d_{\rm eff}\)를 가질 수 있고 굽은 1차원 manifold도 여러 선형
-주성분을 요구할 수 있다. \(\operatorname{tr}\Sigma_z=0\)이면 numerator와 denominator가
+주성분을 요구할 수 있다. \(\operatorname{tr}\widehat\Sigma_z=0\)이면 numerator와 denominator가
 모두 0이므로 \(d_{\rm eff}\)는 NA로 보고한다.
+
+$\operatorname{tr}\widehat\Sigma_z>0$에서는
+
+\[
+1\le d_{\rm eff}\le r\le\min(N_+,M-1).
+\]
+
+첫 부등식은 positive eigenvalue의 nonnegativity, 둘째는 Cauchy--Schwarz, 마지막은
+$\operatorname{rank}(C_M)=M-1$에서 나온다. lower equality는 rank-one spectrum,
+upper equality $d_{\rm eff}=r$은 $r$개 positive eigenvalue가 모두 같은 경우다.
+
+### 4.1 Variance와 resolution의 비동치
+
+population $\mathcal I>0$은 $\mathcal P$-projected law가 point mass가 아님을 뜻한다.
+그러나 이것만으로
+$\operatorname{diam}_{\rho_D}\operatorname{supp}(\mu_{\Pi,\mathcal P}^{\rm adm})
+>\varepsilon_D$를 얻지 못한다. $\rho_D$-distance가 $\varepsilon_D/2$인 두 support
+points는 positive variance이지만 unresolved다. 반대로
+$(1-\eta)\delta_{d_0}+\eta\delta_{d_1}$에서
+$\rho_D(d_0,d_1)>\varepsilon_D$를 고정하면, component means가 0에서 떨어져 있는 한
+$\eta\downarrow0$에서 $\mathcal I=O(\eta)$지만 support separation은 유지된다.
+
+따라서 empirical diameter $\le\varepsilon_D$ 또는 $\widehat{\mathcal I}_M=0$은
+finite-$M$ non-detection이다. unseen rare support를 배제하는 population certificate가
+아니다. minimum class mass 또는 missing-mass assumption 없이 population point-mass
+collapse로 해석하지 않는다.
+
+### 4.2 Consistency와 influence function
+
+$D=(D_a)_{a\in\mathcal P}\sim\mu_{G,\Pi}^{\rm adm}$에 대해
+$m_a=\mathbb E[D_a]>0$, $s_a=\mathbb E[D_a^2]$,
+$v_a=s_a-m_a^2$로 둔다. fixed $N_+$와 모든 $s_a<\infty$ 아래 iid complete
+run-vectors에 대해 SLLN과 continuous mapping theorem은
+
+\[
+\widehat{\mathcal I}_M
+=\frac1{N_+}\sum_a\left[
+\frac{M^{-1}\sum_m(D_a^{(m)})^2}{\bar D_a^2}-1\right]
+\xrightarrow{\rm a.s.}
+\frac1{N_+}\sum_a\frac{v_a}{m_a^2}=\mathcal I
+\]
+
+를 준다. 모든 $\mathbb E[D_a^4]<\infty$이면 multivariate CLT와 delta method로
+
+\[
+\sqrt M(\widehat{\mathcal I}_M-\mathcal I)
+\Rightarrow\mathcal N(0,V),\qquad
+V=\operatorname{Var}[\psi(D)],
+\]
+
+여기서 mean-zero influence function의 서로 같은 두 표현은
+
+\[
+\begin{aligned}
+\psi_{\rm raw}(d)
+&=\frac1{N_+}\sum_a\left[
+\frac{d_a^2-s_a}{m_a^2}-\frac{2s_a(d_a-m_a)}{m_a^3}\right],\\
+\psi_{\rm ctr}(d)
+&=\frac1{N_+}\sum_a\left[
+\frac{(d_a-m_a)^2-v_a}{m_a^2}
+-\frac{2v_a(d_a-m_a)}{m_a^3}\right]
+\end{aligned}
+\]
+
+이다. $s_a=v_a+m_a^2$로부터 두 식의 pointwise equality가 나온다. regular Wald
+interval에는 $0<V<\infty$가 추가로 필요하다. bootstrap은 pair coordinates가 아니라
+complete run-vectors를 재표집하고 replicate마다 means와 NEI를 다시 계산한다.
+accepted sample을 attempted runs에서 얻는 asymptotic statement에는
+$\alpha_{G,\Pi}>0$과 $M_{\rm adm}\to\infty$도 필요하다.
 
 ## 5. Exact-convergence decomposition
 

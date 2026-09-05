@@ -39,6 +39,14 @@ function tex(s){
 function texB(s){ try{ return window.katex.renderToString(s,{throwOnError:false}); }catch{ return esc(`$${s}$`); } }
 
 const NODE_NOTE_JUMPS = [
+  {id:"local-spread-bound", label:"Local Residual-to-Spread Bound",
+   nodes:["hessian","rigidity","gate","NEI","floppy","calib"]},
+  {id:"finite-m-inference", label:"Finite-M Inference and Rank Bounds",
+   nodes:["NEI","deff","Keff","robust","recur","terminal","protocol"]},
+  {id:"scale-equivariance", label:"Observable Scaling and Protocol Equivariance",
+   nodes:["G","protocol","stress","NEI","calib","Dp"]},
+  {id:"validation-contract", label:"Evidence Production Contract",
+   nodes:["G","protocol","gate","calib","cmnull","NEI","recur","robust"]},
   {id:"kernelPanel", label:"Graph-to-Terminal-Law Kernel",
    nodes:["protocol","terminal","gate","NEI"]},
   {id:"metric-calibration", label:"Metric Calibration Proof Note",
@@ -291,6 +299,7 @@ function renderClaims(){
   noteHost("claimsTable","Claim ledger").innerHTML=rows.map(c=>`
     <li class="ledger-item"><article class="claim-note" aria-labelledby="claim-${esc(c.id)}">
       <header class="ledger-head"><h3 id="claim-${esc(c.id)}"><code>${esc(c.id)}</code></h3>${badge(c.status)}</header>
+      <div class="claim-maturity"><span>Claim type: ${esc((c.claim_type||"unreviewed").replaceAll("_"," "))}</span><span>Evidence: ${esc((c.evidence_state||"unreviewed").replaceAll("_"," "))}</span></div>
       <ol class="note-tree note-depth-4">
         <li><section><h4>Claim</h4><p>${tex(c.text)}</p></section></li>
         <li><section><h4>Basis</h4><p class="muted">${tex(c.basis)}</p>${
@@ -517,6 +526,12 @@ function renderVision(){
 
 function renderScope(){
   const s=DB.scope.first_closure;
+  const validation=DB.scope.validation;
+  document.getElementById("validation-status").innerHTML=tex(validation.status)+
+    " · 아래는 실행 결과가 아니라 사전 선언할 분석·판정 규칙.";
+  document.getElementById("validation-steps").innerHTML=validation.steps.map((step,i)=>
+    '<li><section><h4>'+esc((i+1)+". "+step.title)+'</h4><ul>'+
+    step.items.map(item=>'<li>'+tex(item)+'</li>').join("")+'</ul></section></li>').join("");
   document.getElementById("scopeThesis").innerHTML=tex(s.thesis);
   document.getElementById("scopeClaims").innerHTML=`<ol class="note-tree note-depth-4">${s.four_claims.map(c=>`
     <li class="claimline"><span class="n" aria-hidden="true">${c.n}</span><article><h4>Claim ${c.n}</h4>

@@ -62,8 +62,8 @@
    "id": "protocol",
    "domain": "input",
    "label": "algorithmic sampling protocol Π_alg",
-   "formula": "\\Pi_{\\rm alg}=(\\rho_0,\\rho_{\\rm alg},\\mathcal A,\\tau,T_{\\max})",
-   "def": "initialization law ρ₀, algorithmic randomness ρ_alg, optimizer A, tolerance τ, iteration budget T_max와 polish rule의 사전 고정. Graph G는 protocol이 아니라 입력이며, full analysis specification Π는 (Φ,p,W,Π_alg,numerical gate,ε_D)를 포함. 따라서 population target의 표기는 graph dependence를 드러내는 μ_{G,Π}. M은 empirical sample size로서 Monte Carlo precision과 rare-class detection power를 제한하고, geometric resolution은 ε_D가 결정.",
+   "formula": "\\Pi_{{\\rm alg},N}=(\\nu_{\\Pi,N},\\mathcal A,\\tau,T_{\\max})",
+   "def": "Graph G는 input, Π는 procedure. Fixed N에서 joint initialization·algorithmic-randomness law ν_{Π,N}, optimizer A, tolerance τ, iteration budget T_max와 polish rule의 사전 고정. Independence를 별도 가정할 때만 ν_{Π,N}=ρ_{0,N}⊗ρ_{{alg},N}. Full analysis specification Π는 (Φ,p,W,{Π_{alg,N}}_N,numerical gate,ε_D)를 포함하고 population target은 μ_{G,Π}^{adm}로 표기. M_adm은 empirical sample size로서 Monte Carlo precision과 rare-class detection power를 제한하며 geometric resolution은 ε_D가 결정.",
    "refs": [
     "borg2005",
     "borgmair2017"
@@ -133,7 +133,8 @@
      "label": "Discriminating check",
      "items": [
       "Full reported spectrum에서 $\\mathcal D_p=\\mathcal D_p^{\\rm dim}+\\mathcal D^{\\rm neg}$, $p$-monotonicity, $[0,1]$ range의 algebraic audit.",
-      "Size- and type-matched graph ensemble에서 $\\mathcal D_p$–$\\mathcal I$ association의 별도 검정."
+        "Size- and type-matched graph ensemble에서 $\\mathcal D_p$–$\\mathcal I$ association의 별도 검정.",
+        "Observable scale invariance와 implemented protocol의 input-scale equivariance 분리."
      ]
     }
    ],
@@ -218,28 +219,30 @@
    "id": "terminal",
    "domain": "physics",
    "label": "protocol-induced terminal-geometry kernel",
-   "formula": "\\bar K_\\Pi(\\Delta,\\cdot)=\\mathcal L(Y_\\Pi(\\Delta)),\\quad Y_\\Pi=q(T_\\Pi)\\text{ on }A_{\\rm num};\\ \\dagger\\text{ otherwise}",
-   "def": "Acceptance-aware kernel은 admitted labeled pair-distance outputs와 failure atom †의 joint law. Fixed G에서 α_{G,Π}=1−K̄_Π(Δ(G),{†})이며 α>0에서 admitted branch를 정규화한 μ_{G,Π}^{adm} 사용. Gate 실패를 숨기거나 α=0에 NEI=0을 부여하지 않음. Deterministic exact descent의 basin pushforward와 stochastic optimizer의 algorithmic randomness를 포괄. Quench와 basin probability는 선행 개념이며 equilibrium/Boltzmann law와는 별개. Novelty는 kernel 구성 자체가 아니라 graph-level estimand와 검증 설계의 결합에 대한 검토 대상.",
+   "formula": "\\bar K_{\\Pi,N}:\\mathfrak D_N\\times\\mathcal B(\\Omega_{N,p}^{\\dagger})\\to[0,1],\\quad \\Omega_{N,p}^{\\dagger}=q_N(\\mathbb R^{N\\times p})\\sqcup\\{\\dagger\\}",
+   "def": "Fixed N에서 acceptance-aware kernel은 admitted labeled pair-distance outputs와 failure atom †의 joint law. Cross-size analysis에는 하나의 variable-codomain kernel이 아니라 family {K̄_{Π,N}}_N을 사용. Fixed G에서 α_{G,Π}=1−K̄_{Π,N}(Δ(G),{†})이며 α>0에서 admitted branch를 정규화한 μ_{G,Π}^{adm} 사용. Gate 실패를 숨기거나 α=0에 NEI=0을 부여하지 않음. Deterministic exact descent의 basin pushforward와 stochastic optimizer의 algorithmic randomness를 포괄. Quench와 basin probability는 선행 개념이며 equilibrium/Boltzmann law와는 별개. Primary report는 (α_{G,Π},I[μ_{G,Π}^{adm}]). Novelty는 kernel 구성 자체가 아니라 graph-level estimand와 검증 설계의 결합에 대한 검토 대상.",
    "discussion": [
     {
      "label": "Assumptions",
      "items": [
-      "Fixed $(G\\mapsto\\Delta,p,W)$와 fully declared $(\\rho_0,\\rho_{\\rm alg},\\mathcal A,\\tau,T_{\\max})$.",
-      "Measurable terminal map과 $\\alpha_{G,\\Pi}=\\Pr(A_{\\rm num}\\mid G,\\Pi)>0$인 admissible conditioning."
+        "Fixed $N,p$, input space $\\mathfrak D_N$, output space $\\Omega_{N,p}^{\\dagger}$와 fully declared joint law $\\nu_{\\Pi,N}$, optimizer 및 stopping rule.",
+        "Measurable terminal map과 $\\alpha_{G,\\Pi}=\\Pr(A_{\\rm num}\\mid G,\\Pi)>0$인 admissible conditioning. Independence를 가정한 경우에만 joint law의 product 분해."
      ]
     },
     {
      "label": "Interpretation boundary",
      "items": [
       "Kernel output의 protocol-conditioned law; graph invariant 또는 equilibrium measure 비함의.",
-      "Finite-$M$ empirical support의 population support 동일시 불가."
+        "Finite-$M$ empirical support의 population support 동일시 불가.",
+        "Conditional NEI 단독 비교의 selection effect 비식별; acceptance와의 공동 decision rule 필요."
      ]
     },
     {
      "label": "Discriminating check",
      "items": [
       "Independent batches와 $M$-rarefaction에 대한 terminal-class recurrence 및 missing-mass sensitivity.",
-      "$\\rho_0$/optimizer perturbation 아래 law functional과 network ranking의 stability audit."
+        "$\\rho_0$/optimizer perturbation 아래 law functional과 network ranking의 stability audit.",
+        "Fixed-$N$ kernel, accepted-sample inference와 failure handling의 연결 점검."
      ]
     }
    ],
@@ -276,7 +279,8 @@
      "label": "Discriminating check",
      "items": [
       "Rigid-motion nullity와 finite-difference Hessian–vector product의 unit test.",
-      "Soft eigenvector continuation에서 projected gradient, stress rise, collision 및 rank-stratum monitoring."
+        "Soft eigenvector continuation에서 projected gradient, stress rise, collision 및 rank-stratum monitoring.",
+        "한 점의 $\\lambda_{\\min}(H_\\perp)$와 neighborhood-uniform curvature $\\kappa$의 구분."
      ]
     }
    ],
@@ -303,9 +307,33 @@
    "domain": "measure",
    "label": "numerical admissibility · acceptance",
    "formula": "A_{\\rm num}=\\{\\mathrm{success},\\eta_g\\le\\tau_g,\\chi_{\\rm coll}\\ge\\tau_c,n_-(H_\\perp)=0\\},\\quad \\alpha_{G,\\Pi}=\\Pr(A_{\\rm num}\\mid G,\\Pi)",
-   "def": "η_g=||Q_⊥^T∇F||/√S_{Δ,W}, χ_coll=min d_ij/s_{Δ,W}, s_{Δ,W}=√(S_{Δ,W}/Σw_ij)를 사용하고 Hessian signs는 τ_H=τ_H^rel κ_+에서 판정. α_{G,Π}>0일 때 μ_{G,Π}^{adm}(B)=Pr(q(T_Π)∈B,A_num|G,Π)/α_{G,Π}로 정의. representational fidelity와 별개의 gate이며 conditional law와 acceptance의 동시 보고가 원칙. Gate 통과는 numerical second-order candidate 판정이며 strict minimum의 analytic certificate가 아님.",
+   "def": "η_g=||Q_⊥^T∇F||/√S_{Δ,W}, χ_coll=min d_ij/s_{Δ,W}, s_{Δ,W}=√(S_{Δ,W}/Σw_ij)를 사용하고 Hessian signs는 τ_H=τ_H^rel κ_+에서 판정. α_{G,Π}>0일 때 μ_{G,Π}^{adm}(B)=Pr(q(T_Π)∈B,A_num|G,Π)/α_{G,Π}로 정의. representational fidelity와 별개의 gate이며 primary report는 (α_{G,Π},I[μ_{G,Π}^{adm}]). Graph/null comparison에는 acceptance equivalence/minimum gate 또는 bivariate null region을 사전 고정. Gate 통과는 numerical second-order candidate 판정이며 strict minimum의 analytic certificate가 아님.",
+   "discussion": [
+    {
+     "label": "Assumptions",
+     "items": [
+      "Objective–gradient–Hessian convention의 일치, collision-free differentiable stratum과 prespecified dimensionless thresholds.",
+      "Conditional law 해석에는 $\\alpha_{G,\\Pi}>0$; graph comparison에는 acceptance rule의 사전 고정."
+     ]
+    },
+    {
+     "label": "Interpretation boundary",
+     "items": [
+      "Gate passage의 numerical second-order candidate 지위; analytic strict minimum 또는 global optimum 비함의.",
+      "한 점의 positive curvature와 local neighborhood 전체의 uniform strong convexity 비동치."
+     ]
+    },
+    {
+     "label": "Discriminating check",
+     "items": [
+      "Derivative regression, achieved residual, acceptance와 conditional spread의 joint audit.",
+      "Uniform local curvature가 독립적으로 확인된 경우에만 gradient-residual spread bound 적용."
+     ]
+    }
+   ],
    "refs": [
-    "borg2005"
+    "borg2005",
+    "nocedal2006"
    ],
    "status": "diagnostic"
   },
@@ -323,7 +351,7 @@
    "domain": "measure",
    "label": "𝓘 · geometry-weighted spread",
    "formula": "\\mathcal I(G;\\Pi)=\\mathcal I(\\mu_{G,\\Pi}^{\\rm adm})=\\tfrac1{N_+}\\sum_{a\\in\\mathcal P}\\operatorname{Var}(d_a)/\\mathbb E[d_a]^2=\\tfrac12\\mathbb E\\rho_\\mu^2(D,D')",
-   "def": "Primary P는 모든 off-diagonal positive-weight pairs. Finite second moments와 positive means 아래 admissible full distance law의 pair-mean-standardized expected squared distance. Partial P에서는 선택 coordinate의 projected law만 측정. 따라서 I(G;Π)=0 iff μ_{G,Π}^{adm}가 terminal pair-distance space의 point mass. Graph 단독 불변량이 아니라 declared protocol에 조건부인 population estimand이며 finite-M plug-in estimator와 구분. I>0만으로 predeclared ρ_D-diameter가 ε_D를 넘는지, state count, normalized-stress equivalence, conic degeneracy 또는 continuous degeneracy를 판정하지 않음.",
+   "def": "Primary P는 모든 off-diagonal positive-weight pairs. Finite second moments와 positive means 아래 admissible full distance law의 pair-mean-standardized expected squared distance. Partial P에서는 선택 coordinate의 projected law만 측정. 따라서 I(G;Π)=0 iff μ_{G,Π}^{adm}가 terminal pair-distance space의 point mass. Graph 단독 불변량이 아니라 declared protocol에 조건부인 population estimand이며 finite-M plug-in estimator와 구분. Primary report는 (α_{G,Π},I[μ_{G,Π}^{adm}]). I>0만으로 predeclared ρ_D-diameter가 ε_D를 넘는지, state count, normalized-stress equivalence, conic degeneracy 또는 continuous degeneracy를 판정하지 않음.",
    "discussion": [
     {
      "label": "Assumptions",
@@ -343,11 +371,15 @@
      "label": "Discriminating check",
      "items": [
       "Independent-batch resampling과 $M$-rarefaction으로 Monte Carlo uncertainty와 rare-class sensitivity 평가. Numerical baseline은 corrected tolerance/control test로 별도 평가.",
-      "Predeclared $\\varepsilon_D$에 대해 $\\Pr\\{\\rho_D(D,D')>\\varepsilon_D\\}$와 $\\mathcal I$의 동시 산정."
+        "Predeclared $\\varepsilon_D$에 대해 $\\Pr\\{\\rho_D(D,D')>\\varepsilon_D\\}$와 $\\mathcal I$의 동시 산정.",
+        "Finite-$M$ range, consistency/CLT와 whole-run bootstrap의 적용 조건 점검.",
+        "Uniform local curvature가 확보된 단일 chart에서 numerical residual로 설명 가능한 spread의 상계 점검."
      ]
     }
    ],
-   "refs": [],
+   "refs": [
+    "vandervaart1998"
+   ],
    "status": "diagnostic"
   },
   {
@@ -405,10 +437,35 @@
    "domain": "measure",
    "label": "finite-M · protocol robustness",
    "formula": "\\widehat\\mu_{G,\\Pi,M}^{\\rm adm},\\ \\widehat\\alpha_{G,\\Pi,M},\\mathrm{CI}_M,\\operatorname{rankcorr}_{\\Pi,\\Pi'}",
-   "def": "M은 empirical sample size, Monte Carlo precision과 rare-class detection power를 정하고 ε_D가 geometric resolution을 결정. independent batches와 finite-M stability는 sampling, ρ₀/optimizer perturbation은 protocol sensitivity, graph null ensemble은 structural baseline에 관한 질문. μ_{G,Π}가 (G,Π)의 joint object이므로 network property 해석에는 between-network contrast와 within-network protocol variation의 분리가 필요. finite M으로 complete population support를 인증하려면 minimum class mass 또는 missing-mass assumption이 추가로 필요.",
+   "def": "M_adm은 accepted empirical sample size, Monte Carlo precision과 rare-class detection power를 정하고 ε_D가 geometric resolution을 결정. independent batches와 finite-M stability는 sampling, joint randomization law ν_{Π,N}/optimizer perturbation은 protocol sensitivity, graph null ensemble은 structural baseline에 관한 질문. μ_{G,Π}^{adm}가 (G,Π)의 joint object이므로 network property 해석에는 between-network contrast와 within-network protocol variation의 분리가 필요. finite M으로 complete population support를 인증하려면 minimum class mass 또는 missing-mass assumption이 추가로 필요. Fixed discrete iid classes의 Good–Turing estimate를 data-dependent clustering이나 continuous support에 자동 이전하지 않음.",
+   "discussion": [
+    {
+     "label": "Assumptions",
+     "items": [
+      "Fixed finite pair dimension, iid accepted runs와 positive pair means; attempted count와 $M_{\\rm adm}$의 분리.",
+      "CLT에는 finite fourth moments와 nondegenerate influence-function variance; support claim에는 별도 minimum-mass model."
+     ]
+    },
+    {
+     "label": "Interpretation boundary",
+     "items": [
+      "Estimator convergence의 complete terminal support recovery 또는 rare-class 발견 보장 비함의.",
+      "Good–Turing singleton fraction의 fixed discrete iid class model 밖 자동 적용 불가."
+     ]
+    },
+    {
+     "label": "Discriminating check",
+     "items": [
+      "Whole-run bootstrap에서 모든 pair coordinates와 pair means의 공동 재계산.",
+      "Independent validation batch의 unmatched-class rate, acceptance와 $M$-rarefaction 동시 보고."
+     ]
+    }
+   ],
    "refs": [
     "menck2013",
-    "borgmair2017"
+    "borgmair2017",
+    "vandervaart1998",
+    "good1953"
    ],
    "status": "open"
   },
@@ -453,7 +510,7 @@
    "domain": "measure",
    "label": "calibration null",
    "formula": "\\widehat{\\mathcal I}_{M,\\rm ctrl}\\quad\\text{with verified zero-stress realization}",
-   "def": "complete pair set의 exact Euclidean target에서 $\\mathcal D_p=0$은 global zero-stress realization의 $\\mathrm E(p)$-orbit 유일성을 보장. nonglobal local minima의 부재나 arbitrary initialization의 global convergence는 보장하지 않음. control의 terminal distances가 target을 재현하는지 별도 확인 후 residual spread를 protocol·size·conditioning별 numerical baseline으로 사용. path control은 p>1에서 rank-deficient geometry이므로 full-rank control과 함께 비교. 기존 calibration 수치는 gradient factor-2 수정 전 결과이며 corrected rerun 대상. 하나의 control 값을 모든 network의 universal floor로 사용하지 않음.",
+   "def": "complete pair set의 exact Euclidean target에서 $\\mathcal D_p=0$은 global zero-stress realization의 $\\mathrm E(p)$-orbit 유일성을 보장. nonglobal local minima의 부재나 arbitrary initialization의 global convergence는 보장하지 않음. control의 terminal distances가 target을 재현하는지 별도 확인 후 residual spread를 protocol·size·conditioning별 numerical baseline으로 사용. path control은 p>1에서 rank-deficient geometry이므로 full-rank control과 함께 비교. 기존 calibration 수치는 gradient factor-2 수정 전 결과이며 corrected rerun 대상. 하나의 control 값을 모든 network의 universal floor로 사용하지 않음. Objective–derivative regression, target-fit acceptance와 control-law NEI의 순차 contract 적용.",
    "refs": [
     "schoenberg1935",
     "higham2002"

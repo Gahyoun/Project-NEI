@@ -82,6 +82,21 @@ def main() -> int:
     claim_ids = [x["id"] for x in claims["claims"]]
     if len(claim_ids) != len(set(claim_ids)):
         raise ValueError("duplicate claim id")
+    claim_types = {"definition", "proposition", "estimator", "empirical_result", "hypothesis"}
+    evidence_states = {"exact", "numerically_checked", "legacy", "provisional", "open", "withdrawn"}
+    for claim in claims["claims"]:
+        if claim.get("claim_type") not in claim_types:
+            raise ValueError(f"missing or invalid claim type: {claim['id']}")
+        if claim.get("evidence_state") not in evidence_states:
+            raise ValueError(f"missing or invalid evidence state: {claim['id']}")
+    validation = scope.get("validation", {})
+    if validation.get("status") != "planned · corrected rerun pending":
+        raise ValueError("unreviewed promotion of the planned empirical validation contract")
+    if len(validation.get("steps", [])) != 4:
+        raise ValueError("expected four evidence-production steps")
+    for step in validation["steps"]:
+        if not step.get("title") or not step.get("items"):
+            raise ValueError("empty validation step")
 
     vias = {k for k in connectors if not k.startswith("_")}
     ref_ids = {k for k in refs if not k.startswith("_")}

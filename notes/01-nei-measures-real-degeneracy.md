@@ -39,34 +39,63 @@ association 또는 conditional independence는 별도 empirical hypothesis다.
 
 ## 정확한 estimand
 
-완전한 protocol을
+fixed graph $G$와 graph metric map $\Phi:G\mapsto\Delta$를 먼저 고정한다. analysis
+specification은
 
 $$
-\Pi=(G\mapsto\Delta,p,W,\rho_0,\rho_{\rm alg},\mathcal A,
-\tau_g,\tau_H,\tau_c,T_{\max})
+\Pi=(\Phi,p,W,\nu_{\Pi,N},\mathcal A,
+\tau_g,\tau_H,\tau_c,T_{\max},\varepsilon_D)
 $$
 
-라 하고, 초기조건과 algorithmic random variable $\Xi$에서 terminal로 가는 measurable
-map을 $T_\Pi(X^{(0)},\Xi)$, full pair-distance representation을 $q(X)=D(X)$라 하면
+로 둔다. $G$는 관측 대상이고 $\Pi$는 그 대상을 읽는 protocol이므로 둘을 같은
+tuple의 성분으로 취급하지 않는다. fixed $N$에서 초기조건과 algorithmic randomness의
+joint law를 $(Z,\Xi)\sim\nu_{\Pi,N}$로 선언. marginals는 $\rho_0,\rho_{\rm alg}$이며
+독립성을 명시한 경우에만 $\nu_{\Pi,N}=\rho_0\otimes\rho_{\rm alg}$로 인수분해.
+이 random input에서 terminal로 가는 measurable map을
+$T_\Pi(\Delta(G),Z,\Xi)$, full pair-distance representation을 $q(X)=D(X)$라 한다.
+run failure까지 probability space에 남기기 위해 failure atom $\dagger$를 도입하고
 
 $$
-\mu_\Pi=(q\circ T_\Pi)_\#(\rho_0\otimes\rho_{\rm alg})
+Y_{G,\Pi}=
+\begin{cases}
+q\!\left(T_\Pi(\Delta(G),Z,\Xi)\right),&A_{\rm num},\\
+\dagger,&A_{\rm num}^{\mathsf c},
+\end{cases}
+\qquad
+\overline K_\Pi(\Delta(G),\cdot)=\mathcal L(Y_{G,\Pi})
 $$
 
-가 population 분석 대상이다. $M$개 independent runs가 만드는
-$\widehat\mu_{\Pi,M}=M^{-1}\sum_m\delta_{q(T_\Pi^{(m)})}$은 이 law의 empirical
-measure이며, $M$은 $\Pi$의 인자가 아니다. $M$은 Monte Carlo precision과 rare-class
-detection power를 제한하고, geometric resolution은 $\varepsilon_D$가 정한다. numerical
-event를 $A_{\rm num}$이라 하면
+로 둔다. 여기서 crash, nonstationarity, collision, curvature-gate failure 등은
+$A_{\rm num}^{\mathsf c}$로 기록한다. geometry state space의 measurable set $B$에 대해
+accepted mass와 conditional terminal law는
 
 $$
-\mu_\Pi^{\rm adm}=\mathcal L(q(T_\Pi)\mid A_{\rm num}),\qquad
-\alpha_\Pi=\Pr_\Pi(A_{\rm num})
+\alpha_{G,\Pi}=1-\overline K_\Pi(\Delta(G),\{\dagger\}),\qquad
+\mu_{G,\Pi}^{\rm adm}(B)
+=\frac{\overline K_\Pi(\Delta(G),B)}{\alpha_{G,\Pi}}
+=\Pr(Y_{G,\Pi}\in B\mid A_{\rm num})
 $$
 
-를 함께 보고한다. 따라서 “realized”는 **protocol-induced admissible terminal law**를
-가리킨다. finite-$M$ observation이 population property를 이미 인증한다는 뜻은 아니다.
-intrinsic 또는 thermodynamic이라는 뜻도 아니다.
+이며 $\alpha_{G,\Pi}>0$에서만 정의된다. $M_{\rm try}$개 independent attempted runs와
+$A_m=\mathbf 1\{A_{\rm num}^{(m)}\}$에 대해
+
+$$
+M_{\rm adm}=\sum_{m=1}^{M_{\rm try}}A_m,
+\qquad
+\widehat\alpha_{G,\Pi}=\frac{M_{\rm adm}}{M_{\rm try}},
+\qquad
+\widehat\mu_{G,\Pi}^{\rm adm}
+=\frac1{M_{\rm adm}}\sum_{m=1}^{M_{\rm try}}A_m\delta_{Y_{G,\Pi}^{(m)}}
+$$
+
+를 함께 보고한다. 마지막 식은 $M_{\rm adm}>0$에서만 정의된다. 이하 fixed $G$에서는
+$\mu_\Pi^{\rm adm}\equiv\mu_{G,\Pi}^{\rm adm}$로 쓰고, finite-sample 식의 $M$은 별도
+언급이 없으면 $M_{\rm adm}$의 약칭이다. $M_{\rm try}$와 $M_{\rm adm}$은 $\Pi$의 인자가
+아니다. 전자는 Monte Carlo budget, 후자는 conditional estimator의 sample size이며,
+geometric resolution은 $\varepsilon_D$가 정한다. 따라서 “realized”는
+**protocol-induced admissible terminal law**를 가리킨다. finite-$M$ observation이
+population property를 이미 인증한다는 뜻은 아니다. intrinsic 또는 thermodynamic이라는
+뜻도 아니다.
 
 ## NEI와 degeneracy의 정확한 관계
 
@@ -119,6 +148,11 @@ $\varepsilon_D$-separated classes를 관측할 수 있을 뿐 arbitrarily rare p
 support를 배제하지 못한다. complete-support detection claim에는 minimum class mass 또는
 missing-mass assumption이 필요하다. 어떤 empirical $\bar d_a=0$이면 NEI는 undefined이며
 해당 pair를 post hoc으로 버리거나 0을 대입하지 않는다.
+
+특히 $\widehat{\mathcal I}_M=0$ 또는 empirical
+$\rho_D$-diameter $\leq\varepsilon_D$는 finite sample에서 separation을 검출하지 못했다는
+명제다. population law의 point-mass collapse에 대한 인증이 아니다. $M=1$에서는
+$\widehat{\mathcal I}_1=0$이 algebraic identity이므로 degeneracy에 관한 정보가 없다.
 
 하지만 역해석에는 한계가 있다.
 

@@ -6,7 +6,7 @@
 <title>NEI 연구 아키텍처 — representability와 protocol-conditioned terminal geometry</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="stylesheet" href="vendor/katex/katex.min.css">
-<link rel="stylesheet" href="krds.css?v=17">
+<link rel="stylesheet" href="krds.css?v=19">
 </head>
 <body>
 
@@ -67,6 +67,38 @@
       </ul>
     </li>
   </ol>
+  <h3>0.1 Contribution and physical interpretation</h3>
+  <ol class="note-tree lede">
+    <li><b>Single contribution candidate:</b> fixed graph metric의 representability와
+      protocol-conditioned terminal ensemble을 분리하고, numerical acceptance와
+      geometric spread를 공동 보고하는 measurement framework.</li>
+    <li><b>Scientific test:</b> corrected implementation에서 재현되는 spread가
+      prespecified graph null 대비 추가적인 structural association을 제공하는지 평가.
+      Zero-set·trace identity는 이 측정을 지지하는 validation lemma이며 독립적인
+      physical mechanism의 증명은 아님.</li>
+    <li><b>Statistical-physics reading:</b> graph realization은 fixed input,
+      initialization과 algorithmic randomness는 sampling law.
+      Stress는 geometric mismatch objective. Quench-induced occupancy를
+      Boltzmann weight, thermal fluctuation 또는 equilibrium entropy로 해석할 근거는 별도 필요.</li>
+    <li><b>Prior-art boundary:</b>
+      <a href="https://doi.org/10.18637/jss.v031.i03">SMACOF majorization</a> 및
+      <a href="https://doi.org/10.17713/ajs.v46i2.561">multistart MDS solution comparison</a>은
+      기존 방법. 차별점 후보는 새로운 optimizer가 아니라 graph-level estimand,
+      acceptance-aware inference와 null comparison의 결합.</li>
+  </ol>
+  <details class="proof-note">
+    <summary>Manuscript framing · method-level statement, empirical result 미포함</summary>
+    <p class="lede" lang="en">Repeated raw-stress minimization defines a protocol-conditioned
+      ensemble of terminal geometries for a fixed graph metric. We formulate this ensemble
+      as a probability law over labeled pair-distance representations, retaining numerical
+      failure through an explicit acceptance probability. Network embedding inconsistency
+      is a standardized second-moment functional of the accepted law; spectral representability
+      deficiency characterizes the fixed target metric. The framework separates geometric
+      mismatch, terminal dispersion, and sampling uncertainty, and specifies controlled
+      graph-null comparisons. Its empirical contribution requires reproducible contrasts
+      under a validated implementation, rather than an identification of terminal spread
+      with thermodynamic degeneracy.</p>
+  </details>
   <nav class="note-outline" aria-label="research-note reading order">
     <h3>Reading order</h3>
     <ol>
@@ -75,6 +107,9 @@
       <li><a href="#evidence-certificates">Evidence and certificates</a></li>
       <li><a href="#allowed-conclusions">Allowed conclusions</a></li>
       <li><a href="#limitations">Limitations and non-implications</a></li>
+      <li><a href="#local-spread-bound">Residual-to-spread bound</a></li>
+      <li><a href="#finite-m-inference">Finite-M inference</a></li>
+      <li><a href="#validation-contract">Evidence production contract</a></li>
       <li><a href="#agenda">Research questions and meeting decisions</a></li>
     </ol>
   </nav>
@@ -87,13 +122,25 @@
     <ol class="note-tree">
       <li><b>Declared object</b>
         <ul>
-          <li><b>Admissible terminal law:</b>
-            $\mu_{G,\Pi}^{\rm adm}=\mathcal L(q(T_\Pi(\Delta(G),Z,\Xi))\mid A_{\rm num})$.
-            $G$는 fixed graph, $(Z,\Xi)$는 선언된 initialization·algorithmic randomness.</li>
+          <li><b>Input and randomness:</b> $G$는 fixed graph, $\Pi$는 declared procedure.
+            $(Z,\Xi)\sim\nu_\Pi$는 joint initialization–algorithm law.
+            두 입력이 independent인 경우에만 $\nu_\Pi=\rho_0\otimes\rho_{\rm alg}$.</li>
+          <li><b>Attempted outcome:</b> accepted event $A_{\rm num}$에서만
+            $Y_{G,\Pi}=q(T_\Pi(\Delta(G),Z,\Xi))$, 그 밖에는
+            $Y_{G,\Pi}=\dagger$로 정의. $\dagger$는 geometry가 아닌 failure atom.
+            Crash·nontermination·rejected output을 NEI 0으로 대체하지 않음.</li>
+          <li><b>Admissible terminal law:</b> $\bar\mu_{G,\Pi}=\mathcal L(Y_{G,\Pi})$,
+            $\mu_{G,\Pi}^{\rm adm}(\mathcal B)=\bar\mu_{G,\Pi}(\mathcal B)/\alpha_{G,\Pi}$
+            for geometric Borel sets $\mathcal B$.
+            Accepted terminal map과 acceptance event의 measurability 가정.</li>
           <li><b>Numerical acceptance probability:</b>
             $\alpha_{G,\Pi}=\Pr(A_{\rm num}\mid G,\Pi)>0$;
-            $(\alpha_{G,\Pi},\mu_{G,\Pi}^{\rm adm})$를 함께 보고.
+            Primary report: $(\alpha_{G,\Pi},\mathcal I[\mu_{G,\Pi}^{\rm adm}])$.
             $\alpha_{G,\Pi}=0$에서는 conditional NEI가 0이 아니라 undefined.</li>
+          <li><b>Dimension policy:</b> $N$별 terminal space
+            $\Omega_{N,p}=q(\mathbb R^{N\times p})$를 사용.
+            서로 다른 network sizes의 비교는 하나의 fixed-dimensional kernel이 아니라
+            $\{\bar K_{\Pi,N}\}_N$ family에 대한 비교.</li>
           <li><b>Resolution structure:</b> prespecified dimensionless pair-distance metric
             $\rho_D$, resolution $\varepsilon_D$, positive-weight pair set $\mathcal P$, 그리고
             $S_{\Delta,W}>0$.</li>
@@ -251,7 +298,7 @@
   <div class="tablewrap"><table>
     <thead><tr><th>Evidence</th><th>Allowed conclusion</th><th>Not yet implied</th></tr></thead>
     <tbody>
-      <tr><td>$\widehat{\mathcal I}_M$이 predeclared numerical-noise bound를 초과</td><td>resolved terminal-distance dispersion</td><td>multiple minima</td></tr>
+      <tr><td>$\widehat{\mathcal I}_M$의 uncertainty를 포함한 numerical-baseline 초과</td><td>nonzero standardized dispersion above the numerical baseline</td><td>$\varepsilon_D$-resolved separation 또는 multiple minima</td></tr>
       <tr><td>independent batches에서 recurrent $\varepsilon_D$-separated classes</td><td>declared $(M,\varepsilon_D)$에서 observed recurrent terminal multiplicity; population multiplicity의 evidence</td><td>complete population support 또는 equal-energy degeneracy</td></tr>
       <tr><td>앞선 조건과 함께, 각 class에서 stationarity 및 positive-definite quotient Hessian을 tolerance-stable하게 확인</td><td>declared tolerance에서 distinct strict-local-minimum candidates</td><td>exact, global or equal-depth minima</td></tr>
       <tr><td>normalized-stress difference interval 전체가 $[-\tau_E,\tau_E]$ 안에 포함</td><td>$\tau_E$-near-equivalent stress minima</td><td>thermodynamic or global-minimum degeneracy</td></tr>
@@ -271,6 +318,67 @@
       sufficient certificate. 모든 continuous minimizer set의 necessary condition은 아님.</li>
     <li>반례: $f(x,y)=y^4$의 minimizer set은 $\{y=0\}$이나 normal Hessian은 0.
       반면 $f(x)=x^4$는 zero Hessian을 갖는 isolated minimum.</li>
+  </ul>
+  <h3 id="local-spread-bound">1.6 Local stability — residual에서 spread로</h3>
+  <p class="lede"><b>Physical content.</b> 하나의 uniformly stable local neighborhood 안에서는
+    gradient residual 감소에 따라 geometric spread도 감소.
+    Soft curvature는 residual을 크게 증폭할 수 있지만, 그 사실만으로 여러 terminal state의 존재가 결정되지는 않음.</p>
+  <details class="proof-note">
+    <summary>Proposition · single-neighborhood residual bound와 증명</summary>
+    <ol class="note-tree">
+      <li><b>Local setup.</b> Euclidean gauge를 고정한 measurable local representatives
+        $x=x^\star+Qu$, $Q^{\mathsf T}Q=I$ 사용. Convex noncollision neighborhood
+        $U\ni0$에서 $f(u)=\mathcal F(x^\star+Qu)\in C^2(U)$,
+        $\nabla f(0)=0$, $\nabla^2f(u)\succeq\kappa I$ for every $u\in U$,
+        $\kappa>0$ 가정. Global affine quotient의 존재를 가정하는 명제는 아님.</li>
+      <li><b>Sampling assumption.</b> 분석하는 terminal law의 모든 representative가 $U$에 포함.
+        Fixed finite pair set에서 $m_a=\mathbb E[D_a]>0$,
+        $L_m^2=2N_+^{-1}\sum_a m_a^{-2}$ 설정.
+        유한한 bound에는 $\mathbb E\|\nabla f(u)\|^2<\infty$ 추가.</li>
+      <li><b>Bound.</b>
+        <div class="research-equation" data-display="true"
+          data-tex="\mathcal I\ \le\ \frac{L_m^2}{\kappa^2}\,\mathbb E\|\nabla f(u)\|^2"></div>
+        $\|\nabla f(u)\|\le\|\nabla\mathcal F(x^\star+Qu)\|$이므로 full gradient로도
+        보수적 upper bound 구성 가능.</li>
+      <li><b>Proof.</b>
+        <ol>
+          <li>Strong monotonicity:
+            $\kappa\|u\|^2\le u^{\mathsf T}\nabla f(u)\le\|u\|\|\nabla f(u)\|$.
+            따라서 $\|u\|\le\|\nabla f(u)\|/\kappa$.</li>
+          <li>Reverse triangle inequality와 $Q$의 isometry:
+            $|D_a(u)-D_a(0)|\le\sqrt2\|u\|$.</li>
+          <li>$\operatorname{Var}(D_a)\le\mathbb E[(D_a-D_a(0))^2]$를
+            $N_+m_a^2$로 나누고 합산하여 결과 유도.</li>
+        </ol>
+      </li>
+      <li><b>Interpretation.</b> Fixed $\kappa$와 bounded $L_m$ 아래 residual second moment가
+        0으로 수렴하면 NEI도 0으로 수렴. Nonzero plateau는 single-neighborhood,
+        uniform curvature, pair-mean control 또는 convergence 중 적어도 한 조건의 실패와 양립.
+        어느 조건의 실패인지는 이 bound만으로 식별 불가.</li>
+      <li><b>Certification boundary.</b> 한 terminal의 $\lambda_{\min}(H_\perp)$를
+        neighborhood 전체의 $\kappa$로 대체 불가. Rank-changing geometry,
+        near-collision, quartic isolated minimum에는 이 strong-convexity premise의 재검토 필요.</li>
+    </ol>
+    <p class="fine">Strong-convexity error-bound background:
+      <a href="https://doi.org/10.1007/978-0-387-40065-5">Nocedal and Wright (2006)</a>.
+      위 NEI inequality는 명시된 local assumptions에서의 직접 유도. 현재 network에 대한 numerical certificate는 아님.</p>
+  </details>
+  <h3 id="scale-equivariance">1.7 Observable invariance and protocol equivariance</h3>
+  <ul class="note-tree lede">
+    <li><b>Algebraic invariance:</b> $s>0$, $D\mapsto sD$에서
+      $\operatorname{Var}(sD_a)/(\mathbb E[sD_a])^2
+      =\operatorname{Var}(D_a)/m_a^2$. Population·empirical NEI 모두 동일.</li>
+    <li><b>Sufficient protocol condition:</b> $\Delta\mapsto s\Delta$에 대한
+      law-level scale equivariance의 충분조건으로 initialization도
+      $X^{(0)}\mapsto sX^{(0)}$로 변환하고,
+      terminal map과 acceptance event가 이 scaling에 equivariant하도록
+      stopping rule·collision threshold·polish 설정까지 선언.</li>
+    <li><b>Distinction:</b> fixed coordinate-scale initialization 또는 absolute tolerance는
+      다른 terminal law를 유도할 수 있음. Observable의 dimensionlessness만으로
+      numerical pipeline의 scale invariance가 보장되지는 않음.
+      역방향도 불성립: 같은 scalar NEI는 같은 terminal law 또는 kernel equivariance의 증거가 아님.</li>
+    <li><b>Unit test:</b> same-start scaled inputs의 normalized distance,
+      acceptance indicator와 NEI 비교. 실패 시 단위 변환의 문제와 graph effect를 분리.</li>
   </ul>
 </section>
 
@@ -336,6 +444,23 @@
     <div class="panel"><h3>3.3 Required analyses</h3><div class="tablewrap"><table id="scopeTodo"></table></div></div>
     <div class="panel"><h3>3.4 2차 일단락 대상</h3><div class="tablewrap"><table id="scopeOut"></table></div></div>
   </div>
+  <h3 id="validation-contract">3.5 Evidence production contract</h3>
+  <p class="lede" id="validation-status"></p>
+  <ol class="note-tree lede" id="validation-steps"></ol>
+  <h3>3.6 Manuscript integration — proposed placement</h3>
+  <ol class="note-tree lede">
+    <li><b>Main text:</b> 하나의 physical question, acceptance-aware estimand,
+      핵심 measurement protocol과 corrected graph-null contrast.
+      결과 figure마다 experimental unit, accepted count, uncertainty와 allowed conclusion 명시.</li>
+    <li><b>Supplement:</b> derivative·quotient construction, SMACOF majorization,
+      local residual bound, finite-$M$ inference와 sensitivity analysis.
+      Analytical proof, deterministic unit test, empirical validation 결과를 서로 구분.</li>
+    <li><b>Reproducibility:</b> input preprocessing, weighted-distance convention,
+      duplicate policy, seeds, solver/library version, source revision과 실패 기록의 공개 범위 명시.
+      원자료·실행 코드·재생성 가능한 figure가 연결되는 data-availability statement 준비.</li>
+    <li><b>Integration status:</b> 제안된 배치이며 원고 반영 완료를 의미하지 않음.
+      Evidence traceability의 원문 발췌와 coverage는 기존 snapshot 그대로 유지.</li>
+  </ol>
 </section>
 
 <section id="conn">
@@ -533,7 +658,7 @@
     <li><b>Centered run Gram:</b> $Z=(z_{ma})$,
       $C_M=I_M-M^{-1}\mathbf1\mathbf1^{\mathsf T}$,
       $B_z=C_MZZ^{\mathsf T}C_M$.
-      $\operatorname{tr}B_z=\sum_m\|z_m-\bar z\|^2$로부터 population-denominator variance identity 유도.</li>
+      $\operatorname{tr}B_z=\sum_m\|z_m-\bar z\|^2$로부터 divisor-$M$ empirical variance identity 유도.</li>
     <li><b>Scope:</b> pair-standardized vector $z$에 대한 finite-sample identity.</li>
     <li><b>Non-implication:</b> population NEI의 unbiasedness statement는 아님.</li>
   </ol>
@@ -577,7 +702,68 @@
     <li>$K_{\rm eff}$는 occupancy concentration, $d_{\rm eff}$는 covariance spectrum,
       $\mathcal I$는 total standardized spread를 측정.</li>
   </ul>
-  <h3>6.4 Data and domain requirements</h3>
+  <h3 id="finite-m-inference">6.4 Finite-M inference — range, consistency, uncertainty</h3>
+  <ol class="note-tree lede">
+    <li><b>Exact algebraic range:</b> nonnegative pair distances와 모든 $\bar d_a>0$에서
+      $0\le\widehat{\mathcal I}_M\le M-1$. Divisor $M$ convention의 결과.
+      Divisor $M-1$ variance를 쓰면 $M\ge2$에서 상한은 $M$.
+      Population NEI의 upper bound나 confidence interval은 아님.</li>
+    <li><b>Rank ceiling:</b> nonzero covariance에서
+      $1\le d_{\rm eff}\le r\le\min(N_+,M-1)$,
+      $r=\operatorname{rank}(C_MZ)$.
+      $d_{\rm eff}=r$은 nonzero eigenvalues가 모두 같은 경우.</li>
+    <li><b>Inference unit:</b> iid accepted run vector 전체가 sampling unit.
+      한 run 안의 pair는 공통 coordinates를 공유하므로 independent replicate로 계수하지 않음.</li>
+    <li><b>Non-detection:</b> $M=1$의 $\widehat{\mathcal I}_1=0$은 항등식.
+      Finite sample의 zero spread 또는 collapsed bootstrap interval만으로 population point mass 판정 불가.</li>
+  </ol>
+  <details class="proof-note">
+    <summary>Proof note · finite-sample bounds</summary>
+    <ol class="note-tree">
+      <li>한 pair의 observations $x_m\ge0$, $\sum_mx_m>0$에 대해
+        $\widehat r=M\sum_mx_m^2/(\sum_mx_m)^2-1$.
+        $(\sum_mx_m)^2\ge\sum_mx_m^2$로부터 $\widehat r\le M-1$.
+        Cauchy–Schwarz로 $\widehat r\ge0$. Pair 평균에 같은 bound 적용.</li>
+      <li>Upper equality는 pair별 한 observation만 positive인 극단적 sample에서 가능.
+        모든 observation이 strictly positive이면 $M>1$에서 strict upper inequality.</li>
+      <li>Positive covariance eigenvalues $\nu_1,\ldots,\nu_r$에서
+        $\sum_j\nu_j^2\le(\sum_j\nu_j)^2\le r\sum_j\nu_j^2$.
+        $C_M$의 rank가 $M-1$ 이하라는 사실로 rank ceiling 유도.</li>
+    </ol>
+  </details>
+  <details class="proof-note">
+    <summary>Proposition · consistency, influence function, uncertainty</summary>
+    <ol class="note-tree">
+      <li><b>Fixed estimand.</b> Fixed $G,\Pi,\mathcal P$와 $\alpha_{G,\Pi}>0$에서
+        $M=M_{\rm adm}$ iid accepted vectors. Gate·pair policy·stopping rule은
+        이 sample을 보기 전에 고정. $N_+$ 유한, 모든 $m_a=\mathbb E D_a>0$,
+        $\mathbb E D_a^2<\infty$ 가정.</li>
+      <li><b>Consistency.</b> $s_a=\mathbb E D_a^2$,
+        $\mathcal I=N_+^{-1}\sum_a(s_a/m_a^2-1)$.
+        Empirical first·second moment의 strong law와 continuous mapping으로
+        $\widehat{\mathcal I}_M\to\mathcal I$ almost surely.
+        Fixed finite $M$에서 unbiasedness를 뜻하지 않음.</li>
+      <li><b>Regular uncertainty.</b> 모든 $\mathbb E D_a^4<\infty$를 추가하고
+        $v_a=\operatorname{Var}(D_a)$로 설정. Influence function과 limiting variance:
+        <div class="research-equation" data-display="true"
+          data-tex="\begin{aligned}\psi(d)&amp;=\frac1{N_+}\sum_a\left[\frac{(d_a-m_a)^2-v_a}{m_a^2}-\frac{2v_a(d_a-m_a)}{m_a^3}\right],\\V_\psi&amp;=\operatorname{Var}_\mu[\psi(D)],\qquad \sqrt M(\widehat{\mathcal I}_M-\mathcal I)\ \Rightarrow\ \mathcal N(0,V_\psi).\end{aligned}"></div>
+        Multivariate CLT를 raw first·second moments에 적용한 뒤 delta method로 유도.
+        $V_\psi>0$에서만 regular studentized/Wald inference 사용.</li>
+      <li><b>Run-level implementation.</b> $\widehat\psi$의 run-wise sample variance로
+        $V_\psi$ 추정 또는 whole-vector bootstrap.
+        매 bootstrap에서 pair means와 NEI를 재계산. Same-start tolerance contrast에는
+        paired resampling, graph comparison에는 graph realization을 outer unit으로 유지.</li>
+      <li><b>Boundary.</b> Near-zero means, rare unobserved classes, $V_\psi=0$ 또는
+        data-adaptive gate에는 위 regular interval의 자동 적용 불가.
+        $M$ 증가와 stopping tolerance 변경은 각각 sampling limit와 estimand 변경.
+        Fixed-law consistency만으로 joint limit의 교환이나 infinite-run support recovery는 보장되지 않음.</li>
+    </ol>
+    <p class="fine">Statistical background:
+      <a href="https://doi.org/10.1017/CBO9780511802256">van der Vaart (1998), Delta Method and Bootstrap</a>.
+      위 influence function은 NEI functional에 대한 직접 미분. 작은 observed sample에서의
+      confidence coverage는 별도의 simulation calibration 대상.</p>
+  </details>
+  <h3>6.5 Data and domain requirements</h3>
   <ul class="note-tree lede">
     <li><b>Stored geometry:</b> 기존 global-scale run-distance matrix
       $\Delta^{(\rm raw)}$는 raw-cloud spectrum만 복원.</li>
@@ -589,7 +775,7 @@
     <figure class="panel"><figcaption id="cap-Ideff"></figcaption><div id="ch-Ideff"></div></figure>
     <figure class="panel"><figcaption id="cap-cens"></figcaption><div id="ch-cens"></div></figure>
   </div>
-  <h3>6.5 Protocol-conditioned terminal geometry</h3>
+  <h3>6.6 Protocol-conditioned terminal geometry</h3>
   <figure class="panel wide landscape-figure">
     <figcaption>
       <span class="t">Protocol-conditioned terminal geometry — 세 diagnostic candidate</span>
@@ -761,6 +947,9 @@
 <section id="claims">
   <h2>10. Claim ledger</h2>
   <h3>10.1 Classification rule</h3>
+  <p class="lede"><b>Two axes.</b> Claim type은 definition·proposition·estimator·empirical result·hypothesis의
+    구분. Evidence는 exact·numerically checked·legacy·provisional·open·withdrawn의 구분.
+    Exact는 명시된 가정 아래의 analytic statement이며, 현재 empirical data의 인증을 뜻하지 않음.</p>
   <ul class="note-tree lede">
     <li><b>Status classes:</b> definition, theorem, diagnostic, exploratory measurement,
       open certificate, withdrawn claim.</li>
@@ -828,10 +1017,10 @@
 
 <script src="vendor/katex/katex.min.js"></script>
 <script src="vendor/katex/contrib/auto-render.min.js"></script>
-<script src="math-render.js?v=17"></script>
-<script src="data/offline-data.js?v=17"></script>
-<script src="graph.js?v=17"></script>
-<script src="source-quote.js?v=17"></script>
-<script src="app.js?v=17"></script>
+<script src="math-render.js?v=19"></script>
+<script src="data/offline-data.js?v=19"></script>
+<script src="graph.js?v=19"></script>
+<script src="source-quote.js?v=19"></script>
+<script src="app.js?v=19"></script>
 </body>
 </html>

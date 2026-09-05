@@ -16,7 +16,8 @@
    - Any nonpositive empirical pair mean: undefined NEI and explicit failure, not silent pair removal.
 
 2. **Calibration question**
-   - Observed $\widehat{\mathcal I}_M>0$: resolved terminal spread or numerical residue.
+   - Observed $\widehat{\mathcal I}_M>0$: standardized spread와 numerical residue의 분리 문제.
+   - $\varepsilon_D$-resolved separation: $\rho_D$에서 독립적으로 판정. NEI와 distance threshold의 직접 비교 금지.
    - Path graph $P_n$: exact-representability control for the declared all-pairs raw-stress problem.
    - Same implementation, initialization law, stopping rule and numerical environment: required comparison unit.
 
@@ -34,7 +35,8 @@
      \quad\Longrightarrow\quad
      \min_X\mathcal F(X)=0.
      $$
-   - Complete pair distances: zero-stress realization unique modulo $\mathrm E(p)$.
+   - Complete pair distances: zero-stress global-minimizer orbit unique modulo $\mathrm E(p)$.
+   - Positive-stress local minima: 별도 landscape question, exact representability theorem의 결론 아님.
 
 2. **Nonconvex optimization**
    - Exact global solution existence $\neq$ random-start optimizer success.
@@ -99,7 +101,96 @@ $\widehat{\mathcal I}_M$ columns are legacy numerical outputs and are not correc
    - Corrected calibration rerun: pending.
    - Physical-mechanism claim: unavailable from this control alone.
 
-## 5. Finite-$M$ check
+## 5. Evidence production contract
+
+### 5.1 Run-level numerical gate and calibration
+
+1. **Stored terminal record**
+   - Corrected objective, gradient and Hessian의 derivative-check provenance.
+   - Optimizer status, stopping reason, achieved $\eta_g$, $\chi_{\rm coll}$,
+     quotient-Hessian inertia, normalized stress and failure reason.
+   - Attempted count, $M_{\rm adm}$ and $\alpha_{G,\Pi}$의 분리 보고.
+
+2. **Admissible estimator**
+   - $A_{\rm num}$ 통과 terminal만 admissible law와
+     $\widehat{\mathcal I}^{\rm adm}$에 포함.
+   - Failed run의 삭제가 아니라 failure category와 acceptance probability의 병렬 보고.
+
+3. **Target-fit calibration**
+   - Control event
+     $$
+     A_{\rm ctrl}=A_{\rm num}\cap\{\phi\le\tau_\phi\},
+     \qquad
+     \phi=\mathcal F/S_{\Delta,W}.
+     $$
+   - Target-fit accepted law만 calibration spread에 사용.
+   - $M_{\rm ctrl}=0$: zero NEI가 아닌 undefined calibration.
+   - $A_{\rm num}\setminus A_{\rm ctrl}$와 기타 failure의 numerical-floor 표본 합산 금지.
+   - Stable control acceptance가 필요한 분석에서만 prespecified $\alpha_{\min}$과
+     acceptance-sensitivity criterion 추가; 모든 conditional estimand에 대한 보편적
+     $\alpha$-equivalence 요구 금지.
+
+### 5.2 One-factor paired tolerance comparison
+
+1. **Design**
+   - Initialization과 iteration budget 고정.
+   - $\mathrm{gtol}$ ladder에서 $\mathrm{ftol}$ 고정.
+   - $\mathrm{ftol}$ check에서 $\mathrm{gtol}$ 고정.
+   - 동일 start의 paired terminal 비교.
+
+2. **Convergence axis**
+   - Requested tolerance가 아닌 achieved $\eta_g$ 사용.
+   - 각 rung의 success, admissibility, collision and stopping-reason distribution 동시 보고.
+
+3. **Decision**
+   - 최종 admissible rungs의 paired
+     $\Delta\widehat{\mathcal I}$ interval 전체가 prespecified equivalence margin 안에 있고
+     acceptance-set sensitivity가 결론을 바꾸지 않을 때만 tolerance-stable plateau 판정.
+   - $\widehat{\mathcal I}$와 achieved residual의 동반 감소 또는 accepted-run composition 변화:
+     numerical-resolution unresolved.
+
+### 5.3 Finite-$M$ run-vector inference
+
+1. **Resampling unit**
+   - Pair가 아닌 accepted run vector 전체의 run-level bootstrap.
+   - Same-start tolerance comparison의 paired resampling.
+   - Graph-null comparison의 graph realization outer resampling.
+
+2. **Discovery and validation**
+   - Discovery batch에서 $\varepsilon_D$-classes 고정.
+   - Independent validation batch에서 recurrence, occupancy interval and unmatched class 평가.
+
+3. **Decision**
+   - Prespecified control·resolution margin을 넘는 spread interval과
+     separated-class recurrence의 동시 성립: observed nonconcentration.
+   - 미충족: `not detected at the declared $(M,\varepsilon_D)$`.
+   - Point mass, complete support or total state count의 판정 금지.
+
+### 5.4 Graph-realization-level null inference
+
+1. **Experimental unit**
+   - Graph realization: outer unit.
+   - Restarts: within-graph Monte Carlo sample.
+   - Degree-preserving null: parent graph 아래 nesting.
+   - Random-regular and matched ER: $(N,E,p,W)$ stratum 아래 nesting.
+
+2. **Graph-level contrast**
+   $$
+   \delta_g
+   =\widehat{\mathcal I}_g
+   -\overline{\widehat{\mathcal I}}_{g,\mathrm{null}}.
+   $$
+   - Graph-level cluster bootstrap or restricted permutation.
+   - Prespecified sign의 interval separation과 independent null-batch recurrence:
+     degree-controlled structural association의 필요 evidence.
+
+3. **Acceptance selection**
+   - Ensemble별 $\alpha_{G,\Pi}$ 차이와 무관하게 각
+     conditional $\mathcal I^{\rm adm}$ 자체는 well-defined.
+   - $(\alpha,\mathcal I^{\rm adm})$ 공동 보고와 acceptance-sensitivity 분석 없이
+     conditional contrast를 unconditional network attribution으로 확장 금지.
+
+## 6. Finite-$M$ check
 
 For nonnegative pair distances and divisor-$M$ empirical variance,
 $$
@@ -114,7 +205,7 @@ $$
 At $M=24$, the algebraic ceiling is $23$. This bound is a finite-sample sanity check, not a
 confidence interval, population bound, state-count estimator or numerical-noise threshold.
 
-## 6. Allowed reading of the contrast
+## 7. Allowed reading of the contrast
 
 1. **Current status**
    - Legacy pattern: ordered controls near the numerical floor; ER/BA at $O(10^{-1})$.
@@ -132,7 +223,7 @@ confidence interval, population bound, state-count estimator or numerical-noise 
    - $\mathcal D_p$-matched or covariate-matched graph controls before a magnitude claim.
    - Connected random-regular and degree-preserving nulls before structural attribution.
 
-## 7. Reproduction
+## 8. Reproduction
 
 Derivative validation:
 

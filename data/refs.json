@@ -538,9 +538,34 @@
   "venue": "Springer",
   "volume": "",
   "pages": "",
+  "doi": "10.1007/978-0-387-40065-5",
   "verified": true,
   "area": "nonconvex optimization",
-  "why": "L-BFGS 와 정지 판정. stopping rule 이 optimality gap 이 아니라는 점의 표준 근거."
+  "why": "L-BFGS, 정지 판정과 strong-convexity 기반 local error bound의 표준 근거. 한 점의 Hessian eigenvalue만으로 neighborhood 전체의 uniform curvature를 보장하지 않음."
+ },
+ "vandervaart1998": {
+  "authors": "A. W. van der Vaart",
+  "year": 1998,
+  "title": "Asymptotic Statistics",
+  "venue": "Cambridge University Press",
+  "volume": "",
+  "pages": "",
+  "doi": "10.1017/cbo9780511802256",
+  "verified": true,
+  "area": "statistics",
+  "why": "Fixed-dimensional plug-in estimator의 consistency, multivariate delta method와 influence-function CLT의 표준 근거. Growing pair dimension, data-dependent gate 또는 support recovery를 자동으로 포함하지 않음."
+ },
+ "good1953": {
+  "authors": "I. J. Good",
+  "year": 1953,
+  "title": "The population frequencies of species and the estimation of population parameters",
+  "venue": "Biometrika",
+  "volume": "40",
+  "pages": "237–264",
+  "doi": "10.1093/biomet/40.3-4.237",
+  "verified": true,
+  "area": "statistics",
+  "why": "Fixed discrete iid class model에서 frequency-of-frequencies와 unseen probability mass를 연결하는 Good–Turing 원전. Data-dependent clustering 또는 continuous terminal support에 자동 적용되는 근거는 아님."
  },
  "lee2016gradient": {
   "authors": "J. D. Lee, M. Simchowitz, M. I. Jordan, B. Recht",

@@ -77,6 +77,12 @@ section{scroll-margin-top:72px}
 .note-outline a{text-decoration:none}
 .note-outline a:hover{text-decoration:underline}
 @media(max-width:720px){.note-outline ol{columns:1}}
+.research-equation{max-width:100%;overflow-x:auto;overflow-y:hidden;
+  margin:14px 0;padding:10px 12px;background:var(--surface);border-radius:6px}
+.research-equation .katex-display{margin:0;text-align:left}
+.research-equation .katex-display>.katex{text-align:left}
+.claim-maturity{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 10px;font-size:12px}
+.claim-maturity span{border:1px solid var(--hairline);border-radius:4px;padding:2px 7px}
 
 /* ── 태그 / 배지 ───────────────────────────────────────── */
 .tagbar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}

@@ -226,7 +226,7 @@
  },
  "calibration": {
   "title": "Calibration controls — reported legacy values",
-  "sub": "Path, cycle, lattice, ER, BA의 SMACOF 및 polish 비교. M=24, p=2. Gradient audit 이전 결과이며 corrected rerun pending. Calibration control은 numerical-error baseline의 경험적 기준이지 모든 graph에 통용되는 error bound가 아님.",
+  "sub": "Path, cycle, lattice, ER, BA의 SMACOF 및 polish 비교. M=24, p=2. Gradient audit 이전 결과이며 corrected rerun pending. Calibration control은 numerical-error baseline의 경험적 기준이지 모든 graph에 통용되는 error bound가 아님. 현재 corrected script의 derivative check와 별개로 run-level $A_{\\rm num}$, target-fit $A_{\\rm ctrl}$, $\\phi$와 $\\alpha_{\\rm ctrl}$을 포함한 evidence rerun은 미완료.",
   "columns": [
    "$\\mathcal D_2$",
    "$\\mathcal I$ SMACOF",
@@ -239,7 +239,7 @@
     "D2": 0,
     "I_raw": 9.974e-9,
     "I_pol": 2.919e-16,
-    "note": "$\\mathcal D_2=0$ · 정리상 minimizer 유일"
+    "note": "$\\mathcal D_2=0$ · zero-stress global minimizer orbit만 $\\mathrm E(p)$ quotient에서 unique; positive-stress local minima는 미판정"
    },
    {
     "k": "경로 $P_{120}$",
@@ -290,7 +290,7 @@
     "note": ""
    }
   ],
-  "verdict": "Reported contrast: ordered controls의 polish 후 값 감소와 ER/BA의 nonzero spread 유지. 서로 다른 floor 수준 사이의 digit gap을 physical separation으로 해석하지 않음. calibration_null.py에서도 stress–gradient coefficient mismatch 확인. 새 gradient, achieved stationarity, collision 및 independent-batch evidence를 갖춘 rerun 후 quantitative claim 확정."
+  "verdict": "Reported contrast: ordered controls의 polish 후 값 감소와 ER/BA의 nonzero spread 유지. 서로 다른 floor 수준 사이의 digit gap을 physical separation으로 해석하지 않음. calibration_null.py에서도 stress–gradient coefficient mismatch 확인. 새 gradient, achieved stationarity, collision 및 independent-batch evidence를 갖춘 rerun 후 quantitative claim 확정. Legacy 값은 all-run output이며 target-fit accepted control law의 baseline이 아님. Corrected rerun에서는 $A_{\\rm ctrl}=A_{\\rm num}\\cap\\{\\phi\\le\\tau_\\phi\\}$ 통과 run만 calibration spread에 포함하고 failure reason과 attempted/accepted count를 별도 보고."
  },
  "repr_full": {
   "title": "$\\mathcal D_p$ · 현재 선택된 48-network subset",
@@ -460,7 +460,7 @@
  },
  "floor_ladder": {
   "title": "Tolerance ladder — legacy evidence / corrected rerun pending",
-  "sub": "같은 M=16 초기조건을 각 rung에서 재사용. gtol과 ftol을 함께 변경한 coupled tolerance test. 2026-09-05 감사에서 선언된 F에 비해 gradient가 1/2인 구현 확인. 수치는 기존 보고값 보존이며 corrected result 아님.",
+  "sub": "같은 M=16 초기조건을 각 rung에서 재사용. gtol과 ftol을 함께 변경한 coupled tolerance test. 2026-09-05 감사에서 선언된 F에 비해 gradient가 1/2인 구현 확인. 수치는 기존 보고값 보존이며 corrected result 아님. Current corrected script의 printed $\\widehat{\\mathcal I}$도 run-level $A_{\\rm num}$을 적용하지 않은 ungated diagnostic이므로 evidence-producing rerun과 구분.",
   "rungs": [
    "$10^{-6}$",
    "$10^{-10}$",
@@ -509,7 +509,7 @@
     "verdict": "persistent (legacy)"
    }
   ],
-  "verdict": "Report-level observation: ordered controls의 값 감소·saturation, ER/BA의 tolerance-stable spread. 현재 표만으로 physical origin, optimizer independence, exact minimizer multiplicity 또는 equal-energy degeneracy 확정 불가. Corrected rerun에서 achieved gradient, optimizer termination reason, collision gate, recurrent distance-space classes를 함께 확인.",
+  "verdict": "Report-level observation: ordered controls의 값 감소·saturation, ER/BA의 tolerance-stable spread. 현재 표만으로 physical origin, optimizer independence, exact minimizer multiplicity 또는 equal-energy degeneracy 확정 불가. Corrected evidence rerun에서 achieved gradient, optimizer termination reason, collision gate와 recurrent distance-space classes를 함께 확인. $\\mathrm{gtol}$과 $\\mathrm{ftol}$을 분리한 one-factor paired comparison, admissible run만의 $\\widehat{\\mathcal I}^{\\rm adm}$ 및 acceptance-set sensitivity까지 확인하기 전에는 tolerance-stable 판정 유보.",
   "eta": {
    "격자 $8\\times8$": [
     2.009e-7,

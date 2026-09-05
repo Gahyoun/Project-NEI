@@ -71,7 +71,7 @@
    {
     "k": "graph null ensembles",
     "w": "ordered $k$-regular lattice/ring과 connected random-regular ensemble의 비교는 $(N,E,k)$를 고정하고 edge organization을 변경. random-regular와 matched ER의 비교는 degree heterogeneity를 추가로 변경. 일반 network에는 connected degree-preserving double-edge-swap ensemble을 사용. 각 null이 보존·파괴하는 양, connectedness conditioning, rewiring mixing과 null sample size를 선언하고 graph-to-graph variance와 within-graph restart variance를 hierarchical하게 분리.",
-    "need": "recommended"
+    "need": "required for structural attribution"
    },
    {
     "k": "initialization/optimizer robustness",
@@ -171,6 +171,54 @@
    {
     "k": "resid",
     "w": "잔차장의 무질서도가 multiplicity 를 지배하는가. 2차 일단락의 알맹이 후보이며 지금은 가설."
+   }
+  ]
+ },
+ "validation": {
+  "status": "planned · corrected rerun pending",
+  "title": "Evidence production contract",
+  "steps": [
+   {
+    "title": "Run-level numerical gate and calibration",
+    "items": [
+     "Corrected objective·gradient·Hessian의 derivative check 통과와 implementation provenance 고정.",
+     "Attempted run별 optimizer status, stopping reason, achieved $\\eta_g$, $\\chi_{\\rm coll}$, quotient-Hessian inertia, normalized stress와 failure reason 저장.",
+     "$A_{\\rm num}$ 통과 terminal만 admissible law에 포함하고 attempted count, $M_{\\rm adm}$와 $\\alpha_{G,\\Pi}$를 함께 보고.",
+     "Control에서는 $A_{\\rm ctrl}=A_{\\rm num}\\cap\\{\\phi\\le\\tau_\\phi\\}$를 별도 적용하고 target-fit accepted law만 calibration spread에 사용.",
+     "$M_{\\rm ctrl}=0$에서는 calibration undefined 판정, $A_{\\rm num}\\setminus A_{\\rm ctrl}$와 기타 failure의 numerical-floor 표본 합산 금지.",
+     "안정적인 control acceptance가 필요한 분석에서만 prespecified $\\alpha_{\\min}$과 acceptance-sensitivity criterion 추가. 모든 conditional estimand에 대한 보편적 $\\alpha$-equivalence 요구 금지."
+    ]
+   },
+   {
+    "title": "One-factor paired tolerance comparison",
+    "items": [
+     "Initialization과 iteration budget을 고정하고 $\\mathrm{gtol}$ ladder에서는 $\\mathrm{ftol}$ 고정, $\\mathrm{ftol}$ check에서는 $\\mathrm{gtol}$ 고정.",
+     "Requested tolerance가 아닌 achieved $\\eta_g$를 primary convergence axis로 사용하고 동일 start의 paired terminal 비교.",
+     "Paired uncertainty는 start별 두 rung의 outcome·acceptance indicator를 묶어 resample하고 각 rung의 conditional NEI를 재계산. 두 rung 공통 accepted subset만의 비교는 별도 sensitivity estimand로 표기.",
+     "최종 admissible rungs의 paired $\\Delta\\widehat{\\mathcal I}$ interval 전체가 prespecified equivalence margin 안에 있고 acceptance-set sensitivity가 결론을 바꾸지 않을 때만 tolerance-stable plateau 판정.",
+     "$\\widehat{\\mathcal I}$가 achieved stationarity와 함께 감소하거나 accepted-run 구성이 변하면 numerical-resolution unresolved 판정."
+    ]
+   },
+   {
+    "title": "Finite-$M$ run-vector inference",
+    "items": [
+     "Attempted $M$, accepted $M_{\\rm adm}$와 $\\alpha_{G,\\Pi}$ interval의 분리 보고.",
+     "Pair가 아니라 accepted run vector 전체를 resample하는 run-level bootstrap과 same-start comparison의 paired resampling.",
+     "Discovery batch에서 $\\varepsilon_D$-classes를 고정하고 independent validation batch에서 recurrence, occupancy interval과 unmatched class 평가.",
+     "Numerical baseline을 넘는 standardized spread의 uncertainty와, 독립적으로 확인한 $\\rho_D$-separated class recurrence를 구분 보고. $\\varepsilon_D$-resolved 판정은 후자의 거리 기준에 근거하며 NEI와 distance threshold의 직접 비교 금지.",
+     "미충족 결과의 표기: not detected at declared $(M,\\varepsilon_D)$; point mass 또는 complete-support 판정 금지."
+    ]
+   },
+   {
+    "title": "Graph-realization-level null inference",
+    "items": [
+     "Graph realization을 outer experimental unit으로 두고 restarts는 within-graph Monte Carlo sample로만 사용.",
+     "각 parent graph $g$에서 $\\delta_g=\\widehat{\\mathcal I}_g-\\overline{\\widehat{\\mathcal I}}_{g,\\rm null}$ 산출.",
+     "Degree-preserving null은 parent graph 아래, random-regular와 matched ER은 $(N,E,p,W)$ stratum 아래 nesting한 graph-level bootstrap 또는 restricted permutation.",
+     "Restricted permutation은 해당 null의 exchangeability를 정당화한 경우에만 사용. Degree-preserving Markov-chain sampling에는 mixing·autocorrelation과 independent null batch의 정의를 별도 기록.",
+     "Prespecified 방향의 graph-level interval이 zero와 분리되고 independent null batch에서 sign이 재현될 때만 degree-controlled structural association 판정.",
+     "$\\alpha_{G,\\Pi}$가 ensemble마다 달라도 각 conditional $\\mathcal I^{\\rm adm}$의 정의는 유효. 다만 $(\\alpha,\\mathcal I^{\\rm adm})$ 공동 보고와 acceptance-sensitivity 분석 없는 unconditional network attribution 금지."
+    ]
    }
   ]
  }
