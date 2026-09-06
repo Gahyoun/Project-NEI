@@ -1,5 +1,5 @@
 {
- "_note": "NEI가 이어받은 선행 연구의 계보. Lanes = research strand; author flag = SHL 공저 여부. Link text는 두 논문 사이의 구체적 연결. 분류와 링크 서술은 이 지도가 자체적으로 부여한 독해이며 원저자의 분류가 아님. 화살표는 dependency 또는 named relation이며 priority claim을 의미하지 않음.",
+ "_note": "Selected research lineage. Authorship와 intellectual relation을 분리. 네 link 유형은 이 노트의 근거 기반 분류이며 원저자의 역사적 영향에 대한 진술이 아님. Documented extension만 원문의 명시적 인용과 실제 정의·방법 사용을 확인한 연결. Scope 밖 문헌은 추천 목록에 자동 추가하지 않음.",
  "lanes": [
   {
    "id": "geo",
@@ -7,7 +7,7 @@
   },
   {
    "id": "incon",
-   "label": "solution-ensemble degeneracy"
+   "label": "solution-ensemble inconsistency"
   },
   {
    "id": "basin",
@@ -15,7 +15,7 @@
   },
   {
    "id": "land",
-   "label": "landscape · stat-mech formalism"
+   "label": "statistical-mechanical foundations"
   }
  ],
  "nodes": [
@@ -26,10 +26,18 @@
    "pre": 0,
    "shl": false,
    "nei": 1,
-   "title": "Remarks to Fréchet's article on distance",
+   "title": "Remarks to Maurice Fréchet's article “Sur la définition axiomatique d'une classe d'espaces vectoriels distanciés applicables vectoriellement sur l'espace de Hilbert”",
    "authors": "I. J. Schoenberg",
    "venue": "Ann. Math. 36, 724 (1935)",
-   "role": "Dissimilarity matrix가 언제 \\(\\mathbb R^p\\)에서 exactly realizable한지를 double-centered Gram matrix의 PSD 조건으로 답한 정리. Negative eigenvalue는 어떤 차원에서도 제거되지 않는 <b>구조적 frustration</b>의 spectral 표현이며, \\(\\mathcal D_p\\)는 그 frustration의 크기다."
+   "role": "Complete dissimilarities의 Euclidean realizability를 Gram matrix로 판정. Target dimension $p$에서는 PSD와 rank 조건을 함께 확인. $\\mathcal D_p$는 이 노트가 채택한 spectral diagnostic이며 원정리 자체의 observable은 아님.",
+   "object": "Distance geometry",
+   "randomness": "고정된 dissimilarity matrix; stochastic ensemble 불필요.",
+   "inherited": "Double-centered Gram matrix의 PSD 및 rank criterion.",
+   "boundary": "선택한 spectral deficiency와 raw-stress minimum은 별도 대상. Exact realizability 판정이 terminal uniqueness를 보장하지 않음.",
+   "doi": "10.2307/1968654",
+   "source_url": "https://doi.org/10.2307/1968654",
+   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
+   "short_title": "Euclidean realizability"
   },
   {
    "id": "deleeuw",
@@ -41,7 +49,14 @@
    "title": "Applications of convex analysis to multidimensional scaling",
    "authors": "J. de Leeuw",
    "venue": "Recent Developments in Statistics (1977)",
-   "role": "SMACOF의 majorization. Cauchy–Schwarz로 stress의 majorizer를 세워 monotone descent를 보장하지만 <b>어느 basin으로 내려갈지는 초기조건이 결정한다</b>. Descent dynamics가 gradient flow이므로 terminal state가 initialization의 함수가 되고, 그 사상이 landscape를 표본하는 장치가 된다."
+   "role": "SMACOF는 discrete majorization algorithm. Initialization에서 terminal output으로 가는 map의 정의에 기여하되, 서로 다른 terminal geometries의 존재는 별도 검증.",
+   "object": "Raw-stress MDS",
+   "randomness": "Declared initialization 및 구현에 포함된 algorithmic randomness.",
+   "inherited": "Stress majorization과 discrete monotone update.",
+   "boundary": "Continuous gradient flow와 동일하지 않음. Monotonicity만으로 multiplicity 또는 global convergence 도출 불가.",
+   "source_url": "https://www.jstatsoft.org/article/view/v031i03",
+   "source_note": "1977 원전의 majorization 설명은 de Leeuw & Mair (2009)의 재정식화와 함께 확인.",
+   "short_title": "SMACOF majorization"
   },
   {
    "id": "sw82",
@@ -50,10 +65,18 @@
    "pre": 0,
    "shl": false,
    "nei": 1,
-   "title": "Hidden structure in liquids — inherent structures",
+   "title": "Hidden structure in liquids",
    "authors": "F. H. Stillinger, T. A. Weber",
    "venue": "Phys. Rev. A 25, 978 (1982)",
-   "role": "Configuration space를 local minimum의 basin으로 분할하고, 열역학량을 <b>inherent structure 위의 occupancy 합</b>으로 쓰는 형식론. 관측량이 스칼라 하나가 아니라 \\(\\{P_\\gamma\\}\\) spectrum이라는 것, 그리고 그 spectrum이 quenched disorder에 의존한다는 것이 여기서 확립된다."
+   "role": "Inherent-structure formalism으로 equilibrium configurational contributions를 basin별로 조직. NEI와의 연결은 ensemble decomposition이며, occupancy를 graph만의 함수로 두는 근거는 아님.",
+   "object": "Liquid configurations와 inherent structures",
+   "randomness": "Thermal configurations를 minimization map으로 대응.",
+   "inherited": "Basin decomposition과 basin-weighted ensemble description.",
+   "boundary": "Energy minimization의 quench와 quenched random disorder를 구분. NEI에 Gibbs weighting을 자동 부여하지 않음.",
+   "doi": "10.1103/PhysRevA.25.978",
+   "source_url": "https://doi.org/10.1103/PhysRevA.25.978",
+   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
+   "short_title": "Inherent structures"
   },
   {
    "id": "maslov",
@@ -65,7 +88,15 @@
    "title": "Specificity and stability in topology of protein networks",
    "authors": "S. Maslov, K. Sneppen",
    "venue": "Science 296, 910 (2002)",
-   "role": "Degree sequence를 quenched로 고정하고 나머지 배선만 무작위화하는 ensemble. Higher-order correlation만 제거하므로, 이것과의 차이가 <b>degree 이상의 구조가 기여하는 부분</b>을 분리한다."
+   "role": "Degree sequence를 보존한 rewiring ensemble과 관측 network 비교. Sampling kernel, graph constraints, mixing의 별도 선언 필요.",
+   "object": "Degree-conditioned graph ensemble",
+   "randomness": "Degree-preserving edge rewiring.",
+   "inherited": "Structural baseline을 정의하기 전 보존 조건 명시.",
+   "boundary": "모든 higher-order correlation 제거 또는 고유한 causal contribution의 분해를 보장하지 않음.",
+   "doi": "10.1126/science.1065103",
+   "source_url": "https://doi.org/10.1126/science.1065103",
+   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
+   "short_title": "Degree-preserving null"
   },
   {
    "id": "ksat",
@@ -75,7 +106,15 @@
    "title": "Finite-size scaling in random K-satisfiability problems",
    "authors": "S. H. Lee, M. Ha, C. Jeon, H. Jeong",
    "venue": "Phys. Rev. E 82, 061109",
-   "role": "Nonconvex constraint-satisfaction의 solution space에 finite-size scaling을 적용. Optimization landscape를 statistical physics의 measurement object로 다루는 습관이 여기서 시작."
+   "role": "Random constraint-satisfaction 문제의 finite-size scaling 연구. NEI에서는 graph-size limit와 finite-run sampling limit를 구분하는 개념적 참고.",
+   "object": "Random K-SAT의 finite-size behavior",
+   "randomness": "Random constraint instances; disorder ensemble.",
+   "inherited": "Optimization/constraint problem의 size-dependent observables 비교.",
+   "boundary": "NEI의 scaling law 또는 연구자 개인의 지적 영향 경로에 대한 근거 아님.",
+   "doi": "10.1103/PhysRevE.82.061109",
+   "source_url": "https://doi.org/10.1103/PhysRevE.82.061109",
+   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
+   "short_title": "Random K-SAT scaling"
   },
   {
    "id": "good",
@@ -86,7 +125,15 @@
    "title": "Performance of modularity maximization in practical contexts",
    "authors": "B. H. Good, Y.-A. de Montjoye, A. Clauset",
    "venue": "Phys. Rev. E 81, 046106 (2010)",
-   "role": "Modularity landscape가 <b>지수적으로 많은 near-degenerate maximum</b>을 갖고 뚜렷한 global maximum이 없다는 것을 보인 논문. 스핀글라스적 의미의 rugged landscape가 network optimization에서 실제로 나타난다는 증거이며, 단일 해를 보고하는 관행이 왜 불충분한지를 확립한다."
+   "role": "많은 structurally distinct, near-degenerate high-scoring partitions를 분석. Stress landscape의 multiplicity는 이 결과로부터 도출하지 않고 독립 검증.",
+   "object": "Modularity optimization의 partitions",
+   "randomness": "High-scoring solutions의 탐색·비교.",
+   "inherited": "유사한 objective value와 서로 다른 solutions를 분리해서 평가.",
+   "boundary": "모든 해가 입증된 local maximum은 아님. Finite partition space의 global maximum 부재를 뜻하지 않음.",
+   "doi": "10.1103/PhysRevE.81.046106",
+   "source_url": "https://doi.org/10.1103/PhysRevE.81.046106",
+   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
+   "short_title": "Modularity degeneracy"
   },
   {
    "id": "nav1",
@@ -97,7 +144,15 @@
    "title": "Exploring maps with greedy navigators",
    "authors": "S. H. Lee, P. Holme",
    "venue": "Phys. Rev. Lett. 108, 128701",
-   "role": "Local information만으로 항해할 때 topology와 embedded geometry가 함께 작동하는 문제. Shortest path가 아니라 <b>greedy descent가 실제로 도달하는 경로</b>를 보므로, 전역 최적이 아니라 국소 규칙의 결과를 관측량으로 삼는 관점이 여기서 나온다."
+   "role": "Local geometric information을 사용하는 navigation의 결과를 측정. NEI와는 geometry를 명시적 관측 대상으로 두는 질문의 연결.",
+   "object": "Embedded networks 위의 greedy navigation",
+   "randomness": "Navigation tasks와 graph/layout 설정.",
+   "inherited": "Topology와 geometry가 관측 결과에 함께 관여한다는 문제 설정.",
+   "boundary": "Navigation rule은 SMACOF descent가 아니며 basin/terminal law와 동일하지 않음.",
+   "doi": "10.1103/PhysRevLett.108.128701",
+   "source_url": "https://doi.org/10.1103/PhysRevLett.108.128701",
+   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
+   "short_title": "Greedy navigation"
   },
   {
    "id": "nav2",
@@ -108,7 +163,15 @@
    "title": "Geometric properties of graph layouts optimized for greedy navigation",
    "authors": "S. H. Lee, P. Holme",
    "venue": "Phys. Rev. E 86, 067103",
-   "role": "항해 효율로 최적화된 layout이 어떤 <b>기하학적 성질</b>을 갖는지를 측정. Topology에서 geometry로 가는 사상의 <i>결과물</i>을 물리량으로 다룬 작업이며, 그 사상이 유일한 결과를 주는지는 아직 묻지 않는다."
+   "role": "Navigation efficiency를 기준으로 optimized graph layouts의 geometry 분석. NEI는 별도로 선언된 embedding protocol의 terminal variability를 측정.",
+   "object": "Greedy-navigation objective로 최적화한 layouts",
+   "randomness": "Simulated annealing을 포함한 layout optimization.",
+   "inherited": "Layout의 fit/function과 geometric properties를 함께 검토.",
+   "boundary": "Navigation objective와 MDS stress는 다른 objective. 동일한 map 또는 basin이라는 주장 제외.",
+   "doi": "10.1103/PhysRevE.86.067103",
+   "source_url": "https://doi.org/10.1103/PhysRevE.86.067103",
+   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
+   "short_title": "Navigation-optimized layouts"
   },
   {
    "id": "osc",
@@ -118,7 +181,15 @@
    "title": "Phase-shift inversion in oscillator systems with periodically switching couplings",
    "authors": "S. H. Lee, S. Lee, S.-W. Son, P. Holme",
    "venue": "Phys. Rev. E 85, 027202",
-   "role": "Coupling이 주기적으로 바뀔 때 진동자계가 서로 다른 phase-locked 상태로 갈리는 현상. <b>같은 파라미터에서 복수의 attractor</b>가 공존하고 초기조건이 선택을 결정한다는 구도가 여기서 관측 대상이 된다."
+   "role": "Periodically switching coupling 아래 phase-shift behavior 연구. NEI와의 관계는 protocol-dependent outcomes라는 개념적 비교.",
+   "object": "Periodically switched coupling의 oscillator dynamics",
+   "randomness": "Coupling schedule와 initial state.",
+   "inherited": "Local dynamics의 결과를 parameter/protocol에 조건부로 기술.",
+   "boundary": "이 논문을 stress multiplicity의 증거 또는 동일한 dynamics의 출처로 사용하지 않음.",
+   "doi": "10.1103/PhysRevE.85.027202",
+   "source_url": "https://doi.org/10.1103/PhysRevE.85.027202",
+   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
+   "short_title": "Switched-coupling oscillators"
   },
   {
    "id": "menck",
@@ -129,7 +200,15 @@
    "title": "How basin stability complements the linear-stability paradigm",
    "authors": "P. J. Menck, J. Heitzig, N. Marwan, J. Kurths",
    "venue": "Nature Phys. 9, 89 (2013)",
-   "role": "Linear stability는 fixed point 근방의 국소 정보만 주므로 유한한 섭동에 대해서는 말하지 못한다. 대안으로 <b>basin의 부피를 Monte Carlo로 재는</b> 관측량을 제안. 관측량이 spectrum이 아니라 <b>측도</b>가 되는 전환점."
+   "role": "Basin stability는 선언한 perturbation law 아래 recovery event의 probability. Linear stability와 basin probability를 함께 보는 방법론적 기반.",
+   "object": "Declared attractor basin의 probability mass",
+   "randomness": "Prespecified finite-perturbation distribution.",
+   "inherited": "Local linear stability와 finite-perturbation recovery probability의 구분.",
+   "boundary": "Uniform sampling일 때에만 normalized volume 해석. NEI의 geometry-weighted variance와 다른 observable.",
+   "doi": "10.1038/nphys2516",
+   "source_url": "https://doi.org/10.1038/nphys2516",
+   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
+   "short_title": "Basin stability"
   },
   {
    "id": "city",
@@ -139,7 +218,14 @@
    "title": "A greedy-navigator approach to navigable city plans",
    "authors": "S. H. Lee, P. Holme",
    "venue": "Eur. Phys. J. ST 215, 135",
-   "role": "항해 가능성을 실제 도시 평면에 적용. 도로망이 기하 제약이 강한 topology라는 것, 즉 embedding이 거의 결정되는 부류가 존재한다는 감각이 축적된다."
+   "role": "Greedy-navigation framework의 city-plan 적용. Observed spatial layout과 graph-metric embedding의 representability는 구분.",
+   "object": "City plans의 navigability",
+   "randomness": "City network와 navigation tasks.",
+   "inherited": "실제 spatial network에서 topology–geometry 관계 검토.",
+   "boundary": "Road graph의 거의 유일한 MDS embedding을 증명한 연구로 인용하지 않음.",
+   "source_url": "https://sites.google.com/view/netscilab/publications",
+   "source_note": "연구실 publication 목록의 해당 제목.",
+   "short_title": "Navigable city plans"
   },
   {
    "id": "cp",
@@ -149,7 +235,15 @@
    "title": "Density-based and transport-based core-periphery structures in networks",
    "authors": "S. H. Lee, M. Cucuringu, M. A. Porter",
    "venue": "Phys. Rev. E 89, 032810",
-   "role": "Mesoscale 구조를 명시적 objective의 최적화로 정식화. Density-based와 transport-based가 서로 다른 objective를 주므로, <b>구조가 아니라 objective가 답을 정한다</b>는 인식이 들어온다."
+   "role": "서로 다른 core–periphery definitions의 비교. NEI의 protocol specification과는 개념적 연결이며 직접 유도 관계는 미주장.",
+   "object": "Density-based / transport-based core–periphery structure",
+   "randomness": "Graph와 선택한 structural definition·method.",
+   "inherited": "측정하려는 structure에 맞춰 definition/objective를 명시.",
+   "boundary": "Objective만으로 답이 결정된다는 뜻 아님. Graph와 method에도 의존.",
+   "doi": "10.1103/PhysRevE.89.032810",
+   "source_url": "https://doi.org/10.1103/PhysRevE.89.032810",
+   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
+   "short_title": "Core–periphery definitions"
   },
   {
    "id": "cc",
@@ -158,9 +252,17 @@
    "shl": true,
    "nei": 1,
    "title": "Community consistency determines the stability transition window of power-grid nodes",
-   "authors": "H. Kim, S. H. Lee, P. Holme",
+   "authors": "Heetae Kim, S. H. Lee, P. Holme",
    "venue": "New J. Phys. 17, 113005",
-   "role": "Community 할당의 <b>일관성</b>이 power-grid node의 <b>basin 안정성 전이 구간</b>을 결정한다. 최적화 해 앙상블의 재현성이라는 통계적 성질이 동역학적 결과를 예측한다는 것 — 두 strand가 처음 교차하는 지점이며, consistency를 물리량으로 읽는 가장 가까운 전례."
+   "role": "Community consistency와 power-grid stability transition의 관계 연구. 2019년 CoI의 앞선 정의이며, graph에 고정된 반복 실행 통계의 직접 전례.",
+   "object": "Power-grid node의 community consistency와 stability transition",
+   "randomness": "Repeated community detection 및 finite perturbations.",
+   "inherited": "Node-level consistency와 독립적인 dynamical observable 비교.",
+   "boundary": "이미 node-level measure. 모든 network에서의 universal causal law로 확대하지 않음.",
+   "doi": "10.1088/1367-2630/17/11/113005",
+   "source_url": "https://doi.org/10.1088/1367-2630/17/11/113005",
+   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
+   "short_title": "Node community consistency"
   },
   {
    "id": "bs",
@@ -169,9 +271,17 @@
    "shl": true,
    "nei": 1,
    "title": "Building blocks of basin stability of power grids",
-   "authors": "H. Kim, S. H. Lee, P. Holme",
+   "authors": "Heetae Kim, S. H. Lee, P. Holme",
    "venue": "Phys. Rev. E 93, 062318",
-   "role": "Basin stability를 network의 구조 단위로 분해. 어떤 motif가 basin 부피를 키우고 줄이는지를 물으므로, <b>측도가 topology의 함수</b>라는 구도가 명시된다."
+   "role": "Power-grid structural motifs와 basin stability 관계 연구. 초기조건 law에 조건부인 확률 측정 설계의 참고.",
+   "object": "Power-grid motifs의 basin stability",
+   "randomness": "Declared node perturbations와 physical dynamics.",
+   "inherited": "Graph structure를 바꾸며 recovery probability 비교.",
+   "boundary": "NEI와 같은 estimator가 아님. Physical attractors는 optimization minima와 구분.",
+   "doi": "10.1103/PhysRevE.93.062318",
+   "source_url": "https://doi.org/10.1103/PhysRevE.93.062318",
+   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
+   "short_title": "Power-grid basin motifs"
   },
   {
    "id": "nest",
@@ -181,7 +291,15 @@
    "title": "Network nestedness as generalized core-periphery structures",
    "authors": "S. H. Lee",
    "venue": "Phys. Rev. E 93, 022306",
-   "role": "Nestedness와 core–periphery를 하나의 정의로 통합. 서로 다른 이름이 같은 order parameter의 다른 절단면일 수 있다는 관점."
+   "role": "Nestedness를 generalized core–periphery 관점에서 다룬 연구. NEI 계보에서는 개념적 배경으로 한정.",
+   "object": "Nestedness와 core–periphery definitions",
+   "randomness": "Network structure와 선택한 definition.",
+   "inherited": "서로 다른 structural notions의 정의·관계 비교.",
+   "boundary": "동일한 order parameter의 절단면 또는 NEI의 수학적 기반이라는 일반화 제외.",
+   "doi": "10.1103/PhysRevE.93.022306",
+   "source_url": "https://doi.org/10.1103/PhysRevE.93.022306",
+   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
+   "short_title": "Nestedness / core–periphery"
   },
   {
    "id": "ms",
@@ -190,9 +308,17 @@
    "shl": true,
    "nei": 1,
    "title": "Multistability and variations in basin of attraction of power-grid systems",
-   "authors": "H. Kim, S. H. Lee, J. Davidsen, S.-W. Son",
+   "authors": "Heetae Kim, S. H. Lee, J. Davidsen, S.-W. Son",
    "venue": "New J. Phys. 20, 113006",
-   "role": "단일 basin의 안정성에서 <b>복수 basin과 그 사이의 전이</b>로. Coupling을 올릴 때 안정성이 비단조로 떨어지는 구간이 unsynchronized state의 안정성 변화에서 온다는 것을 보인다. Landscape가 파라미터에 따라 재편된다는 직접 증거."
+   "role": "김희태 교수님 공저의 power-grid multistability 연구. Coupling 증가 시 비단조 recovery behavior를 unsynchronized states의 stability 변화와 연결.",
+   "object": "Power-grid multistability와 coupling-dependent basin stability",
+   "randomness": "Physical initial perturbations; coupling parameter.",
+   "inherited": "Parameter 변화에 따른 attractor stability와 basin probability의 동시 비교.",
+   "boundary": "Graph variation과 coupling variation은 다른 개입. Thermal hopping 또는 stress basin과 동일시하지 않음.",
+   "doi": "10.1088/1367-2630/aae8eb",
+   "source_url": "https://doi.org/10.1088/1367-2630/aae8eb",
+   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
+   "short_title": "Power-grid multistability"
   },
   {
    "id": "rf",
@@ -201,9 +327,17 @@
    "shl": true,
    "nei": 1,
    "title": "Relational flexibility of network elements based on inconsistent community detection",
-   "authors": "H. Kim, S. H. Lee",
+   "authors": "Heetae Kim, S. H. Lee",
    "venue": "Phys. Rev. E 100, 022311",
-   "role": "Community detection의 해가 실행마다 달라진다는 사실을 잡음으로 보지 않고, 그 <b>비일관성을 node·edge 단위 관측량으로</b> 환원. 전역 지표에서 원소별 지표로 내려가는 이 조작이 NEI-node / NEI-edge와 같은 구조다."
+   "role": "2015년 community consistency를 $\\operatorname{CoI}_i=1-C_i$로 전환해 relational flexibility 측정. Pairwise variance 표현은 기존 정의의 대수적 재표현.",
+   "object": "Companionship inconsistency (CoI)",
+   "randomness": "고정된 graph·resolution에서 반복한 community detection.",
+   "inherited": "Binary co-membership의 ensemble fluctuation을 node별로 집계.",
+   "boundary": "Node/edge deletion 후 재임베딩과 다른 연산. Susceptibility는 별도 perturbation–response 정의 필요.",
+   "doi": "10.1103/PhysRevE.100.022311",
+   "source_url": "https://doi.org/10.1103/PhysRevE.100.022311",
+   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
+   "short_title": "Companionship inconsistency"
   },
   {
    "id": "ibi",
@@ -211,9 +345,17 @@
    "lane": "basin",
    "shl": true,
    "title": "On structural and dynamical factors determining the integrated basin instability of power-grid nodes",
-   "authors": "H. Kim, S. H. Lee, S.-W. Son",
+   "authors": "Heetae Kim, Mi Jin Lee, Sang Hoon Lee, Seung-Woo Son",
    "venue": "Chaos 29, 103132",
-   "role": "Basin 불안정성을 node 단위로 적분해 구조 요인과 동역학 요인으로 분해. 측도를 국소 속성으로 환원하는 방향."
+   "role": "김희태 교수님 공저 연구. Integrated basin instability를 통해 power-grid topology와 dynamical parameters의 관련성 분석.",
+   "object": "Node-wise integrated basin instability",
+   "randomness": "Perturbation ensemble; transmission capacity/coupling sweep.",
+   "inherited": "각 node의 basin instability를 coupling에 대해 적분.",
+   "boundary": "Node를 적분하는 것이 아니며 구조·동역학 요인의 고유한 additive decomposition은 미주장.",
+   "doi": "10.1063/1.5115532",
+   "source_url": "https://doi.org/10.1063/1.5115532",
+   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
+   "short_title": "Integrated basin instability"
   },
   {
    "id": "tnav",
@@ -223,7 +365,14 @@
    "title": "Navigating temporal networks",
    "authors": "S. H. Lee, P. Holme",
    "venue": "Physica A 513, 288",
-   "role": "항해 문제를 시간축으로 확장. Quenched 구조가 아니라 시간의존 구조 위에서 같은 국소 규칙을 본다."
+   "role": "Temporal networks에서 navigation 연구. 현재 NEI와는 protocol/structure specification을 비교하는 보조 개념 연결.",
+   "object": "Temporal-network navigation",
+   "randomness": "Time-dependent contacts와 navigation protocol.",
+   "inherited": "Static graph와 time-dependent substrate의 구분.",
+   "boundary": "현재 fixed-graph NEI가 temporal-network observable이라는 뜻 아님.",
+   "source_url": "https://sites.google.com/view/netscilab/publications",
+   "source_note": "연구실 publication 목록의 해당 제목.",
+   "short_title": "Temporal navigation"
   },
   {
    "id": "cl",
@@ -234,7 +383,15 @@
    "title": "Consistency landscape of network communities",
    "authors": "D. Lee, S. H. Lee, B. J. Kim, H. Kim",
    "venue": "Phys. Rev. E 103, 052306",
-   "role": "Near-degenerate solution들이 이루는 앙상블의 <b>일관성 자체를 landscape로 그린</b> 작업. 최적화 해의 분포를 잡음이 아니라 관측 대상으로 승격시키며, 여기서 확립된 질문이 geometry sector로 옮겨진다."
+   "role": "Partition inconsistency와 membership inconsistency로 community resolution profile 측정. Label-invariant similarities 사용; 단순 label overlap과 구분.",
+   "object": "Resolution-dependent consistency profile",
+   "randomness": "각 고정 resolution에서 반복 생성한 partitions.",
+   "inherited": "Global/element-level inconsistency를 resolution에 따라 비교.",
+   "boundary": "Resolution landscape는 stress surface 또는 energy barrier reconstruction이 아님. PaI/MeI와 NEI는 다른 normalization.",
+   "doi": "10.1103/PhysRevE.103.052306",
+   "source_url": "https://doi.org/10.1103/PhysRevE.103.052306",
+   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
+   "short_title": "Consistency across resolution"
   },
   {
    "id": "ent",
@@ -244,7 +401,15 @@
    "title": "Uncovering hidden dependency in weighted networks via information entropy",
    "authors": "M. J. Lee, E. Lee, B. Lee, H. Jeong, D.-S. Lee, S. H. Lee",
    "venue": "Phys. Rev. Research 3, 043136",
-   "role": "Weight와 topology의 결합을 정보이론적으로 분해. Edge weight를 length로 바꾸는 규칙이 <b>metric model의 일부</b>이지 전처리가 아니라는 논점과 직결."
+   "role": "Weighted networks의 hidden dependency를 information entropy로 분석. NEI의 metric-model 선언과는 개념적 비교.",
+   "object": "Weighted-network dependencies",
+   "randomness": "Weighted network data와 정보이론적 기준.",
+   "inherited": "Weight와 topology를 함께 모델에 명시.",
+   "boundary": "Weight-to-length transformation을 이 논문이 유도한다는 주장 제외.",
+   "doi": "10.1103/PhysRevResearch.3.043136",
+   "source_url": "https://doi.org/10.1103/PhysRevResearch.3.043136",
+   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
+   "short_title": "Weighted-network dependency"
   },
   {
    "id": "c3d",
@@ -254,7 +419,15 @@
    "title": "Exploring 3D community inconsistency in human chromosome contact networks",
    "authors": "D. Bernenko, S. H. Lee, L. Lizana",
    "venue": "J. Phys. Complex. 4, 035004",
-   "role": "비일관성을 실제 3차원 접촉 데이터에 적용. 해 앙상블의 축퇴가 도구가 아니라 측정 대상으로 굳는 지점."
+   "role": "2021년 consistency measures를 Hi-C networks에 적용. Original paper의 Methods 및 Ref. [14]로 직접 적용 확인.",
+   "object": "Hi-C chromosome-contact network의 community inconsistency",
+   "randomness": "Repeated community detection; resolution sweep.",
+   "inherited": "Consistency measures의 실제 contact-network 적용.",
+   "boundary": "3D는 chromosome-contact system의 맥락. 3D MDS terminal configurations의 variance 측정과 다름.",
+   "doi": "10.1088/2632-072X/acef9d",
+   "source_url": "https://doi.org/10.1088/2632-072X/acef9d",
+   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
+   "short_title": "Hi-C community inconsistency"
   },
   {
    "id": "rg",
@@ -265,7 +438,15 @@
    "title": "Renormalization of complex networks with partition functions",
    "authors": "S. Jung, S. H. Lee, J. Cho",
    "venue": "Phys. Rev. E 110, 064316",
-   "role": "Network에 partition function을 붙여 coarse-graining. Graph를 통계역학의 대상으로 두는 형식론이 가장 명시적으로 나타난 작업."
+   "role": "Partition-function-based network renormalization. NEI와는 ensemble specification의 개념적 비교이며 동일한 thermodynamic object는 미주장.",
+   "object": "Network partition functions와 renormalization",
+   "randomness": "명시한 statistical-mechanical model의 ensemble.",
+   "inherited": "Graph 위 모델·ensemble을 먼저 선언하는 접근.",
+   "boundary": "Deterministic pushforward 자체가 non-Gibbs의 이유는 아님. Detailed balance는 transition kernel의 성질.",
+   "doi": "10.1103/PhysRevE.110.064316",
+   "source_url": "https://doi.org/10.1103/PhysRevE.110.064316",
+   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
+   "short_title": "Partition-function RG"
   },
   {
    "id": "nei",
@@ -277,227 +458,714 @@
    "title": "Network embedding inconsistency",
    "authors": "G. Gim, S. H. Lee",
    "venue": "준비 중",
-   "role": "세 strand가 합류하는 자리에서 열린 주제. Graph를 <b>quenched disorder</b>로 두고, 그것이 유도하는 stress landscape \\(F_G\\) 위에서 initialization을 뿌려 얻는 terminal-geometry law를 관측량으로 삼는다. Community가 아니라 geometry sector에서 해 앙상블의 축퇴를 묻는다."
+   "role": "고정된 graph와 fully specified protocol 아래 admissible terminal law의 normalized pair-distance variance 측정. Graph-null contrast와 acceptance를 함께 보고; 새로운 물리적 해석은 별도 검증.",
+   "object": "Protocol-conditioned terminal-geometry law",
+   "randomness": "Initialization·algorithmic randomness; 선언된 admissibility conditioning.",
+   "inherited": "Pairwise fluctuations, multistart geometry comparison, basin sampling, majorization의 결합.",
+   "boundary": "NEI 단독으로 state count, equal-energy degeneracy 또는 barrier를 식별하지 않음.",
+   "source_url": "#result",
+   "source_note": "본 페이지의 definition 및 claim ledger.",
+   "short_title": "Network embedding inconsistency"
+  },
+  {
+   "id": "borgmair",
+   "year": 2017,
+   "lane": "geo",
+   "shl": false,
+   "nei": 1,
+   "title": "The Choice of Initial Configurations in Multidimensional Scaling: Local Minima, Fit, and Interpretability",
+   "short_title": "Multistart MDS: fit & geometry",
+   "authors": "Ingwer Borg, Patrick Mair",
+   "venue": "Austrian Journal of Statistics 46(2), 19–32 (2017)",
+   "doi": "10.17713/ajs.v46i2.561",
+   "source_url": "https://doi.org/10.17713/ajs.v46i2.561",
+   "source_note": "Original abstract와 multistart solution-comparison procedure.",
+   "role": "여러 starting configurations에서 얻은 MDS solutions를 fit과 configurational similarity로 비교한 직접 선행연구.",
+   "object": "Multistart MDS solutions",
+   "randomness": "Different starting configurations",
+   "inherited": "단일 best-fit solution 대신 solution ensemble의 geometry 비교.",
+   "boundary": "주요 예시는 two-dimensional ordinal MDS. NEI raw-stress setting에 결과를 그대로 이전하지 않으며 multistart variability 자체의 최초 발견은 미주장."
+  },
+  {
+   "id": "schultz",
+   "year": 2017,
+   "lane": "basin",
+   "shl": false,
+   "nei": 1,
+   "title": "Potentials and Limits to Basin Stability Estimation",
+   "short_title": "Basin estimation: error & sampling",
+   "authors": "Paul Schultz, Peter J. Menck, Jobst Heitzig, Jürgen Kurths",
+   "venue": "New Journal of Physics 19, 023005 (2017)",
+   "doi": "10.1088/1367-2630/aa5a7b",
+   "source_url": "https://doi.org/10.1088/1367-2630/aa5a7b",
+   "source_note": "Original paper: Monte Carlo standard error 식과 finite-precision basin classification 논의.",
+   "role": "Basin probability의 Monte Carlo uncertainty와 numerical precision의 한계 분석. <b>김희태(Heetae Kim) 교수님은 이 논문의 저자가 아님.</b>",
+   "object": "Numerical basin-stability estimation",
+   "randomness": "Independent perturbation samples; numerical trajectory classification",
+   "inherited": "Rare-basin sampling uncertainty와 numerical classification error의 분리.",
+   "boundary": "Kim et al.의 power-grid structure/multistability 연구와 저자·목적이 다른 문헌. Importance sampling으로 target law를 바꾸면 적절한 reweighting 필요."
   }
  ],
  "links": [
   {
    "from": "schoen",
    "to": "deleeuw",
-   "text": "Exact realizability에서 <b>근사 realization</b>으로. Frustration이 제거 불가능할 때 무엇을 최소화할지가 objective 선택 문제가 된다."
+   "type": "foundation",
+   "key": false,
+   "text": "Exact realizability criterion과 approximate MDS objective를 구분하는 수학적 기반.",
+   "boundary": "Non-realizability가 특정 optimizer 또는 multiplicity를 선택하지 않음.",
+   "evidence": [
+    {
+     "node": "deleeuw",
+     "locator": "Gram criterion; SMACOF objective의 별도 정의."
+    }
+   ]
   },
   {
    "from": "schoen",
    "to": "nav2",
-   "text": "Realizability criterion이 layout의 기하학적 성질을 논할 수 있는 전제를 제공."
+   "type": "analogy",
+   "key": false,
+   "text": "Graph/layout geometry를 논의하는 공통 맥락.",
+   "boundary": "Schoenberg theorem을 navigation optimization의 직접 전제로 주장하지 않음.",
+   "evidence": [
+    {
+     "node": "nav2",
+     "locator": "두 논문의 measured object 비교."
+    }
+   ]
   },
   {
    "from": "deleeuw",
    "to": "nav2",
-   "text": "명시적 objective를 갖는 layout이라는 공통 전제. Heuristic이 아니라 최소화 문제."
+   "type": "analogy",
+   "key": false,
+   "text": "Objective를 명시한 layout optimization이라는 비교.",
+   "boundary": "Majorization과 simulated annealing은 다른 algorithm. Heuristic과 optimization은 반대 개념이 아님.",
+   "evidence": [
+    {
+     "node": "nav2",
+     "locator": "Navigation paper의 simulated annealing; SMACOF majorization."
+    }
+   ]
   },
   {
    "from": "sw82",
    "to": "ksat",
-   "text": "Configuration space를 basin으로 분할하는 형식론이 비볼록 제약만족의 해 공간 분석으로. 두 경우 모두 <b>quenched disorder 위의 rugged landscape</b>가 대상."
+   "type": "analogy",
+   "key": false,
+   "text": "Configuration/solution space를 statistical physics의 대상으로 삼는 관점.",
+   "boundary": "Liquid의 minimization quench를 random K-SAT의 quenched disorder와 동일시하지 않음.",
+   "evidence": [
+    {
+     "node": "ksat",
+     "locator": "두 모델의 ensemble과 object 비교."
+    }
+   ]
   },
   {
    "from": "maslov",
    "to": "cp",
-   "text": "Degree를 고정한 무작위화가 mesoscale 구조 판정의 기준선. 무엇을 quenched로 둘지가 곧 무엇을 검정하는지를 정한다."
+   "type": "analogy",
+   "key": false,
+   "text": "Structural characterization에 null constraints를 명시하는 관점.",
+   "boundary": "해당 core–periphery method가 동일한 rewiring kernel을 사용한다는 주장 제외.",
+   "evidence": [
+    {
+     "node": "cp",
+     "locator": "보존 조건에 따른 baseline의 역할 비교."
+    }
+   ]
   },
   {
    "from": "good",
    "to": "cc",
-   "text": "Landscape가 rugged하다는 사실에서, 그 <b>ruggedness가 동역학적 결과를 예측하는가</b>라는 질문으로."
+   "type": "analogy",
+   "key": false,
+   "text": "Partition ambiguity와 독립적인 dynamical observable 사이의 관계라는 질문.",
+   "boundary": "Modularity degeneracy 자체가 basin stability를 결정한다는 theorem은 아님.",
+   "evidence": [
+    {
+     "node": "cc",
+     "locator": "Good의 partitions와 Kim 2015의 node consistency 비교."
+    }
+   ]
   },
   {
    "from": "good",
    "to": "rf",
-   "text": "전역적 축퇴를 <b>원소별 감수율</b>로 환원. 어느 node가 해의 흔들림을 흡수하는지를 묻는다."
+   "type": "transfer",
+   "key": false,
+   "text": "서로 다른 high-scoring partitions의 차이를 element-level observable로 집계.",
+   "boundary": "CoI는 perturbation derivative가 아니므로 susceptibility와 구분.",
+   "evidence": [
+    {
+     "node": "rf",
+     "locator": "Kim & Lee (2019), Sec. II A, Eqs. (1)–(2)."
+    }
+   ]
   },
   {
    "from": "good",
    "to": "cl",
-   "text": "축퇴의 존재 증명에서 그 축퇴의 <b>landscape를 그리는</b> 단계로. 해의 개수가 아니라 해들 사이의 거리 구조가 대상이 된다."
+   "type": "transfer",
+   "key": false,
+   "text": "Single optimum 대신 repeated partition ensemble의 variability 비교.",
+   "boundary": "Consistency profile은 energy surface 또는 minima count가 아님.",
+   "evidence": [
+    {
+     "node": "cl",
+     "locator": "Lee et al. (2021), inconsistency measures와 resolution sweep."
+    }
+   ]
   },
   {
    "from": "menck",
    "to": "cc",
-   "text": "Basin 부피라는 측도가 network 위의 노드 속성으로 내려온다."
+   "type": "transfer",
+   "key": false,
+   "text": "Declared perturbation law에서 node-wise recovery probability 추정.",
+   "boundary": "Community consistency와 recovery probability는 서로 다른 observable.",
+   "evidence": [
+    {
+     "node": "cc",
+     "locator": "Kim et al. (2015)의 stability-transition / consistency 비교."
+    }
+   ]
   },
   {
    "from": "menck",
    "to": "bs",
-   "text": "측도를 구조 단위로 분해. Basin 부피가 topology의 함수라는 것을 motif 수준에서 확인."
+   "type": "transfer",
+   "key": false,
+   "text": "Basin-stability sampling 설계를 power-grid motif 비교에 적용.",
+   "boundary": "Probability mass는 perturbation law와 dynamics에도 의존.",
+   "evidence": [
+    {
+     "node": "bs",
+     "locator": "Kim et al. (2016)의 motif별 basin-stability 분석."
+    }
+   ]
   },
   {
    "from": "nav1",
    "to": "nav2",
-   "text": "국소 규칙의 결과에서 그 결과가 갖는 <b>기하학적 성질</b>로. 관측 대상이 경로에서 배치로 옮겨간다."
+   "type": "transfer",
+   "key": false,
+   "text": "Greedy-navigation performance를 layout optimization의 기준으로 사용.",
+   "boundary": "경로의 local rule과 layout optimizer의 update는 다른 연산.",
+   "evidence": [
+    {
+     "node": "nav2",
+     "locator": "Lee & Holme (2012), navigation-optimized layouts의 objective."
+    }
+   ]
   },
   {
    "from": "nav2",
    "to": "city",
-   "text": "기하학적 성질을 실제 도시 평면에 적용."
+   "type": "analogy",
+   "key": false,
+   "text": "Navigation과 spatial layout의 관계를 city-plan 맥락에서 비교.",
+   "boundary": "같은 optimization pipeline 또는 유일 embedding이라는 주장 제외.",
+   "evidence": [
+    {
+     "node": "city",
+     "locator": "City-plan paper의 navigation 문제 설정."
+    }
+   ]
   },
   {
    "from": "nav1",
    "to": "city",
-   "text": "같은 greedy-navigator 틀의 응용."
+   "type": "transfer",
+   "key": false,
+   "text": "Greedy-navigation framework를 city plans에 적용.",
+   "boundary": "Navigation 성능에서 MDS terminal reproducibility로의 직접 함의는 없음.",
+   "evidence": [
+    {
+     "node": "city",
+     "locator": "Lee & Holme (2013)의 greedy-navigator application."
+    }
+   ]
   },
   {
    "from": "city",
    "to": "tnav",
-   "text": "Quenched 구조에서 시간의존 구조로. 같은 국소 규칙을 비평형 배경 위에서 본다."
+   "type": "analogy",
+   "key": false,
+   "text": "Spatial/static와 temporal substrate에서 navigation 문제 비교.",
+   "boundary": "역사적 영향이나 동일 dynamics의 계승을 주장하지 않음.",
+   "evidence": [
+    {
+     "node": "tnav",
+     "locator": "Navigation 대상과 time dependence의 비교."
+    }
+   ]
   },
   {
    "from": "ksat",
    "to": "cp",
-   "text": "비볼록 해 공간을 다루는 습관이 mesoscale 구조 탐지로. 두 경우 모두 objective가 답을 정한다."
+   "type": "analogy",
+   "key": false,
+   "text": "Network/constraint problem에서 objective와 model specification의 중요성 비교.",
+   "boundary": "연구자의 습관이나 문헌 간 역사적 인과는 확인하지 않음.",
+   "evidence": [
+    {
+     "node": "cp",
+     "locator": "Retrospective thematic comparison."
+    }
+   ]
   },
   {
    "from": "cp",
    "to": "nest",
-   "text": "서로 다른 이름의 구조가 같은 order parameter의 다른 절단면일 수 있다는 통합."
+   "type": "analogy",
+   "key": false,
+   "text": "Core–periphery와 nestedness의 정의 관계 비교.",
+   "boundary": "모든 지표가 동일 order parameter의 절단면이라는 일반화 제외.",
+   "evidence": [
+    {
+     "node": "nest",
+     "locator": "두 원논문의 structural definitions 비교."
+    }
+   ]
   },
   {
    "from": "cp",
    "to": "cc",
-   "text": "Objective가 해를 유일하게 정하지 못한다는 사실이, 그 비유일성을 <b>물리적 결과와 연결</b>하는 질문으로."
+   "type": "analogy",
+   "key": false,
+   "text": "Structural definition과 independent dynamical validation의 관계.",
+   "boundary": "Core–periphery definition으로 community inconsistency를 유도하지 않음.",
+   "evidence": [
+    {
+     "node": "cc",
+     "locator": "서로 다른 measured objects의 비교."
+    }
+   ]
   },
   {
    "from": "osc",
    "to": "cc",
-   "text": "복수 attractor의 공존이 전력망 노드의 안정성 전이 구간으로 구체화."
+   "type": "analogy",
+   "key": false,
+   "text": "Coupled-oscillator dynamics의 protocol-dependent outcomes 비교.",
+   "boundary": "동일 attractor structure 또는 직접 영향의 증거는 아님.",
+   "evidence": [
+    {
+     "node": "cc",
+     "locator": "두 dynamics와 perturbation 설정 비교."
+    }
+   ]
   },
   {
    "from": "cc",
    "to": "bs",
-   "text": "“일관성이 안정성을 예측한다”에서 <b>basin 측도 자체를 관측량으로</b> 삼는 방법론으로. 상관에서 측정 대상으로의 승격."
+   "type": "transfer",
+   "key": false,
+   "text": "Node-level basin-stability 분석에서 motif별 structural comparison으로 확장.",
+   "boundary": "Basin probability 측정은 이미 선행연구에 존재. 최초 도입으로 서술하지 않음.",
+   "evidence": [
+    {
+     "node": "bs",
+     "locator": "Kim 2015와 Kim 2016의 basin-stability observables 비교."
+    }
+   ]
   },
   {
    "from": "bs",
    "to": "ms",
-   "text": "단일 basin의 부피에서 <b>복수 basin과 그 사이의 전이</b>로. Landscape가 파라미터에 따라 재편된다."
+   "type": "transfer",
+   "key": false,
+   "text": "Power-grid basin stability를 coupling-dependent multistability와 함께 분석.",
+   "boundary": "Coupling 변화와 basin 사이의 stochastic hopping은 구분.",
+   "evidence": [
+    {
+     "node": "ms",
+     "locator": "Kim et al. (2018), nonmonotonic stability와 unsynchronized states."
+    }
+   ]
   },
   {
    "from": "ms",
    "to": "ibi",
-   "text": "다중안정성을 노드 단위로 적분해 구조·동역학 요인으로 분해."
+   "type": "transfer",
+   "key": false,
+   "text": "Coupling-dependent instability를 node별 integrated quantity로 요약.",
+   "boundary": "Coupling에 대한 적분. Node 자체를 적분하거나 고유 causal decomposition을 수행한 것이 아님.",
+   "evidence": [
+    {
+     "node": "ibi",
+     "locator": "Kim et al. (2019), integrated basin instability의 정의."
+    }
+   ]
   },
   {
    "from": "cc",
    "to": "rf",
-   "text": "Community 일관성을 <b>원소별 감수율</b>로 내림. 전역 지표에서 국소 지표로."
+   "type": "documented",
+   "key": false,
+   "text": "Node community consistency를 CoI = 1 − consistency로 전환해 relational flexibility로 해석.",
+   "boundary": "2015년부터 node-level measure. Global-to-local 전환이라는 기존 설명 삭제.",
+   "evidence": [
+    {
+     "node": "rf",
+     "locator": "Kim & Lee (2019), Sec. II A, Ref. [13], Eqs. (1)–(2)."
+    }
+   ]
   },
   {
    "from": "bs",
    "to": "ibi",
-   "text": "측도를 노드 속성으로 환원하는 같은 방향."
+   "type": "transfer",
+   "key": false,
+   "text": "Node perturbation의 recovery probability를 coupling sweep에서 요약.",
+   "boundary": "Coupling-dependent integral과 NEI pairwise variance는 다른 observable.",
+   "evidence": [
+    {
+     "node": "ibi",
+     "locator": "Kim et al. (2019)의 integrated basin instability 정의."
+    }
+   ]
   },
   {
    "from": "rf",
    "to": "cl",
-   "text": "원소별 flexibility에서 <b>해 앙상블 전체의 landscape</b>로. 국소 응답에서 전역 구조로 시야를 올린다."
+   "type": "transfer",
+   "key": false,
+   "text": "Repeated partition ensembles에서 local/global inconsistency를 비교.",
+   "boundary": "CoI와 PaI/MeI의 similarity·normalization은 서로 다름.",
+   "evidence": [
+    {
+     "node": "cl",
+     "locator": "Kim 2019 Sec. II A; Lee 2021 inconsistency definitions."
+    }
+   ]
   },
   {
    "from": "nest",
    "to": "cl",
-   "text": "정의를 먼저 고정하는 방식이 consistency의 정식화로 이어진다."
+   "type": "analogy",
+   "key": false,
+   "text": "Structural notions의 정의와 resolution-dependent description 비교.",
+   "boundary": "연구자 개인의 사고방식이 다음 논문으로 이어졌다는 역사적 주장은 제외.",
+   "evidence": [
+    {
+     "node": "cl",
+     "locator": "Retrospective thematic comparison."
+    }
+   ]
   },
   {
    "from": "cl",
    "to": "c3d",
-   "text": "Consistency landscape를 실제 3차원 접촉 데이터에 적용."
+   "type": "documented",
+   "key": false,
+   "text": "PaI/MeI를 Hi-C chromosome-contact networks에 적용.",
+   "boundary": "3D contact system을 다루지만 3D embedding terminal variance를 직접 측정한 연구는 아님.",
+   "evidence": [
+    {
+     "node": "c3d",
+     "locator": "Bernenko et al. (2023), Methods, Sec. III A/C, Ref. [14]."
+    }
+   ]
   },
   {
    "from": "ksat",
    "to": "rg",
-   "text": "통계역학 형식론을 network에 붙이는 계열. 유한크기 스케일링에서 분배함수로."
+   "type": "analogy",
+   "key": false,
+   "text": "Explicit statistical-mechanical model과 size/scale dependence의 공통 질문.",
+   "boundary": "Random K-SAT scaling과 network RG의 동일 이론 또는 derivation은 미주장.",
+   "evidence": [
+    {
+     "node": "rg",
+     "locator": "두 모델의 state space와 ensemble 비교."
+    }
+   ]
   },
   {
    "from": "ent",
    "to": "rg",
-   "text": "정보이론적 분해에서 분배함수 형식론으로. 두 경우 모두 graph 위에 열역학적 대상을 세운다."
+   "type": "analogy",
+   "key": false,
+   "text": "Weighted-network information과 network partition function의 formal descriptions 비교.",
+   "boundary": "Information entropy가 곧 thermal entropy 또는 RG derivation이라는 뜻 아님.",
+   "evidence": [
+    {
+     "node": "rg",
+     "locator": "두 원논문의 measured object 비교."
+    }
+   ]
   },
   {
    "from": "schoen",
    "to": "nei",
+   "type": "foundation",
    "key": true,
-   "text": "\\(\\mathcal D_p\\)의 근거 정리. Negative eigenvalue가 남기는 frustration은 어떤 \\(p\\)에서도 사라지지 않으므로, <b>stress의 하한이 topology에 의해 고정된다</b>. 다만 그 frustration이 landscape의 축퇴로 이어지는지는 별개 문제이며, 반례가 이미 있다."
+   "text": "Gram PSD/rank criterion으로 exact representability와 spectral deficiency의 정의를 정리.",
+   "boundary": "선택한 Δ, p, W에 조건부. Spectral deficiency를 raw-stress minimum 또는 multiplicity와 동일시하지 않음.",
+   "evidence": [
+    {
+     "node": "schoen",
+     "locator": "Schoenberg criterion; 본 페이지 representability section."
+    }
+   ]
   },
   {
    "from": "deleeuw",
    "to": "nei",
+   "type": "foundation",
    "key": true,
-   "text": "Terminal spread가 존재하는 <b>동역학적 이유</b>. Majorization은 monotone descent만 보장하므로 종단 상태가 초기조건의 함수가 되고, 그 사상이 곧 landscape를 표본하는 장치가 된다. \\(\\mu^{\\rm adm}\\)은 이 descent map의 pushforward다."
+   "text": "Discrete majorization map으로 initialization에서 terminal output까지의 algorithm 명시.",
+   "boundary": "Monotone descent는 multiplicity의 존재 증명이 아님. Admissible law는 full output law를 acceptance에 조건부로 정규화한 것.",
+   "evidence": [
+    {
+     "node": "deleeuw",
+     "locator": "de Leeuw & Mair (2009), SMACOF update; 본 페이지 protocol definition."
+    }
+   ]
   },
   {
    "from": "sw82",
    "to": "nei",
+   "type": "analogy",
    "key": true,
-   "text": "<b>관측량이 스칼라가 아니라 occupancy spectrum이라는 결론.</b> Inherent-structure 형식론이 열역학량을 \\(\\sum_\\gamma P_\\gamma(\\cdot)\\)로 쓰듯, 여기서도 \\(\\mathcal I\\)가 \\((\\mathcal I_{\\rm within},P,\\Delta^2)\\)의 곱-합으로 분해된다. 두 경우 모두 quenched disorder가 spectrum을 결정한다."
+   "text": "Minimization map과 basin-weighted decomposition의 연결.",
+   "boundary": "NEI는 scalar functional. Occupancy·terminal geometry·within-class variance가 함께 필요하며 Gibbs law는 자동 도입되지 않음.",
+   "evidence": [
+    {
+     "node": "sw82",
+     "locator": "Stillinger–Weber (1982)의 basin decomposition과 본 노트의 variance decomposition 비교."
+    }
+   ]
   },
   {
    "from": "maslov",
    "to": "nei",
+   "type": "transfer",
    "key": true,
-   "text": "Degree sequence를 quenched로 두는 대조군. 이것과의 차이가 degree 이상의 구조가 terminal spread에 기여하는 부분을 분리한다."
+   "text": "Degree-conditioned graph-null contrast로 structural baseline 구성.",
+   "boundary": "Contrast는 선언한 null에 조건부. Higher-order structure의 유일한 causal contribution 분해는 아님.",
+   "evidence": [
+    {
+     "node": "maslov",
+     "locator": "Maslov–Sneppen rewiring; 본 페이지 graph-null ensemble 선언."
+    }
+   ]
   },
   {
    "from": "good",
    "to": "nei",
+   "type": "analogy",
    "key": true,
-   "text": "<b>Rugged landscape가 network optimization에서 실재한다는 증거.</b> Modularity에서 확인된 것을 stress landscape에서 묻는다. 다만 대상이 이산 partition에서 연속 배위공간으로 바뀌면서 Hessian·rigidity·prestress가 함께 들어온다."
+   "text": "유사 objective value와 서로 다른 solutions를 분리해서 검토.",
+   "boundary": "Modularity 결과가 stress landscape의 multiplicity 또는 equal-energy degeneracy를 입증하지 않음.",
+   "evidence": [
+    {
+     "node": "good",
+     "locator": "Good et al. (2010)의 high-scoring partitions; NEI의 terminal geometry 비교."
+    }
+   ]
   },
   {
    "from": "menck",
    "to": "nei",
+   "type": "transfer",
    "key": true,
-   "text": "<b>Sampling design의 원형이자 같은 어려움의 출처.</b> Basin 부피를 crude Monte Carlo로 재면 부피가 작은 basin은 지수적으로 드물게 잡힌다. Karachi의 \\(P\\approx1/500\\)에서 \\(\\widehat{\\mathcal I}\\)가 <b>self-averaging하지 않는</b> 것이 정확히 그 문제이며, 해결에는 표본 증가가 아니라 rare-event sampling 또는 estimand 재정의가 필요하다."
+   "text": "Initial-condition measure와 terminal event probability를 명시한 sampling 설계.",
+   "boundary": "Rare-class 불확실성은 M 증가로 감소. Fixed-graph Monte Carlo 오차와 thermodynamic non-self-averaging을 구분.",
+   "evidence": [
+    {
+     "node": "menck",
+     "locator": "Basin-stability definition; 아래 rare-class sampling identity."
+    }
+   ]
   },
   {
    "from": "cl",
    "to": "nei",
+   "type": "transfer",
    "key": true,
-   "text": "<b>같은 질문, 다른 sector.</b> 해 앙상블의 일관성을 landscape로 그린다는 구도를 그대로 이어받되, 대상을 partition에서 <b>연속 배위공간의 종단 기하</b>로 옮긴다. 이때 order parameter가 label overlap이 아니라 pair-distance의 상대분산이 된다."
+   "text": "Fixed-parameter ensemble inconsistency를 geometry sector로 이전.",
+   "boundary": "Resolution profile과 energy landscape를 구분. PaI/MeI를 NEI로 직접 치환하지 않음.",
+   "evidence": [
+    {
+     "node": "cl",
+     "locator": "Lee et al. (2021)의 fixed-resolution ensemble; 본 페이지 protocol-conditioned NEI."
+    }
+   ]
   },
   {
    "from": "rf",
    "to": "nei",
+   "type": "transfer",
    "key": true,
-   "text": "<b>원소별 감수율로 내리는 조작을 그대로 이어받음.</b> NEI-node / NEI-edge (Eqs. B1–B2)가 같은 구조다. 다만 제거 전후의 pair set이 달라 normalization이 함께 변하므로, 그 차이를 감수율로 읽으려면 분모 변화를 명시해야 한다."
+   "text": "Binary co-membership variance에서 continuous pair-distance variance로 observable construction 확장.",
+   "boundary": "Normalization·state space가 다름. Pair aggregation과 deletion/re-embedding intervention을 구분.",
+   "evidence": [
+    {
+     "node": "rf",
+     "locator": "Kim & Lee (2019), Eq. (2)의 variance identity; 아래 algebraic bridge."
+    }
+   ]
   },
   {
    "from": "bs",
    "to": "nei",
+   "type": "transfer",
    "key": true,
-   "text": "<b>같은 방법론.</b> 초기조건 분포를 선언하고 그 pushforward의 측도를 관측량으로 삼는다. 차이는 attractor가 동역학적 fixed point가 아니라 <b>최적화 지형의 국소최소점</b>이라는 것뿐이다."
+   "text": "Graph별로 선언된 perturbation/initialization law에서 outcome probability를 추정하는 설계.",
+   "boundary": "Physical dynamics·attractors·recovery probability와 optimization·terminal geometry·acceptance-conditioned variance는 다름.",
+   "evidence": [
+    {
+     "node": "bs",
+     "locator": "Kim et al. (2016)의 basin sampling; 본 페이지 acceptance specification."
+    }
+   ]
   },
   {
    "from": "ms",
    "to": "nei",
+   "type": "analogy",
    "key": true,
-   "text": "파라미터에 따라 landscape가 재편된다는 관측이, 여기서는 <b>graph에 따라 재편된다</b>로 옮겨온다. 원고 reference [20]에 대응하는 실존 문헌이기도 하다."
+   "text": "Control parameter에 따라 outcome distribution이 달라지는 질문.",
+   "boundary": "Coupling sweep과 graph-null variation은 다른 개입. Stress multistability의 직접 evidence로 사용하지 않음.",
+   "evidence": [
+    {
+     "node": "ms",
+     "locator": "Kim et al. (2018), coupling-dependent multistability."
+    }
+   ]
   },
   {
    "from": "cc",
    "to": "nei",
+   "type": "transfer",
    "key": true,
-   "text": "<b>“consistency가 물리량이다”의 전례.</b> 해 앙상블의 재현성이 독립적으로 정의된 물리적 결과를 예측한다는 것을 이미 보였다. 증명하려는 명제의 community 버전이며, 여기서는 그 결과를 geometry 쪽에서 찾아야 한다."
+   "text": "반복 solution statistics를 독립적인 물리적 observable과 비교하는 검증 원칙.",
+   "boundary": "Power-grid consistency 결과가 NEI의 physical interpretation을 자동 입증하지 않음.",
+   "evidence": [
+    {
+     "node": "cc",
+     "locator": "Kim et al. (2015), community consistency와 stability transition."
+    }
+   ]
   },
   {
    "from": "nav2",
    "to": "nei",
+   "type": "analogy",
    "key": true,
-   "text": "<b>같은 사상, 다른 질문.</b> Topology에서 geometry로 가는 map의 <i>결과물</i>을 재는 데서, 그 map이 하나를 돌려주는지 <b>앙상블을 돌려주는지</b>를 재는 데로."
+   "text": "Topology로부터 얻은 layout의 geometry를 별도 측정 대상으로 설정.",
+   "boundary": "같은 map 아님: navigation objective/simulated annealing과 MDS stress/SMACOF를 구분.",
+   "evidence": [
+    {
+     "node": "nav2",
+     "locator": "Lee & Holme (2012)의 layout optimization; 본 페이지 SMACOF protocol."
+    }
+   ]
   },
   {
    "from": "rg",
    "to": "nei",
+   "type": "analogy",
    "key": true,
-   "text": "Graph 위에 열역학적 대상을 세우는 형식론. \\(\\mu^{\\rm adm}_{G,\\Pi}\\)도 같은 계열이지만 Gibbs 분포가 아니라 <b>결정론적 사상의 pushforward</b>이므로 온도도 detailed balance도 없다는 점이 다르다."
+   "text": "Graph 위 state space·model·ensemble의 명시.",
+   "boundary": "Deterministic pushforward도 thermal input에서 구성 가능. 현재 NEI가 nonthermal인 이유는 선언한 sampling law에 Gibbs weighting이 없기 때문.",
+   "evidence": [
+    {
+     "node": "rg",
+     "locator": "Jung et al. (2024)의 partition-function model과 NEI protocol 비교."
+    }
+   ]
+  },
+  {
+   "from": "deleeuw",
+   "to": "borgmair",
+   "type": "foundation",
+   "key": false,
+   "text": "Multistart solutions를 얻는 MDS optimization의 majorization 기반.",
+   "boundary": "Ordinal MDS의 disparity fitting과 raw metric MDS의 fixed targets를 구분.",
+   "evidence": [
+    {
+     "node": "borgmair",
+     "locator": "Borg & Mair (2017)의 SMACOF reference와 method; de Leeuw & Mair (2009)."
+    }
+   ]
+  },
+  {
+   "from": "borgmair",
+   "to": "nei",
+   "type": "transfer",
+   "key": true,
+   "text": "Multistart solutions를 fit과 configurational similarity로 함께 비교.",
+   "boundary": "NEI의 graph-level statistic·acceptance·null validation은 별도 구성. Multistart variability 자체의 최초 발견은 미주장.",
+   "evidence": [
+    {
+     "node": "borgmair",
+     "locator": "Borg & Mair (2017), abstract와 solution-comparison procedure."
+    }
+   ]
+  },
+  {
+   "from": "menck",
+   "to": "schultz",
+   "type": "documented",
+   "key": false,
+   "text": "Basin-stability definition을 유지하며 Monte Carlo uncertainty와 finite-precision limits 분석.",
+   "boundary": "정의의 도입과 numerical estimation의 검증은 다른 기여.",
+   "evidence": [
+    {
+     "node": "schultz",
+     "locator": "Schultz et al. (2017), introduction의 basin-stability 인용과 Monte Carlo error 식."
+    }
+   ]
+  },
+  {
+   "from": "schultz",
+   "to": "nei",
+   "type": "transfer",
+   "key": true,
+   "text": "Rare-class occupancy의 sampling error와 numerical terminal-classification error 분리.",
+   "boundary": "Schultz·Menck·Heitzig·Kurths의 estimation 연구이며 김희태 교수님 공저 연구와 구분. Probability estimator의 SE가 곧 NEI estimator의 SE는 아님.",
+   "evidence": [
+    {
+     "node": "schultz",
+     "locator": "Schultz et al. (2017), Monte Carlo standard error와 finite-precision analysis."
+    }
+   ]
+  }
+ ],
+ "relation_types": [
+  {
+   "id": "documented",
+   "label": "Documented extension",
+   "color": "#176b42",
+   "dash": "",
+   "description": "원문 인용과 정의·방법의 직접 확장 또는 적용 확인."
+  },
+  {
+   "id": "transfer",
+   "label": "Methodological transfer",
+   "color": "#2455a4",
+   "dash": "9 4",
+   "description": "Sampling 또는 observable construction의 이전. 동일한 estimator·dynamics 또는 입증된 역사적 영향은 미주장."
+  },
+  {
+   "id": "foundation",
+   "label": "Mathematical foundation",
+   "color": "#7950a3",
+   "dash": "12 4 2 4",
+   "description": "실제로 사용하는 theorem·algorithm. 원래 가정과 적용 범위 명시."
+  },
+  {
+   "id": "analogy",
+   "label": "Conceptual analogy",
+   "color": "#68717d",
+   "dash": "2 5",
+   "description": "문제의식의 유사성. 역사적 영향이나 동일한 수학적 구조는 미주장."
   }
  ]
 }

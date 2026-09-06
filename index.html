@@ -6,7 +6,7 @@
 <title>NEI 연구 아키텍처 — representability와 protocol-conditioned terminal geometry</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="stylesheet" href="vendor/katex/katex.min.css">
-<link rel="stylesheet" href="krds.css?v=25">
+<link rel="stylesheet" href="krds.css?v=26">
 </head>
 <body>
 
@@ -375,67 +375,128 @@
 </section>
 
 <section id="lineage">
-  <h2>1A. Research lineage — 세 strand의 합류</h2>
-  <ol class="note-tree lede">
-    <li><b>Node:</b> 논문 하나. 가로축은 publication year, 세로축은 research strand.
-      좌측 밴드는 연도축 밖의 foundation.</li>
-    <li><b>Link:</b> 두 논문 사이의 <b>구체적 연결</b>. 화살표는 dependency 또는 named
-      relation이며 priority claim이나 causality를 의미하지 않는다. 분류와 연결 서술은 김가현이 임의로 넣은것입니다.</li>
-    <li><b>Text color:</b> authorship. <span style="color:var(--success);font-weight:700">green</span>은
-      이상훈교수님 공저, <span style="color:var(--information);font-weight:700">blue</span>는
-      계보에 직접 연결된 외부 문헌, <span style="color:var(--point);font-weight:700">red</span>는 NEI.</li>
-    <li><b>Left stripe:</b> research strand.</li>
-    <li><b>Filled dot(●):</b> NEI에 직접 닿는 node.</li>
-  </ol>
-
-  <div class="lineage-legend">
-    <span class="k"><i style="background:#a8823f"></i>topology → geometry</span>
-    <span class="k"><i style="background:#5c7bb8"></i>solution-ensemble degeneracy</span>
-    <span class="k"><i style="background:#4f9e8e"></i>basin · multistability</span>
-    <span class="k"><i style="background:#8b76b5"></i>landscape · stat-mech formalism</span>
-    <span class="k"><span class="sw" style="color:var(--success)">green</span>&nbsp;SHL 공저</span>
-    <span class="k"><span class="sw" style="color:var(--information)">blue</span>&nbsp;외부 문헌</span>
+  <h2>1A. Research lineage — 세 연구축과 statistical-mechanical foundations</h2>
+  <ul class="note-tree lede">
+    <li><b>Reading rule:</b> 논문 목록보다 <b>무엇을 계승했는가</b>를 우선 표시.
+      Node는 원논문, link는 근거와 적용 한계를 명시한 관계. 모든 연결이 direct extension이라는 뜻은 아님.</li>
+    <li><b>Authorship:</b> node text의 green은 SHL 공저, blue는 외부 문헌, red는 NEI.
+      Authorship와 intellectual relation은 독립적인 표시. ●는 NEI와 연결된 node이며 novelty 또는 direct derivation의 인증은 아님.</li>
+    <li><b>Evidence:</b> 원문에서 확인한 citation·definition·method와 본 노트의 conceptual comparison을 구분.
+      클릭 시 original object, source of randomness, inherited component, boundary of transfer 및 출처 표시.</li>
+  </ul>
+  <div class="lineage-type-grid" aria-label="계승 관계의 네 유형">
+    <div><b>1. Documented extension</b><p>원문 인용과 정의·방법의 직접 확장 또는 적용 확인.</p></div>
+    <div><b>2. Methodological transfer</b><p>Sampling 또는 observable construction의 이전. 동일한 estimator·dynamics 또는 역사적 영향은 미주장.</p></div>
+    <div><b>3. Mathematical foundation</b><p>실제로 사용하는 theorem·algorithm. 원래 가정과 적용 범위 명시.</p></div>
+    <div><b>4. Conceptual analogy</b><p>문제의식의 유사성. 역사적 영향이나 동일한 수학적 구조는 미주장.</p></div>
   </div>
+  <div id="lineage-relations" class="lineage-legend" aria-label="Link type filters"></div>
+  <div class="lineage-toolbar">
+    <button type="button" id="lineage-reset">전체 연결</button>
+    <button type="button" id="lineage-focus-nei">NEI 연결로 이동</button>
+    <span class="fine">좌우 스크롤 · node/link 선택 · Tab과 Enter로 탐색</span>
+  </div>
+  <div class="lineage-wrap" id="lineagec" tabindex="0" aria-label="Research lineage map">불러오는 중…</div>
+  <p class="fine">세로축: research strand · 가로축: publication year. 좌측 foundation band는 연도축 밖.
+    Link color와 dash pattern은 관계 유형. 얇은 dotted link는 conceptual analogy.</p>
+  <div class="lineage-panel" id="lineage-panel" aria-live="polite"><p class="muted">Node 선택 시 상세 표시.</p></div>
 
-  <div class="lineage-wrap" id="lineagec">불러오는 중…</div>
-  <p class="fine">node 또는 link를 선택하면 서지사항과 연결 내용이 아래에 표시된다. 좌우 스크롤.</p>
-  <div class="lineage-panel" id="lineage-panel"><p class="muted">node 선택 시 상세 표시.</p></div>
+  <h3>1A.1 Algebraic bridge — co-membership에서 pair distance로</h3>
+  <ul class="note-tree">
+    <li><b>Original definition:</b> 고정된 graph·resolution·community-detection protocol에서
+      $B_{ij}^{(m)}=\mathbf 1\{g_i^{(m)}=g_j^{(m)}\}$,
+      $\phi_{ij}=\mathbb E_m[B_{ij}^{(m)}]$.
+      2015년 node community consistency와 2019년 <b>companionship inconsistency (CoI)</b>의 관계:
+      <div class="lineage-equation" data-lineage-formula="coi">
+        $C_i=\frac{1}{N-1}\sum_{j\ne i}(1-2\phi_{ij})^2$,
+        $\operatorname{CoI}_i=1-C_i=\frac{4}{N-1}\sum_{j\ne i}\operatorname{Var}_m(B_{ij}^{(m)})$.
+      </div>
+      <ul><li>Variance 표현은 기존 정의의 algebraic identity. 새로운 독립 가정이나 원문의 직접 인용문이 아님.</li>
+        <li>Empirical frequency 사용 시 variance의 divisor는 run 수 $M$. $M-1$ convention과 구분.</li>
+        <li>2015년부터 node-level measure. 2015→2019를 global-to-local 전환으로 서술하지 않음.
+          <a href="https://doi.org/10.1088/1367-2630/17/11/113005">Kim, Lee &amp; Holme (2015)</a>;
+          <a href="https://doi.org/10.1103/PhysRevE.100.022311">Kim &amp; Lee (2019), Sec. II A, Eqs. (1)–(2)</a>.</li></ul>
+    </li>
+    <li><b>Transfer:</b> binary co-membership fluctuation에서 continuous pair-distance fluctuation으로 관측 대상 확장.
+      Declared admissible terminal law, fixed pair set $\mathcal P$, positive means와 finite second moments 아래
+      <div class="lineage-equation" data-lineage-formula="nei">
+        $\mathcal I=\frac{1}{|\mathcal P|}\sum_{(i,j)\in\mathcal P}
+        \frac{\operatorname{Var}(d_{ij})}{\mathbb E[d_{ij}]^2}$.
+      </div>
+      <ul><li>CoI와 NEI는 observable·normalization·sampling law가 다름. 동일 estimator라는 주장 제외.</li>
+        <li>Complete pair set에서 $r_{ij}=\operatorname{Var}(d_{ij})/\mathbb E[d_{ij}]^2$,
+          $J_i=(N-1)^{-1}\sum_{j\ne i}r_{ij}$로 두면 $N^{-1}\sum_iJ_i=\mathcal I$.
+          이는 fixed-ensemble aggregation의 identity.</li>
+        <li>Node/edge removal 후 재임베딩은 graph·metric·terminal law를 바꾸는 finite intervention.
+          위 aggregation과 다르며 susceptibility에는 별도 perturbation–response 정의 필요.</li></ul>
+    </li>
+  </ul>
 
-  <h3>1A.1 각 strand에서 이어받은 것</h3>
+  <h3>1A.2 Basin stability — 저자와 연구 역할의 구분</h3>
   <div class="tablewrap"><table>
-    <thead><tr><th>Strand</th><th>이어받은 것</th><th>이어서 묻고 있는 것</th></tr></thead>
+    <thead><tr><th>문헌과 저자</th><th>Original object / inherited component</th><th>Boundary</th></tr></thead>
     <tbody>
-      <tr><td><b>solution-ensemble degeneracy</b><br><span class="muted">Good 2010 · Kim 2019 · Lee 2021 · Bernenko 2023</span></td>
-        <td>Nonconvex network optimization의 solution이 하나가 아니라 ensemble이며 그
-          reproducibility 자체를 observable로 삼는다는 발상. 그리고 그것을 element 단위로
-          내리는 방법.</td>
-        <td>Sector를 <b>community에서 geometry로</b>. 대상이 partition이 아니라 연속
-          configuration space의 terminal geometry가 되면서 Hessian·rigidity·prestress가 함께 들어옴.</td></tr>
-      <tr><td><b>basin · multistability</b><br><span class="muted">Menck 2013 · Kim 2015, 2016, 2018, 2019</span></td>
-        <td>Initialization을 뿌려 <b>basin occupancy를 observable로</b> 삼는 방법론, 그리고
-          occupancy estimation이 finite sample에서 겪는 어려움.</td>
-        <td>Dynamical attractor가 아니라 <b>optimization landscape의 local minimum</b>에 같은
-          방법을 적용. Observable이 recovery probability가 아니라 terminal geometry의 relative spread.</td></tr>
-      <tr><td><b>topology → geometry</b><br><span class="muted">Schoenberg 1935 · de Leeuw 1977 · Lee 2012 ×2, 2013, 2019</span></td>
-        <td>Realizability criterion, majorization이 global minimum을 보장하지 않는다는 사실,
-          그리고 map이 만드는 layout의 geometric property.</td>
-        <td>Map의 결과가 아니라 <b>map의 degeneracy</b>를 물음. 하나의 geometry를 반환하는가,
-          ensemble을 반환하는가.</td></tr>
-      <tr><td><b>landscape · stat-mech formalism</b><br><span class="muted">Stillinger–Weber 1982 · Lee 2010, 2021 · Jung 2024</span></td>
-        <td>Configuration space를 basin으로 partition하고 <b>occupancy spectrum</b>을 대상으로
-          삼는 inherent-structure formalism, network에 partition function을 붙이는 습관.</td>
-        <td>Graph를 <b>quenched disorder</b>로 두고 그것이 유도하는 landscape $F_G$를
-          measurement object로 삼음.</td></tr>
+      <tr><td><a href="https://doi.org/10.1088/1367-2630/aa5a7b"><b>Schultz et al. (2017)</b><br>Potentials and Limits to Basin Stability Estimation</a><br>
+        Paul Schultz, Peter J. Menck, Jobst Heitzig, Jürgen Kurths</td>
+        <td>Monte Carlo estimation과 numerical precision. Rare-class sampling uncertainty와 basin-classification error 분리.</td>
+        <td><b>김희태(Heetae Kim) 교수님 공저 논문이 아님.</b> 아래 power-grid 연구와 별도 reference.</td></tr>
+      <tr><td><a href="https://doi.org/10.1088/1367-2630/aae8eb"><b>Kim et al. (2018)</b><br>Multistability and variations in basin of attraction of power-grid systems</a><br>
+        Heetae Kim, Sang Hoon Lee, Jörn Davidsen, Seung-Woo Son</td>
+        <td>Power-grid coupling 변화에 따른 multistability와 basin-stability 변화.</td>
+        <td>Physical dynamics의 결과. MDS stress minima 또는 numerical estimation의 일반 정리와 구분.</td></tr>
+      <tr><td><a href="https://doi.org/10.1063/1.5115532"><b>Kim et al. (2019)</b><br>On structural and dynamical factors determining the integrated basin instability of power-grid nodes</a><br>
+        Heetae Kim, Mi Jin Lee, Sang Hoon Lee, Seung-Woo Son</td>
+        <td>각 node의 basin instability를 transmission capacity/coupling에 대해 적분.</td>
+        <td>Node 자체를 적분하는 것이 아니며 NEI의 pairwise variance 또는 고유한 causal decomposition과 구분.</td></tr>
     </tbody>
   </table></div>
+  <ul class="note-tree">
+    <li><b>Rare-class sampling:</b> 고정된 target law에서 class probability $p$와 $M$회 iid runs에 대해
+      <div class="lineage-equation" data-lineage-formula="sampling">
+        $\Pr(\text{miss})=(1-p)^M$,
+        $\operatorname{SE}(\widehat p)=\sqrt{p(1-p)/M}$.
+      </div>
+      <ul><li>Sample size 증가는 sampling uncertainty를 감소. Rare-event sampling에는 target law를 보존하는 weighting 필요.</li>
+        <li>예시로 실제 $p=1/500$을 가정하면 $M=500$에서 miss probability 약 $36.8\%$.
+          $M\ge1497$이면 적어도 한 번 관측할 확률 $95\%$ 이상.
+          500회 중 1회 관측만으로 실제 $p$를 확정하는 해석은 제외.</li>
+        <li>식의 $M$은 해당 target law에서의 independent draws.
+          Admissible law를 대상으로 삼으면 accepted sample size와 acceptance probability를 별도 보고.</li>
+        <li>Occupancy estimator의 SE가 곧 NEI estimator의 SE는 아님.
+          Numerical classification error, finite-run Monte Carlo error, graph-size limit의 non-self-averaging을 구분.</li></ul>
+    </li>
+  </ul>
 
+  <h3>1A.3 각 연구축에서 계승한 것과 새 검증 대상</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Research strand</th><th>Inherited component</th><th>NEI에서 필요한 별도 검증</th></tr></thead>
+    <tbody>
+      <tr><td><b>Solution-ensemble inconsistency</b><br>Kim 2015·2019, Lee 2021, Bernenko 2023; Good 2010</td>
+        <td>Repeated solutions의 label-invariant relations와 variability 집계.</td>
+        <td>Pair-distance observable의 정의·normalization·acceptance. Resolution-dependent consistency profile과 energy landscape의 구분.</td></tr>
+      <tr><td><b>Basin · multistability</b><br>Menck 2013; Kim et al.; Schultz 2017</td>
+        <td>Declared perturbation law 아래 outcome probability와 sampling uncertainty 평가.</td>
+        <td>Optimizer-specific terminal map, admissibility conditioning, rare-class detection power.
+          Physical attractors와 optimization terminals의 차이 명시.</td></tr>
+      <tr><td><b>Topology → geometry</b><br>Schoenberg, de Leeuw; Lee &amp; Holme; Borg &amp; Mair 2017</td>
+        <td>Euclidean realizability criterion, stress majorization, multistart fit/geometry comparison.</td>
+        <td>SMACOF는 discrete majorization. Monotone descent만으로 terminal multiplicity의 존재를 도출하지 않음.
+          Spectral deficiency와 raw-stress minimum의 구분.</td></tr>
+      <tr><td><b>Statistical-mechanical foundations</b><br>Stillinger–Weber; 관련 model/ensemble 연구</td>
+        <td>Basin-wise contributions와 ensemble specification.</td>
+        <td>Energy-minimization quench와 quenched random disorder의 구분.
+          NEI는 occupancy·geometry·within-class spread에 의존하는 scalar functional.
+          Nonthermal 해석은 sampling law에 근거; deterministic pushforward만으로 정당화하지 않음.</td></tr>
+    </tbody>
+  </table></div>
   <div class="callout">
-    <p><b>Reference에 반영할 부분.</b> 위 지도에서 <b>●</b>로 표시된 node는 NEI의 정의와 방법이 직접 이어받은 선행 연구다. 현재 원고는 이 가운데 Asia road data(PRL 108,
-      128701)와 Chilean power grid(Sci. Data 5, 180209)를 <b>data source</b>로 인용하고 있고,
-      방법론적 계보에 해당하는 나머지는 아직 reference에 반영되어 있지 않다. 특히
-      <i>Consistency landscape of network communities</i>(PRE 103, 052306)는 NEI의 central question에, <i>Relational flexibility of network elements based on inconsistent
-      community detection</i>(PRE 100, 022311)은 NEI-node / NEI-edge에 각각 직접 대응하므로
-      우선 반영 대상으로 둔다.</p>
+    <p><b>Contribution boundary.</b>
+      <a href="https://doi.org/10.17713/ajs.v46i2.561">Borg &amp; Mair (2017)</a>의 multistart MDS solution comparison을 직접 선행연구로 포함.
+      NEI의 새 기여 후보는 variability 자체의 발견이 아니라
+      <b>graph-level normalized pair-distance observable, declared terminal law, acceptance 및 graph-null comparison의 결합</b>.
+      새로운 physical interpretation과 nonredundancy는 corrected evidence로 별도 검증.</p>
+    <p class="fine">Selected lineage이며 전체 publication catalogue가 아님.
+      Data provenance 인용과 method/interpretation 인용을 구분하고, 실제 원고의 bibliography 반영 여부는 별도로 대조.</p>
   </div>
 </section>
 
@@ -1105,11 +1166,11 @@
 <script src="vendor/katex/katex.min.js"></script>
 <script src="vendor/katex/contrib/auto-render.min.js"></script>
 <script src="math-render.js?v=20"></script>
-<script src="data/offline-data.js?v=25"></script>
+<script src="data/offline-data.js?v=26"></script>
 <script src="graph.js?v=20"></script>
 <script src="source-quote.js?v=20"></script>
 <script src="corrected-view.js?v=20"></script>
-<script src="lineage.js?v=25"></script>
+<script src="lineage.js?v=26"></script>
 <script src="app.js?v=25"></script>
 </body>
 </html>

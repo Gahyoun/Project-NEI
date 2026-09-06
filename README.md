@@ -2,6 +2,8 @@
 
 [Interactive architecture and discussion](https://gahyoun.github.io/Project-NEI/)
 
+[Research lineage — typed relations, transfer boundaries, and validation](notes/11-lineage-review.md)
+
 ## 1. Reading rule
 
 - Definition → assumptions → identity → diagnostic → empirical evidence → allowed conclusion.

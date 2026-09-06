@@ -712,5 +712,41 @@
   "verified": true,
   "why": "Raw stress의 majorization, weighted Laplacian과 Guttman update의 method reference. Monotone stress descent를 global optimality 또는 모든 initialization의 동일 terminal로 확장하지 않음.",
   "area": "MDS"
+ },
+ "schultz2017": {
+  "authors": "Paul Schultz, Peter J. Menck, Jobst Heitzig, Jürgen Kurths",
+  "year": 2017,
+  "title": "Potentials and Limits to Basin Stability Estimation",
+  "venue": "New Journal of Physics",
+  "volume": "19",
+  "pages": "023005",
+  "doi": "10.1088/1367-2630/aa5a7b",
+  "verified": true,
+  "area": "basin-stability estimation",
+  "why": "Basin probability의 Monte Carlo uncertainty와 numerical precision을 구분하는 estimation 연구. Heetae Kim은 공저자가 아님. Kim et al.의 power-grid multistability/IBI 연구와 별도 문헌이며 occupancy SE를 NEI SE로 직접 치환하지 않음."
+ },
+ "kim2018multistability": {
+  "authors": "Heetae Kim, Sang Hoon Lee, Jörn Davidsen, Seung-Woo Son",
+  "year": 2018,
+  "title": "Multistability and variations in basin of attraction of power-grid systems",
+  "venue": "New Journal of Physics",
+  "volume": "20",
+  "pages": "113006",
+  "doi": "10.1088/1367-2630/aae8eb",
+  "verified": true,
+  "area": "power-grid dynamics",
+  "why": "김희태 교수님 공저 연구. Coupling-dependent power-grid multistability와 비단조 basin stability의 physical analysis. Schultz et al. (2017)의 numerical estimation 연구와 구분."
+ },
+ "kim2019ibi": {
+  "authors": "Heetae Kim, Mi Jin Lee, Sang Hoon Lee, Seung-Woo Son",
+  "year": 2019,
+  "title": "On structural and dynamical factors determining the integrated basin instability of power-grid nodes",
+  "venue": "Chaos",
+  "volume": "29",
+  "pages": "103132",
+  "doi": "10.1063/1.5115532",
+  "verified": true,
+  "area": "power-grid dynamics",
+  "why": "Node별 basin instability를 coupling/transmission capacity에 대해 적분. Node 자체에 대한 적분 또는 NEI의 pairwise variance가 아니며 Schultz et al. (2017)과 별도 저자·주제."
  }
 }

@@ -436,6 +436,8 @@
   {
    "id": "C41",
    "status": "measured",
+   "claim_type": "empirical_result",
+   "evidence_state": "legacy",
    "text": "Legacy 실행에서 실제 network 가 두 null 보다 낮은 $\\mathcal I$ 를 갖는다는 것은 강하게 성립한다 — $\\mathcal I_{\\rm real}<\\mathcal I_{\\rm deg}$ 와 $\\mathcal I_{\\rm real}<\\mathcal I_{\\rm ER}$ 가 각각 85개 중 80개 ($p=9.0\\times10^{-19}$, 일방 부호검정).",
    "basis": "nei-verification results/final_stats_87.csv. 예외는 8개 network 로 한정된다 — 첫 비교는 Dhaka, 2010 US airport, bn-mouse-kasthuri-graph-v4, bn-mouse-visual-cortex-2, web-edu. 둘째는 Delhi, bn-mouse-visual-cortex-2, web-edu, rt-lolgop, rt-occupywallstnyc. 둘 다 어기는 것은 bn-mouse-visual-cortex-2 와 web-edu 뿐이다. corrected rerun 이전 실행이므로 그 지위로 읽는다.",
    "refs": []
@@ -443,6 +445,8 @@
   {
    "id": "C42",
    "status": "measured",
+   "claim_type": "empirical_result",
+   "evidence_state": "legacy",
    "text": "3단 사슬 $\\mathcal I_{\\rm real}<\\mathcal I_{\\rm deg}<\\mathcal I_{\\rm ER}$ 은 성립하지 않는다. 중간 고리는 85개 중 64개(75%)에서만 성립하고, 실패 21건 중 12건이 road 이다 (road 21개의 57%).",
    "basis": "road 를 빼면 실패율이 25%에서 14%로 떨어진다. 무작위 예외가 아니라 최대 범주가 체계적으로 역전시키므로 두 null 은 nested 가 아니라 독립 baseline 으로 배치해야 한다. 공간 격자형 위상에서 degree 보존 무작위화가 ER 보다 큰 embedding 변동을 만든다는 관측이며, 그 자체로 물리적 해석 대상이다.",
    "refs": []
