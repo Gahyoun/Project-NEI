@@ -1,5 +1,5 @@
 {
-  "_note": "SHL research lineage for NEI. Lanes = research strand; author flag = SHL 공저 여부. Link text는 두 논문 사이의 구체적 연결. 분류와 링크 서술은 NEI와의 관계 기준으로 이 아카이브가 부여한 것이며 저자의 분류가 아님. 서지사항 출처: 저자 공개 목록 및 원고 reference list.",
+  "_note": "이 아카이브가 이어받은 선행 연구의 계보. Lanes = research strand; author flag = SHL 공저 여부. Link text는 두 논문 사이의 구체적 연결. 분류와 링크 서술은 이 아카이브가 자체적으로 부여한 독해이며 원저자의 분류가 아님. 서지사항 출처: 저자 공개 목록 및 원고 reference list. 화살표는 dependency 또는 named relation이며 priority claim을 의미하지 않음.",
   "lanes": [
     {"id": "geo",   "label": "topology → geometry"},
     {"id": "incon", "label": "solution-ensemble degeneracy"},
@@ -55,10 +55,10 @@
      "role":"서로 다른 이름의 mesoscale structure를 하나의 definition으로 통합. Definition을 먼저 고정하고 interpretation을 나중에 붙이는 방식."},
     {"id":"ms","year":2018,"lane":"basin","shl":true,"nei":1,
      "title":"Multistability and variations in basin of attraction of power-grid systems","authors":"H. Kim, S. H. Lee, J. Davidsen, S.-W. Son","venue":"New J. Phys. 20, 113006",
-     "role":"단일 basin의 stability에서 <b>multiple basin과 그 사이의 transition</b>으로. 원고 reference [20]이 가리켜야 했던 실존 논문."},
+     "role":"단일 basin의 stability에서 <b>multiple basin과 그 사이의 transition</b>으로. 원고 reference [20]에 대응하는 실존 문헌이기도 하다."},
     {"id":"rf","year":2019,"lane":"incon","shl":true,"nei":1,
      "title":"Relational flexibility of network elements based on inconsistent community detection","authors":"H. Kim, S. H. Lee","venue":"Phys. Rev. E 100, 022311",
-     "role":"Solution-ensemble의 inconsistency를 <b>node·edge 단위로 내린</b> 논문. 원고 Appendix B의 NEI-node / NEI-edge가 이 발상의 geometry 버전. 계보에서 가장 직접적인 조상."},
+     "role":"Solution-ensemble의 inconsistency를 <b>node·edge 단위로 내린</b> 논문. 원고 Appendix B의 NEI-node / NEI-edge는 이 발상을 geometry sector에서 이어받은 것이며, 계보에서 가장 직접적으로 대응한다."},
     {"id":"ibi","year":2019,"lane":"basin","shl":true,
      "title":"On structural and dynamical factors determining the integrated basin instability of power-grid nodes","authors":"H. Kim, S. H. Lee, S.-W. Son","venue":"Chaos 29, 103132",
      "role":"Basin instability를 node 단위로 적분해 structural·dynamical factor로 분해. Occupancy를 node property로 환원하는 방향."},
@@ -79,7 +79,7 @@
      "role":"Network에 partition function을 붙여 renormalize. Graph를 statistical mechanics의 대상으로 두는 formalism이 가장 명시적으로 나타난 작업."},
     {"id":"nei","year":2026,"lane":"incon","shl":true,"nei":3,"anchor":true,
      "title":"Network embedding inconsistency — 본 아카이브","authors":"G. Gim, S. H. Lee","venue":"준비 중",
-     "role":"세 strand의 합류점. Graph를 quenched disorder로 두고, fixed topology-to-geometry protocol이 유도하는 terminal-geometry law를 observable로 삼는다. Community가 아니라 <b>geometry</b> sector에서 solution-ensemble degeneracy를 묻는 것."}
+     "role":"세 strand가 합류하는 자리에서 열린 주제. Graph를 quenched disorder로 두고, fixed topology-to-geometry protocol이 유도하는 terminal-geometry law를 observable로 삼는다. 축적된 선행 연구가 community sector에서 확립해 둔 질문을 <b>geometry</b> sector로 옮겨 이어서 묻는다."}
   ],
   "links": [
     {"from":"schoen","to":"deleeuw","text":"Exact realizability criterion에서 <b>approximate</b> realization으로. 실현 불가능할 때 무엇을 minimize할 것인가."},
@@ -117,10 +117,10 @@
     {"from":"maslov","to":"nei","key":true,"text":"아카이브의 degree-preserving null 자체. 원고 reference [30]으로 이미 인용 중."},
     {"from":"good","to":"nei","key":true,"text":"<b>Degeneracy가 실재한다는 canonical reference.</b> Modularity에서 보인 것을 stress landscape에서 묻는 것이 NEI. Introduction에서 “이 질문은 다른 sector에서 이미 제기되었다”를 세울 때 consistency landscape와 함께 인용할 자리."},
     {"from":"menck","to":"nei","key":true,"text":"<b>Sampling design의 원형.</b> 그리고 rare basin의 occupancy를 finite sample로 재는 어려움 — Karachi의 $P\\approx1/500$ — 이 이 문헌이 이미 다루는 문제."},
-    {"from":"cl","to":"nei","key":true,"text":"<b>같은 질문, 다른 sector.</b> Nonconvex network optimization의 solution ensemble이 얼마나 degenerate한가 — community에서 geometry로. Introduction이 lineage를 세울 자리."},
-    {"from":"rf","to":"nei","key":true,"text":"<b>NEI-node / NEI-edge의 직계 조상.</b> Inconsistency를 element 단위로 내리는 발상이 원고 Eqs. (B1)–(B2)와 같은 구조. 다만 제거 전후의 pair set이 달라 denominator가 함께 변한다는 점은 명시 필요."},
+    {"from":"cl","to":"nei","key":true,"text":"<b>같은 질문, 다른 sector.</b> Nonconvex network optimization의 solution ensemble이 얼마나 degenerate한가 — 이 문헌이 community sector에서 정립한 질문을 geometry sector로 옮겨 이어받는다. Introduction에서 lineage를 밝힐 자리."},
+    {"from":"rf","to":"nei","key":true,"text":"<b>NEI-node / NEI-edge가 직접 이어받은 발상.</b> Inconsistency를 element 단위로 내리는 구조가 원고 Eqs. (B1)–(B2)와 대응한다. 다만 제거 전후의 pair set이 달라 denominator가 함께 변한다는 점은 이 아카이브 쪽에서 명시해야 한다."},
     {"from":"bs","to":"nei","key":true,"text":"<b>같은 방법론.</b> Initialization을 뿌려 basin occupancy를 추정. Karachi의 rare-basin 문제가 정확히 이 문헌의 estimation 문제."},
-    {"from":"ms","to":"nei","key":true,"text":"<b>원고 reference [20]이 가리켜야 했던 논문.</b> 현재 [20]은 author·volume·year가 모두 틀렸고 DOI가 404이며, NJP 23,113006 슬롯에는 다른 논문이 있음."},
+    {"from":"ms","to":"nei","key":true,"text":"원고 reference [20]에 대응하는 실존 문헌. 현재 등록된 항목은 author·volume·year가 다르고 DOI가 해결되지 않으므로 이 문헌으로 교체하면 된다."},
     {"from":"cc","to":"nei","key":true,"text":"<b>“consistency가 physical quantity”의 전례.</b> Solution ensemble의 reproducibility가 physical outcome을 예측한다는 것을 이미 보임."},
     {"from":"nav2","to":"nei","key":true,"text":"<b>같은 measurement object.</b> Topology에서 geometry로 가는 map. NEI는 그 map의 결과가 아니라 <b>degeneracy</b>를 묻는다."},
     {"from":"rg","to":"nei","key":true,"text":"Graph를 statistical mechanics의 대상으로 두는 formalism. $\\mu^{\\rm adm}_{G,\\Pi}$도 같은 계열이지만 thermal distribution이 아니라 <b>deterministic map의 pushforward</b>라는 점이 다름."}
