@@ -6,7 +6,7 @@
 <title>NEI 연구 아키텍처 — representability와 protocol-conditioned terminal geometry</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="stylesheet" href="vendor/katex/katex.min.css">
-<link rel="stylesheet" href="krds.css?v=24">
+<link rel="stylesheet" href="krds.css?v=25">
 </head>
 <body>
 
@@ -376,23 +376,14 @@
 
 <section id="lineage">
   <h2>1A. Research lineage — 세 strand의 합류</h2>
-  <p class="lede"><b>이 아카이브는 축적된 선행 연구 위에 서 있다.</b> Nonconvex network
-    optimization의 solution ensemble이 얼마나 degenerate한가라는 질문은 community sector에서
-    이미 다루어져 왔고, initialization을 뿌려 basin occupancy를 재는 sampling design은
-    power-grid stability 연구에서 정립되었으며, topology-to-geometry map 자체에도 오랜 선행
-    작업이 있다. 세 strand가 각각 충분히 성숙한 덕분에 같은 질문을 geometry sector에서
-    던지는 일이 비로소 가능해졌다. NEI는 그 합류점에서 열린 주제이며, 이 절은 무엇을
-    이어받았는지를 기록해 두기 위한 것이다.</p>
   <ol class="note-tree lede">
     <li><b>Node:</b> 논문 하나. 가로축은 publication year, 세로축은 research strand.
       좌측 밴드는 연도축 밖의 foundation.</li>
     <li><b>Link:</b> 두 논문 사이의 <b>구체적 연결</b>. 화살표는 dependency 또는 named
-      relation이며 priority claim이나 causality를 의미하지 않는다. 분류와 연결 서술은 이
-      아카이브가 자체적으로 부여한 독해이며 원저자의 분류가 아니다.</li>
+      relation이며 priority claim이나 causality를 의미하지 않는다. 분류와 연결 서술은 이 지도가 자체적으로 부여한 독해이며 원저자의 분류가 아니다.</li>
     <li><b>Text color:</b> authorship. <span style="color:var(--success);font-weight:700">green</span>은
       Sang Hoon Lee 공저, <span style="color:var(--information);font-weight:700">blue</span>는
-      계보에 직접 연결된 외부 문헌, <span style="color:var(--point);font-weight:700">red</span>는
-      본 아카이브.</li>
+      계보에 직접 연결된 외부 문헌, <span style="color:var(--point);font-weight:700">red</span>는 NEI.</li>
     <li><b>Left stripe:</b> research strand.</li>
     <li><b>Filled dot(●):</b> NEI에 직접 닿는 node.</li>
   </ol>
@@ -412,7 +403,7 @@
 
   <h3>1A.1 각 strand에서 이어받은 것</h3>
   <div class="tablewrap"><table>
-    <thead><tr><th>Strand</th><th>이 아카이브가 이어받은 것</th><th>이어서 묻고 있는 것</th></tr></thead>
+    <thead><tr><th>Strand</th><th>이어받은 것</th><th>이어서 묻고 있는 것</th></tr></thead>
     <tbody>
       <tr><td><b>solution-ensemble degeneracy</b><br><span class="muted">Good 2010 · Kim 2019 · Lee 2021 · Bernenko 2023</span></td>
         <td>Nonconvex network optimization의 solution이 하나가 아니라 ensemble이며 그
@@ -439,12 +430,10 @@
   </table></div>
 
   <div class="callout">
-    <p><b>Reference에 반영할 부분.</b> 위 지도에서 <b>●</b>로 표시된 node는 이 아카이브의
-      정의와 방법이 직접 이어받은 선행 연구다. 현재 원고는 이 가운데 Asia road data(PRL 108,
+    <p><b>Reference에 반영할 부분.</b> 위 지도에서 <b>●</b>로 표시된 node는 NEI의 정의와 방법이 직접 이어받은 선행 연구다. 현재 원고는 이 가운데 Asia road data(PRL 108,
       128701)와 Chilean power grid(Sci. Data 5, 180209)를 <b>data source</b>로 인용하고 있고,
       방법론적 계보에 해당하는 나머지는 아직 reference에 반영되어 있지 않다. 특히
-      <i>Consistency landscape of network communities</i>(PRE 103, 052306)는 이 아카이브의
-      central question에, <i>Relational flexibility of network elements based on inconsistent
+      <i>Consistency landscape of network communities</i>(PRE 103, 052306)는 NEI의 central question에, <i>Relational flexibility of network elements based on inconsistent
       community detection</i>(PRE 100, 022311)은 NEI-node / NEI-edge에 각각 직접 대응하므로
       우선 반영 대상으로 둔다.</p>
   </div>
@@ -1116,11 +1105,11 @@
 <script src="vendor/katex/katex.min.js"></script>
 <script src="vendor/katex/contrib/auto-render.min.js"></script>
 <script src="math-render.js?v=20"></script>
-<script src="data/offline-data.js?v=24"></script>
+<script src="data/offline-data.js?v=25"></script>
 <script src="graph.js?v=20"></script>
 <script src="source-quote.js?v=20"></script>
 <script src="corrected-view.js?v=20"></script>
-<script src="lineage.js?v=24"></script>
-<script src="app.js?v=24"></script>
+<script src="lineage.js?v=25"></script>
+<script src="app.js?v=25"></script>
 </body>
 </html>

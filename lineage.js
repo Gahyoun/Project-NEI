@@ -117,7 +117,7 @@
     }
     function tag(n){
       const lane=lanes[n.li]?lanes[n.li].label:"—";
-      return lane+" · "+(n.anchor?"본 아카이브":(n.shl?"SHL 공저":"외부 문헌"));
+      return lane+" · "+(n.anchor?"NEI":(n.shl?"SHL 공저":"외부 문헌"));
     }
     function showNode(id){
       clear();
