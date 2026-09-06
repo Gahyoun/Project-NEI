@@ -165,6 +165,9 @@
       });
       svg.append(group); nodeEls[n.id]=group;
     });
+    // 선택된 edge를 node 위로 올려 카드에 가리지 않게 하는 layer
+    const topLayer = svgEl("g", {class:"lin-top"});
+    svg.append(topLayer);
     host.replaceChildren(svg);
     svg.addEventListener("click", ()=>reset());
 
@@ -181,6 +184,7 @@
     function highlight() {
       const keep=new Set();
       if(selectedNode)keep.add(selectedNode);
+      topLayer.replaceChildren();
       edgeEls.forEach((group,i)=>{
         const k=links[i];
         const visible=!activeType || k.type===activeType;
@@ -189,7 +193,11 @@
         const chosen=visible && (selectedEdge===i || !!selectedNode && (k.from===selectedNode || k.to===selectedNode));
         group.classList.toggle("on",chosen);
         group.classList.toggle("dim",visible && (selectedNode!==null || selectedEdge!==null) && !chosen);
-        if(chosen){keep.add(k.from);keep.add(k.to);}
+        if(chosen){
+          keep.add(k.from);keep.add(k.to);
+          const vis=group.querySelector(".lin-edge");
+          if(vis)topLayer.append(vis.cloneNode(true));
+        }
       });
       Object.entries(nodeEls).forEach(([id,group])=>{
         group.classList.toggle("dim",(selectedNode!==null || selectedEdge!==null) && !keep.has(id));

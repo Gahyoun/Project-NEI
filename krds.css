@@ -413,3 +413,7 @@ code{background:var(--surface);border-radius:3px;padding:1px 6px;font-size:13px;
 .lineage-panel button,.lineage-toolbar button{cursor:pointer;border:1px solid var(--hairline);border-radius:5px;background:var(--canvas);padding:7px 11px;margin:4px 5px 4px 0;color:var(--foreground)}
 .lineage-equation{overflow-x:auto;margin:10px 0;padding:12px;background:var(--surface);line-height:2}
 @media(max-width:640px){.lineage-type-grid{grid-template-columns:1fr}.lin-profile{grid-template-columns:1fr;gap:4px}.lin-profile dd{margin-bottom:10px}.lineage-panel{padding:14px}.lineage-toolbar{flex-wrap:wrap}}
+
+/* 선택된 lineage edge를 node 위로 */
+.lin-top{pointer-events:none}
+.lin-top .lin-edge{opacity:1}
