@@ -563,7 +563,8 @@ function renderScope(){
   const files={nodes:"nodes",edges:"edges",connectors:"connectors",sweep:"sweep",vision:"vision",agenda:"agenda",sample:"sample",
                claims:"claims",refs:"refs",meas:"measurements",scope:"scope",corrected:"corrected-study",corrected_gates:"corrected-gate-sensitivity",
                sources:"source-map",excerpts_main:"source-excerpts-main",
-               excerpts_si:"source-excerpts-si",excerpts_note:"source-excerpts-note"};
+               excerpts_si:"source-excerpts-si",excerpts_note:"source-excerpts-note",
+               lineage:"lineage"};
   try{
     if(window.NEI_DATA){
       for(const [k,f] of Object.entries(files)){
@@ -588,6 +589,7 @@ function renderScope(){
   renderCorrectedStudy(DB.corrected,DB.corrected_gates);
   renderCalib(); renderByType(); renderFloor(); renderSweep(); renderSample(); renderVision(); renderAgenda();
   renderConnectors(); renderClaims(); renderRefs();
+  if(window.renderLineage) renderLineage(DB.lineage);
   drawMap();
   document.getElementById("zIn").onclick  = ()=>GRAPH?.zoomIn();
   document.getElementById("zOut").onclick = ()=>GRAPH?.zoomOut();

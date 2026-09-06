@@ -361,3 +361,34 @@ code{background:var(--surface);border-radius:3px;padding:1px 6px;font-size:13px;
 .research-discussion p,#origBody p,#kernelPanel p{font-size:15px;line-height:1.7;margin:6px 0 12px}
 .research-discussion>.note-tree,#origBody>.note-tree,#kernelPanel>.note-tree{font-size:15px;line-height:1.7}
 @media(max-width:640px){.proof-note{padding:13px}.research-tree{padding-left:18px}}
+
+/* ── lineage timeline ─────────────────────────────────── */
+.lineage-wrap{border:1px solid var(--hairline);background:var(--canvas);
+  overflow-x:auto;overflow-y:hidden;margin:0 0 6px}
+.lineage-wrap svg{display:block}
+.lin-node{cursor:pointer}
+.lin-node:hover .lin-card{stroke-width:2}
+.lin-node.dim{opacity:.25}
+.lin-edge{stroke-width:1.4;opacity:.4;cursor:pointer}
+.lin-edge.on{opacity:1;stroke-width:2.4}
+.lin-edge.dim{opacity:.07}
+.lin-lane{font-size:11px;letter-spacing:.06em;fill:var(--muted);text-transform:uppercase}
+.lin-year,.lin-yr{font-size:11px;fill:var(--muted)}
+.lin-yr{font-size:10px;font-weight:600}
+.lin-t{font-size:11.5px;font-weight:500}
+.lineage-legend{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;margin:0 0 12px;font-size:14px}
+.lineage-legend .k{display:inline-flex;align-items:center;gap:7px;color:var(--body)}
+.lineage-legend .k i{width:22px;height:3px;display:block}
+.lineage-legend .sw{font-weight:700}
+.lineage-panel{border:1px solid var(--hairline);background:var(--surface);
+  padding:18px 20px;margin:0 0 8px;min-height:150px}
+.lineage-panel h4{margin:0 0 4px;font-size:18px;line-height:1.4;color:var(--foreground);font-weight:700}
+.lin-tag{font-size:13px;font-weight:700;margin:0 0 6px;letter-spacing:.02em}
+.lin-cite{font-size:14px;color:var(--muted);margin:0 0 12px}
+.lin-role{font-size:15px;line-height:1.7;margin:0 0 12px;color:var(--body)}
+.lin-links{border-top:1px solid var(--hairline);padding-top:10px;margin-top:10px}
+.lin-lh{font-size:13px;color:var(--muted);margin:0 0 8px;font-weight:700}
+.lineage-panel ul{margin:0;padding:0;list-style:none}
+.lineage-panel li{margin:0 0 9px;font-size:14.5px;line-height:1.65;padding-left:19px;position:relative}
+.lineage-panel li::before{content:"→";position:absolute;left:0;color:var(--muted)}
+.lineage-panel li b{color:var(--foreground)}

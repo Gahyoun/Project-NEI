@@ -6,7 +6,7 @@
 <title>NEI 연구 아키텍처 — representability와 protocol-conditioned terminal geometry</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="stylesheet" href="vendor/katex/katex.min.css">
-<link rel="stylesheet" href="krds.css?v=20">
+<link rel="stylesheet" href="krds.css?v=23">
 </head>
 <body>
 
@@ -14,7 +14,7 @@
   <div class="inner">
     <span class="mark">NEI</span>
     <nav>
-      <a href="#result">definition</a><a href="#map">map</a><a href="#scope">1차 일단락</a><a href="#conn">connectors</a>
+      <a href="#result">definition</a><a href="#lineage">lineage</a><a href="#map">map</a><a href="#scope">1차 일단락</a><a href="#conn">connectors</a>
       <a href="#corrected-study">corrected evidence</a><a href="#repr">representability</a><a href="#scalar">decomposition</a>
       <a href="#sweep">sweep</a><a href="#sample">sample</a><a href="#vision">vision</a><a href="#claims">claim ledger</a><a href="#agenda">agenda</a><a href="#refs">references</a>
     </nav>
@@ -372,6 +372,78 @@
     <li><b>Unit test:</b> same-start scaled inputs의 normalized distance,
       acceptance indicator와 NEI 비교. 실패 시 단위 변환의 문제와 graph effect를 분리.</li>
   </ul>
+</section>
+
+<section id="lineage">
+  <h2>1A. Research lineage — 세 strand의 합류</h2>
+  <p class="lede"><b>이 measurement object는 새로 발명된 것이 아니다.</b> Nonconvex network
+    optimization의 solution ensemble이 얼마나 degenerate한가는 community sector에서 이미
+    제기된 질문이고, initialization을 뿌려 basin occupancy를 재는 sampling design은
+    power-grid stability 문헌에 확립되어 있으며, topology-to-geometry map 자체도 선행연구가
+    있다. NEI는 이 세 strand가 만나는 자리에 있다.</p>
+  <ol class="note-tree lede">
+    <li><b>Node:</b> 논문 하나. 가로축은 publication year, 세로축은 research strand.
+      좌측 밴드는 연도축 밖의 foundation.</li>
+    <li><b>Link:</b> 두 논문 사이의 <b>구체적 연결</b>. 화살표는 dependency 또는 named
+      relation이며 priority claim이나 causality를 의미하지 않는다.</li>
+    <li><b>Text color:</b> authorship. <span style="color:var(--success);font-weight:700">green</span>은
+      Sang Hoon Lee 공저, <span style="color:var(--information);font-weight:700">blue</span>는
+      계보에 직접 연결된 외부 문헌, <span style="color:var(--point);font-weight:700">red</span>는
+      본 아카이브.</li>
+    <li><b>Left stripe:</b> research strand.</li>
+    <li><b>Filled dot(●):</b> NEI에 직접 닿는 node.</li>
+  </ol>
+
+  <div class="lineage-legend">
+    <span class="k"><i style="background:#a8823f"></i>topology → geometry</span>
+    <span class="k"><i style="background:#5c7bb8"></i>solution-ensemble degeneracy</span>
+    <span class="k"><i style="background:#4f9e8e"></i>basin · multistability</span>
+    <span class="k"><i style="background:#8b76b5"></i>landscape · stat-mech formalism</span>
+    <span class="k"><span class="sw" style="color:var(--success)">green</span>&nbsp;SHL 공저</span>
+    <span class="k"><span class="sw" style="color:var(--information)">blue</span>&nbsp;외부 문헌</span>
+  </div>
+
+  <div class="lineage-wrap" id="lineagec">불러오는 중…</div>
+  <p class="fine">node 또는 link를 선택하면 서지사항과 연결 내용이 아래에 표시된다. 좌우 스크롤.</p>
+  <div class="lineage-panel" id="lineage-panel"><p class="muted">node 선택 시 상세 표시.</p></div>
+
+  <h3>1A.1 각 strand가 넘겨주는 것</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Strand</th><th>NEI에 넘겨주는 것</th><th>NEI가 새로 하는 것</th></tr></thead>
+    <tbody>
+      <tr><td><b>solution-ensemble degeneracy</b><br><span class="muted">Good 2010 · Kim 2019 · Lee 2021 · Bernenko 2023</span></td>
+        <td>Nonconvex network optimization의 solution이 하나가 아니라 ensemble이며 그
+          reproducibility 자체를 observable로 삼는다는 발상. 그리고 그것을 element 단위로
+          내리는 방법.</td>
+        <td>Sector를 <b>community에서 geometry로</b>. 대상이 partition이 아니라 연속
+          configuration space의 terminal geometry가 되면서 Hessian·rigidity·prestress가 함께 들어옴.</td></tr>
+      <tr><td><b>basin · multistability</b><br><span class="muted">Menck 2013 · Kim 2015, 2016, 2018, 2019</span></td>
+        <td>Initialization을 뿌려 <b>basin occupancy를 observable로</b> 삼는 방법론, 그리고
+          occupancy estimation이 finite sample에서 겪는 어려움.</td>
+        <td>Dynamical attractor가 아니라 <b>optimization landscape의 local minimum</b>에 같은
+          방법을 적용. Observable이 recovery probability가 아니라 terminal geometry의 relative spread.</td></tr>
+      <tr><td><b>topology → geometry</b><br><span class="muted">Schoenberg 1935 · de Leeuw 1977 · Lee 2012 ×2, 2013, 2019</span></td>
+        <td>Realizability criterion, majorization이 global minimum을 보장하지 않는다는 사실,
+          그리고 map이 만드는 layout의 geometric property.</td>
+        <td>Map의 결과가 아니라 <b>map의 degeneracy</b>를 물음. 하나의 geometry를 반환하는가,
+          ensemble을 반환하는가.</td></tr>
+      <tr><td><b>landscape · stat-mech formalism</b><br><span class="muted">Stillinger–Weber 1982 · Lee 2010, 2021 · Jung 2024</span></td>
+        <td>Configuration space를 basin으로 partition하고 <b>occupancy spectrum</b>을 대상으로
+          삼는 inherent-structure formalism, network에 partition function을 붙이는 습관.</td>
+        <td>Graph를 <b>quenched disorder</b>로 두고 그것이 유도하는 landscape $F_G$를
+          measurement object로 삼음.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout">
+    <p><b>Citation gap.</b> 현재 원고 reference 55건 중 교신저자 논문은 두 건이고 둘 다
+      <b>data source</b>로만 인용된다 — Asia road data(PRL 108, 128701)와 Chilean power
+      grid(Sci. Data 5, 180209). 위 지도에서 <b>●</b>로 표시된 node가 방법론적 선행연구로
+      들어가야 할 자리다. 특히 <i>Consistency landscape of network communities</i>(PRE 103,
+      052306)와 <i>Relational flexibility of network elements based on inconsistent community
+      detection</i>(PRE 100, 022311)은 각각 이 아카이브의 central question과 NEI-node /
+      NEI-edge에 직접 대응한다.</p>
+  </div>
 </section>
 
 <section id="map">
@@ -1040,10 +1112,11 @@
 <script src="vendor/katex/katex.min.js"></script>
 <script src="vendor/katex/contrib/auto-render.min.js"></script>
 <script src="math-render.js?v=20"></script>
-<script src="data/offline-data.js?v=21"></script>
+<script src="data/offline-data.js?v=23"></script>
 <script src="graph.js?v=20"></script>
 <script src="source-quote.js?v=20"></script>
 <script src="corrected-view.js?v=20"></script>
-<script src="app.js?v=22"></script>
+<script src="lineage.js?v=23"></script>
+<script src="app.js?v=23"></script>
 </body>
 </html>

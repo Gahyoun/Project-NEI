@@ -8,7 +8,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const names = [
   "nodes", "edges", "connectors", "claims", "refs",
   "measurements", "scope", "source-map", "sweep", "vision", "agenda", "sample",
-  "source-excerpts-main", "source-excerpts-si", "source-excerpts-note", "corrected-study", "corrected-gate-sensitivity"
+  "source-excerpts-main", "source-excerpts-si", "source-excerpts-note", "corrected-study", "corrected-gate-sensitivity", "lineage"
 ];
 const data = Object.fromEntries(names.map(name => [
   name,
