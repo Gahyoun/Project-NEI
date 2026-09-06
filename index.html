@@ -379,6 +379,9 @@
   <ul class="note-tree lede">
     <li><b>Reading rule:</b> 논문 목록보다 <b>무엇을 계승했는가</b>를 우선 표시.
       Node는 원논문, link는 근거와 적용 한계를 명시한 관계. 모든 연결이 direct extension이라는 뜻은 아님.</li>
+    <li><b>Research question:</b> 각 연구에서 정의한 관측량, 그 관측량이 구분하지 못하는 경우,
+      후속 연구가 도입한 비교 방법을 연결한다. NEI에서는 관계의 변동, terminal-state occupancy,
+      degree-conditioned comparison을 서로 다른 분석 대상으로 둔다.</li>
     <li><b>Authorship:</b> node text의 green은 SHL 공저, blue는 외부 문헌, red는 NEI.
       Authorship와 intellectual relation은 독립적인 표시. ●는 NEI와 연결된 node이며 novelty 또는 direct derivation의 인증은 아님.</li>
     <li><b>Evidence:</b> 원문에서 확인한 citation·definition·method와 본 노트의 conceptual comparison을 구분.
@@ -401,7 +404,7 @@
     Link color와 dash pattern은 관계 유형. 얇은 dotted link는 conceptual analogy.</p>
   <div class="lineage-panel" id="lineage-panel" aria-live="polite"><p class="muted">Node 선택 시 상세 표시.</p></div>
 
-  <h3>1A.1 Algebraic bridge — co-membership에서 pair distance로</h3>
+  <h3>1A.1 Observable construction — 관계의 분산과 유효 다양성</h3>
   <ul class="note-tree">
     <li><b>Original definition:</b> 고정된 graph·resolution·community-detection protocol에서
       $B_{ij}^{(m)}=\mathbf 1\{g_i^{(m)}=g_j^{(m)}\}$,
@@ -430,6 +433,27 @@
         <li>Node/edge removal 후 재임베딩은 graph·metric·terminal law를 바꾸는 finite intervention.
           위 aggregation과 다르며 susceptibility에는 별도 perturbation–response 정의 필요.</li></ul>
     </li>
+    <li><b>CoI에서 PaI·MeI로:</b>
+      <a href="https://doi.org/10.1103/PhysRevE.103.052306">Lee et al. (2021), Sec. II C 및 III A3</a>는
+      기존 CoI가 여러 community에 걸친 membership 변화를 반영하는 방식을 검토하고,
+      configuration 및 membership similarity를 이용한 PaI·MeI와 비교한다.
+      이 연결은 기존 관측량의 해석 범위를 확인하고 상호 보완적인 관측량을 도입한 documented extension이다.
+      <ul><li>PaI에서 partition $\alpha$의 출현 비율을 $q_\alpha$,
+        원문의 element-centric similarity를 $S_{\alpha\beta}$라 쓰면
+        <div class="lineage-equation" data-lineage-formula="pai">
+          $\Omega=\left(\sum_{\alpha,\beta}q_\alpha q_\beta S_{\alpha\beta}\right)^{-1}$,
+          $\sum_\alpha q_\alpha=1$, $S_{\alpha\alpha}=1$.
+        </div>
+        서로 다른 partition의 similarity가 0인 경우에는 정의로부터
+        $\Omega=(\sum_\alpha q_\alpha^2)^{-1}$이다.
+        이 경우에도 $K$개 partition의 비율이 모두 같을 때에만 $\Omega=K$가 된다.</li>
+        <li>CoI와 NEI의 연결은 관계 관측량의 variance를 집계하는 구성에 있다.
+          PaI·MeI와의 비교에서는 similarity-weighted effective diversity와
+          mean-normalized geometric dispersion을 구분한다.</li>
+        <li>NEI와 함께 terminal-state occupancy 및 geometric separation을 보고하면
+          scalar spread만으로 구분되지 않는 분포의 차이를 검토할 수 있다.
+          NEI를 PaI·MeI의 연속형 일반화 또는 유효 상태 수로 해석하지 않는다.</li></ul>
+    </li>
   </ul>
 
   <h3>1A.2 Basin stability — 저자와 연구 역할의 구분</h3>
@@ -439,7 +463,7 @@
       <tr><td><a href="https://doi.org/10.1088/1367-2630/aa5a7b"><b>Schultz et al. (2017)</b><br>Potentials and Limits to Basin Stability Estimation</a><br>
         Paul Schultz, Peter J. Menck, Jobst Heitzig, Jürgen Kurths</td>
         <td>Monte Carlo estimation과 numerical precision. Rare-class sampling uncertainty와 basin-classification error 분리.</td>
-        <td><b>김희태(Heetae Kim) 교수님 공저 논문이 아님.</b> 아래 power-grid 연구와 별도 reference.</td></tr>
+        <td><b>Heetae Kim은 이 논문의 저자가 아님.</b> 아래 power-grid 연구와 별도 reference.</td></tr>
       <tr><td><a href="https://doi.org/10.1088/1367-2630/aae8eb"><b>Kim et al. (2018)</b><br>Multistability and variations in basin of attraction of power-grid systems</a><br>
         Heetae Kim, Sang Hoon Lee, Jörn Davidsen, Seung-Woo Son</td>
         <td>Power-grid coupling 변화에 따른 multistability와 basin-stability 변화.</td>
@@ -472,16 +496,24 @@
     <thead><tr><th>Research strand</th><th>Inherited component</th><th>NEI에서 필요한 별도 검증</th></tr></thead>
     <tbody>
       <tr><td><b>Solution-ensemble inconsistency</b><br>Kim 2015·2019, Lee 2021, Bernenko 2023; Good 2010</td>
-        <td>Repeated solutions의 label-invariant relations와 variability 집계.</td>
-        <td>Pair-distance observable의 정의·normalization·acceptance. Resolution-dependent consistency profile과 energy landscape의 구분.</td></tr>
+        <td>Repeated solutions의 label-invariant relations. CoI의 variance 구성과 PaI·MeI의 similarity-weighted diversity.</td>
+        <td>Pair-distance observable의 정의·normalization·acceptance. Occupancy, separation, geometric dispersion의 상호 보완성.</td></tr>
       <tr><td><b>Basin · multistability</b><br>Menck 2013; Kim et al.; Schultz 2017</td>
         <td>Declared perturbation law 아래 outcome probability와 sampling uncertainty 평가.</td>
         <td>Optimizer-specific terminal map, admissibility conditioning, rare-class detection power.
           Physical attractors와 optimization terminals의 차이 명시.</td></tr>
-      <tr><td><b>Topology → geometry</b><br>Schoenberg, de Leeuw; Lee &amp; Holme; Borg &amp; Mair 2017</td>
-        <td>Euclidean realizability criterion, stress majorization, multistart fit/geometry comparison.</td>
+      <tr><td><b>Topology → geometry</b><br>Schoenberg, de Leeuw; Lee &amp; Holme; Borg &amp; Leutner 1985; Borg &amp; Mair 2017</td>
+        <td>Euclidean realizability criterion, stress majorization, corresponding-distance comparison 및 multistart fit/geometry comparison.</td>
         <td>SMACOF는 discrete majorization. Monotone descent만으로 terminal multiplicity의 존재를 도출하지 않음.
           Spectral deficiency와 raw-stress minimum의 구분.</td></tr>
+      <tr><td><b>Degree-conditioned comparison</b><br>Maslov &amp; Sneppen 2002; Lee 2016</td>
+        <td>Degree sequence를 보존한 graph ensemble과 구조 지표의 비교.</td>
+        <td>선언한 graph constraints 및 sampling kernel 아래의 NEI contrast.
+          Rewiring에 따른 변화 방향과 degree를 넘어서는 정보는 별도 검증.</td></tr>
+      <tr><td><b>Resolution-dependent organization</b><br>Bernenko et al. 2023, <i>Mapping the semi-nested community structure</i>; Jeong et al. 2025</td>
+        <td>Resolution 변화에 따른 비계층적 community 재조직의 관측과 분석.</td>
+        <td>고정된 protocol의 run-to-run dispersion과 protocol 변경에 따른 output-law 변화를 구분.
+          Community resolution과 terminal clustering threshold의 역할을 별도로 정의.</td></tr>
       <tr><td><b>Statistical-mechanical foundations</b><br>Stillinger–Weber; 관련 model/ensemble 연구</td>
         <td>Basin-wise contributions와 ensemble specification.</td>
         <td>Energy-minimization quench와 quenched random disorder의 구분.
@@ -489,12 +521,37 @@
           Nonthermal 해석은 sampling law에 근거; deterministic pushforward만으로 정당화하지 않음.</td></tr>
     </tbody>
   </table></div>
+  <h3>1A.4 Comparison design — 구조적 제약과 protocol dependence</h3>
+  <ul class="note-tree">
+    <li><b>Degree-conditioned null:</b>
+      <a href="https://doi.org/10.1103/PhysRevE.93.022306">Lee (2016), Sec. III B 및 IV</a>의
+      nestedness–coreness 분석에서는 degree-preserving randomization이 관측된 구조를 반드시 약화시키지 않으며,
+      degree sequence가 가능한 구조의 범위를 제약한다.
+      NEI에 이전하는 것은 보존 조건을 명시한 ensemble 안에서 관측량을 비교하는 설계이다.
+      Rewiring 이후 NEI의 증가·감소 방향이나 higher-order structure의 고유한 기여는 이 선례로부터 도출되지 않는다.</li>
+    <li><b>Protocol dependence:</b>
+      <a href="https://doi.org/10.1371/journal.pcbi.1011185">Bernenko et al. (2023), <i>Mapping the semi-nested community structure</i></a>와
+      <a href="https://doi.org/10.1103/PhysRevE.111.014312">Jeong et al. (2025)</a>는
+      community resolution 변화에 따라 단순한 계층적 분할로 설명되지 않는 재조직을 다룬다.
+      NEI에서는 고정된 embedding protocol 아래 반복 실행의 dispersion과,
+      목적함수·차원·설정을 변경할 때의 output-law 변화를 별도로 평가한다.
+      <ul><li>Community resolution $\gamma$는 최적화 목적함수를 바꾼다.
+        Terminal clustering threshold $\varepsilon_D$는 고정된 terminal outputs를 분류하는 해상도이다.
+        동일한 outputs에 threshold만 변경하면 class occupancy 요약은 달라질 수 있으나,
+        pair-distance NEI 자체는 바뀌지 않는다.</li>
+        <li>2023년 <i>Mapping the semi-nested community structure</i>와
+          <i>Exploring 3D community inconsistency</i>는 별개 문헌이다.
+          2025년 논문으로의 documented extension은 전자의 인용과 문제 설정을 근거로 표시한다.</li></ul>
+    </li>
+  </ul>
   <div class="callout">
     <p><b>Contribution boundary.</b>
-      <a href="https://doi.org/10.17713/ajs.v46i2.561">Borg &amp; Mair (2017)</a>의 multistart MDS solution comparison을 직접 선행연구로 포함.
-      NEI의 새 기여 후보는 variability 자체의 발견이 아니라
-      <b>graph-level normalized pair-distance observable, declared terminal law, acceptance 및 graph-null comparison의 결합</b>.
-      새로운 physical interpretation과 nonredundancy는 corrected evidence로 별도 검증.</p>
+      Corresponding-distance comparisons and multistart solution comparisons have precedents in multidimensional scaling
+      (<a href="https://doi.org/10.1207/s15327906mbr2003_6">Borg &amp; Leutner, 1985</a>;
+      <a href="https://doi.org/10.17713/ajs.v46i2.561">Borg &amp; Mair, 2017</a>).
+      Here, NEI is defined as the mean squared coefficient of variation of pair distances under a specified admissible terminal law.
+      Whether it provides information beyond embedding stress and degree-sequence constraints is an empirical question
+      requiring controlled comparisons. Terminal-state occupancy, geometric separation, and acceptance are complementary diagnostics.</p>
     <p class="fine">Selected lineage이며 전체 publication catalogue가 아님.
       Data provenance 인용과 method/interpretation 인용을 구분하고, 실제 원고의 bibliography 반영 여부는 별도로 대조.</p>
   </div>

@@ -235,7 +235,7 @@
    "title": "Density-based and transport-based core-periphery structures in networks",
    "authors": "S. H. Lee, M. Cucuringu, M. A. Porter",
    "venue": "Phys. Rev. E 89, 032810",
-   "role": "서로 다른 core–periphery definitions의 비교. NEI의 protocol specification과는 개념적 연결이며 직접 유도 관계는 미주장.",
+   "role": "Density-based와 transport-based core–periphery 정의를 비교한 연구. Density-based core score의 후속 확장은 nestedness 연구로 이어지며, NEI에서는 관측 대상에 맞는 정의를 명시하는 선례로 참고한다.",
    "object": "Density-based / transport-based core–periphery structure",
    "randomness": "Graph와 선택한 structural definition·method.",
    "inherited": "측정하려는 structure에 맞춰 definition/objective를 명시.",
@@ -273,10 +273,10 @@
    "title": "Building blocks of basin stability of power grids",
    "authors": "Heetae Kim, S. H. Lee, P. Holme",
    "venue": "Phys. Rev. E 93, 062318",
-   "role": "Power-grid structural motifs와 basin stability 관계 연구. 초기조건 law에 조건부인 확률 측정 설계의 참고.",
-   "object": "Power-grid motifs의 basin stability",
+   "role": "Power-grid motifs에서 coupling strength에 따른 basin-stability transition profile을 비교한 연구. 비단조 profile의 관측은 후속 multistability 연구의 설명 대상이 된다.",
+   "object": "Power-grid motifs의 coupling-dependent basin stability",
    "randomness": "Declared node perturbations와 physical dynamics.",
-   "inherited": "Graph structure를 바꾸며 recovery probability 비교.",
+   "inherited": "Graph structure별 recovery probability를 coupling parameter의 함수로 비교한다.",
    "boundary": "NEI와 같은 estimator가 아님. Physical attractors는 optimization minima와 구분.",
    "doi": "10.1103/PhysRevE.93.062318",
    "source_url": "https://doi.org/10.1103/PhysRevE.93.062318",
@@ -291,15 +291,16 @@
    "title": "Network nestedness as generalized core-periphery structures",
    "authors": "S. H. Lee",
    "venue": "Phys. Rev. E 93, 022306",
-   "role": "Nestedness를 generalized core–periphery 관점에서 다룬 연구. NEI 계보에서는 개념적 배경으로 한정.",
-   "object": "Nestedness와 core–periphery definitions",
-   "randomness": "Network structure와 선택한 definition.",
-   "inherited": "서로 다른 structural notions의 정의·관계 비교.",
-   "boundary": "동일한 order parameter의 절단면 또는 NEI의 수학적 기반이라는 일반화 제외.",
+   "role": "Degree-preserving randomization으로 nestedness와 coreness의 관계를 재검토한 연구. Degree sequence가 가능한 구조 지표의 범위를 제약한다는 결과를 NEI의 degree-conditioned graph-null comparison에 방법론적으로 연결한다.",
+   "object": "Nestedness–coreness 관계와 degree-conditioned graph ensemble",
+   "randomness": "Degree sequence를 보존하는 edge-pair shuffling; 별도의 synthetic-network realizations.",
+   "inherited": "Graph ensemble의 보존 조건이 관측량의 가능한 범위를 어떻게 제약하는지 확인한 뒤 structural contrast를 해석한다.",
+   "boundary": "Degree preservation이 모든 higher-order structure를 제거하는 것은 아니다. 이 선례는 rewiring에 따른 NEI 변화의 부호나 단조성을 예측하지 않는다.",
    "doi": "10.1103/PhysRevE.93.022306",
-   "source_url": "https://doi.org/10.1103/PhysRevE.93.022306",
-   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
-   "short_title": "Nestedness / core–periphery"
+   "source_url": "https://arxiv.org/html/1602.00093",
+   "source_note": "Lee (2016), Sec. II B, Eqs. (2)–(5), Ref. [17]: core-score 확장. Sec. III B: edge-pair shuffling. Sec. IV, Figs. 6–7 및 Sec. V: degree-sequence 제약.",
+   "short_title": "Nestedness & degree constraints",
+   "nei": 1
   },
   {
    "id": "ms",
@@ -310,14 +311,14 @@
    "title": "Multistability and variations in basin of attraction of power-grid systems",
    "authors": "Heetae Kim, S. H. Lee, J. Davidsen, S.-W. Son",
    "venue": "New J. Phys. 20, 113006",
-   "role": "김희태 교수님 공저의 power-grid multistability 연구. Coupling 증가 시 비단조 recovery behavior를 unsynchronized states의 stability 변화와 연결.",
+   "role": "선행 motif 연구에서 관측한 비단조 basin-stability profile을 unsynchronized states의 stability 변화와 연결하여 분석한 연구.",
    "object": "Power-grid multistability와 coupling-dependent basin stability",
    "randomness": "Physical initial perturbations; coupling parameter.",
    "inherited": "Parameter 변화에 따른 attractor stability와 basin probability의 동시 비교.",
    "boundary": "Graph variation과 coupling variation은 다른 개입. Thermal hopping 또는 stress basin과 동일시하지 않음.",
    "doi": "10.1088/1367-2630/aae8eb",
-   "source_url": "https://doi.org/10.1088/1367-2630/aae8eb",
-   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
+   "source_url": "https://arxiv.org/html/1807.09420",
+   "source_note": "Kim et al. (2018), introduction, Sec. 3.2, Ref. [21]: Kim et al. (2016)의 비단조 transition profile을 인용하고 그 mechanism을 분석.",
    "short_title": "Power-grid multistability"
   },
   {
@@ -347,7 +348,7 @@
    "title": "On structural and dynamical factors determining the integrated basin instability of power-grid nodes",
    "authors": "Heetae Kim, Mi Jin Lee, Sang Hoon Lee, Seung-Woo Son",
    "venue": "Chaos 29, 103132",
-   "role": "김희태 교수님 공저 연구. Integrated basin instability를 통해 power-grid topology와 dynamical parameters의 관련성 분석.",
+   "role": "Integrated basin instability를 통해 power-grid topology와 dynamical parameters의 관련성을 분석한 연구.",
    "object": "Node-wise integrated basin instability",
    "randomness": "Perturbation ensemble; transmission capacity/coupling sweep.",
    "inherited": "각 node의 basin instability를 coupling에 대해 적분.",
@@ -383,14 +384,14 @@
    "title": "Consistency landscape of network communities",
    "authors": "D. Lee, S. H. Lee, B. J. Kim, H. Kim",
    "venue": "Phys. Rev. E 103, 052306",
-   "role": "Partition inconsistency와 membership inconsistency로 community resolution profile 측정. Label-invariant similarities 사용; 단순 label overlap과 구분.",
+   "role": "기존 CoI의 multi-community 해석을 검토하고 configuration 및 membership similarity를 이용한 PaI·MeI를 도입한 연구. 동일 ensemble에서 지표들의 상호 보완적 특성을 비교한다.",
    "object": "Resolution-dependent consistency profile",
    "randomness": "각 고정 resolution에서 반복 생성한 partitions.",
-   "inherited": "Global/element-level inconsistency를 resolution에 따라 비교.",
-   "boundary": "Resolution landscape는 stress surface 또는 energy barrier reconstruction이 아님. PaI/MeI와 NEI는 다른 normalization.",
+   "inherited": "관계의 변동과 similarity-weighted effective diversity를 구분하고, 각 고정 resolution의 ensemble을 비교한다.",
+   "boundary": "PaI·MeI의 유효 다양성과 NEI의 mean-normalized geometric dispersion은 별도 측정량이다. Resolution profile은 stress surface 또는 energy barrier의 복원이 아니다.",
    "doi": "10.1103/PhysRevE.103.052306",
-   "source_url": "https://doi.org/10.1103/PhysRevE.103.052306",
-   "source_note": "Original paper: 제목·DOI와 아래 transfer boundary 참조.",
+   "source_url": "https://arxiv.org/html/2103.12626",
+   "source_note": "Lee et al. (2021), Sec. II B–C, Eqs. (2), (5)–(7), Ref. [15]; Sec. III A3, Fig. 5: CoI와 MeI 비교.",
    "short_title": "Consistency across resolution"
   },
   {
@@ -461,8 +462,8 @@
    "role": "고정된 graph와 fully specified protocol 아래 admissible terminal law의 normalized pair-distance variance 측정. Graph-null contrast와 acceptance를 함께 보고; 새로운 물리적 해석은 별도 검증.",
    "object": "Protocol-conditioned terminal-geometry law",
    "randomness": "Initialization·algorithmic randomness; 선언된 admissibility conditioning.",
-   "inherited": "Pairwise fluctuations, multistart geometry comparison, basin sampling, majorization의 결합.",
-   "boundary": "NEI 단독으로 state count, equal-energy degeneracy 또는 barrier를 식별하지 않음.",
+   "inherited": "CoI의 관계 변동 집계, MDS의 대응 거리·multistart 비교, basin sampling 및 degree-conditioned null 비교를 결합한다.",
+   "boundary": "NEI 단독으로 state count, equal-energy degeneracy 또는 barrier를 식별하지 않는다. 거리 비교의 alignment invariance 자체를 새로운 기여로 제시하지 않는다.",
    "source_url": "#result",
    "source_note": "본 페이지의 definition 및 claim ledger.",
    "short_title": "Network embedding inconsistency"
@@ -499,28 +500,71 @@
    "doi": "10.1088/1367-2630/aa5a7b",
    "source_url": "https://doi.org/10.1088/1367-2630/aa5a7b",
    "source_note": "Original paper: Monte Carlo standard error 식과 finite-precision basin classification 논의.",
-   "role": "Basin probability의 Monte Carlo uncertainty와 numerical precision의 한계 분석. <b>김희태(Heetae Kim) 교수님은 이 논문의 저자가 아님.</b>",
+   "role": "Basin probability의 Monte Carlo uncertainty와 numerical precision의 한계를 분석한 연구. 저자는 Paul Schultz, Peter J. Menck, Jobst Heitzig, Jürgen Kurths이며 Heetae Kim은 공저자가 아니다.",
    "object": "Numerical basin-stability estimation",
    "randomness": "Independent perturbation samples; numerical trajectory classification",
    "inherited": "Rare-basin sampling uncertainty와 numerical classification error의 분리.",
    "boundary": "Kim et al.의 power-grid structure/multistability 연구와 저자·목적이 다른 문헌. Importance sampling으로 target law를 바꾸면 적절한 reweighting 필요."
+  },
+  {
+   "id": "borgleutner",
+   "year": 1985,
+   "lane": "geo",
+   "pre": 1,
+   "shl": false,
+   "nei": 1,
+   "title": "Measuring the Similarity of MDS Configurations",
+   "short_title": "Corresponding-distance comparison",
+   "authors": "I. Borg, D. Leutner",
+   "venue": "Multivariate Behavioral Research 20(3), 325–334 (1985)",
+   "doi": "10.1207/s15327906mbr2003_6",
+   "source_url": "https://www.tandfonline.com/doi/abs/10.1207/s15327906mbr2003_6",
+   "source_note": "Original abstract: Procrustes 정렬 후 좌표 비교와 corresponding interpoint distances의 직접 비교를 구분.",
+   "role": "MDS configurations의 similarity를 대응 좌표 또는 대응 거리로 평가하는 방법을 비교한 선행연구.",
+   "object": "동일한 objects를 나타내는 MDS configurations의 similarity",
+   "randomness": "주어진 configuration 쌍의 비교; stochastic terminal law를 요구하지 않는다.",
+   "inherited": "대응하는 pair distances를 configuration comparison의 관측 대상으로 사용한다.",
+   "boundary": "NEI의 pairwise squared-CV 평균이나 admissible terminal law를 정의한 연구는 아니다. Alignment-free distance comparison 자체는 NEI의 신규 기여가 아니다."
+  },
+  {
+   "id": "seminested",
+   "year": 2023,
+   "lane": "incon",
+   "shl": true,
+   "title": "Mapping the semi-nested community structure of 3D chromosome contact networks",
+   "short_title": "Semi-nested chromosome communities",
+   "authors": "D. Bernenko, S. H. Lee, P. Stenberg, L. Lizana",
+   "venue": "PLOS Computational Biology 19(7), e1011185 (2023)",
+   "doi": "10.1371/journal.pcbi.1011185",
+   "source_url": "https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1011185",
+   "source_note": "Bernenko et al. (2023), abstract와 multiresolution community analysis. Jeong et al. (2025), Sec. II B, Ref. [12]에서 scale-dependent reorganization의 선례로 인용.",
+   "role": "Chromosome contact networks에서 resolution에 따른 community 구성이 완전한 계층적 포함 관계를 따르지 않는 semi-nested structure를 분석한 연구.",
+   "object": "Chromosome contact networks의 multiresolution community structure",
+   "randomness": "Community-detection realizations와 resolution 변화.",
+   "inherited": "서로 다른 resolution에서 community membership의 포함 관계와 재조직을 구분한다.",
+   "boundary": "같은 해의 반복 변동과 resolution 변화에 따른 재조직은 별도 비교이다. Exploring 3D community inconsistency in human chromosome contact networks와는 다른 논문이다."
+  },
+  {
+   "id": "kaleido",
+   "year": 2025,
+   "lane": "incon",
+   "shl": true,
+   "nei": 1,
+   "title": "Kaleidoscopic reorganization of network communities across different scales",
+   "short_title": "Scale-dependent community reorganization",
+   "authors": "W. Jeong, D. Lee, H. Kim, S. H. Lee",
+   "venue": "Phys. Rev. E 111, 014312 (2025)",
+   "doi": "10.1103/PhysRevE.111.014312",
+   "source_url": "https://arxiv.org/html/2409.18665",
+   "source_note": "Jeong et al. (2025), Sec. II A–B, Eqs. (7)–(9), Ref. [12]; Sec. III B 및 Sec. IV: community reorganization의 수학적 논의, model과 해석 범위.",
+   "role": "Resolution 변화에서 community splitting과 merging이 함께 일어날 수 있음을 수학적 논의, real networks 및 model로 분석한 연구.",
+   "object": "Resolution-dependent community reorganization",
+   "randomness": "각 resolution에서 반복한 community detection; 별도의 resolution sweep.",
+   "inherited": "고정된 protocol 아래 반복 변동과 protocol 변화에 따른 결과의 재조직을 구분한다.",
+   "boundary": "Community resolution $\\gamma$는 최적화 목적함수를 바꾸지만 terminal clustering threshold $\\varepsilon_D$는 얻어진 결과를 분류한다. 두 parameter를 동일시하지 않으며 NEI의 protocol dependence는 별도 검증한다."
   }
  ],
  "links": [
-  {
-   "from": "schoen",
-   "to": "deleeuw",
-   "type": "foundation",
-   "key": false,
-   "text": "Exact realizability criterion과 approximate MDS objective를 구분하는 수학적 기반.",
-   "boundary": "Non-realizability가 특정 optimizer 또는 multiplicity를 선택하지 않음.",
-   "evidence": [
-    {
-     "node": "deleeuw",
-     "locator": "Gram criterion; SMACOF objective의 별도 정의."
-    }
-   ]
-  },
   {
    "from": "schoen",
    "to": "nav2",
@@ -704,30 +748,16 @@
    ]
   },
   {
-   "from": "ksat",
-   "to": "cp",
-   "type": "analogy",
-   "key": false,
-   "text": "Network/constraint problem에서 objective와 model specification의 중요성 비교.",
-   "boundary": "연구자의 습관이나 문헌 간 역사적 인과는 확인하지 않음.",
-   "evidence": [
-    {
-     "node": "cp",
-     "locator": "Retrospective thematic comparison."
-    }
-   ]
-  },
-  {
    "from": "cp",
    "to": "nest",
-   "type": "analogy",
+   "type": "documented",
    "key": false,
-   "text": "Core–periphery와 nestedness의 정의 관계 비교.",
-   "boundary": "모든 지표가 동일 order parameter의 절단면이라는 일반화 제외.",
+   "text": "Density-based core-score formalism을 bipartite network에 맞게 확장하여 nestedness와 coreness를 비교한다.",
+   "boundary": "관측된 관계는 두 지표의 일반적 동치나 동일한 order parameter를 뜻하지 않는다.",
    "evidence": [
     {
      "node": "nest",
-     "locator": "두 원논문의 structural definitions 비교."
+     "locator": "Lee (2016), Sec. II B, Eqs. (2)–(5), Ref. [17]: modified core score 및 simulated-annealing schedule의 사용."
     }
    ]
   },
@@ -776,14 +806,14 @@
   {
    "from": "bs",
    "to": "ms",
-   "type": "transfer",
+   "type": "documented",
    "key": false,
-   "text": "Power-grid basin stability를 coupling-dependent multistability와 함께 분석.",
-   "boundary": "Coupling 변화와 basin 사이의 stochastic hopping은 구분.",
+   "text": "Motif 연구에서 관측한 비단조 basin-stability transition을 출발점으로, unsynchronized states의 stability 변화에 따른 mechanism을 분석한다.",
+   "boundary": "Coupling 변화에 따른 attractor 구조의 비교이며 basin 사이 stochastic hopping을 측정한 것은 아니다.",
    "evidence": [
     {
      "node": "ms",
-     "locator": "Kim et al. (2018), nonmonotonic stability와 unsynchronized states."
+     "locator": "Kim et al. (2018), introduction, Sec. 3.2, Ref. [21]: Kim et al. (2016)의 비단조 profile 인용과 mechanism 분석."
     }
    ]
   },
@@ -807,7 +837,7 @@
    "type": "documented",
    "key": false,
    "text": "Node community consistency를 CoI = 1 − consistency로 전환해 relational flexibility로 해석.",
-   "boundary": "2015년부터 node-level measure. Global-to-local 전환이라는 기존 설명 삭제.",
+   "boundary": "2015년과 2019년 모두 node-level measure를 사용한다. 두 연구의 차이는 global-to-local 전환이 아니라 consistency의 변환과 해석에 있다.",
    "evidence": [
     {
      "node": "rf",
@@ -832,14 +862,14 @@
   {
    "from": "rf",
    "to": "cl",
-   "type": "transfer",
+   "type": "documented",
    "key": false,
-   "text": "Repeated partition ensembles에서 local/global inconsistency를 비교.",
-   "boundary": "CoI와 PaI/MeI의 similarity·normalization은 서로 다름.",
+   "text": "기존 CoI의 multi-community 해석을 검토하고, configuration 및 membership similarity 기반 PaI·MeI를 도입하여 상호 보완적으로 비교한다.",
+   "boundary": "CoI의 관계 변동과 PaI·MeI의 similarity-weighted effective diversity는 다른 측정량이다. 후자가 전자를 모든 상황에서 대체하는 것은 아니다.",
    "evidence": [
     {
      "node": "cl",
-     "locator": "Kim 2019 Sec. II A; Lee 2021 inconsistency definitions."
+     "locator": "Lee et al. (2021), Sec. II C, Eqs. (6)–(7), Ref. [15]; Sec. III A3, Fig. 5."
     }
    ]
   },
@@ -988,12 +1018,12 @@
    "to": "nei",
    "type": "transfer",
    "key": true,
-   "text": "Fixed-parameter ensemble inconsistency를 geometry sector로 이전.",
-   "boundary": "Resolution profile과 energy landscape를 구분. PaI/MeI를 NEI로 직접 치환하지 않음.",
+   "text": "각 고정 parameter의 반복 ensemble을 비교하고, variability와 similarity-weighted effective diversity의 측정 역할을 구분한다.",
+   "boundary": "NEI는 mean-normalized geometric dispersion이다. PaI·MeI의 연속형 일반화 또는 terminal state count로 해석하지 않는다.",
    "evidence": [
     {
      "node": "cl",
-     "locator": "Lee et al. (2021)의 fixed-resolution ensemble; 본 페이지 protocol-conditioned NEI."
+     "locator": "Lee et al. (2021), Sec. II B–C, Eqs. (2), (5); 본 페이지의 PaI–NEI comparison."
     }
    ]
   },
@@ -1002,7 +1032,7 @@
    "to": "nei",
    "type": "transfer",
    "key": true,
-   "text": "Binary co-membership variance에서 continuous pair-distance variance로 observable construction 확장.",
+   "text": "Binary co-membership variance를 집계하는 구성을 참고하여 continuous pair-distance variance의 정규화 평균을 정의한다.",
    "boundary": "Normalization·state space가 다름. Pair aggregation과 deletion/re-embedding intervention을 구분.",
    "evidence": [
     {
@@ -1129,11 +1159,67 @@
    "type": "transfer",
    "key": true,
    "text": "Rare-class occupancy의 sampling error와 numerical terminal-classification error 분리.",
-   "boundary": "Schultz·Menck·Heitzig·Kurths의 estimation 연구이며 김희태 교수님 공저 연구와 구분. Probability estimator의 SE가 곧 NEI estimator의 SE는 아님.",
+   "boundary": "Schultz·Menck·Heitzig·Kurths의 estimation 연구이며 Heetae Kim 공저의 power-grid 연구와 구분한다. Probability estimator의 SE를 NEI estimator의 SE로 치환하지 않는다.",
    "evidence": [
     {
      "node": "schultz",
      "locator": "Schultz et al. (2017), Monte Carlo standard error와 finite-precision analysis."
+    }
+   ]
+  },
+  {
+   "from": "nest",
+   "to": "nei",
+   "type": "transfer",
+   "key": true,
+   "text": "Degree sequence가 허용하는 구조적 범위를 확인한 뒤 degree-conditioned graph ensemble과 NEI를 비교하는 설계로 연결한다.",
+   "boundary": "Graph-null contrast의 해석은 선언한 ensemble에 조건부이다. Rewiring에 따른 NEI 변화의 부호나 단조성을 가정하지 않는다.",
+   "evidence": [
+    {
+     "node": "nest",
+     "locator": "Lee (2016), Sec. III B의 edge-pair shuffling; Sec. IV, Figs. 6–7 및 Sec. V의 degree-sequence 제약."
+    }
+   ]
+  },
+  {
+   "from": "borgleutner",
+   "to": "nei",
+   "type": "transfer",
+   "key": true,
+   "text": "Corresponding pair distances를 configuration comparison의 관측 대상으로 사용하고, 그 반복 변동을 NEI로 집계한다.",
+   "boundary": "대응 거리 비교의 선례와 NEI의 squared-CV 평균, admissible terminal law 및 graph-null 검증을 구분한다.",
+   "evidence": [
+    {
+     "node": "borgleutner",
+     "locator": "Borg & Leutner (1985), abstract: configuration coordinates와 corresponding interpoint distances의 비교."
+    }
+   ]
+  },
+  {
+   "from": "seminested",
+   "to": "kaleido",
+   "type": "documented",
+   "key": false,
+   "text": "Chromosome contact networks에서 보고한 semi-nested reorganization을 명시적으로 인용하고, splitting·merging의 공존을 modularity argument와 network model로 분석한다.",
+   "boundary": "Bernenko et al.의 별도 community-inconsistency 논문을 인용한 연결이 아니다. 검출 결과의 재조직을 실제 시스템의 시간적 dynamics와 구분한다.",
+   "evidence": [
+    {
+     "node": "kaleido",
+     "locator": "Jeong et al. (2025), Sec. II B, Ref. [12]; Sec. II A의 modularity inequalities와 Sec. III B의 model analysis."
+    }
+   ]
+  },
+  {
+   "from": "kaleido",
+   "to": "nei",
+   "type": "transfer",
+   "key": true,
+   "text": "고정된 embedding protocol의 반복 변동과 목적함수·차원·설정 변화에 따른 결과 재조직을 별도의 질문으로 기술한다.",
+   "boundary": "$\\gamma$는 community objective를 바꾸고 $\\varepsilon_D$는 terminal results를 분류한다. Resolution-dependent community reorganization이 NEI의 protocol dependence를 입증하지 않는다.",
+   "evidence": [
+    {
+     "node": "kaleido",
+     "locator": "Jeong et al. (2025), Sec. II A–B 및 Sec. IV; 본 페이지의 fixed-protocol / cross-protocol 구분."
     }
    ]
   }

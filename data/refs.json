@@ -735,7 +735,7 @@
   "doi": "10.1088/1367-2630/aae8eb",
   "verified": true,
   "area": "power-grid dynamics",
-  "why": "김희태 교수님 공저 연구. Coupling-dependent power-grid multistability와 비단조 basin stability의 physical analysis. Schultz et al. (2017)의 numerical estimation 연구와 구분."
+  "why": "Coupling-dependent power-grid multistability와 비단조 basin stability의 physical analysis. Schultz et al. (2017)의 numerical estimation 연구와 구분한다."
  },
  "kim2019ibi": {
   "authors": "Heetae Kim, Mi Jin Lee, Sang Hoon Lee, Seung-Woo Son",
@@ -748,5 +748,77 @@
   "verified": true,
   "area": "power-grid dynamics",
   "why": "Node별 basin instability를 coupling/transmission capacity에 대해 적분. Node 자체에 대한 적분 또는 NEI의 pairwise variance가 아니며 Schultz et al. (2017)과 별도 저자·주제."
+ },
+ "borgleutner1985": {
+  "authors": "I. Borg, D. Leutner",
+  "year": 1985,
+  "title": "Measuring the Similarity of MDS Configurations",
+  "venue": "Multivariate Behavioral Research",
+  "volume": "20(3)",
+  "pages": "325–334",
+  "doi": "10.1207/s15327906mbr2003_6",
+  "verified": true,
+  "area": "MDS",
+  "why": "Procrustes 정렬 후의 대응 좌표 비교와 대응 거리의 직접 비교를 다룬 선행연구. NEI의 거리 기반 비교를 위치시키며 alignment invariance 자체의 신규성 주장과 구분한다."
+ },
+ "lee2016nestedness": {
+  "authors": "S. H. Lee",
+  "year": 2016,
+  "title": "Network nestedness as generalized core-periphery structures",
+  "venue": "Physical Review E",
+  "volume": "93",
+  "pages": "022306",
+  "doi": "10.1103/physreve.93.022306",
+  "verified": true,
+  "area": "graph null models",
+  "why": "Sec. III B의 degree-preserving edge-pair shuffling과 Sec. IV, Figs. 6–7에서 degree sequence가 nestedness–coreness의 가능한 범위를 제약함을 분석. NEI의 degree-conditioned comparison에 관한 방법론적 선례이며 NEI contrast의 부호를 예측하지 않는다."
+ },
+ "kimlee2019flexibility": {
+  "authors": "H. Kim, S. H. Lee",
+  "year": 2019,
+  "title": "Relational flexibility of network elements based on inconsistent community detection",
+  "venue": "Physical Review E",
+  "volume": "100",
+  "pages": "022311",
+  "doi": "10.1103/physreve.100.022311",
+  "verified": true,
+  "area": "community inconsistency",
+  "why": "Companionship inconsistency의 정의와 node별 관계 변동 집계. Binary co-membership variance 표현은 원정의의 대수적 재표현이며 NEI와는 관측 대상과 정규화가 다르다."
+ },
+ "lee2021consistency": {
+  "authors": "D. Lee, S. H. Lee, B. J. Kim, H. Kim",
+  "year": 2021,
+  "title": "Consistency landscape of network communities",
+  "venue": "Physical Review E",
+  "volume": "103",
+  "pages": "052306",
+  "doi": "10.1103/physreve.103.052306",
+  "verified": true,
+  "area": "community inconsistency",
+  "why": "PaI·MeI를 similarity-weighted effective diversity로 정의하고 CoI와 비교. Sec. II C, Eqs. (6)–(7), Ref. [15] 및 Sec. III A3, Fig. 5가 직접 확장 관계의 근거. NEI의 mean-normalized distance dispersion과 구분한다."
+ },
+ "bernenko2023seminested": {
+  "authors": "D. Bernenko, S. H. Lee, P. Stenberg, L. Lizana",
+  "year": 2023,
+  "title": "Mapping the semi-nested community structure of 3D chromosome contact networks",
+  "venue": "PLOS Computational Biology",
+  "volume": "19(7)",
+  "pages": "e1011185",
+  "doi": "10.1371/journal.pcbi.1011185",
+  "verified": true,
+  "area": "multiresolution community structure",
+  "why": "Chromosome contact networks의 semi-nested organization을 분석. Jeong et al. (2025), Sec. II B, Ref. [12]에 인용된 scale-dependent reorganization의 선례. Exploring 3D community inconsistency in human chromosome contact networks와 별도 논문이다."
+ },
+ "jeong2025kaleidoscopic": {
+  "authors": "W. Jeong, D. Lee, H. Kim, S. H. Lee",
+  "year": 2025,
+  "title": "Kaleidoscopic reorganization of network communities across different scales",
+  "venue": "Physical Review E",
+  "volume": "111",
+  "pages": "014312",
+  "doi": "10.1103/physreve.111.014312",
+  "verified": true,
+  "area": "multiresolution community structure",
+  "why": "Resolution 변화에서 community splitting과 merging의 공존을 분석. 고정 protocol의 반복 변동과 protocol 변화에 따른 결과 재조직을 구분하는 방법론적 선례. Community resolution과 terminal clustering threshold는 다른 역할이다."
  }
 }

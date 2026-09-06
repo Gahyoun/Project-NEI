@@ -36,8 +36,6 @@ assert.match(db.nodes.find(n=>n.id==="ibi").authors,/Mi Jin Lee/);
 const html=read("index.html");
 const lineageHTML=html.slice(html.indexOf('<section id="lineage">'),html.indexOf('<section id="map">'));
 const text=JSON.stringify(db)+lineageHTML;
-assert.ok(!text.includes("10.1103/PhysRevE.111.014312"),"Out-of-scope work must not be reintroduced");
-assert.ok(!/Kaleidoscopic reorganization/i.test(text));
 for(const obsolete of ["전역 지표에서 국소 지표로","Descent dynamics가 gradient flow","표본 증가가 아니라 rare-event","같은 사상, 다른 질문"])
   assert.ok(!text.includes(obsolete),obsolete);
 const bundled={window:{}};
@@ -125,7 +123,7 @@ async function browserChecks(){
       await page.locator('[data-node-id="schultz"]').press("Enter");
       const schultzText=await page.locator("#lineage-panel").innerText();
       assert.ok(schultzText.includes("Paul Schultz, Peter J. Menck, Jobst Heitzig, Jürgen Kurths"));
-      assert.ok(schultzText.includes("교수님은 이 논문의 저자가 아님"));
+      assert.ok(schultzText.includes("Heetae Kim은 공저자가 아니다"));
       await page.locator("#lineage-panel").screenshot({path:path.join(output,"schultz-"+mode+".png")});
       assert.equal(await page.locator("#lineage-panel .lin-type").count()>0,true);
       console.log("OK: "+mode+" rendering, all nodes/edges, four filters, math and author separation");

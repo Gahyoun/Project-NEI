@@ -9,7 +9,11 @@
 
 1. **Documented extension:** explicit original citation plus actual reuse/extension of a definition or method.
    - Kim 2015 → Kim & Lee 2019: Sec. II A, Ref. [13], Eqs. (1)–(2).
+   - Kim & Lee 2019 → Lee et al. 2021: Sec. II C, Eqs. (6)–(7), Ref. [15]; Sec. III A3, Fig. 5 compares CoI and MeI.
+   - Lee, Cucuringu & Porter 2014 → Lee 2016: Sec. II B, Eqs. (2)–(5), Ref. [17]; reuse and adaptation of core-score calculation.
+   - Kim, Lee & Holme 2016 → Kim et al. 2018: introduction, Sec. 3.2, Ref. [21]; analysis of mechanisms underlying nonmonotonic basin-stability profiles.
    - Lee 2021 → Bernenko 2023: Methods, Sec. III A/C, Ref. [14].
+   - Bernenko et al. 2023, *Mapping the semi-nested community structure* → Jeong et al. 2025: Sec. II B and Ref. [12]. This is distinct from the 2023 *Exploring 3D community inconsistency* paper.
    - Menck 2013 → Schultz 2017: basin-stability definition and numerical estimation analysis.
 2. **Methodological transfer:** an identified sampling or observable-construction component.
    - A proposed transfer in this note, not a claim that estimators or dynamics are identical.
@@ -23,6 +27,12 @@
   - Binary co-membership variance identity; empirical variance uses divisor M.
   - The 2015 measure was already node-level.
   - Fixed-ensemble pair aggregation and deletion/re-embedding intervention are different operations.
+- CoI, PaI/MeI, and NEI have distinct constructions.
+  - The CoI–NEI connection is aggregation of relational variance, with different observables, normalization, and sampling laws.
+  - PaI and MeI incorporate similarities between solutions or memberships. They complement CoI rather than universally replacing it.
+  - With partition frequencies q_alpha and element-centric similarities S_alpha,beta (unit diagonal), PaI is the reciprocal of sum(q_alpha q_beta S_alpha,beta).
+  - If distinct partitions have zero similarity, the definition reduces algebraically to 1/sum(q_alpha^2); equal frequencies then give the number of represented partitions.
+  - NEI measures mean-normalized geometric dispersion. Occupancy and separation supply complementary information.
 - SMACOF is a discrete majorization algorithm.
   - Monotone stress descent is not proof of terminal multiplicity.
   - The full output law and its acceptance-conditioned law are distinct.
@@ -40,7 +50,15 @@
   - Minimization quench is not synonymous with quenched random disorder.
   - Deterministic pushforward does not exclude a thermal input law.
 - Degree-conditioned null contrast is not a unique causal decomposition.
+  - Lee (2016), Sec. III B and IV, provides a methodological precedent through degree-preserving randomization of nestedness and coreness.
+  - Degree sequence constrains attainable structural patterns; randomization need not weaken the observed descriptor.
+  - The transfer to NEI specifies a comparison design, not the sign of an NEI contrast.
 - Spectral realizability, the chosen deficiency diagnostic, and raw-stress optimization are distinct.
+  - Schoenberg and de Leeuw supply separate foundations for NEI: realizability criteria and stress majorization, respectively. The map does not posit an algorithmic dependency between them.
+- Protocol variation and repeated runs at fixed protocol answer different questions.
+  - Bernenko et al. (2023, semi-nested communities) and Jeong et al. (2025) motivate examination of reorganization across community resolutions.
+  - Community resolution gamma changes the objective; epsilon_D classifies a fixed set of terminal outputs.
+  - Changing only the classification threshold can change occupancy summaries while leaving pair-distance NEI unchanged.
 
 ## Bibliographic separation
 
@@ -55,6 +73,29 @@
 - Borg & Mair (2017).
   - Multistart MDS fit/configuration comparison; DOI: https://doi.org/10.17713/ajs.v46i2.561
   - Direct prior-work boundary; the ordinal-MDS examples are not raw-stress NEI evidence.
+- Borg & Leutner (1985).
+  - *Measuring the Similarity of MDS Configurations*.
+  - DOI: https://doi.org/10.1207/s15327906mbr2003_6
+  - Corresponding interpoint distances were already used to compare configurations without coordinate alignment. This is a precedent for the comparison object, not the NEI estimator.
+- Lee (2016).
+  - *Network nestedness as generalized core-periphery structures*.
+  - DOI: https://doi.org/10.1103/PhysRevE.93.022306
+- Bernenko, Lee, Stenberg & Lizana (2023).
+  - *Mapping the semi-nested community structure of 3D chromosome contact networks*.
+  - DOI: https://doi.org/10.1371/journal.pcbi.1011185
+  - Separate bibliographic record from *Exploring 3D community inconsistency in human chromosome contact networks*.
+- Jeong, Daekyung Lee, Heetae Kim & Sang Hoon Lee (2025).
+  - *Kaleidoscopic reorganization of network communities across different scales*.
+  - DOI: https://doi.org/10.1103/PhysRevE.111.014312
+  - Added to the selected scope for resolution-dependent reorganization, with a bounded methodological transfer to protocol dependence.
+
+## Contribution and presentation
+
+- Position NEI relative to relational variance, configurational comparison, and degree-conditioned graph ensembles.
+- Define the admissible terminal law before interpreting mean squared pair-distance coefficients of variation.
+- Information beyond stress and degree sequence remains an empirical question requiring controlled comparisons; the lineage does not establish nonredundancy.
+- Remove the weak K-SAT → core–periphery analogy from the map. The K-SAT paper remains available as background on size-dependent observables.
+- Separate bibliographic authorship from intellectual relations and use neutral research prose throughout the additions.
 
 ## Validation and maintenance
 
@@ -71,6 +112,7 @@
   - node code/validate_lineage.cjs --browser
     - Requires Playwright and Chromium; NEI_BROWSER_CHANNEL=chrome selects installed Chrome.
     - Tests every lineage node/link, four filters, math, HTTP and file loading, and lineage mobile width.
+  - The former exclusion checks for the 2025 paper were removed because its bounded inclusion is now within the agreed scope.
 - Existing C41/C42 text and numerical values retained.
   - Missing schema fields restored as empirical_result / legacy.
   - No numerical rerun or promotion of evidence.
