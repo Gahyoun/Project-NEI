@@ -807,18 +807,6 @@
   "doi": "10.1371/journal.pcbi.1011185",
   "verified": true,
   "area": "multiresolution community structure",
-  "why": "Chromosome contact networks의 semi-nested organization을 분석. Jeong et al. (2025), Sec. II B, Ref. [12]에 인용된 scale-dependent reorganization의 선례. Exploring 3D community inconsistency in human chromosome contact networks와 별도 논문이다."
- },
- "jeong2025kaleidoscopic": {
-  "authors": "W. Jeong, D. Lee, H. Kim, S. H. Lee",
-  "year": 2025,
-  "title": "Kaleidoscopic reorganization of network communities across different scales",
-  "venue": "Physical Review E",
-  "volume": "111",
-  "pages": "014312",
-  "doi": "10.1103/physreve.111.014312",
-  "verified": true,
-  "area": "multiresolution community structure",
-  "why": "Resolution 변화에서 community splitting과 merging의 공존을 분석. 고정 protocol의 반복 변동과 protocol 변화에 따른 결과 재조직을 구분하는 방법론적 선례. Community resolution과 terminal clustering threshold는 다른 역할이다."
+  "why": "Chromosome contact networks의 semi-nested organization을 분석. Resolution에 따른 community membership의 포함 관계와 재조직을 구분하는 선례. Exploring 3D community inconsistency in human chromosome contact networks와 별도 논문이다."
  }
 }

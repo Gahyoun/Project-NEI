@@ -537,31 +537,12 @@
    "venue": "PLOS Computational Biology 19(7), e1011185 (2023)",
    "doi": "10.1371/journal.pcbi.1011185",
    "source_url": "https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1011185",
-   "source_note": "Bernenko et al. (2023), abstract와 multiresolution community analysis. Jeong et al. (2025), Sec. II B, Ref. [12]에서 scale-dependent reorganization의 선례로 인용.",
+   "source_note": "Bernenko et al. (2023), abstract와 multiresolution community analysis: chromosome contact networks의 semi-nested structure를 분석.",
    "role": "Chromosome contact networks에서 resolution에 따른 community 구성이 완전한 계층적 포함 관계를 따르지 않는 semi-nested structure를 분석한 연구.",
    "object": "Chromosome contact networks의 multiresolution community structure",
    "randomness": "Community-detection realizations와 resolution 변화.",
    "inherited": "서로 다른 resolution에서 community membership의 포함 관계와 재조직을 구분한다.",
    "boundary": "같은 해의 반복 변동과 resolution 변화에 따른 재조직은 별도 비교이다. Exploring 3D community inconsistency in human chromosome contact networks와는 다른 논문이다."
-  },
-  {
-   "id": "kaleido",
-   "year": 2025,
-   "lane": "incon",
-   "shl": true,
-   "nei": 1,
-   "title": "Kaleidoscopic reorganization of network communities across different scales",
-   "short_title": "Scale-dependent community reorganization",
-   "authors": "W. Jeong, D. Lee, H. Kim, S. H. Lee",
-   "venue": "Phys. Rev. E 111, 014312 (2025)",
-   "doi": "10.1103/PhysRevE.111.014312",
-   "source_url": "https://arxiv.org/html/2409.18665",
-   "source_note": "Jeong et al. (2025), Sec. II A–B, Eqs. (7)–(9), Ref. [12]; Sec. III B 및 Sec. IV: community reorganization의 수학적 논의, model과 해석 범위.",
-   "role": "Resolution 변화에서 community splitting과 merging이 함께 일어날 수 있음을 수학적 논의, real networks 및 model로 분석한 연구.",
-   "object": "Resolution-dependent community reorganization",
-   "randomness": "각 resolution에서 반복한 community detection; 별도의 resolution sweep.",
-   "inherited": "고정된 protocol 아래 반복 변동과 protocol 변화에 따른 결과의 재조직을 구분한다.",
-   "boundary": "Community resolution $\\gamma$는 최적화 목적함수를 바꾸지만 terminal clustering threshold $\\varepsilon_D$는 얻어진 결과를 분류한다. 두 parameter를 동일시하지 않으며 NEI의 protocol dependence는 별도 검증한다."
   }
  ],
  "links": [
@@ -1192,34 +1173,6 @@
     {
      "node": "borgleutner",
      "locator": "Borg & Leutner (1985), abstract: configuration coordinates와 corresponding interpoint distances의 비교."
-    }
-   ]
-  },
-  {
-   "from": "seminested",
-   "to": "kaleido",
-   "type": "documented",
-   "key": false,
-   "text": "Chromosome contact networks에서 보고한 semi-nested reorganization을 명시적으로 인용하고, splitting·merging의 공존을 modularity argument와 network model로 분석한다.",
-   "boundary": "Bernenko et al.의 별도 community-inconsistency 논문을 인용한 연결이 아니다. 검출 결과의 재조직을 실제 시스템의 시간적 dynamics와 구분한다.",
-   "evidence": [
-    {
-     "node": "kaleido",
-     "locator": "Jeong et al. (2025), Sec. II B, Ref. [12]; Sec. II A의 modularity inequalities와 Sec. III B의 model analysis."
-    }
-   ]
-  },
-  {
-   "from": "kaleido",
-   "to": "nei",
-   "type": "transfer",
-   "key": true,
-   "text": "고정된 embedding protocol의 반복 변동과 목적함수·차원·설정 변화에 따른 결과 재조직을 별도의 질문으로 기술한다.",
-   "boundary": "$\\gamma$는 community objective를 바꾸고 $\\varepsilon_D$는 terminal results를 분류한다. Resolution-dependent community reorganization이 NEI의 protocol dependence를 입증하지 않는다.",
-   "evidence": [
-    {
-     "node": "kaleido",
-     "locator": "Jeong et al. (2025), Sec. II A–B 및 Sec. IV; 본 페이지의 fixed-protocol / cross-protocol 구분."
     }
    ]
   }

@@ -35,7 +35,9 @@ assert.equal(schultz.doi,"10.1088/1367-2630/aa5a7b");
 assert.match(db.nodes.find(n=>n.id==="ibi").authors,/Mi Jin Lee/);
 const html=read("index.html");
 const lineageHTML=html.slice(html.indexOf('<section id="lineage">'),html.indexOf('<section id="map">'));
-const text=JSON.stringify(db)+lineageHTML;
+const text=JSON.stringify(db)+lineageHTML+read("data/refs.json");
+assert.ok(!/10\.1103\/physreve\.111\.014312/i.test(text),"Excluded work must not be reintroduced");
+assert.ok(!/Kaleidoscopic reorganization/i.test(text));
 for(const obsolete of ["전역 지표에서 국소 지표로","Descent dynamics가 gradient flow","표본 증가가 아니라 rare-event","같은 사상, 다른 질문"])
   assert.ok(!text.includes(obsolete),obsolete);
 const bundled={window:{}};

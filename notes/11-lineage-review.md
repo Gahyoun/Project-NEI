@@ -13,7 +13,6 @@
    - Lee, Cucuringu & Porter 2014 → Lee 2016: Sec. II B, Eqs. (2)–(5), Ref. [17]; reuse and adaptation of core-score calculation.
    - Kim, Lee & Holme 2016 → Kim et al. 2018: introduction, Sec. 3.2, Ref. [21]; analysis of mechanisms underlying nonmonotonic basin-stability profiles.
    - Lee 2021 → Bernenko 2023: Methods, Sec. III A/C, Ref. [14].
-   - Bernenko et al. 2023, *Mapping the semi-nested community structure* → Jeong et al. 2025: Sec. II B and Ref. [12]. This is distinct from the 2023 *Exploring 3D community inconsistency* paper.
    - Menck 2013 → Schultz 2017: basin-stability definition and numerical estimation analysis.
 2. **Methodological transfer:** an identified sampling or observable-construction component.
    - A proposed transfer in this note, not a claim that estimators or dynamics are identical.
@@ -56,7 +55,7 @@
 - Spectral realizability, the chosen deficiency diagnostic, and raw-stress optimization are distinct.
   - Schoenberg and de Leeuw supply separate foundations for NEI: realizability criteria and stress majorization, respectively. The map does not posit an algorithmic dependency between them.
 - Protocol variation and repeated runs at fixed protocol answer different questions.
-  - Bernenko et al. (2023, semi-nested communities) and Jeong et al. (2025) motivate examination of reorganization across community resolutions.
+  - Bernenko et al. (2023, semi-nested communities) motivate examination of reorganization across community resolutions.
   - Community resolution gamma changes the objective; epsilon_D classifies a fixed set of terminal outputs.
   - Changing only the classification threshold can change occupancy summaries while leaving pair-distance NEI unchanged.
 
@@ -84,10 +83,6 @@
   - *Mapping the semi-nested community structure of 3D chromosome contact networks*.
   - DOI: https://doi.org/10.1371/journal.pcbi.1011185
   - Separate bibliographic record from *Exploring 3D community inconsistency in human chromosome contact networks*.
-- Jeong, Daekyung Lee, Heetae Kim & Sang Hoon Lee (2025).
-  - *Kaleidoscopic reorganization of network communities across different scales*.
-  - DOI: https://doi.org/10.1103/PhysRevE.111.014312
-  - Added to the selected scope for resolution-dependent reorganization, with a bounded methodological transfer to protocol dependence.
 
 ## Contribution and presentation
 
@@ -112,7 +107,7 @@
   - node code/validate_lineage.cjs --browser
     - Requires Playwright and Chromium; NEI_BROWSER_CHANNEL=chrome selects installed Chrome.
     - Tests every lineage node/link, four filters, math, HTTP and file loading, and lineage mobile width.
-  - The former exclusion checks for the 2025 paper were removed because its bounded inclusion is now within the agreed scope.
+  - Scope checks prevent explicitly excluded literature from reappearing in the rendered lineage or references.
 - Existing C41/C42 text and numerical values retained.
   - Missing schema fields restored as empirical_result / legacy.
   - No numerical rerun or promotion of evidence.
